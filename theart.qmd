@@ -1,75 +1,60 @@
 ---
-title: "Preoperative Cognitive Profile Predictive of Cognitive Decline after Subthalamic Deep Brain Stimulation in Parkinson’s Disease"
-shorttitle: "Cognition in PD after STN DBS"
+title: "Updated Criteria for the Diagnostic Procedure for Parkinson's Disease Dementia on Level I"
+shorttitle: "Parkinson's Disease Dementia Level I Criteria"
 author:
-  - name: Josef Mana
+  - name: Martina Kvapilova
     corresponding: false
-    orcid: "0000-0002-7817-3978"
+    orcid: 
+    email: 
+    role:
+      - Conceptualization
+      - Data curation
+      - Writing - original draft
+    affiliations:
+      - id: "1FM"
+        name: "First Faculty of Medicine and General University Hospital in Prague, Charles University, Czech Republic"
+        department: "Department of Neurology and Centre of Clinical Neuroscience"
+  - name: Josef Mana
+    corresponding: true
+    orcid: "0000-0002-7817-3978" 
     email: "josef.mana@protonmail.com"
     role:
       - Conceptualization
       - Data curation
       - Investigation
       - Formal analysis
-      - Methodology
       - Software
-      - Visualization
+      - Methodology
+      - Project administration
+      - Validation
       - Writing - original draft
-      - Writing - review & editing
+    affiliations:
+      - id: "1FM"
+        name: "First Faculty of Medicine and General University Hospital in Prague, Charles University, Czech Republic"
+        department: "Department of Neurology and Centre of Clinical Neuroscience"
+  - name: Martin Cihak
+    corresponding: false
+    email: "martin.cih@gmail.com"
+    role:
+      - Conceptualization
+      - Investigation
+      - Methodology
+      - Writing - original draft
     affiliations:
       - id: "1FM"
         name: "First Faculty of Medicine and General University Hospital in Prague, Charles University, Czech Republic"
         department: "Department of Neurology and Centre of Clinical Neuroscience"
   - name: Ondrej Bezdicek
-    corresponding: true
-    orcid: "0000-0002-5108-0181"
+    corresponding: false
     email: "ondrej.bezdicek@gmail.com"
     role:
-      - Conceptualization
-      - Data curation
       - Investigation
-      - Methodology
+      - Data curation
+      - Funding acquisition
+      - Conceptualization
+      - Project administration
       - Supervision
       - Writing - original draft
-      - Writing - review & editing
-    affiliations:
-      - id: "1FM"
-        name: "First Faculty of Medicine and General University Hospital in Prague, Charles University, Czech Republic"
-        department: "Department of Neurology and Centre of Clinical Neuroscience"
-  - name: Filip Ruzicka
-    corresponding: false
-    email: "filr@seznam.cz"
-    role:
-      - Investigation
-      - Writing - review & editing
-    affiliations:
-      - id: "1FM"
-        name: "First Faculty of Medicine and General University Hospital in Prague, Charles University, Czech Republic"
-        department: "Department of Neurology and Centre of Clinical Neuroscience"
-  - name: Anna Fecikova
-    corresponding: false
-    email: "Anna.Fecikova@vfn.cz"
-    role:
-      - Investigation
-    affiliations:
-      - id: "1FM"
-        name: "First Faculty of Medicine and General University Hospital in Prague, Charles University, Czech Republic"
-        department: "Department of Neurology and Centre of Clinical Neuroscience"
-  - name: Olga Klempirova
-    corresponding: false
-    email: "novakovaol@seznam.cz"
-    role:
-      - Investigation
-    affiliations:
-      - id: "1FM"
-        name: "First Faculty of Medicine and General University Hospital in Prague, Charles University, Czech Republic"
-        department: "Department of Neurology and Centre of Clinical Neuroscience"
-  - name: Tomas Nikolai
-    corresponding: false
-    email: "nikolai@centrum.cz"
-    role:
-      - Investigation
-      - Writing - review & editing
     affiliations:
       - id: "1FM"
         name: "First Faculty of Medicine and General University Hospital in Prague, Charles University, Czech Republic"
@@ -83,38 +68,13 @@ author:
       - id: "1FM"
         name: "First Faculty of Medicine and General University Hospital in Prague, Charles University, Czech Republic"
         department: "Department of Neurology and Centre of Clinical Neuroscience"
-  - name: Evzen Ruzicka
-    corresponding: false
-    email: "eruzi@lf1.cuni.cz"
-    role:
-      - Conceptualization
-      - Funding acquisition
-      - Investigation
-      - Writing - review & editing
-    affiliations:
-      - id: "1FM"
-        name: "First Faculty of Medicine and General University Hospital in Prague, Charles University, Czech Republic"
-        department: "Department of Neurology and Centre of Clinical Neuroscience"
-  - name: Dusan Urgosik
-    corresponding: false
-    email: "urgosik@gmail.com"
-    role:
-      - Investigation
-    affiliations:
-      - id: "NHH"
-        name: "Na Homolce Hospital, Prague, Czech Republic"
-        department: "Department of stereotactic and radiation neurosurgery"
   - name: Robert Jech
     corresponding: false
     orcid: "0000-0002-9732-8947"
     email: "jech@cesnet.cz"
     role:
-      - Conceptualization
-      - Data curation
       - Funding acquisition
-      - Investigation
       - Resources
-      - Supervision
       - Writing - review & editing
     affiliations:
       - id: "1FM"
@@ -124,6 +84,7 @@ abstract: ""
 keywords:
   - Parkinson’s disease
   - dementia
+  - level I criteria
 format:
  apaquarto-pdf:
    documentmode: man
@@ -131,6 +92,7 @@ format:
    pdf-engine: lualatex
    floatsintext: false
    keep-tex: false
+bibliography: references.bib
 ---
 
 {{< include _extensions/wjschne/apaquarto/_apa_title.qmd >}}
@@ -138,6 +100,14 @@ format:
 # Introduction
 
 # Methods
+
+Participants
+
+The data of patients with idiopathic PD diagnosed by a movement disorder specialist fulfilling the Movement Disorder Society (MDS) Clinical Diagnostic Criteria for Parkinson's disease (PD) ([@postuma2015]) were retrospectively gathered from clinical records acquired between January 2014 and December 2023. All the patients underwent a neuropsychological assessment by a trained clinical psychologist (OB) during a routine examination of cognitive functions as a part of the evaluation process for the indication of Deep Brain Stimulation (DBS) at General University Hospital in Prague. The Ethics Committee of the General University Hospital in Prague had approved the study protocol. All patients provided written informed consent prior to the examination.
+
+Neuropsychological Assessment
+
+Participants were assessed with both MMSE (Stepankova et al., 2014; Folstein et al., 1975) and MoCA (Kopecek et al., 2017; Nassredine et al., 2005) to measure overall cognitive performance. Moreover, a comprehensive neuropsychological assessment was performed in accordance with MDS Task Force Level 2 criteria for MCI in PD (Litvan et al., 2012). We described our battery including a regression based calculator for normative scores in another study (Bezdicek et al., 2017). Besides other neuropsychological tests, the comprehensive assessment employed Clock Drawing Test (CDT) and Letter Fluency. To establish cognitive performance in individual cognitive domains according to Level 1 criteria for PDD, we used test scores proposed by Dubois et al., (2007) and their analogues in MoCA, see Table A for details.
 
 # Results
 
