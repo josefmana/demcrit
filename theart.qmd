@@ -4,8 +4,6 @@ shorttitle: "Parkinson's Disease Dementia Level I Criteria"
 author:
   - name: Martina Kvapilova
     corresponding: false
-    orcid: 
-    email: 
     role:
       - Conceptualization
       - Data curation
@@ -101,13 +99,17 @@ bibliography: references.bib
 
 # Methods
 
-Participants
+## Participants
 
-The data of patients with idiopathic PD diagnosed by a movement disorder specialist fulfilling the Movement Disorder Society (MDS) Clinical Diagnostic Criteria for Parkinson's disease (PD) ([@postuma2015]) were retrospectively gathered from clinical records acquired between January 2014 and December 2023. All the patients underwent a neuropsychological assessment by a trained clinical psychologist (OB) during a routine examination of cognitive functions as a part of the evaluation process for the indication of Deep Brain Stimulation (DBS) at General University Hospital in Prague. The Ethics Committee of the General University Hospital in Prague had approved the study protocol. All patients provided written informed consent prior to the examination.
+The data of patients with idiopathic PD diagnosed by a movement disorder specialist fulfilling the Movement Disorder Society (MDS) Clinical Diagnostic Criteria for Parkinson's disease (PD) [@postuma2015] were retrospectively gathered from clinical records acquired between January 2014 and December 2023. All the patients underwent a neuropsychological assessment by a trained clinical psychologist (OB) during a routine examination of cognitive functions as a part of the evaluation process for the indication of Deep Brain Stimulation (DBS) at General University Hospital in Prague. The Ethics Committee of the General University Hospital in Prague had approved the study protocol. All patients provided written informed consent prior to the examination.
 
-Neuropsychological Assessment
+## Neuropsychological Assessment
 
-Participants were assessed with both MMSE (Stepankova et al., 2014; Folstein et al., 1975) and MoCA (Kopecek et al., 2017; Nassredine et al., 2005) to measure overall cognitive performance. Moreover, a comprehensive neuropsychological assessment was performed in accordance with MDS Task Force Level 2 criteria for MCI in PD (Litvan et al., 2012). We described our battery including a regression based calculator for normative scores in another study (Bezdicek et al., 2017). Besides other neuropsychological tests, the comprehensive assessment employed Clock Drawing Test (CDT) and Letter Fluency. To establish cognitive performance in individual cognitive domains according to Level 1 criteria for PDD, we used test scores proposed by Dubois et al., (2007) and their analogues in MoCA, see Table A for details.
+Participants were assessed with both MMSE (Stepankova et al., 2014; [@folstein1975] and MoCA [@kopecek2016]; [@nasreddine2005] to measure overall cognitive performance. Moreover, a comprehensive neuropsychological assessment was performed in accordance with MDS Task Force Level 2 criteria for MCI in PD [@litvan2012]. We described our battery including a regression based calculator for normative scores in another study [@bezdicek2017]. Besides other neuropsychological tests, the comprehensive assessment employed Clock Drawing Test (CDT) and Letter Fluency. To establish cognitive performance in individual cognitive domains according to Level 1 criteria for PDD, we used test scores proposed by Dubois et al., [@dubois2007] and their analogues in MoCA, see Table A for details.
+
+Insert Table
+
+To measure independence in activities of daily living, we administered Functional Activities Questionnaire (FAQ; Bezdicek et al., 201; [@pfeffer1982]. To assess neuropsychiatric functioning, we used Beck Depression Inventory II (BDI-II; [@ciharova2020]; [@beck1996] and State-Trait Anxiety Inventory (STAI; Spielberg et al., 1970, Mullner et al., 1980). Psychotic symptoms were assessed in an interview by a trained psychiatrist.
 
 # Results
 
