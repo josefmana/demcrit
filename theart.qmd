@@ -13,7 +13,7 @@ author:
         name: "First Faculty of Medicine and General University Hospital in Prague, Charles University, Czech Republic"
         department: "Department of Neurology and Centre of Clinical Neuroscience"
   - name: Josef Mana
-    corresponding: true
+    corresponding: false
     orcid: "0000-0002-7817-3978" 
     email: "josef.mana@protonmail.com"
     role:
@@ -32,6 +32,7 @@ author:
         department: "Department of Neurology and Centre of Clinical Neuroscience"
   - name: Martin Cihak
     corresponding: false
+    orcid: "0000-0001-7765-4799"
     email: "martin.cih@gmail.com"
     role:
       - Conceptualization
@@ -44,6 +45,7 @@ author:
         department: "Department of Neurology and Centre of Clinical Neuroscience"
   - name: Ondrej Bezdicek
     corresponding: false
+    orcid: "0000-0002-5108-0181"
     email: "ondrej.bezdicek@gmail.com"
     role:
       - Investigation
@@ -105,11 +107,11 @@ The data of patients with idiopathic PD diagnosed by a movement disorder special
 
 ## Neuropsychological Assessment
 
-Participants were assessed with both MMSE [@stepankova2014; @folstein1975] and MoCA [@kopecek2016]; [@nasreddine2005] to measure overall cognitive performance. Moreover, a comprehensive neuropsychological assessment was performed in accordance with MDS Task Force Level 2 criteria for MCI in PD [@litvan2012]. We described our battery including a regression based calculator for normative scores in another study [@bezdicek2017]. Besides other neuropsychological tests, the comprehensive assessment employed Clock Drawing Test (CDT) and Letter Fluency. To establish cognitive performance in individual cognitive domains according to Level 1 criteria for PDD, we used test scores proposed by [@dubois2007] and their analogues in MoCA, see Table A for details.
+Participants were assessed with both MMSE [@stepankova2014; @folstein1975] and MoCA [@kopecek2016; @nasreddine2005] to measure overall cognitive performance. Moreover, a comprehensive neuropsychological assessment was performed in accordance with MDS Task Force Level 2 criteria for MCI in PD [@litvan2012]. We described our battery including a regression based calculator for normative scores in another study [@bezdicek2017]. Besides other neuropsychological tests, the comprehensive assessment employed Clock Drawing Test (CDT) and Letter Fluency. To establish cognitive performance in individual cognitive domains according to Level 1 criteria for PDD, we used test scores proposed by [@dubois2007] and their analogues in MoCA, see Table A for details.
 
 Insert Table
 
-To measure independence in activities of daily living, we administered Functional Activities Questionnaire (FAQ; [@bezdicek2011; @pfeffer1982]. To assess neuropsychiatric functioning, we used Beck Depression Inventory II (BDI-II; [@ciharova2020]; [@beck1996] and State-Trait Anxiety Inventory (STAI; Spielberg et al., 1970, @mullner1980\]. Psychotic symptoms were assessed in an interview by a trained psychiatrist.
+To measure independence in activities of daily living, we administered Functional Activities Questionnaire (FAQ) [@bezdicek2011; @pfeffer1982]. To assess neuropsychiatric functioning, we used Beck Depression Inventory II (BDI) [@ciharova2020; @beck1996] and State-Trait Anxiety Inventory (STAI) [@spielberg1983; @mullner1980]. Psychotic symptoms were assessed in an interview by a trained psychiatrist.
 
 # Results
 
