@@ -16,6 +16,7 @@ for ( i in pkgs ) {
 # prepare a data folder
 if ( !dir.exists("_data") ) dir.create("_data")
 
+
 # IN-HOUSE FUNCTIONS ---
 
 # printing rounded numbers
@@ -25,8 +26,8 @@ rprint <- function( x , dec = 2 ) sprintf( paste0("%.",dec,"f"), round( x , dec 
 # DATA READ ----
 
 # data
-d0 <- read.csv( here("_raw","Level1critPDD.csv"), sep = ";" ) # the PDD criteria specific data
-d1 <- read.csv( here("_raw","ITEMPO-ManaExportNeuropsych_DATA_2024-01-17_1227.csv"), sep = "," ) # REDCap data
+d0 <- read.csv( here("_raw","Level1critPDD1.0.csv"), sep = ";" ) # the PDD criteria specific data
+d1 <- read.csv( here("_raw","ITEMPO-ManaExportNeuropsych_DATA_2024-01-22_1916.csv"), sep = "," ) # REDCap data
 
 # helpers
 nm <- read.csv( here("_raw","ITEMPO_DATA_2024-01-17_1153.csv"), sep = "," ) # patient's identificators
@@ -44,7 +45,7 @@ d0 <-
   d0 %>%
   
   # renaming, first (mostly) d0-specific variables, then d0/d1 shared variables, finally converting to lowercase
-  rename( "id" = "IPN", "born" = "born_NA_RC", "sex" = "gender_NA_RC", "hand" = "hand_NA_RC", "pd_dur" = "PD_years" ) %>%
+  rename( "id" = "IPN", "born" = "born_NA_RC", "sex" = "gender_NA_RC", "hand" = "hand_NA_RC" ) %>%
   rename( "mmse" = "MMSE_tot", "faq" = "FAQ_seb", "bdi" = "BDI.II", "staix1" = "STAI_1", "staix2" = "STAI_2") %>%
   `colnames<-`( tolower( colnames(.) ) ) %>%
   
@@ -59,10 +60,12 @@ d0 <-
   mutate( incl = 1, .after = id )
 
 # !duplicated cases, rows selected manually:
+# IPN138: keep the first assessment because it is the 'screening' in REDCap
 # IPN347: keep the first assessment because the second one was just one year later & the first one is REDCap's "screening"
 # IPN661: keep the second assessment which was three years after the first one & is REDCap's "screening"
-d0[ with( d0, id == "IPN347" & pd_dur == 8 ), "incl" ] <- 0
-d0[ with( d0, id == "IPN661" & pd_dur == 9 ), "incl" ] <- 0
+d0[ with( d0, id == "IPN138" & assdate == "2018-02-07" ), "incl" ] <- 0
+d0[ with( d0, id == "IPN347" & assdate == "2021-01-25" ), "incl" ] <- 0
+d0[ with( d0, id == "IPN661" & assdate == "2019-10-23" ), "incl" ] <- 0
 
 # names check
 nm <-
@@ -245,7 +248,7 @@ tvar <-
     function(i)
       
       # for each patient print T if the scores coincide, F if they do not
-      sapply( c("mmse","bdi","faq","pd_dur","sex"),
+      sapply( c("mmse","bdi","faq","sex"),
               function(j)
                 with( d0, get(j)[id==i & incl==1] ) == with( d1, get(j)[id==i] )
               )
@@ -262,7 +265,7 @@ tdisc <-
       
       # join the data of patients with discrepancies
       left_join(
-        d0[ d0$id %in% rownames( tvar[ !tvar[ ,i], ] ), c("id",i) ],
+        d0[ d0$id %in% rownames( tvar[ !tvar[ ,i], ] ) & d0$incl == 1, c("id",i) ],
         d1[ d1$id %in% rownames( tvar[ !tvar[ ,i], ] ), c("id",i) ],
         by = "id", suffix = c("_lvl1","_REDCap")
       )
