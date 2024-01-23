@@ -26,8 +26,8 @@ rprint <- function( x , dec = 2 ) sprintf( paste0("%.",dec,"f"), round( x , dec 
 # DATA READ ----
 
 # data
-d0 <- read.csv( here("_raw","Level1critPDD1.0.csv"), sep = ";" ) # the PDD criteria specific data
-d1 <- read.csv( here("_raw","ITEMPO-ManaExportNeuropsych_DATA_2024-01-22_1916.csv"), sep = "," ) # REDCap data
+d0 <- read.csv( here("_raw","PDD_cr1t2.0.csv"), sep = ";" ) # the PDD criteria specific data
+d1 <- read.csv( here("_raw","ITEMPO-ManaExportNeuropsych_DATA_2024-01-23_1525.csv"), sep = "," ) # REDCap data
 
 # helpers
 nm <- read.csv( here("_raw","ITEMPO_DATA_2024-01-17_1153.csv"), sep = "," ) # patient's identificators
@@ -194,6 +194,8 @@ d1 <-
     # ! note that if doesn't work, you need to either update tidyverse (see session info below for version)
     # ! or load lubridate
     pd_dur = year( as.Date( neuropsy_years ) ) - pd_dur,
+    
+# NEXT STEP: COMPUTE AGE BASED ON d0 INSTEAD OF d1!
     age_years = time_length( difftime( as.Date(neuropsy_years), as.Date(birth) ), "years" ),
     
     # demographics and Parkinson's related variables
