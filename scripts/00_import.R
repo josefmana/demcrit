@@ -36,7 +36,6 @@ sc <- read.csv( here("helpers","test_scoring.csv"), sep = ";" ) # scoring for al
 
 # DATA PRE-PROCESSING ----
 
-
 # ---- PDDcrit specific data ----
 
 # rename columns and mutate variables such that they are well aligned with REDCap data
@@ -53,7 +52,8 @@ d0 <-
   mutate(
     sex = case_when( sex == "F" ~ "female", sex == "M" ~ "male" ),
     hand = case_when( hand == "R" ~ "right", hand == "L" ~ "left" ),
-    across( c("firstname","surname"), ~ make_clean_names( .x, allow_dupes = T ) )
+    across( c("firstname","surname"), ~ make_clean_names( .x, allow_dupes = T ) ),
+    assdate = as.Date(assdate)
   ) %>%
   
   # add inclusion indicator column
@@ -194,9 +194,7 @@ d1 <-
     # ! note that if doesn't work, you need to either update tidyverse (see session info below for version)
     # ! or load lubridate
     pd_dur = year( as.Date( neuropsy_years ) ) - pd_dur,
-    
-# NEXT STEP: COMPUTE AGE BASED ON d0 INSTEAD OF d1!
-    age_years = time_length( difftime( as.Date(neuropsy_years), as.Date(birth) ), "years" ),
+    `age_@lvl2` = time_length( difftime( as.Date(neuropsy_years), as.Date(birth) ), "years" ), # age at Level II assessment
     
     # demographics and Parkinson's related variables
     sex = case_when( sex == 0 ~ "female", sex == 1 ~ "male" ),
@@ -208,7 +206,8 @@ d1 <-
   # select variables of interest
   select(
     
-    id, age_years, sex, # demographic variables
+    birth, # keep date of birth for calculation of age at level I assessment after merging with d0
+    id, `age_@lvl2`, sex, # demographic variables
     type_pd, hy_stage, pd_dur, asym_park, ledd, # PD-specific variables
     
     # motor assessment
@@ -282,6 +281,17 @@ write.table( tdisc, here("_data","pdd_discepancies.csv"), sep = ",", row.names =
 
 
 # ---- merging data sets ----
+
+# prepare a joint data set
+d2 <-
+  
+  d0 %>%
+  select( -all_of( c("sex","mmse","faq","bdi","staix1","staix2") ) ) %>%
+  left_join( d1, by = "id" ) %>% # merge it
+  mutate( `age_@lvl1` = time_length( difftime( assdate, as.Date(birth) ), "years" ) ) # calculate age at level I
+
+# export for manual corrections and data fill-in
+write.csv( d2, here("_data","pdd_df_prefinal.csv"), sep = ",", row.names = F, quote = F, na = "" )
 
 
 # SESSION INFO -----
