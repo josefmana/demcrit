@@ -109,7 +109,23 @@ The data of patients with idiopathic PD diagnosed by a movement disorder special
 
 Participants were assessed with both MMSE [@stepankova2014; @folstein1975] and MoCA [@kopecek2016; @nasreddine2005] to measure overall cognitive performance. Moreover, a comprehensive neuropsychological assessment was performed in accordance with MDS Task Force Level 2 criteria for MCI in PD [@litvan2012]. We described our battery including a regression based calculator for normative scores in another study [@bezdicek2017]. Besides other neuropsychological tests, the comprehensive assessment employed Clock Drawing Test (CDT) and Letter Fluency. To establish cognitive performance in individual cognitive domains according to Level 1 criteria for PDD, we used test scores proposed by [@dubois2007] and their analogues in MoCA, see Table A for details.
 
-Insert Table
+```{r}
+#| label: tbl-martin
+#| tbl-cap: Comparison of criteia.
+#| apa-note: The note below the table.
+
+tibble::tribble(
+  ~"Criteria", ~"Former", ~"New",
+  "", "MMSE < 26", "MoCA < 26", 
+  "Attention", "Serial 7's/months reversed", "Serial 7's",
+  "Executive functions", "Lexical Fluency (S)/ Clock Drawing Test", "Lexical Fluency (K)/ Clock Drawing Test",
+  "Visuo-spatial functions", "Drawing of Pentagons", "Drawing of Cube",
+  "Memory", "3-Word Recall", "5-Word Recall",
+  "Language", "-", "Naming of Animals",
+  ) |>
+  flextable::flextable() |>
+  flextable::theme_apa()
+```
 
 To measure independence in activities of daily living, we administered Functional Activities Questionnaire (FAQ) [@bezdicek2011; @pfeffer1982]. To assess neuropsychiatric functioning, we used Beck Depression Inventory II (BDI) [@ciharova2020; @beck1996] and State-Trait Anxiety Inventory (STAI) [@spielberg1983; @mullner1980]. Psychotic symptoms were assessed in an interview by a trained psychiatrist.
 
