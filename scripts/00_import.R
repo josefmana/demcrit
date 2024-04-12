@@ -238,7 +238,7 @@ d1 <-
   )
 
 
-# ---- compatibility checks ----
+## ----- compatibility checks ----
 
 # prepare a table comparing variables common across data sets
 tvar <-
@@ -291,7 +291,7 @@ d2 <-
   mutate( `age_@lvl1` = time_length( difftime( assdate, as.Date(birth) ), "years" ) ) # calculate age at level I
 
 # export for manual corrections and data fill-in
-write.csv( d2, here("_data","pdd_df_prefinal.csv"), sep = ",", row.names = F, quote = F, na = "" )
+write.table( d2, here("_data","pdd_df_prefinal.csv"), sep = ",", row.names = F, quote = F, na = "" )
 
 
 # SESSION INFO -----
