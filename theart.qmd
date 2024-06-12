@@ -1,9 +1,11 @@
 ---
-title: "Updated Criteria for the Diagnostic Procedure for Parkinson's Disease Dementia on Level I"
+lang: en
+title: "Updated Criteria for the Diagnostic Procedure for Parkinson’s Disease Dementia on Level I and their Validity in Deep Brain Stimulation Cohort"
 shorttitle: "Parkinson's Disease Dementia Level I Criteria"
 author:
   - name: Martina Kvapilova
     corresponding: false
+    orcid: "0009-0007-4665-3946"
     role:
       - Conceptualization
       - Data curation
@@ -43,22 +45,6 @@ author:
       - id: "1FM"
         name: "First Faculty of Medicine and General University Hospital in Prague, Charles University, Czech Republic"
         department: "Department of Neurology and Centre of Clinical Neuroscience"
-  - name: Ondrej Bezdicek
-    corresponding: false
-    orcid: "0000-0002-5108-0181"
-    email: "ondrej.bezdicek@gmail.com"
-    role:
-      - Investigation
-      - Data curation
-      - Funding acquisition
-      - Conceptualization
-      - Project administration
-      - Supervision
-      - Writing - original draft
-    affiliations:
-      - id: "1FM"
-        name: "First Faculty of Medicine and General University Hospital in Prague, Charles University, Czech Republic"
-        department: "Department of Neurology and Centre of Clinical Neuroscience"
   - name: Tereza Uhrova
     corresponding: false
     email: "tereza.uhrova@vfn.cz"
@@ -80,13 +66,29 @@ author:
       - id: "1FM"
         name: "First Faculty of Medicine and General University Hospital in Prague, Charles University, Czech Republic"
         department: "Department of Neurology and Centre of Clinical Neuroscience"
+  - name: Ondrej Bezdicek
+    corresponding: true
+    orcid: "0000-0002-5108-0181"
+    email: "ondrej.bezdicek@gmail.com"
+    role:
+      - Investigation
+      - Data curation
+      - Funding acquisition
+      - Conceptualization
+      - Project administration
+      - Supervision
+      - Writing - original draft
+    affiliations:
+      - id: "1FM"
+        name: "First Faculty of Medicine and General University Hospital in Prague, Charles University, Czech Republic"
+        department: "Department of Neurology and Centre of Clinical Neuroscience"
 abstract: ""
 keywords:
   - Parkinson’s disease
-  - dementia
+  - Parkinson's disease dementia
   - level I criteria
 format:
- apaquarto-pdf:
+ apaquarto-docx:
    documentmode: man
    a4paper: true
    pdf-engine: lualatex
@@ -98,6 +100,16 @@ bibliography: references.bib
 {{< include _extensions/wjschne/apaquarto/_apa_title.qmd >}}
 
 # Introduction
+
+Parkinson’s disease (PD) is a neurodegenerative disorder characterised by the slow, progressive onset of rigidity, bradykinesia, and resting tremors that ultimately advance to motor and non-motor impairment [@postuma2015].
+
+The diagnostic criteria for Parkinson’s disease dementia (PDD) were developed in 2006 and their procedure followed shortly after [@emre2007; @dubois2007]. At that period the PDD criteria were oriented at criteria originating in Alzheimer’s disease (AD) since there was a lack of PD biomarkers to promote a biological classification of PD [@yamashita2023; @höglinger2024].
+
+The newer Parkinson’s disease mild cognitive criteria (PD-MCI) led to an advance in different aspects of PD research [@litvan2012]. These included progress in clinical, genetic, therapeutic modalities, clinical trials or conversion rates to PDD [@hoogland2017; @hoogland2019; @aarsland2021].
+
+At present, there is an ongoing effort to revisit the PDD criteria to secure the comparability of studies and clinical trials across different sites [@kulisevsky2024]. In our previous research, we aimed at establishing rigorous psychometric procedure to differentiate PD-MCI from PDD [@bezdicek2017; @bezdicek2016]. Hence the diagnosis of PDD is an exclusion criterion in deep brain stimulation (DBS), we decided to test the revisited PDD criteria in our PD cohort selected for undergoing DBS [@deuschl2006].
+
+The current study aims at showing the agreement and differences between establishing the diagnosis using only Level 1 criteria as suggested by previous diagnostic procedure (the Movement Disorders Society (MDS)-Task Force screening checklist for detecting PD) [@emre2007; @dubois2007] in comparison to newly revised [@kulisevsky2024] one to validate them. The second objective of our study was to determine the agreement of revised PDD criteria with full neuropsychological testing at Level 2.
 
 # Methods
 
@@ -127,7 +139,7 @@ tibble::tribble(
   flextable::theme_apa()
 ```
 
-To measure independence in activities of daily living, we administered Functional Activities Questionnaire (FAQ) [@bezdicek2011; @pfeffer1982]. To assess neuropsychiatric functioning, we used Beck Depression Inventory II (BDI) [@ciharova2020; @beck1996] and State-Trait Anxiety Inventory (STAI) [@spielberg1983; @mullner1980]. Psychotic symptoms were assessed in an interview by a trained psychiatrist.
+To measure independence in activities of daily living, we administered the Functional Activities Questionnaire (FAQ) [@bezdicek2011; @pfeffer1982]. To assess neuropsychiatric functioning, we used Beck Depression Inventory-II (BDI) [@ciharova2020; @beck1996] and State-Trait Anxiety Inventory (STAI) [@spielberg1983; @mullner1980]. Psychotic symptoms were assessed in an interview by a trained psychiatrist.
 
 # Results
 
