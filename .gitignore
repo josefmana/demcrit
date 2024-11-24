@@ -1,8 +1,17 @@
 # files not supposed to be shared
 mods/**/*.rds
 **/.DS_Store
+**/*.docx
+**/*.pages
+**/*.tiff
+**/*.aux
+**/*.out
+**/*.ttt
+**/*.fff
+**/*.log
+**/*.tex
 
-# ignore all _ folders but include _ files
+# ignore folders starting with an underscore
 _*/
 
 # History files
