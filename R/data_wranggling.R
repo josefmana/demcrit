@@ -1,5 +1,5 @@
 # This is a script containing functions for data import and wranggling before the main analysis.
-
+#
 
 # LIST PATH TO A FILE----
 list_path <- function(folder, file) here(folder, file)
@@ -28,7 +28,8 @@ import_outcome_data <- function(data, names, return = "data") {
       sex = case_when( sex == "F" ~ "female", sex == "M" ~ "male" ),
       hand = case_when( hand == "R" ~ "right", hand == "L" ~ "left" ),
       across( c("firstname","surname"), ~ make_clean_names( .x, allow_dupes = T ) ),
-      assdate = as.Date(assdate)
+      assdate = as.Date(assdate),
+      mmse_7 = if_else(mmse_7 > 5, NA, mmse_7)
     ) %>%
     
     # add inclusion indicator column
@@ -262,4 +263,6 @@ merge_data <- function(outcome_data, meta_data) outcome_data %>%
   
   select( -all_of( c("sex","mmse","faq","bdi","staix1","staix2") ) ) %>%
   left_join( meta_data, by = "id" ) %>% # merge it
-  mutate( `age_@lvl1` = time_length( difftime( assdate, as.Date(birth) ), "years" ) ) # calculate age at level I
+  mutate( `age_@lvl1` = time_length( difftime( assdate, as.Date(birth) ), "years" ) ) %>%  # calculate age at level I
+  filter(incl == 1) # keep included entries only
+

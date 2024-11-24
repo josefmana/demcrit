@@ -11,7 +11,6 @@ tar_option_set(
     "here", # for path listing
     "tidyverse", # for data wrangling
     "janitor" # for cleaning names of diacritics
-    #"purr"
     
   )
 )
@@ -38,6 +37,9 @@ list(
   tar_target( outcomes, import_outcome_data(outcome_file, IDs, "data") ), # outcome item-level data
   tar_target( metadata, import_metadata(meta_file, outcomes, scoring) ), # extract meta-data
   tar_target( discrepancies, compatibility_check(outcomes, metadata) ), # discrepancies, ought to be empty
-  tar_target( data, merge_data(outcomes, metadata) ) # merge outcome item-level data and meta-data
+  tar_target( data, merge_data(outcomes, metadata) ), # merge outcome item-level data and meta-data
   
+  # DATA ANALYSIS ----
+  tar_target( dubois, preliminary_pdd(data) ) # extract preliminary PDD according to the original dubois criteria
+
 )
