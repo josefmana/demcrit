@@ -10,7 +10,8 @@ tar_option_set(
     
     "here", # for path listing
     "tidyverse", # for data wrangling
-    "janitor" # for cleaning names of diacritics
+    "janitor", # for cleaning names of diacritics
+    "psych" # for Cohen's Kappa calculation
     
   )
 )
@@ -39,7 +40,12 @@ list(
   tar_target( discrepancies, compatibility_check(outcomes, metadata) ), # discrepancies, ought to be empty
   tar_target( data, merge_data(outcomes, metadata) ), # merge outcome item-level data and meta-data
   
-  # DATA ANALYSIS ----
-  tar_target( dubois, preliminary_pdd(data) ) # extract preliminary PDD according to the original dubois criteria
+  # DIAGNOSES DATA EXRATRACTION ----
+  tar_target( specifications, specify_criteria() ), # prepare all criteria specifications to be examined
+  tar_target( pdd_data, iterate_pdd(data, specifications, format = "long") ), # long-format PDD data for IRT modelling
+  tar_target( pdd_matrix, iterate_pdd(data, specifications, format = "wide") ), # wide-format PDD data for confusion matrixes
+  
+  # CONFUSION MATRIXES & ASSOCIATION MEASURES ----
+  tar_target( kappas, calculate_kappa(pdd_matrix) ) # compute pairwise Cohen's kappas
 
 )
