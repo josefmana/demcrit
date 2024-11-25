@@ -105,7 +105,7 @@ d0[ d0$id == "IPN225", "id" ] <- "IPN335"
 
 # ---- REDCap data ----
 
-# prepare the RECAP data
+# prepare the REDCAP data
 d1 <-
   
   # keep only patients in the PDDcrit data set (@ screening evaluation)
@@ -298,3 +298,31 @@ write.table( d2, here("_data","pdd_df_prefinal.csv"), sep = ",", row.names = F, 
 
 # write the sessionInfo() into a .txt file
 capture.output( sessionInfo(), file = here("scripts","import_envir.txt") )
+
+# DESCRIPTIVE STATISTICS ----
+## Preparation od descriptive statistics table 
+t1<-
+  
+  cbind.data.frame(
+    var = c( "age_@lvl2",
+             "sex",
+             "pd_dur",
+             "hy_stage",
+             "ledd",
+             "drsii",
+             "mmse",
+             "moca",
+             "nart"
+             ),
+    rbind.data.frame(
+      sapply ((d1$`age_@lvl2`),
+              function(i) sapply( c ("sex"),
+              function(j) tabcol( subset (d1, `age_@lvl2` == i)[[j]]), USE.NAME = F)),
+      sapply ( (d1$age_@lvl2),
+              function(i)
+                sapply (c("sex", "pd_dur", "hy_stage","ledd", "drsii", "mmse", "moca", "nart"),
+               function(j)
+                 cenvar (subset (d1, `age_@lvl2` == i [[j]]), USE.NAMES = F)
+               )))
+    )
+
