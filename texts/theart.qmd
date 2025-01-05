@@ -101,26 +101,33 @@ bibliography: references.bib
 
 # Introduction
 
-Parkinson’s disease (PD) is a neurodegenerative disorder characterised by the slow, progressive onset of rigidity, bradykinesia, and resting tremors that ultimately advance to motor and non-motor impairment [@postuma2015].
+Parkinson’s disease (PD) is a neurodegenerative disorder characterized by a gradual and progressive onset of motor symptoms, including rigidity, bradykinesia, and resting tremors, which eventually extend to both motor and non-motor impairments [@postuma2015]. Beyond these hallmark features, cognitive decline is a critical aspect of the disease trajectory, culminating in Parkinson’s disease dementia (PDD) in a substantial subset of patients.
 
-The diagnostic criteria for Parkinson’s disease dementia (PDD) were developed in 2006 and their procedure followed shortly after [@emre2007; @dubois2007]. At that period the PDD criteria were oriented at criteria originating in Alzheimer’s disease (AD) since there was a lack of PD biomarkers to promote a biological classification of PD [@yamashita2023; @höglinger2024].
+The diagnostic criteria for PDD, first formalized in 2006, were heavily influenced by frameworks established for Alzheimer’s disease (AD) due to the absence of PD-specific biomarkers that could support a biologically informed classification system [@emre2007; @dubois2007]. While effective at the time, these criteria lacked the granularity needed to address the unique pathophysiological and cognitive features of PD [@yamashita2023].
 
-The newer Parkinson’s disease mild cognitive criteria (PD-MCI) led to an advance in different aspects of PD research [@litvan2012]. These included progress in clinical, genetic, therapeutic modalities, clinical trials or conversion rates to PDD [@hoogland2017; @hoogland2019; @aarsland2021].
+Subsequent advancements in the field have introduced the concept of Parkinson’s disease mild cognitive impairment (PD-MCI), providing a nuanced understanding of cognitive deficits in PD. The PD-MCI criteria, published in 2012, have propelled progress in diverse areas, including clinical characterization, genetic correlates, therapeutic strategies, clinical trial design, and the evaluation of progression rates to PDD [@litvan2012; @hoogland2017; @hoogland2019; @aarsland2021].
 
-At present, there is an ongoing effort to revisit the PDD criteria to secure the comparability of studies and clinical trials across different sites [@kulisevsky2024]. In our previous research, we aimed at establishing rigorous psychometric procedure to differentiate PD-MCI from PDD [@bezdicek2017; @bezdicek2016]. Hence the diagnosis of PDD is an exclusion criterion in deep brain stimulation (DBS), we decided to test the revisited PDD criteria in our PD cohort selected for undergoing DBS [@deuschl2006].
+Currently, efforts are underway to refine the PDD diagnostic framework to enhance its consistency and utility in research and clinical contexts across multiple centers [@kulisevsky2024]. Our previous investigations have emphasized the importance of rigorous psychometric methodologies in differentiating PD-MCI from PDD, especially given that PDD remains a contraindication for deep brain stimulation (DBS) [@bezdicek2016; @deuschl2006].
 
-The current study aims at showing the agreement and differences between establishing the diagnosis using only Level 1 criteria as suggested by previous diagnostic procedure (the Movement Disorders Society (MDS)-Task Force screening checklist for detecting PD) [@emre2007; @dubois2007] in comparison to newly revised [@kulisevsky2024] one to validate them. The second objective of our study was to determine the agreement of revised PDD criteria with full neuropsychological testing at Level 2.
+The present study evaluates the diagnostic concordance between the original Level I PDD criteria, as outlined by the Movement Disorder Society (MDS) Task Force [@emre2007; @dubois2007] and the recently revised criteria [@kulisevsky2024] within a PD cohort selected for DBS. Specifically, we aimed to:
+
+Compare diagnostic outcomes using the original and revised Level I criteria and assess the agreement of revised Level I criteria with comprehensive neuropsychological assessment at Level II.Compare diagnostic outcomes using the original and revised Level I criteria.
+
+By addressing these objectives, the study seeks to validate the revised PDD criteria and explore their applicability in the context of DBS eligibility, thereby contributing to the refinement of cognitive assessment protocols in PD.
 
 # Methods
 
 ## Participants
 
-The data of patients with idiopathic PD diagnosed by a movement disorder specialist fulfilling the Movement Disorder Society (MDS) Clinical Diagnostic Criteria for Parkinson's disease (PD) [@postuma2015] were retrospectively gathered from clinical records acquired between January 2014 and December 2023. All the patients underwent a neuropsychological assessment by a trained clinical psychologist (OB) during a routine examination of cognitive functions as a part of the evaluation process for the indication of Deep Brain Stimulation (DBS) at General University Hospital in Prague. The Ethics Committee of the General University Hospital in Prague had approved the study protocol. All patients provided written informed consent prior to the examination.
+The study included retrospective data from patients diagnosed with idiopathic PD by a movement disorder specialist according to the MDS Clinical Diagnostic Criteria for PD [@postuma2015] Clinical records from January 2014 to December 2023 were analyzed. All participants underwent neuropsychological evaluations conducted by a trained clinical psychologist as part of routine cognitive assessments for determining eligibility for Deep Brain Stimulation (DBS) at the General University Hospital in Prague.
+
+The study protocol was approved by the Ethics Committee of the General University Hospital in Prague. Informed consent was obtained from all patients prior to their neuropsychological assessments, in compliance with ethical research standards.
 
 ## Neuropsychological Assessment
 
-Participants were assessed with both MMSE [@stepankova2014; @folstein1975] and MoCA [@kopecek2016; @nasreddine2005] to measure overall cognitive performance. Moreover, a comprehensive neuropsychological assessment was performed in accordance with MDS Task Force Level 2 criteria for MCI in PD [@litvan2012]. We described our battery including a regression based calculator for normative scores in another study [@bezdicek2017]. Besides other neuropsychological tests, the comprehensive assessment employed Clock Drawing Test (CDT) and Letter Fluency. To establish cognitive performance in individual cognitive domains according to Level 1 criteria for PDD, we used test scores proposed by [@dubois2007] and their analogues in MoCA, see Table A for details.
+Cognitive performance was evaluated using both the Mini-Mental State Examination (MMSE) [@stepankova2014; @folstein1975] and the Montreal Cognitive Assessment (MoCA) [@kopecek2016; @nasreddine2005] providing measures of global cognitive functioning. A comprehensive neuropsychological battery was administered in accordance with Level 2 criteria for Parkinson’s disease mild cognitive impairment (PD-MCI) proposed by the MDS Task Force [@litvan2012]. The details of this battery, including the regression-based calculator for normative scoring, have been outlined in a previous publication [@bezdicek2017]. 
 
+In addition to other neuropsychological measures, the assessment incorporated the Clock Drawing Test (CDT) and Letter Fluency tasks to evaluate specific cognitive domains. For determining cognitive performance aligned with Level 1 criteria for Parkinson’s disease dementia (PDD), test scores defined by Dubois et al. [@dubois2007] nd their MoCA equivalents were utilized. Details of the scoring methods and their alignment with diagnostic criteria are summarized in Table A.
 ```{r}
 #| label: tbl-martin
 #| tbl-cap: Comparison of criteia.
