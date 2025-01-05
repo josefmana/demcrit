@@ -88,7 +88,7 @@ keywords:
   - Parkinson's disease dementia
   - level I criteria
 format:
- apaquarto-pdf:
+ apaquarto-doc:
    documentmode: man
    a4paper: true
    pdf-engine: lualatex
