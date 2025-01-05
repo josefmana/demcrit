@@ -24,7 +24,7 @@ list(
   
   # FILES PREP ----
   tar_target( outcome_path, list_path("_raw", "PDD_cr1t2.0.csv"), format = "file" ), # item-specific data
-  tar_target( meta_path, list_path("_raw","ITEMPO-ManaExportNeuropsych_DATA_2024-01-23_1525.csv"), format = "file" ), # meta-data
+  tar_target( meta_path, list_path("_raw","ITEMPO-ManaExportNeuropsych_DATA_2024-12-17_1821.csv"), format = "file" ), # meta-data
   tar_target( id_path, list_path("_raw", "ITEMPO_DATA_2024-01-17_1153.csv"), format = "file" ), # patients' IDs
   tar_target( scoring_path, list_path("helpers","test_scoring.csv"), format = "file" ), # tests' scoring
   

@@ -176,6 +176,10 @@ import_metadata <- function(input_data, outcome_data, scoring) {
       type_pd = case_when( type_pd == 1 ~ "tremor-dominant", type_pd == 2 ~ "akinetic-rigid" ),
       asym_park = case_when( asym_park == 1 ~ "right", asym_park == 2 ~ "left" ),
       
+      # criteria specific variables
+      faq_9 = faq_9,
+      gds_15 = gds_15
+      
     ) %>%
     
     # select variables of interest
@@ -190,6 +194,9 @@ import_metadata <- function(input_data, outcome_data, scoring) {
       
       # cognition
       drsii, mmse, moca, nart, # level-I neuropsychology
+      
+      # criteria sepcific variables
+      faq_9, gds_15,
       
       # level-II neuropsychology
       lns, ds_b, corsi_b, tmt_a, pst_d, # attention & working memory
