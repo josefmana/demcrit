@@ -51,7 +51,7 @@ list(
     command = read.csv(outcome_path, sep = ';')
   ),
   tar_target(
-    name     = meta_file, # meta-data
+    name    = meta_file, # meta-data
     command = read.csv(meta_path, sep = ',')
   ),
   tar_target(

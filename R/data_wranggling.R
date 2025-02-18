@@ -259,10 +259,35 @@ compatibility_check <- function(input_data, meta_data) {
 
 
 # MERGE OUTCOME- & META-DATA ----
-merge_data <- function(outcome_data, meta_data) outcome_data %>%
+merge_data <- function(outcome_data, meta_data) {
   
-  select( -all_of( c('sex','mmse','faq','bdi','staix1','staix2') ) ) %>%
-  left_join( meta_data, by = 'id' ) %>% # merge it
-  mutate( `age_@lvl1` = time_length( difftime( assdate, as.Date(birth) ), 'years' ) ) %>%  # calculate age at level I
-  filter(incl == 1) # keep included entries only
+  # duplicated names
+  dup <- c('sex','mmse','faq','bdi','staix1','staix2')
+  
+  # basic merge
+  d0 <-
+    outcome_data %>%
+    left_join( meta_data, by = 'id' ) %>% # merge it
+    mutate( `age_@lvl1` = time_length( difftime( assdate, as.Date(birth) ), 'years' ) ) %>%  # calculate age at level I
+    filter(incl == 1) # keep included entries only
+  
+  # fill-in duplicated columns
+  for (i in dup) {
+    for (j in seq_len(nrow(d0))) {
+      
+      if (!is.na(d0[j, paste0(i,'.y')])) d0[j, i] <- d0[j ,paste0(i,'.y')] # preferring REDCap data
+      else d0[j , i] <- d0[j ,paste0(i,'.x')] # if REDCap data are not present, use paper data
+      
+    }
+    
+    # drop the original duplicated columns
+    d0[ ,paste0(i,'.x')] <- NULL
+    d0[ ,paste0(i,'.y')] <- NULL
+    
+  }
+  
+  # return it
+  return(d0)
+  
+}
 
