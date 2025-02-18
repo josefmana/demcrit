@@ -1,14 +1,7 @@
 # This is a script containing functions for data import and wranggling before the main analysis.
 #
 
-# LIST PATH TO A FILE----
-list_path <- function(folder, file) here(folder, file)
-
-
-# READ DATA FROM CSV ----
-read_data <- function(path, separator) read.csv(path, sep = separator)
-
-
+#
 # IMPORT ITEM-LEVEL DATA ----
 import_outcome_data <- function(data, names, return = "data") {
   
