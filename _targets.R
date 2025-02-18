@@ -5,14 +5,15 @@ library(targets)
 
 # Set target options:
 tar_option_set(
-  
   packages = c(
     
-    "here",      # for path listing
-    "tidyverse", # for data wrangling
-    "janitor",   # for cleaning names of diacritics
-    "psych"      # for Cohen's Kappa calculation
-    
+    'here',      # for path listing
+    'tidyverse', # for data wrangling
+    'janitor',   # for cleaning names of diacritics
+    'psych',     # for Cohen's Kappa calculation
+    'caret',     # for confusion matrixes
+    'gt'         # for tableing
+
   )
 )
 
@@ -25,49 +26,49 @@ list(
   # FILES PREP ----
   tar_target(
     name    = outcome_path, # item-specific data
-    command = here("_raw", "PDD_cr1t2.0.csv"),
-    format  = "file"
+    command = here('_raw', 'PDD_cr1t2.0.csv'),
+    format  = 'file'
   ),
   tar_target(
     name    = meta_path, # meta-data
-    command = here("_raw","ITEMPO-ManaExportNeuropsych_DATA_2024-12-17_1821.csv"),
-    format  = "file"
+    command = here('_raw','ITEMPO-ManaExportNeuropsych_DATA_2024-12-17_1821.csv'),
+    format  = 'file'
   ),
   tar_target(
     name    = id_path, # patients' IDs
-    command = here("_raw", "ITEMPO_DATA_2024-01-17_1153.csv"),
-    format  = "file"
+    command = here('_raw', 'ITEMPO_DATA_2024-01-17_1153.csv'),
+    format  = 'file'
   ),
   tar_target(
     name    = scoring_path, # tests' scoring
-    command = here("helpers","test_scoring.csv"),
-    format  = "file"
+    command = here('helpers','test_scoring.csv'),
+    format  = 'file'
   ),
   
   # DATA IMPORT ----
   tar_target(
     name    = outcome_file, # item-specific data
-    command = read.csv(outcome_path, sep = ";")
+    command = read.csv(outcome_path, sep = ';')
   ),
   tar_target(
     name     = meta_file, # meta-data
-    command = read.csv(meta_path, sep = ",")
+    command = read.csv(meta_path, sep = ',')
   ),
   tar_target(
     name    = IDs, # patients' IDs
-    command = read.csv(id_path, sep = ",")
+    command = read.csv(id_path, sep = ',')
   ),
   tar_target(
     name    = scoring, # tests' scoring
-    command = read.csv(scoring_path, sep = ";")
+    command = read.csv(scoring_path, sep = ';')
   ),
   tar_target(
     name    = names, # discrepancies between outcome- and meta-data
-    command = import_outcome_data(outcome_file, IDs, "names")
+    command = import_outcome_data(outcome_file, IDs, 'names')
   ),
   tar_target(
     name    = outcomes, # outcome item-level data
-    command = import_outcome_data(outcome_file, IDs, "data")
+    command = import_outcome_data(outcome_file, IDs, 'data')
   ),
   tar_target(
     name    = metadata, # extract meta-data
@@ -89,17 +90,25 @@ list(
   ),
   tar_target(
     name    = pdd_data, # long-format PDD data for IRT modelling
-    command = iterate_pdd(data, specifications, format = "long")
+    command = iterate_pdd(data, specifications, format = 'long')
   ),
   tar_target(
     name    = pdd_matrix, # wide-format PDD data for confusion matrixes
-    command = iterate_pdd(data, specifications, format = "wide")
+    command = iterate_pdd(data, specifications, format = 'wide')
   ),
   
   # CONFUSION MATRIXES & ASSOCIATION MEASURES ----
   tar_target(
     name    = kappas, # compute pairwise Cohen's kappas
     command = calculate_kappa(pdd_matrix)
+  ),
+  tar_target(
+    name    = confusion_matrices, # compute pairwise confusion matrixes
+    command = calculate_confusion(data = pdd_matrix, kappas = kappas)
+  ),
+  tar_target(
+    name    = confusion_plots, # plot all pairwise confusion matrixes
+    command = plot_confusion(mat = confusion_matrices)
   )
 
 )
