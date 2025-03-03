@@ -106,15 +106,15 @@ By addressing these objectives, this study seeks to validate the revised PDD cri
 
 ## Participants
 
-The study included retrospective data from patients diagnosed with idiopathic PD by a movement disorder specialist according to the MDS Clinical Diagnostic Criteria for PD [@postuma2015] Clinical records from January 2014 to December 2023 were analyzed. All participants underwent neuropsychological evaluations conducted by a trained clinical psychologist as part of routine cognitive assessments for determining eligibility for Deep Brain Stimulation (DBS) at the General University Hospital in Prague.
+This study retrospectively analyzed clinical data from patients diagnosed with idiopathic PD by a movement disorder specialist according to the MDS Clinical Diagnostic Criteria for PD [@postuma2015] Clinical records spanning January 2014 to December 2023 were examined. All participants underwent neuropsychological evaluations conducted by a trained clinical psychologist as part of standard preoperative cognitive assessments for DBS eligibility at the General University Hospital in Prague.
 
-The study protocol was approved by the Ethics Committee of the General University Hospital in Prague. Informed consent was obtained from all patients prior to their neuropsychological assessments, in compliance with ethical research standards.
+Ethical approval for the study protocol was obtained from the Ethics Committee of the General University Hospital in Prague. Informed consent was secured from all patients prior to their neuropsychological assessments, in adherence to ethical research guidelines.
 
 ## Neuropsychological Assessment
 
-Cognitive performance was evaluated using both the Mini-Mental State Examination (MMSE) [@stepankova2014; @folstein1975] and the Montreal Cognitive Assessment (MoCA) [@kopecek2016; @nasreddine2005] providing measures of global cognitive functioning. A comprehensive neuropsychological battery was administered in accordance with Level 2 criteria for Parkinson’s disease mild cognitive impairment (PD-MCI) proposed by the MDS Task Force [@litvan2012]. The details of this battery, including the regression-based calculator for normative scoring, have been outlined in a previous publication [@bezdicek2017].
+Cognitive performance was evaluated using both the Mini-Mental State Examination (MMSE) [@stepankova2014; @folstein1975] and the Montreal Cognitive Assessment (MoCA) [@kopecek2016; @nasreddine2005] providing measures of global cognitive functioning. A comprehensive neuropsychological battery was administered in accordance with the Level II criteria for PD-MCI, as delineated by the MDS Task Force  [@litvan2012]. The methodological details, including a regression-based normative scoring approach, have been described in previous study [@bezdicek2017].
 
-In addition to other neuropsychological measures, the assessment incorporated the Clock Drawing Test (CDT) and Letter Fluency tasks to evaluate specific cognitive domains. For determining cognitive performance aligned with Level 1 criteria for Parkinson’s disease dementia (PDD), test scores defined by Dubois et al. [@dubois2007] nd their MoCA equivalents were utilized. Details of the scoring methods and their alignment with diagnostic criteria are summarized in Table A.
+In addition to core cognitive assessments, specific tasks such as the Clock Drawing Test (CDT) and Letter Fluency tasks were incorporated to evaluate domain-specific impairments. The diagnostic classification of PDD using Level I criteria was based on established scoring thresholds from Dubois et al. [@dubois2007] and their corresponding MoCA equivalents. A summary of the scoring methodologies and their alignment with diagnostic criteria is provided in Table A.
 
 ```{r}
 #| label: tbl-martin
@@ -134,13 +134,13 @@ tibble::tribble(
   flextable::theme_apa()
 ```
 
-To measure independence in activities of daily living, we administered the Functional Activities Questionnaire (FAQ) [@bezdicek2011; @pfeffer1982]. To assess neuropsychiatric functioning, we used Beck Depression Inventory-II (BDI) [@ciharova2020; @beck1996] and State-Trait Anxiety Inventory (STAI) [@spielberg1983; @mullner1980]. Psychotic symptoms were assessed in an interview by a trained psychiatrist.
+To assess functional impairment, the Functional Activities Questionnaire (FAQ) [@bezdicek2011; @pfeffer1982]. was administered. Additionally, neuropsychiatric status was evaluated using the Beck Depression Inventory-II (BDI) [@ciharova2020; @beck1996] and State-Trait Anxiety Inventory (STAI) [@spielberg1983; @mullner1980]. Psychotic symptoms were assessed through structured psychiatric interviews conducted by a trained psychiatrist.
 
 ## Operationalization of dementia
 
-In this study, we applied three different types of criteria for diagnosing PDD on level I. The first was based on the original framework [@dubois2007], which included assessments of attention, executive function, visuospatial abilities, and memory and was based Mini-Mental State Examination [@folstein1975; @stepankova2014]. The second was based on the recent call for change of diagnostic guidelines [@kulisevsky2024], refining cognitive domain assessments to improve sensitivity to PD-related dementia, with specific items from the Montreal Cognitive Assessment (MoCA) utilized for this purpose. The third approach applied the Czech version of the shortened Montreal Cognitive Assessment (sMoCA) [@bezdicek2020], testing whether equivalent cognitive impairments can be reliably identified using a more time-efficient testing protocol.
+In this study, we applied three different types of criteria for diagnosing PDD on level I. The first was based on the original framework [@dubois2007], which was based on MMSE and included assessments of attention, executive function, visuospatial abilities, and memory. The second was based on the recent call for change of dementia diagnostic guidelines [@kulisevsky2024], refining cognitive domain assessments to improve sensitivity to PD-related dementia, with specific items from the MoCA utilized for this purpose. The third approach applied the Czech version of the shortened Montreal Cognitive Assessment (sMoCA) [@bezdicek2020], testing whether equivalent cognitive impairments can be reliably identified using a more time-efficient testing protocol.
 
-Below, readers can find a structured table summarizing all three diagnostic criteria, facilitating a clearer comparison of their components and applicability.
+To facilitate a clear comparison of these diagnostic frameworks, a structured table summarizing the components and applicability of each criterion is provided below.
 
 Insert Table 2
 
