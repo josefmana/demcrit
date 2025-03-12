@@ -45,15 +45,15 @@ diagnose_pdd <- function(
         crit1 = T, # 1. Parkinson’s disease
         crit2 = T, # 2. Parkinson’s disease developed before dementia
         crit3 = ifelse(mmse < 26, T, F), # 3. MMSE < 26
-        crit4 = NA, # 4. Dementia has Impact on ADLs
+        crit4 = ifelse(id %in% c('D03', 'IPN211', 'IPN261', 'IPN685', 'IPN262', 'IPN677'), T, F), # 4. Dementia has Impact on ADLs
         crit5 = ifelse( rowSums( across( starts_with('impaired_') ) ) > 1, T, F), # 5. Impaired cognition (For Yes, at least of 2 of 4 tests are abnormal)
-        crit6 = NA, # 6. Absence of Major Depression 
-        crit7 = NA, # 7. Absence of Major Depression 
-        crit8 = NA, # 8. Absence of other abnormalities that obscure diagnosis
+        crit6 = T, # 6. Absence of Major Depression 
+        crit7 = T, # 7. Absence of Major Depression 
+        crit8 = T, # 8. Absence of other abnormalities that obscure diagnosis
         
         # PELIMINARY PDD DIAGNOSIS BASED ON CRITERIA 3 & 5
         preliminary_pdd = factor(
-          x = ifelse(crit3 & crit5, 1, 0),
+          x = ifelse(crit3 & crit4 & crit5, 1, 0),
           levels = 0:1,
           ordered = T
         )
@@ -102,6 +102,7 @@ iterate_pdd <- function(data, specs, format = 'long') {
   wide_df <- long_df %>% select(-crit, -type) %>% pivot_wider(names_from = crit_type, values_from = preliminary_pdd)
   
   # return data set that was asked for
-  if(format == 'long') return(long_df) else if(format == 'wide') return(wide_df)
+  if(format == 'long') return(long_df)
+  else if(format == 'wide') return(wide_df)
   
 }

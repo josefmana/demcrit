@@ -8,6 +8,9 @@ import_outcome_data <- function(data, names, return = 'data') {
   # rename columns and mutate variables such that they are well aligned with REDCap data
   d0 <- data %>%
     
+    slice(-192) %>% # NEED TO BE SOLVED!
+    
+    
     # rename variables:
     #   first (mostly) item-data-specific variables
     #   then item-data/metadata shared variables
@@ -79,7 +82,7 @@ import_outcome_data <- function(data, names, return = 'data') {
 }
 
 
-# IMPORT MATA-DATA ----
+# IMPORT META-DATA ----
 import_metadata <- function(input_data, outcome_data, scoring) {
   
   d1 <- input_data %>%

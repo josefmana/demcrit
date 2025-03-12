@@ -26,7 +26,7 @@ list(
   # FILES PREP ----
   tar_target(
     name    = outcome_path, # item-specific data
-    command = here('_raw', 'PDD_cr1t2.0.csv'),
+    command = here('_raw', 'Level1critPDD2.0.csv'),
     format  = 'file'
   ),
   tar_target(
