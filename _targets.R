@@ -1,19 +1,15 @@
-# This script runs targets pipeline of the R section of the project.
-
-# Load packages required to define the pipeline:
 library(targets)
+library(tarchetypes)
 
 # Set target options:
 tar_option_set(
   packages = c(
-    
     'here',      # for path listing
     'tidyverse', # for data wrangling
     'janitor',   # for cleaning names of diacritics
     'psych',     # for Cohen's Kappa calculation
     'caret',     # for confusion matrixes
     'gt'         # for tableing
-
   )
 )
 
@@ -22,7 +18,7 @@ tar_source()
 
 # List the targets:
 list(
-  
+
   # FILES PREP ----
   tar_target(
     name    = outcome_path, # item-specific data
@@ -44,7 +40,7 @@ list(
     command = here('helpers','test_scoring.csv'),
     format  = 'file'
   ),
-  
+
   # DATA IMPORT ----
   tar_target(
     name    = outcome_file, # item-specific data
@@ -82,7 +78,7 @@ list(
     name    = data, # merge outcome item-level data and meta-data
     command = merge_data(outcomes, metadata)
   ),
-  
+
   # DIAGNOSES DATA EXTRATRACTION ----
   tar_target(
     name    = specifications, # prepare all criteria specifications to be examined
@@ -96,7 +92,7 @@ list(
     name    = pdd_matrix, # wide-format PDD data for confusion matrixes
     command = iterate_pdd(data, specifications, format = 'wide')
   ),
-  
+
   # CONFUSION MATRIXES & ASSOCIATION MEASURES ----
   tar_target(
     name    = kappas, # compute pairwise Cohen's kappas
