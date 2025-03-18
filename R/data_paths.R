@@ -1,19 +1,23 @@
 #' Define paths to data.
 #'
-#' This function prepares a set of paths to
-#' data that will be used in the analysis. The naming
+#' This function prepares a set of paths to data
+#' that will be used in the analysis. The naming
 #' conventions are set and the function will inform
 #' the user if the data in the folder of interest ain't
 #' compatible with the script.
 #' To be then pushed to \code{prepare_data} function
 #' for pre-processing.
 #'
-#' @param dir Input directory where data reside, default dir = 'data-raw'.
-#' @returns A list with something in it.
+#' @param dir Input directory where data reside,
+#' defaults to dir = 'data-raw'.
+#'
+#' @returns A character vector with paths towards
+#' all raw data used in this study.
+#'
 #' @examples
 #' \dontrun{
 #' p    <- data_paths('data-raw')
-#' data <- import_data(p)
+#' data <- prepare_data(p)
 #' }
 #' @export
 data_paths <- function(dir = 'data-raw') {
@@ -33,10 +37,10 @@ data_paths <- function(dir = 'data-raw') {
       'TestScoring.csv' # Scoring of psychological variables
     ),
     message = c(
-      paste0('\nItem-wise data is missing or mislabelled!\nInsert a valid file "ItemData.csv" into the /',dir,' folder!'),
-      paste0('\nREDCap data is missing or mislabelled!\nInsert a valid file "REDCapData.csv" into the /',dir,' folder!'),
-      paste0('\nPatient identification data is missing or mislabelled!\nInsert a valid file "MetaData.csv" into the /',dir,' folder!'),
-      paste0('\nFile with test scoring data is missing or mislabelled!\nInsert a valid file "TestScoring.csv" into the /',dir,' folder!')
+      paste0('\nItem-wise data is missing or mislabelled!\nInsert a valid file "ItemData.csv" into the /',dir,' folder!\n'),
+      paste0('\nREDCap data is missing or mislabelled!\nInsert a valid file "REDCapData.csv" into the /',dir,' folder!\n'),
+      paste0('\nPatient identification data is missing or mislabelled!\nInsert a valid file "MetaData.csv" into the /',dir,' folder!\n'),
+      paste0('\nFile with test scoring data is missing or mislabelled!\nInsert a valid file "TestScoring.csv" into the /',dir,' folder!\n')
     )
   ) |> mutate(path = here::here(dir, file))
 
@@ -44,14 +48,15 @@ data_paths <- function(dir = 'data-raw') {
   proceed <- T
   for (i in seq_len(nrow(dfs))) {
     if (!file.exists(dfs[i, 'path'])) {
-      message(dfs[i, 'message'])
+      cat(dfs[i, 'message'])
       proceed <- F
     }
   }
   message('\n')
-  stopifnot('\nThe pipeline was terminated due to one or more data files being absent.\nProvide valid data files before marching on.' = proceed) |> try()
+  stopifnot('\nThe pipeline was terminated due to one or more data files being absent.
+Provide valid data files before marching on.' = proceed)
 
   # Return paths to data if the files are present:
-  dfs$path |> `names<-`(dfs$type)
+  dfs$path
 
 }
