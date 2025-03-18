@@ -64,3 +64,4 @@ po/*~
 # RStudio Connect folder
 rsconnect/
 apa_processed.docx
+.Rproj.user

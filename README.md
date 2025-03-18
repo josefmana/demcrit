@@ -12,12 +12,3 @@ PDD_cr1t2.0.csv
 ITEMPO_DATA_2024-01-17_1153.csv
 ITEMPO-ManaExportNeuropsych_DATA_2024-12-17_1821.csv
 ```
-
-To create a reproducible environment for the R project we use the [renv](https://rstudio.github.io/renv/) package.
-After installing, run the following to (re-)install specific package versions used in this project:
-
-```
-# install.packages("renv")
-renv::restore()
-```
-
