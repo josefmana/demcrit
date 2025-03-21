@@ -15,11 +15,16 @@
 #' data <- prepare_data(p)
 #' }
 #' @export
-prepare_data <- function(p) {
+prepare_data <- function(p, check.names = T) {
 
   # Read data sets:
   ItemData <- import_item_data(p[1])
   Scoring  <- readr::read_delim(p[4], delim = ";", col_types = cols(rev = 'c'))
   REDCap   <- import_redcap_data(p[2], Scoring)
+
+  # Check names in the item data:
+  if(check.names) check_names(d = ItemData, nms = read_csv(p[3], show_col_types = F))
+
+  # Run a compatibility check:
 
 }

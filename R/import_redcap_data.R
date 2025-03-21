@@ -49,10 +49,9 @@ import_redcap_data <- function(path, scoring) {
     df[ , paste0('faq_',i)] <- NA
     for (j in seq_len(nrow(df))) {
       if (is.na(df[j, paste0('faq_uvod_',i)])) next
-      else if (df[j, paste0('faq_uvod_',i)] == 1) df[j, paste0('faq_',i)] <- df[j , paste0('faq_vykon_',i)] # the patient evaluated an activity directly
-      else if (df[j, paste0('faq_uvod_',i)] == 2) df[j, paste0('faq_',i)] <- df[j , paste0('faq_nikdy_',i)] # the patient evaluated an activity indirectly
+      else if (df[j, paste0('faq_uvod_',i)] == 1) df[j, paste0('faq_',i)] <- df[j , paste0('faq_vykon_',i)] # The patient evaluated an activity directly.
+      else if (df[j, paste0('faq_uvod_',i)] == 2) df[j, paste0('faq_',i)] <- df[j , paste0('faq_nikdy_',i)] # The patient evaluated an activity indirectly.
     }
-
   }
 
   # Reverse item scores where applicable:
@@ -75,14 +74,18 @@ import_redcap_data <- function(path, scoring) {
     cat('\nSee the problematic cases below:\n\n')
     print(vf_fail)
   }
-  if(stop) stop('
+  if(stop) cat('
   There are some incongruities in verbal fluency data between MoCA and Level II.
-  Check the data printed above to locate these inconsistencies and repair them.'
+  Using the Level II data in these cases to keep it consistent with the rest of data.\n\n'
   )
+  #if(stop) stop('
+  #There are some incongruities in verbal fluency data between MoCA and Level II.
+  #Check the data printed above to locate these inconsistencies and repair them.'
+  #)
 
   # Finish the data set:
   df |>
-    select(-all_of( starts_with( paste0('faq_', c('fill','uvod','vykon','nikdy','score')))), -vf_k) |>
+    select(-all_of( starts_with( paste0('faq_', c('fill','uvod','vykon','nikdy','score'))))) |>
     mutate(
       faq      = rowSums(across(starts_with('faq'))),
       bdi      = rowSums(across(starts_with('bdi'))),
@@ -118,7 +121,7 @@ import_redcap_data <- function(path, scoring) {
       moca_abs  = rowSums(across(starts_with('moca_abstraction')))
     ) |>
     rename(
-      vf_k        = moca_fluence_k,
+      #vf_k        = moca_fluence_k,
       moca_5words = moca_recall_sum,
       moca_total  = moca_score,
       smoca_total = s_moca_score

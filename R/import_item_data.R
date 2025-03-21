@@ -28,7 +28,8 @@ import_item_data <- function(path) {
       sex  = gender_NA_RC,
       hand = hand_NA_RC,
       mmse = MMSE_tot,
-      faq  = FAQ_seb
+      faq  = FAQ_seb,
+      bdi  = `BDI-II`
     ) |>
     rename_all(tolower) |>
     mutate(
