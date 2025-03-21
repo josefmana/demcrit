@@ -116,9 +116,15 @@ import_redcap_data <- function(path, scoring) {
         labels  = c('right', 'left'),
         ordered = F
       ),
-      moca_7    = rowSums(across(starts_with('moca_substr'))),
       moca_anim = rowSums(across(starts_with('moca_naming'))),
-      moca_abs  = rowSums(across(starts_with('moca_abstraction')))
+      moca_abs  = rowSums(across(starts_with('moca_abstraction'))),
+      moca_7raw = rowSums(across(starts_with('moca_substr'))),
+      moca_7    = case_when(
+        moca_7raw == 0        ~ 0,
+        moca_7raw == 1        ~ 1,
+        moca_7raw %in% c(2,3) ~ 2,
+        moca_7raw %in% c(4,5) ~ 3
+      )
     ) |>
     rename(
       #vf_k        = moca_fluence_k,
@@ -134,7 +140,7 @@ import_redcap_data <- function(path, scoring) {
       moca_total, smoca_total,
       starts_with('faq'), bdi, stai_1, stai_2, gds_15,
       lns, ds_b, corsi_b, tmt_a, pst_d,
-      tol, tmt_b, pst_w, pst_c, vf_skp, cf,
+      tol, tmt_b, pst_w, pst_c, cf,
       sim, bnt_60,
       ravlt_irs, ravlt_b, ravlt_6, ravlt_30, ravlt_drec50, ravlt_drec15, bvmt_irs, bvmt_30, bvmt_drec,
       jol, clox_i,

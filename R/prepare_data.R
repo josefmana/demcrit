@@ -26,5 +26,39 @@ prepare_data <- function(p, check.names = T) {
   if(check.names) check_names(d = ItemData, nms = read_csv(p[3], show_col_types = F))
 
   # Run a compatibility check:
+  disc <- check_compatibility(d1 = ItemData, d2 = REDCap)
+
+  # If there are incompatibilities, print a message informing what data are used:
+  if (nrow(disc) > 1) {
+    discfile <- here('temp', 'discrepancies.csv')
+    cat(paste0('!!! There were some discrepancies, REDCap data were used !!!\nCheck the ', discfile,' file\nto reconcile any incompatibilities.'))
+    if (!dir.exists('temp')) dir.create('temp')
+    write_csv(disc, discfile, na = '')
+  } else {
+    if (dir.exists('temp')) unlink('temp', recursive = T)
+  }
+
+  # Prepare a full data set:
+  df <-
+    ItemData |>
+    left_join(REDCap, by = 'id', suffix = c('_iw', '_rc')) |>
+    rename_at(vars(ends_with('_rc')), ~sub('_rc', '', .x)) |>
+    select(!ends_with('_iw')) |>
+    filter(incl == 1)
+
+  # Do sanity check of all response data:
+  mist <- check_ranges(df)
+  if (mist$stop) {
+    for (i in names(mist$typos)) {
+      if (nrow(mist$typos[[i]] == 0)) {
+        mist$typos[[i]] <- NULL
+      }
+    }
+    print(mist$typos)
+    stop('There seem to be typos in the data, check the data listed above.')
+  }
+
+  # Return the data set:
+  df
 
 }
