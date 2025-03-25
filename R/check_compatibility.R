@@ -16,7 +16,6 @@
 #' data <- prepare_data(p)
 #' }
 check_compatibility <- function(d1, d2) {
-
   # List common variables:
   commonvars <- c(
     'sex', 'mmse', 'faq', 'faq_9', 'smoca_total', # 'vf_k', is not checked because it comes from MoCA in ItemData but from Level II in REDCap data.
@@ -24,7 +23,6 @@ check_compatibility <- function(d1, d2) {
     'bdi', 'stai_1', 'stai_2', # These variables are not used in analyses directly but will likely used to describe the sample.
     NULL
   )
-
   # Prepare a table comparing common variables:
   tvar <-
     sapply(
@@ -40,7 +38,6 @@ check_compatibility <- function(d1, d2) {
         )
     ) |>
     t()
-
   # Evaluate mismatches:
   tdisc <- lapply(
     set_names(commonvars),
@@ -52,8 +49,8 @@ check_compatibility <- function(d1, d2) {
     )
   ) |>
     reduce(full_join, by = 'id')
-
   # Return mismatches as a data frame
-  d1 |> select(id, surname, firstname, assdate) |> right_join(tdisc, by = 'id')
-
+  d1 |>
+    select(id, surname, firstname, assdate) |>
+    right_join(tdisc, by = 'id')
 }

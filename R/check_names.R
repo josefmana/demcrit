@@ -23,16 +23,12 @@
 #' data <- prepare_data(p, check.names = F)
 #' }
 check_names <- function(d, nms) {
-
-  # Extract names only
   nms <-
     nms |>
     filter(study_id %in% d$id) |>
     column_to_rownames('study_id') |>
     select(jmeno, prijmeni) |>
     mutate_all(~make_clean_names(., allow_dupes = T))
-
-  # Extract a table checking name consistency:
   tnam <-
     sapply(
       rownames(nms),
@@ -42,11 +38,7 @@ check_names <- function(d, nms) {
       )
     ) |>
     t()
-
-  # Find cases with discrepancies:
   discid <- rownames(tnam[(!tnam[ ,1] | !tnam[ ,2]), ])
-
-  # Extract table with discrepancies and add reasons:
   disctab <-
     left_join(
       nms[discid, ] |> rownames_to_column('id'),
@@ -60,10 +52,7 @@ check_names <- function(d, nms) {
         false     = 'typo'
       )
     )
-
-  # Print a message and the table
   cat('Please, check whether the reasons of name discrepancies
 of patients below are valid. If not, revise the data.\n\n')
   print(disctab)
-
 }

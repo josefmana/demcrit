@@ -16,11 +16,8 @@
 #' data <- prepare_data(p)
 #' }
 check_ranges <- function(d) {
-
   # Adding zero to a sequence of integers:
   seq0 <- function(x) c(0, seq_len(x))
-
-  # Check the data:
   mistakes <- list(
     updrsiii_off       = subset(d, !(updrsiii_off %in% seq0(132))),
     updrsiii_on        = subset(d, !(updrsiii_on %in% seq0(132))),
@@ -61,15 +58,9 @@ check_ranges <- function(d) {
     jol                = subset(d, !(jol %in% seq0(30))),
     clox_i             = subset(d, !(clox_i %in% seq0(15))) # Should it be used?
   )
-
-  # Add variables limited by zero:
   zerotrunc <- c('vf_k', 'vf_s', 'tmt_a', 'pst_d', 'tmt_b', 'pst_w', 'pst_c', 'cf', 'gp_r', 'gp_l')
   for (i in zerotrunc) mistakes[[i]] <- subset(d, get(i) < 0)
-
-  # Add FAQ items:
   for (i in paste0('faq_',seq_len(10))) mistakes[[i]] <- subset(d, !(get(i) %in% seq0(3)))
-
-  # Drop NA rows & extraxt stopping decision:
   stop <- F
   for (i in names(mistakes)) {
     mistakes[[i]] <-
@@ -80,8 +71,6 @@ check_ranges <- function(d) {
       stop <- T
     }
   }
-
   # Return the results:
   list(stop = stop, typos = mistakes)
-
 }

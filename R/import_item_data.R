@@ -18,8 +18,6 @@
 #' }
 #' @export
 import_item_data <- function(path) {
-
-  # Read the data:
   df <-
     read_delim(path, delim = ";", col_types = cols()) |>
     rename(
@@ -33,7 +31,8 @@ import_item_data <- function(path) {
     ) |>
     rename_all(tolower) |>
     mutate(
-      sex = factor(
+      cloc = clox_num + clox_hands,
+      sex  = factor(
         case_when(sex == 'F' ~ 0, sex == 'M' ~ 1),
         levels  = 0:1,
         labels  = c('female', 'male'),
@@ -49,7 +48,6 @@ import_item_data <- function(path) {
       assdate = as.Date(assdate),
       incl = 1 # As a baseline, include everyone
     )
-
   # Check MMSE variables:
   mistakes <- list(
     mmse        = subset(df, mmse        < 0 | mmse        > 30),
@@ -62,8 +60,6 @@ import_item_data <- function(path) {
     mmse_3words = subset(df, mmse_3words < 0 | mmse_3words > 3 ),
     vf_s        = subset(df, vf_s        < 0 )
   )
-
-  # Loop through all possible mistakes in MMSE:
   stop <- F
   for (i in names(mistakes)) {
     if (nrow(mistakes[[i]]) == 0) next
@@ -74,7 +70,6 @@ import_item_data <- function(path) {
     }
   }
   if(stop) stop('There seem to be typos in the data, check the data printed above to locate and repair them.')
-
   # !Duplicated cases, rows selected manually:
   # IPN138: keep the first assessment because it is the 'screening' in REDCap.
   # IPN347: keep the first assessment because the second one was just one year later & the first one is REDCap's 'screening'.
@@ -82,12 +77,8 @@ import_item_data <- function(path) {
   df[with(df, id == 'IPN138' & assdate == '2018-02-07'), 'incl'] <- 0
   df[with(df, id == 'IPN347' & assdate == '2021-01-25'), 'incl'] <- 0
   df[with(df, id == 'IPN661' & assdate == '2019-10-23'), 'incl'] <- 0
-
   # IPN225's name from item-data is consistent with IPN335 in REDCap (i.e., metadata)
   # date of birth is inconsistent with IPN225 though so re-coding
   df[df$id == 'IPN225', 'id'] <- 'IPN335'
-
-  # Return the data set:
   df
-
 }
