@@ -39,10 +39,19 @@ prepare_data <- function(p, check.names = T) {
   # Prepare a full data set:
   df <-
     ItemData |>
-    left_join(REDCap, by = 'id', suffix = c('_iw', '_rc')) |>
-    rename_at(vars(ends_with('_rc')), ~sub('_rc', '', .x)) |>
-    select(!ends_with('_iw')) |>
-    filter(incl == 1)
+    filter(incl == 1) |>
+    left_join(REDCap, by = 'id', suffix = c('_iw', '_rc'))
+  cv <-
+    names(df)[grepl('_iw', names(df))] |>
+    sub(x = _, '_iw', '')
+  for (i in cv) {
+    df[ , i] <- NA
+    for (j in seq_len(nrow(df))) {
+      df[j , i] <- ifelse(!is.na(df[j , paste0(i,'_rc')]), df[j , paste0(i,'_rc')], df[j , paste0(i,'_iw')])
+    }
+    df[ , paste0(i,'_rc')] <- NULL
+    df[ , paste0(i,'_iw')] <- NULL
+  }
   mist <- check_ranges(df)
   if (mist$stop) {
     for (i in names(mist$typos)) {
