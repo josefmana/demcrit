@@ -81,6 +81,7 @@ import_redcap_data <- function(path, scoring) {
   df |>
     select(-all_of( starts_with( paste0('faq_', c('fill','uvod','vykon','nikdy','score'))))) |>
     mutate(
+      id       = sub('excluded_', '', id),
       faq      = rowSums(across(starts_with('faq'))),
       bdi      = rowSums(across(starts_with('bdi'))),
       stai_1   = rowSums(across(starts_with('staix1'))),

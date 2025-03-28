@@ -45,7 +45,7 @@ import_item_data <- function(path) {
         ordered = F
       ),
       across(ends_with('name'), ~make_clean_names(.x, allow_dupes = T)),
-      assdate = as.Date(assdate),
+      assdate = as.Date(assdate, tryFormats = '%d.%m.%Y'),
       incl = 1 # As a baseline, include everyone
     )
   # Check MMSE variables:
