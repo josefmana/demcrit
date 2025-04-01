@@ -46,6 +46,7 @@ import_item_data <- function(path) {
       ),
       across(ends_with('name'), ~make_clean_names(.x, allow_dupes = T)),
       assdate = as.Date(assdate, tryFormats = '%d.%m.%Y'),
+      age = year(assdate)-born,
       incl = 1 # As a baseline, include everyone
     )
   # Check MMSE variables:

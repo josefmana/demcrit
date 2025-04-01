@@ -47,7 +47,11 @@ prepare_data <- function(p, check.names = T) {
   for (i in cv) {
     df[ , i] <- NA
     for (j in seq_len(nrow(df))) {
-      df[j , i] <- ifelse(!is.na(df[j , paste0(i,'_rc')]), df[j , paste0(i,'_rc')], df[j , paste0(i,'_iw')])
+      df[j , i] <- ifelse(
+        test = !is.na(df[j , paste0(i,'_rc')]),
+        yes  = df[j , paste0(i,'_rc')],
+        no   = df[j , paste0(i,'_iw')]
+      )
     }
     df[ , paste0(i,'_rc')] <- NULL
     df[ , paste0(i,'_iw')] <- NULL
