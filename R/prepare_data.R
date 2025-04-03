@@ -59,11 +59,10 @@ prepare_data <- function(p, check.names = T) {
   mist <- check_ranges(df)
   if (mist$stop) {
     for (i in names(mist$typos)) {
-      if (nrow(mist$typos[[i]] == 0)) {
-        mist$typos[[i]] <- NULL
+      if (nrow(mist$typos[[i]] != 0)) {
+        print(mist$typos[i])
       }
     }
-    print(mist$typos)
     stop('There seem to be typos, check the data listed above.')
   }
   # Return the data set:

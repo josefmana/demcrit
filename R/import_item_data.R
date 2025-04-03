@@ -21,13 +21,13 @@ import_item_data <- function(path) {
   df <-
     read_delim(path, delim = ";", col_types = cols()) |>
     rename(
-      id   = IPN,
-      born = born_NA_RC,
-      sex  = gender_NA_RC,
-      hand = hand_NA_RC,
-      mmse = MMSE_tot,
-      faq  = FAQ_seb,
-      bdi  = `BDI-II`
+      id    = IPN,
+      birth = born_NA_RC,
+      sex   = gender_NA_RC,
+      hand  = hand_NA_RC,
+      mmse  = MMSE_tot,
+      faq   = FAQ_seb,
+      bdi   = `BDI-II`
     ) |>
     rename_all(tolower) |>
     mutate(
@@ -45,8 +45,7 @@ import_item_data <- function(path) {
         ordered = F
       ),
       across(ends_with('name'), ~make_clean_names(.x, allow_dupes = T)),
-      assdate = as.Date(assdate, tryFormats = '%d.%m.%Y'),
-      age = year(assdate)-born,
+      across(all_of(c('assdate', 'birth')), ~as.Date(.x, tryFormats = '%d.%m.%Y')),
       incl = 1 # As a baseline, include everyone
     )
   # Check MMSE variables:
