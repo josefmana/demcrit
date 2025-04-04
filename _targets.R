@@ -31,6 +31,14 @@ list(
     name    = pdd_data,
     command = diagnose_pdd_sample(raw_data)
   ),
+  tar_target(
+    name    = sample_description,
+    command = compute_descriptives(raw_data, here::here('data-raw','VariablesOfInterest.csv'))
+  ),
+  tar_target(
+    name    = prevalence_summaries,
+    command = summarise_prevalence(pdd_data, here::here('data-raw','VariablesOfInterest.csv'))
+  ),
   # CONFUSION MATRIXES & ASSOCIATION MEASURES ----
   #tar_target(
   #  name    = kappas, # compute pairwise Cohen's kappas

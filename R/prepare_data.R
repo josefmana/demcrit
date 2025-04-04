@@ -66,5 +66,5 @@ prepare_data <- function(p, check.names = T) {
     stop('There seem to be typos, check the data listed above.')
   }
   # Return the data set:
-  df
+  df |> mutate(age = time_length(difftime(assdate, birth), unit = 'years'))
 }

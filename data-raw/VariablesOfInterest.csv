@@ -1,57 +1,57 @@
 name;label;type;group;note
-sex;sex;binary;Demographics;
-age;age;continuous;Demographics;
-type_pd;type_pd;nominal;Clinical;
-hy_stage;hy_stage;nominal;Clinical;
-pd_dur;pd_dur;continuous;Clinical;
-asym_park;asym_park;binary;Clinical;
-ledd;ledd;continuous;Clinical;
-updrsiii_off;updrsiii_off;continuous;Clinical;
-updrsiii_on;updrsiii_on;continuous;Clinical;
-mmse;mmse;continuous;MMSE;
-mmse_7;mmse_7;nominal;MMSE;
-vf_s;vf_s;continuous;MMSE;
-cloc;cloc;nominal;MMSE;
-mmse_pent;mmse_pent;binary;MMSE;
-mmse_3words;mmse_3words;nominal;MMSE;
-moca_total;moca_total;continuous;MoCA;
-smoca_total;smoca_total;continuous;MoCA;
-moca_7;moca_7;nominal;MoCA;
-vf_k;vf_k;continuous;MoCA;
-moca_cloc;moca_cloc;nominal;MoCA;
-moca_cube;moca_cube;binary;MoCA;
-moca_5words;moca_5words;nominal;MoCA;
-moca_anim;moca_anim;nominal;MoCA;
-moca_abs;moca_abs;nominal;MoCA;
-bdi;bdi;continuous;Affect;
-stai_1;stai_1;continuous;Affect;
-stai_2;stai_2;continuous;Affect;
-faq;faq;continuous;IADL;
-faq_9;faq_9;nominal;IADL;
-drsii;drsii;continuous;Screening;
-nart;nart;continuous;Screening;
-tmt_a;tmt_a;continuous;Attention and Working Memory;
-pst_d;pst_d;continuous;Attention and Working Memory;
-lns;lns;continuous;Attention and Working Memory;
-ds_b;ds_b;continuous;Attention and Working Memory;
-corsi_b;corsi_b;continuous;Attention and Working Memory;
-tol;tol;continuous;Executive Function;
-cf;cf;continuous;Executive Function;
-tmt_b;tmt_b;continuous;Executive Function;
-pst_w;pst_w;continuous;Executive Function;
-pst_c;pst_c;continuous;Executive Function;
-sim;sim;continuous;Language;
-bnt_60;bnt_60;continuous;Language;
-ravlt_irs;ravlt_irs;continuous;Language;
-ravlt_b;ravlt_b;continuous;Memory;
-ravlt_6;ravlt_6;continuous;Memory;
-ravlt_30;ravlt_30;continuous;Memory;
-ravlt_drec50;ravlt_drec50;continuous;Memory;
-ravlt_drec15;ravlt_drec15;continuous;Memory;
-bvmt_irs;bvmt_irs;continuous;Memory;
-bvmt_30;bvmt_30;continuous;Memory;
-bvmt_drec;bvmt_drec;continuous;Memory;
-jol;jol;continuous;Visuospatial Function;
-clox_i;clox_i;continuous;Visuospatial Function;
-gp_r;gp_r;continuous;Visuospatial Function;
-gp_l;gp_l;continuous;Visuospatial Function;
+sex;Sex (male, female);binary;Demographics;Sex of participants (male, female)
+age;Age (in years);continuous;Demographics;Age of participants (in years)
+type_pd;"Type of PD (TD; AR; A)";nominal;Clinical;"Type of PD: akinetic-rigid, tremor-dominant; axial"
+hy_stage;Hoehn Yahr (stages);nominal;Clinical;Hoehn Yahr stage (range 0-5)
+pd_dur;PD duration (in years);continuous;Clinical;PD duration (in years)
+asym_park;asym_park;binary;Clinical;asym_park
+ledd;L-DOPA ;continuous;Clinical;L-DOPA (in mg)
+updrsiii_off;UPDRS III off state;continuous;Clinical;UPDRS III off state
+updrsiii_on;UPDRS III on state;continuous;Clinical;UPDRS III on state
+mmse;MMSE (total score);continuous;MMSE;MMSE (range 0-30)
+mmse_7;MMSE (7 subtraction);nominal;MMSE;MMSE 7 (range 0-5)
+vf_s;VF letter S (total score);continuous;MMSE;Verbal fluency letter S (number of words)
+cloc;cloc;nominal;MMSE;cloc
+mmse_pent;MMSE (pentagons);binary;MMSE;MMSE pentagons (range 0-1)
+mmse_3words;MMSE (3 words listing);nominal;MMSE;MMSE (range 0-3)
+moca_total;MoCA (total score);continuous;MoCA;MoCA (range 0-30)
+smoca_total;sMoCA (total score);continuous;MoCA;sMoCA (range 0-16)
+moca_7;MoCA (7 subtraction);nominal;MoCA;MoCA 7 (range 0-3)
+vf_k;VF letter K (total score);continuous;MoCA;Verbal fluency letter K (number of words)
+moca_cloc;MoCA (clock drawing);nominal;MoCA;MoCA (range 0-3)
+moca_cube;MoCA (cube);binary;MoCA;MoCA (range 0-1)
+moca_5words;MoCA (5 words);nominal;MoCA;MoCA (range 0-5)
+moca_anim;MoCA (animals);nominal;MoCA;MoCA (range 0-3)
+moca_abs;MoCA (abstraction);nominal;MoCA;MoCA (range 0-2)
+bdi;BDI-II (total score);continuous;Affect;BDI (range 0-63)
+stai_1;STAI 1 (total score);continuous;Affect;STAI I (range 0-80)
+stai_2;STAI 2 (total score);continuous;Affect;STAI II (range 0-8 0)
+faq;FAQ (total score);continuous;IADL;FAQ (range 0-30)
+faq_9;FAQ (item 9);nominal;IADL;FAQ 9 (range 0-1)
+drsii;DRS-II (total score);continuous;Screening;DRS-II (range 0-144)
+nart;NART (total score);continuous;Screening;NART (range 0-50)
+tmt_a;TMT A (total time);continuous;Attention and Working Memory;TMT A (total time in seconds)
+pst_d;PST dots (total time);continuous;Attention and Working Memory;PST D (total time in seconds)
+lns;LNS (total score);continuous;Attention and Working Memory;LNS (range 0-21)
+ds_b;DS backwards;continuous;Attention and Working Memory;DSB (range 0-14)
+corsi_b;Corsi backwards;continuous;Attention and Working Memory;CB (range 0-16)
+tol;ToL (total score);continuous;Executive Function;ToL (range 0-108)
+cf;CF (total score);continuous;Executive Function;CF (number of words)
+tmt_b;TMT B (total time);continuous;Executive Function;TMT B (total time in seconds)
+pst_w;PST words (total time);continuous;Executive Function;PST W (total time in seconds)
+pst_c;PST colours (total time);continuous;Executive Function;PST C (total time in seconds)
+sim;Similarities (total score);continuous;Language;Similarities (range 0-19)
+bnt_60;BNT 60 (total score);continuous;Language;BNT 60 (range 0-60)
+ravlt_irs;RAVLT (total score);continuous;Memory;RAVLT (range 0-75)
+ravlt_b;RAVLT B (total score);continuous;Memory;RAVLT B (range 0-15)
+ravlt_6;RAVLT 6 (total score);continuous;Memory;RAVLT B (range 0-15)
+ravlt_30;RAVLT delayed recall (total score);continuous;Memory;RAVLT delayed recall (range 0-15)
+ravlt_drec50;RAVLT word list recognition (total score);continuous;Memory;RAVLT WLR (range 0-50)
+ravlt_drec15;RAVLT forced choice recognition (total score);continuous;Memory;RAVLT FCR (range 0-15)
+bvmt_irs;BVMTR (total score);continuous;Memory;BVMTR (range 0-36)
+bvmt_30;BVMTR delayed recall;continuous;Memory;BVMTR delayed recall (range 0-12)
+bvmt_drec;BVMTR forced choice recognition (total score);continuous;Memory;BVMTR FCR (range 0-12)
+jol;JoLO (total score);continuous;Visuospatial Function;JoLO (range 0-30)
+clox_i;CLOX (total score);continuous;Visuospatial Function;CLOX (range 0-15)
+gp_r;GPT (total time right hand);continuous;Visuospatial Function;GPT (total time in seconds)
+gp_l;GPT (total time left hand);continuous;Visuospatial Function;GPT (total time in seconds)
