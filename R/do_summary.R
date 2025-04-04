@@ -15,7 +15,8 @@
 #' for a p-value (for in-text), 'Nperc' for a N (%)
 #' representation of a binary variable, 'Nslash' for a
 #' N(group1)/N(group2)/... representation of nominal
-#' variable with unlimited number of categories.
+#' variable with unlimited number of categories, estCI
+#' for an estimate [CI].
 #'
 #' @returns A summary of choice.
 #'
@@ -65,6 +66,9 @@ do_summary <- function(x, dec, sum = NULL) {
     paste0(t[2],' (',rprint(100*prop.table(t)[2], dec),'%)')
   } else if(sum == 'Nslash') {
     paste(table(x), collapse = '/')
+  } else if(sum == 'estCI') {
+    y <- sort(x) |> rprint(dec)
+    paste0(y[2],' [',paste(y[c(1,3)], collapse = ', '),']')
   } else {
     sapply(sum, function(f) do.call(f, list(x))) |> rprint(dec)
   }
