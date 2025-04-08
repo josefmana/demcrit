@@ -39,18 +39,9 @@ list(
     name    = prevalence_summaries,
     command = summarise_prevalence(pdd_data, here::here('data-raw','VariablesOfInterest.csv'))
   ),
-  # CONFUSION MATRIXES & ASSOCIATION MEASURES ----
-  #tar_target(
-  #  name    = kappas, # compute pairwise Cohen's kappas
-  #  command = calculate_kappa(pdd_matrix)
-  #),
-  #tar_target(
-  #  name    = confusion_matrices, # compute pairwise confusion matrixes
-  #  command = calculate_confusion(data = pdd_matrix, kappas = kappas)
-  #),
-  #tar_target(
-  #  name    = confusion_plots, # plot all pairwise confusion matrixes
-  #  command = plot_confusion(mat = confusion_matrices)
-  #),
+  tar_target(
+    name    = concordance_statistics,
+    command = describe_concordance(pdd_data)
+  ),
   NULL
 )

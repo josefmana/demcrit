@@ -58,9 +58,9 @@ do_summary <- function(x, dec, sum = NULL) {
   } else if(sum == 'minmax') {
     paste0(rprint(Min(x),dec),'-',rprint(Max(x),dec))
   } else if(sum == 'p') {
-    paste0(ifelse(x < .005, '< ', ''), zerolead(x, dec))
+    ifelse(x < .001, '< .001', zerolead(x, dec))
   } else if(sum == 'ptext') {
-    paste0(ifelse(x < .005, '< ', '= '), zerolead(x, dec))
+    ifelse(x < .001, '< .001', paste0('= ',zerolead(x, dec)))
   } else if(sum == 'Nperc') {
     t <- table(x)
     paste0(t[2],' (',rprint(100*prop.table(t)[2], dec),'%)')
