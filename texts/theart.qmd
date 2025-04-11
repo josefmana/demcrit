@@ -3,7 +3,7 @@ lang: en
 title: "Updated Criteria for the Diagnostic Procedure for Parkinson’s Disease Dementia on Level I and their Validity in Deep Brain Stimulation Cohort"
 shorttitle: "Parkinson's Disease Dementia Level I Criteria"
 author:
-  - name: Martina Kvapilova
+  - name: Martina Mana
     corresponding: false
     orcid: "0009-0007-4665-3946"
     role:
@@ -112,39 +112,37 @@ Ethical approval for the study protocol was obtained from the Ethics Committee o
 
 ## Neuropsychological Assessment
 
-Cognitive performance was evaluated using both the Mini-Mental State Examination (MMSE) [@stepankova2014; @folstein1975] and the Montreal Cognitive Assessment (MoCA) [@kopecek2016; @nasreddine2005] providing measures of global cognitive functioning. A comprehensive neuropsychological battery was administered in accordance with the Level II criteria for PD-MCI, as delineated by the MDS Task Force  [@litvan2012]. The methodological details, including a regression-based normative scoring approach, have been described in previous study [@bezdicek2017].
+Cognitive performance was evaluated at Level I using the Mini-Mental State Examination (MMSE) [@stepankova2014; @folstein1975] and the Montreal Cognitive Assessment (MoCA) [@kopecek2016; @nasreddine2005], both of which provide measures of global cognitive functioning.
 
-In addition to core cognitive assessments, specific tasks such as the Clock Drawing Test (CDT) and Letter Fluency tasks were incorporated to evaluate domain-specific impairments. The diagnostic classification of PDD using Level I criteria was based on established scoring thresholds from Dubois et al. [@dubois2007] and their corresponding MoCA equivalents. A summary of the scoring methodologies and their alignment with diagnostic criteria is provided in Table A.
+A comprehensive neuropsychological battery was administered in accordance with the Level II criteria for Parkinson's Disease Mild Cognitive Impairment (PD-MCI), as outlined by the MDS Task Force [@litvan2012]. The methodology, including the use of a regression-based normative scoring approach, has been detailed in a prior study [@bezdicek2017]. The neuropsychological assessment covered five cognitive domains, each evaluated through specific tests as follows: **attention and working memory**: assessed using Trail Making Test Part A (TMT-A) [@reitan2004], Prague Stroop Test – Dots (PST-D) [@bezdicek2021], Letter Number Sequencing (LNS) [@wechsler1997], WAIS Digit Span Backward (WAIS DSB) [@wechsler1997], and WAIS Corsi Block Backward (WAIS CB) [@wechsler1997]; **executive Function**: evaluated via the Tower of London (ToL) [@specific1982], Categorical Verbal Fluency (CF) [@benton1989], Trail Making Test Part B (TMT-B) [@reitan2004], subtests from the Prague Stroop Test – Words (PST-W) and Colors (PST-C) [@bezdicek2021]; **language**: measured with the WAIS Similarities subtest [@wechsler1997] and the Boston Naming Test (BNT-60) [@kaplan1983]; **memory**: examined using the Rey Auditory Verbal Learning Test (RAVLT) [@rey1964] for immediate and delayed recall (including List B and recognition trials), and the Brief Visual Memory Test–Revised (BVMTR) [@benedict1997], including delayed recall and forced choice recognition; **Visuospatial Function**: assessed through the Judgment of Line Orientation Test (JoLO) [@benton1983], Clock Drawing Test (CLOX) [@royall1998], and the Grooved Pegboard Test (GPT) [@klove1963].
 
-```{r}
-#| label: tbl-martin
-#| tbl-cap: Comparison of criteia.
-#| apa-note: The note below the table.
+In addition to the core cognitive assessments, tasks such as the Clock Drawing Test (CDT) and Letter Fluency tasks were included to capture domain-specific impairments. The classification of Parkinson’s Disease Dementia (PDD) based on Level I criteria was determined using established scoring thresholds from Dubois et al. [@dubois2007] with corresponding MoCA equivalents.
 
-tibble::tribble(
-  ~"Criteria", ~"Former", ~"New",
-  "", "MMSE < 26", "MoCA < 26", 
-  "Attention", "Serial 7's/months reversed", "Serial 7's",
-  "Executive functions", "Lexical Fluency (S)/ Clock Drawing Test", "Lexical Fluency (K)/ Clock Drawing Test",
-  "Visuo-spatial functions", "Drawing of Pentagons", "Drawing of Cube",
-  "Memory", "3-Word Recall", "5-Word Recall",
-  "Language", "-", "Naming of Animals",
-  ) |>
-  flextable::flextable() |>
-  flextable::theme_apa()
-```
+To assess functional impairment, the Functional Activities Questionnaire (FAQ)[@bezdicek2011; @pfeffer1982] was administered. Additionally, neuropsychiatric status was evaluated using the Beck Depression Inventory-II (BDI) [@ciharova2020; @beck1996] and State-Trait Anxiety Inventory (STAI) [@spielberg1983; @mullner1980]. Psychotic symptoms were assessed through structured psychiatric interviews conducted by a trained psychiatrist.
 
-To assess functional impairment, the Functional Activities Questionnaire (FAQ) [@bezdicek2011; @pfeffer1982]. was administered. Additionally, neuropsychiatric status was evaluated using the Beck Depression Inventory-II (BDI) [@ciharova2020; @beck1996] and State-Trait Anxiety Inventory (STAI) [@spielberg1983; @mullner1980]. Psychotic symptoms were assessed through structured psychiatric interviews conducted by a trained psychiatrist.
+Insert Table
 
-## Operationalization of dementia
+## Operationalization of Parkinson's Disease Dementia
 
-In this study, we applied three different types of criteria for diagnosing PDD on level I. The first was based on the original framework [@dubois2007], which was based on MMSE and included assessments of attention, executive function, visuospatial abilities, and memory. The second was based on the recent call for change of dementia diagnostic guidelines [@kulisevsky2024], refining cognitive domain assessments to improve sensitivity to PD-related dementia, with specific items from the MoCA utilized for this purpose. The third approach applied the Czech version of the shortened Montreal Cognitive Assessment (sMoCA) [@bezdicek2020], testing whether equivalent cognitive impairments can be reliably identified using a more time-efficient testing protocol.
+In this study, we applied three distinct sets of diagnostic criteria for PDD at Level I. The first set was based on the original framework [@dubois2007], which utilized the Mini-Mental State Examination (MMSE) as a global cognitive screening tool, supplemented by assessments of attention, executive function, visuospatial abilities, and memory. The second set of criteria was drawn from the recent call for change of dementia diagnostic guidelines [@kulisevsky2024], which advocate for more sensitive cognitive domain assessments in the context of Parkinson's disease (PD). This updated approach incorporated specific items from the Montreal Cognitive Assessment (MoCA) to better detect PD-related dementia. The third approach applied the Czech version of the shortened Montreal Cognitive Assessment (sMoCA) [@bezdicek2020], a time-efficient modification designed to ascertain whether equivalent cognitive impairments could be reliably identified using a reduced testing protocol. Lastly, the fourth approach followed the Level II battery protocol [@bezdicek2017], which is commonly used in the evaluation of PD-MCI.
 
-To facilitate a clear comparison of these diagnostic frameworks, a structured table summarizing the components and applicability of each criterion is provided below.
+For each of these diagnostic approaches, we applied two operationalization strategies based on deficits in Instrumental Activities of Daily Living (IADL). First, we utilized FAQ item 9, which corresponds to the pill questionnaire from the original criteria [@dubois2007]. Second, we applied the entire Functional Activities Questionnaire (FAQ), employing a cut-off score of 7 points or higher as suggested in the call for change [@kulisevsky2024]. These methodologies resulted in a total of 68 operationalisations, which were distributed across different diagnostic criteria: 4 for MMSE, 60 for MoCA, 2 for sMoCA, and 2 for the Level II battery.
 
-Insert Table 2
+To facilitate a clear and structured comparison of these diagnostic frameworks, a detailed table summarizing the components, scoring thresholds, and applicability of each diagnostic criterion is provided below.
+
+Inser Table
 
 # Results
+
+We described continuous variables using mean, standard deviation, median, minimum, and maximum values, while categorical variables were summarized by the number of patients in each category. As presented in Table 3, we reported the prevalence of PDD according to each set of diagnostic criteria. Specifically, the strictest criteria were found in the sMoCA, which was characterized by a lower threshold for cognitive impairment.
+
+For each of the 68 operationalisations, PDD diagnoses were generated for each patient, and the prevalence of PDD in the entire sample was estimated as a percentage based on the given criteria. This approach allowed for a detailed comparison of the different diagnostic frameworks. Table 3 displays the estimated prevalence rates of probable PDD across different sets of diagnostic criteria/To enhance clarity, the results presented in Table 3 offer a detailed summary of these operationalisations, showing how variations in diagnostic criteria lead to different estimates of PDD prevalence:
+
+Insert table 3
+
+These findings underscore the variability in prevalence estimates depending on the diagnostic framework employed. The stricter sMoCA criteria identified the largest cohort of individuals with PDD, while the MMSE-based criteria, identified the least patients. This suggests that different operationalisations of cognitive deficits and functional impairments may yield differing estimates of PDD prevalence within the same sample.
+
+To enhance clarity, the results presented in Table 3 offer a detailed summary of these operationalisations, showing how variations in diagnostic criteria lead to different estimates of PDD prevalence.
 
 # Discussion
 
