@@ -75,7 +75,7 @@ keywords:
   - Parkinson's disease dementia
   - level I criteria
 format:
- apaquarto-docx:
+ apaquarto-pdf:
    documentmode: man
    a4paper: true
    pdf-engine: lualatex
@@ -86,19 +86,19 @@ bibliography: references.bib
 
 # Introduction
 
-Parkinson’s disease (PD) is a neurodegenerative disorder characterized by a gradual and progressive onset of motor symptoms, including rigidity, bradykinesia, and resting tremors, which eventually extend to both motor and non-motor impairments [@postuma2015]. Beyond these hallmark features, cognitive decline is a critical aspect of the disease trajectory, culminating in Parkinson’s disease dementia (PDD) in a substantial subset of patients.
+Parkinson’s disease (PD) is a neurodegenerative disorder characterized by a gradual and progressive onset of motor symptoms, including rigidity, bradykinesia, and resting tremors, which eventually extend to both motor and non-motor impairments [@postuma2015]. Beyond these hallmark features, cognitive decline is a critical aspect of the disease trajectory, culminating in Parkinson’s disease dementia (PDD) in a substantial subset of patients [@meireles2012].
 
-The diagnostic criteria for PDD, first formalized in 2006, were heavily influenced by frameworks established for Alzheimer’s disease (AD) owing to the absence of PD-specific biomarkers that could facilitate a biologically grounded diagnostic system [@emre2007; @dubois2007]. Although these criteria provided a valuable initial foundation, they lacked the specificity required to capture the distinct pathophysiological and cognitive features of PD-related dementia [@yamashita2023].
+The diagnostic criteria for PDD [@dubois2007], first formalized in 2006, were heavily influenced by frameworks established for Alzheimer’s disease (AD) owing to the absence of PD-specific biomarkers that could facilitate a biologically grounded diagnostic system. Although these criteria provided a valuable initial foundation, they lacked the specificity required to capture the distinct pathophysiological and cognitive features of PD-related dementia [@emre2007; @yamashita2023].
 
 An important feature of the original criteria was the provision of an algorithm that allowed for flexibility in test selection [@dubois2007]. Specifically, clinicians could choose between months reversed or seven backwards for attention assessment, lexical fluency or clock drawing for executive function evaluation, MMSE pentagons for visuospatial ability, and three-word recall for memory assessment. The availability of multiple operationalization options for PDD enhances the ability to examine the psychometric properties of the construct. Agreement across different criteria allows for the parallel computation of inter-rater reliability , which, in turn, facilitates the calculation of construct validity [@conway1995] further strengthening the diagnostic framework for PDD.
 
-Subsequent advancements have introduced the concept of Parkinson’s disease mild cognitive impairment (PD-MCI), refining the understanding of cognitive dysfunction in PD. The PD-MCI criteria, published in 2012, have propelled progress in diverse areas, enabling improvements in clinical characterization, identification of genetic correlates, therapeutic interventions, clinical trial design, and the assessment of progression risk to PDD [@litvan2012; @hoogland2017; @hoogland2019; @aarsland2021].
+Subsequent advancements have introduced the concept of Parkinson’s disease mild cognitive impairment (PD-MCI), refining the understanding of cognitive dysfunction in PD [@litvan2012]. The PD-MCI criteria, published in 2012, have propelled progress in diverse areas, enabling improvements in clinical characterization, identification of genetic correlates, therapeutic interventions, clinical trial design, and the assessment of progression risk to PDD [@hoogland2017; @hoogland2019; @aarsland2021].
 
 Currently, efforts are focused on refining the PDD diagnostic framework to improve its consistency and applicability in both research and clinical contexts across multiple centers [@kulisevsky2024]. Our prior investigations have underscored the importance of employing rigorous psychometric methodologies to differentiate PD-MCI from PDD, particularly given that a diagnosis of PDD remains a contraindication for deep brain stimulation (DBS) [@bezdicek2016; @deuschl2006].
 
-The present study evaluates the diagnostic concordance between the original Level I PDD criteria, as established by the Movement Disorder Society (MDS) Task Force [@emre2007; @dubois2007] and the recently revised criteria [@kulisevsky2024] within a PD cohort selected for DBS. Specifically, we aimed to:
+The present study evaluates the diagnostic concordance between the original Level I PDD criteria, as established by the Movement Disorder Society (MDS) Task Force [@emre2007; @dubois2007] and the recent call for change [@kulisevsky2024] within a PD cohort selected for DBS.
 
-Compare diagnostic outcomes utilizing the original and revised Level I criteria and assess the agreement of revised Level I criteria with comprehensive neuropsychological assessment at Level II.Compare diagnostic outcomes using the original and revised Level I criteria.
+Specifically, we aimed to compare diagnostic outcomes utilizing the original and revised Level I criteria and assess the agreement of revised Level I criteria with comprehensive neuropsychological assessment at Level II. Moreover, we aimed to compare diagnostic outcomes using the original and revised Level I criteria.
 
 By addressing these objectives, this study seeks to validate the revised PDD criteria and evaluate their relevance in the context of DBS eligibility, thereby contributing to the refinement of cognitive assessment protocols in PD.
 
@@ -106,7 +106,7 @@ By addressing these objectives, this study seeks to validate the revised PDD cri
 
 ## Participants
 
-This study retrospectively analyzed clinical data from patients diagnosed with idiopathic PD by a movement disorder specialist according to the MDS Clinical Diagnostic Criteria for PD [@postuma2015] Clinical records spanning January 2014 to December 2023 were examined. All participants underwent neuropsychological evaluations conducted by a trained clinical psychologist as part of standard preoperative cognitive assessments for DBS eligibility at the General University Hospital in Prague.
+This study retrospectively analyzed clinical data from patients diagnosed with idiopathic PD by a movement disorder specialist according to the MDS Clinical Diagnostic Criteria for PD [@postuma2015] Clinical records spanning January 2014 to January 2024 were examined. All participants underwent neuropsychological evaluations conducted by a trained clinical psychologist as part of standard preoperative cognitive assessments for DBS eligibility at the General University Hospital in Prague.
 
 Ethical approval for the study protocol was obtained from the Ethics Committee of the General University Hospital in Prague. Informed consent was secured from all patients prior to their neuropsychological assessments, in adherence to ethical research guidelines.
 
@@ -122,11 +122,11 @@ To assess functional impairment, the Functional Activities Questionnaire (FAQ)[@
 
 Insert Table
 
-## Operationalization of Parkinson's Disease Dementia
+## Operationalisation of Parkinson's Disease Dementia
 
 In this study, we applied three distinct sets of diagnostic criteria for PDD at Level I. The first set was based on the original framework [@dubois2007], which utilized the Mini-Mental State Examination (MMSE) as a global cognitive screening tool, supplemented by assessments of attention, executive function, visuospatial abilities, and memory. The second set of criteria was drawn from the recent call for change of dementia diagnostic guidelines [@kulisevsky2024], which advocate for more sensitive cognitive domain assessments in the context of Parkinson's disease (PD). This updated approach incorporated specific items from the Montreal Cognitive Assessment (MoCA) to better detect PD-related dementia. The third approach applied the Czech version of the shortened Montreal Cognitive Assessment (sMoCA) [@bezdicek2020], a time-efficient modification designed to ascertain whether equivalent cognitive impairments could be reliably identified using a reduced testing protocol. Lastly, the fourth approach followed the Level II battery protocol [@bezdicek2017], which is commonly used in the evaluation of PD-MCI.
 
-For each of these diagnostic approaches, we applied two operationalization strategies based on deficits in Instrumental Activities of Daily Living (IADL). First, we utilized FAQ item 9, which corresponds to the pill questionnaire from the original criteria [@dubois2007]. Second, we applied the entire Functional Activities Questionnaire (FAQ), employing a cut-off score of 7 points or higher as suggested in the call for change [@kulisevsky2024]. These methodologies resulted in a total of 68 operationalisations, which were distributed across different diagnostic criteria: 4 for MMSE, 60 for MoCA, 2 for sMoCA, and 2 for the Level II battery.
+For each of these diagnostic approaches, we applied two operationalisation strategies based on deficits in Instrumental Activities of Daily Living (IADL). First, we utilized FAQ item 9, which corresponds to the pill questionnaire from the original criteria [@dubois2007]. Second, we applied the entire Functional Activities Questionnaire (FAQ), employing a cut-off score of 7 points or higher as suggested in the call for change [@kulisevsky2024]. These methodologies resulted in a total of 68 operationalisations, which were distributed across different diagnostic criteria: 4 for MMSE, 60 for MoCA, 2 for sMoCA, and 2 for the Level II battery.
 
 To facilitate a clear and structured comparison of these diagnostic frameworks, a detailed table summarizing the components, scoring thresholds, and applicability of each diagnostic criterion is provided below.
 
@@ -134,15 +134,13 @@ Inser Table
 
 # Results
 
-We described continuous variables using mean, standard deviation, median, minimum, and maximum values, while categorical variables were summarized by the number of patients in each category. As presented in Table 3, we reported the prevalence of PDD according to each set of diagnostic criteria. Specifically, the strictest criteria were found in the sMoCA, which was characterized by a lower threshold for cognitive impairment.
+We described continuous variables using mean, standard deviation, median, minimum, and maximum values. Categorical variables were summarized by the number of patients in each category. As presented in Table 3, we reported the prevalence of PDD according to each set of diagnostic criteria. Specifically, the strictest criteria were found in the sMoCA, which was characterized by a lower threshold for cognitive impairment.
 
-For each of the 68 operationalisations, PDD diagnoses were generated for each patient, and the prevalence of PDD in the entire sample was estimated as a percentage based on the given criteria. This approach allowed for a detailed comparison of the different diagnostic frameworks. Table 3 displays the estimated prevalence rates of probable PDD across different sets of diagnostic criteria/To enhance clarity, the results presented in Table 3 offer a detailed summary of these operationalisations, showing how variations in diagnostic criteria lead to different estimates of PDD prevalence:
+For each of the 68 operationalisations, PDD diagnoses were generated for each patient, and the prevalence of PDD in the entire sample was estimated as a percentage based on the given criteria. This approach allowed for a detailed comparison of the different diagnostic frameworks. Table 3 displays the estimated prevalence rates of probable PDD across different sets of diagnostic criteria/To enhance clarity, the results presented in Table 3 offer a detailed summary of these operationalisations, showing how variations in diagnostic criteria lead to different estimates of PDD prevalence.
 
 Insert table 3
 
 These findings underscore the variability in prevalence estimates depending on the diagnostic framework employed. The stricter sMoCA criteria identified the largest cohort of individuals with PDD, while the MMSE-based criteria, identified the least patients. This suggests that different operationalisations of cognitive deficits and functional impairments may yield differing estimates of PDD prevalence within the same sample.
-
-To enhance clarity, the results presented in Table 3 offer a detailed summary of these operationalisations, showing how variations in diagnostic criteria lead to different estimates of PDD prevalence.
 
 # Discussion
 
