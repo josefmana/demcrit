@@ -74,12 +74,13 @@ summarise_prevalence <- function(d0, vars, descending = T) {
   tab <-
     prevs |>
     left_join(opers, by = 'type') |>
-    select(-type, -perc, -`FALSE`, -`TRUE`) |>
+    select(-type, -`FALSE`, -`TRUE`) |>
     relocate(N, .after = last_col()) |>
     relocate(Prevalence, .after = last_col())
   # Format the table:
   gtab <-
     tab |>
+    select(-perc) |>
     gt_apa_table(tit = '<b>Table 3</br>
     Estimates of prevalence.</b> Estimates of the prevalence of probable PD-D in the sample.'
     ) |>

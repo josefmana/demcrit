@@ -1,4 +1,4 @@
-# files not supposed to be shared
+# Files not supposed to be shared
 mods/**/*.rds
 **/.DS_Store
 **/*.docx
@@ -11,8 +11,8 @@ mods/**/*.rds
 **/*.log
 **/*.tex
 
-# ignore folders starting with an underscore
-_*/
+# Local-only folder
+_nogit/
 
 # History files
 .Rhistory
