@@ -75,7 +75,7 @@ keywords:
   - Parkinson's disease dementia
   - level I criteria
 format:
- apaquarto-docx:
+ apaquarto-pdf:
    documentmode: man
    a4paper: true
    pdf-engine: lualatex
@@ -164,7 +164,7 @@ Finally, for the RO4, the theoretical estimand is defined as the set of diagnost
 
 In this study, we applied three distinct sets of diagnostic criteria for **probable**[^3] PDD at Level I. The first set was based on the original framework [@dubois2007], which utilized the Mini-Mental State Examination (MMSE) as a global cognitive screening tool, supplemented by assessments of attention, executive function, visuospatial abilities, and memory. The second set of criteria was drawn from the recent call for change of dementia diagnostic guidelines [@kulisevsky2024], which advocate for more sensitive cognitive domain assessments in the context of Parkinson's disease (PD). This updated approach incorporated specific items from the Montreal Cognitive Assessment (MoCA) to better detect PD-related dementia. The third approach applied the Czech version of the shortened Montreal Cognitive Assessment (sMoCA) [@bezdicek2020], a time-efficient modification designed to ascertain whether equivalent cognitive impairments could be reliably identified using a reduced testing protocol. Lastly, the fourth approach followed the Level II battery protocol, which is commonly used in the evaluation of PD-MCI. **The Level II methodology, including the use of a regression-based normative scoring approach, has been detailed in a prior study [@bezdicek2017]. Refer to @tbl-criteria**[^4] to a summary of the components and scoring thresholds of each diagnostic criterion. All non-cognitive criteria of probable PDD (i.e., diagnosis of PD that developed before dementia and absence of Major Depression, delirium or other abnormalities that obscure diagnosis were established by an independent neurological and psychiatric assessments and held true for all patients in the sample).
 
-[^3]: **JM: We should unite the terminlogy. Most importantly, I reckon, we should differentiate between "probable PDD" (what is implied by meeting all the criteria within an operationalization) and "PDD" (the latent state of patient's cognition); and to use consistently the following trifecta - "criterion," "operationalization" and their "component".**
+[^3]: **JM: We should unite the terminology. Most importantly, I reckon, we should differentiate between "probable PDD" (what is implied by meeting all the criteria within an operationalization) and "PDD" (the latent state of patient's cognition); and to use consistently the following trifecta - "criterion," "operationalization" and their "component".**
 
 [^4]: **JM: Placeholder until we make the table proper.**
 
