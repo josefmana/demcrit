@@ -1,5 +1,9 @@
-# files not supposed to be shared
-mods/**/*.rds
+# Files not supposed to be shared
+_manuscript/_extensions/
+data-raw/ItemData.csv
+data-raw/LevelIICalculator.xlsx
+data-raw/MetaData.csv
+data-raw/REDCapData.csv
 **/.DS_Store
 **/*.docx
 **/*.pages
@@ -11,8 +15,8 @@ mods/**/*.rds
 **/*.log
 **/*.tex
 
-# ignore folders starting with an underscore
-_*/
+# Local-only folder
+_nogit/
 
 # History files
 .Rhistory

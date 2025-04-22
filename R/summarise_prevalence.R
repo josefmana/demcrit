@@ -31,9 +31,9 @@
 #' pdd  <- diagnose_pdd_sample(data)
 #' vars <- here::here('data-raw','VariablesOfInterest.csv')
 #'
-#' prevtab0 <- table_prevalence(pdd, vars)
-#' prevtab1 <- table_prevalence(pdd, vars, T) # prevtab0 & prevtab1 are identical
-#' prevtab2 <- table_prevalence(pdd, vars, F)
+#' prevtab0 <- summarise_prevalence(pdd, vars)
+#' prevtab1 <- summarise_prevalence(pdd, vars, T) # prevtab0 & prevtab1 are identical
+#' prevtab2 <- summarise_prevalence(pdd, vars, F)
 #' }
 #' @export
 summarise_prevalence <- function(d0, vars, descending = T) {
@@ -74,12 +74,13 @@ summarise_prevalence <- function(d0, vars, descending = T) {
   tab <-
     prevs |>
     left_join(opers, by = 'type') |>
-    select(-type, -perc, -`FALSE`, -`TRUE`) |>
+    select(-type, -`FALSE`, -`TRUE`) |>
     relocate(N, .after = last_col()) |>
     relocate(Prevalence, .after = last_col())
   # Format the table:
   gtab <-
     tab |>
+    select(-perc) |>
     gt_apa_table(tit = '<b>Table 3</br>
     Estimates of prevalence.</b> Estimates of the prevalence of probable PD-D in the sample.'
     ) |>

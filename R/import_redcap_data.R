@@ -123,23 +123,24 @@ import_redcap_data <- function(path, scoring) {
       )
     ) |>
     rename(
+      edu_years   = years_edu,
       #vf_k        = moca_fluence_k,
       moca_5words = moca_recall_sum,
       moca_total  = moca_score,
       smoca_total = s_moca_score
     ) |>
     select(
-      birth, id, age_lvl2, sex, type_pd, hy_stage, pd_dur, asym_park, ledd,
+      birth, id, age_lvl2, sex, edu_years, type_pd, hy_stage, pd_dur, asym_park, ledd,
       updrsiii_off, updrsiii_on,
       drsii, mmse, nart,
       moca_cube, moca_7, vf_k, moca_5words, moca_anim, moca_abs, moca_cloc, starts_with('moca_clock'),
       moca_total, smoca_total,
       starts_with('faq'), bdi, stai_1, stai_2, gds_15,
-      lns, ds_b, corsi_b, tmt_a, pst_d,
-      tol, tmt_b, pst_w, pst_c, cf,
+      tmt_a, ds_b, # lns, corsi_b, pst_d,
+      pst_c, vf_animals, # cf, # tol, tmt_b, pst_w,
       sim, bnt_60,
-      ravlt_irs, ravlt_b, ravlt_6, ravlt_30, ravlt_drec50, ravlt_drec15, bvmt_irs, bvmt_30, bvmt_drec,
-      jol, clox_i,
-      gp_r, gp_l
+      ravlt_30, bvmt_30, wms_family_30, # ravlt_irs, ravlt_b, ravlt_6, ravlt_drec50, ravlt_drec15, bvmt_irs, bvmt_drec,
+      jol, clox_i, #gp_r, gp_l
+      NULL
     )
 }

@@ -38,9 +38,9 @@ diagnose_pdd_case <- function(x, c) {
       crit3 = if_else(x[[c$glob]] < c$glob_t, T, F), # 3. Global deficit
       crit4 = if_else(x[[c$iadl]] > c$iadl_t, T, F), # 4. Dementia has Impact on ADLs
       crit5 = case_when( # 5. Impaired cognition (for Yes, at least of 2 tests abnormal)
-        c$group == 'mmse'  ~ if_else(rowSums(across(starts_with('impaired_orig'))) > 1, T, F),
-        c$group == 'moca'  ~ if_else(rowSums(across(starts_with('impaired')))      > 1, T, F),
-        c$group == 'smoca' ~ crit3
+        c$group == 'mmse' ~ if_else(rowSums(across(starts_with('impaired_orig'))) > 1, T, F),
+        c$group == 'moca' ~ if_else(rowSums(across(starts_with('impaired')))      > 1, T, F),
+        c$group %in% c('smoca','lvlII') ~ crit3
       ),
       crit6 = T, # 6. Absence of Major Depression
       crit7 = T, # 7. Absence of Major Depression

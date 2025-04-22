@@ -52,7 +52,7 @@ check_names <- function(d, nms) {
         false     = 'typo'
       )
     )
-  if (nrow(disctab) > 0) {
+  if(nrow(disctab) > 0) {
     cat('Please, check whether the reasons of name discrepancies
 of patients below are valid. If not, revise the data.\n\n')
     print(disctab)

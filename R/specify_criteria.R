@@ -73,8 +73,20 @@ specify_criteria <- function() {
       type   = paste0('smoca',seq_len(n())),
       iadl_t = case_when(iadl  == 'faq' ~ 7 , iadl == 'faq_9' ~ 1)
     )
+  # Level II-based criteria
+  lvlII <-
+    crossing(
+      group  = 'lvlII',
+      glob   = 'nonCI',
+      glob_t = 1,
+      iadl   = c('faq_9','faq')
+    ) |>
+    mutate(
+      type   = paste0('lvlII',seq_len(n())),
+      iadl_t = case_when(iadl  == 'faq' ~ 7 , iadl == 'faq_9' ~ 1)
+    )
   # Return all-in-one:
-  list(mmse, moca, smoca) |>
+  list(mmse, moca, smoca, lvlII) |>
     reduce(full_join) |>
     suppressMessages() |>
     mutate(across(ends_with('_t'), ~if_else(is.na(.x), 0, .x)))
