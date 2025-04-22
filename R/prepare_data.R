@@ -65,6 +65,11 @@ prepare_data <- function(p, check.names = T) {
     }
     stop('There seem to be typos, check the data listed above.')
   }
-  # Return the data set:
-  df |> mutate(age = time_length(difftime(assdate, birth), unit = 'years'))
+  df <- df |> mutate(age = time_length(difftime(assdate, birth), unit = 'years'))
+  # Assign cognitive impairment status based on Level II:
+  calc_file <- here::here("data-raw", "LevelIICalculator.xlsx")
+  map_file  <- here::here("data-raw", "CalculatorMapping.csv")
+  ci_lvlII <- assign_cognitive_impairment(df, calc_file, map_file, "both")
+  # Return the data:
+  left_join(df, ci_lvlII, by = 'id')
 }

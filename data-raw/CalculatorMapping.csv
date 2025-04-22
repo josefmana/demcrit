@@ -1,0 +1,12 @@
+calc_lab;data_lab;domain;sign
+TMT-A;tmt_a;attention;-1
+DS backwards;ds_b;attention;1
+PST-C;pst_c;executive;-1
+Semantic fluency;vf_animals;executive;1
+WAIS-R Sim;sim;language;1
+BNT_HS;bnt_60;language;1
+RAVLT-DR;ravlt_30;memory;1
+BVMT;bvmt_30;memory;1
+WMS-III FP-DR;wms_family_30;memory;1
+JoL;clox_i;construction;1
+CLOX I;jol;construction;1
