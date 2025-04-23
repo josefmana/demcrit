@@ -1,57 +1,43 @@
-name;label;type;group;note
-sex;Sex of Participants (Male, Female);binary;Demographics;
-age;Age of Participants (in Years);continuous;Demographics;
-type_pd;"Type of PD: Akinetic-rigid, Tremor-dominant; Axial";nominal;Clinical;
-hy_stage;Hoehn Yahr stage (range 0-5);nominal;Clinical;
-pd_dur;PD duration (in years);continuous;Clinical;
-asym_park;asym_park;binary;Clinical;
-ledd;L-DOPA (in mg);continuous;Clinical;
-updrsiii_off;UPDRS III off state;continuous;Clinical;
-updrsiii_on;UPDRS III on state;continuous;Clinical;
-mmse;MMSE (range 0-30);continuous;MMSE;Mini Mental State Exam, Total Score
-mmse_7;MMSE 7 (range 0-5);nominal;MMSE;Mini Mental State Exam, Serial 7s
-vf_s;VF S (number of words per minute);continuous;MMSE;Verbal Fluency, Letter S
-cloc;Clock Drawing (range 0-2);nominal;MMSE;Clock Drawing
-mmse_pent;MMSE pentagons (range 0-1);binary;MMSE;Mini Mental State Exam, Pentagons
-mmse_3words;MMSE (range 0-3);nominal;MMSE;Mini Mental State Exam, 3 Words Recall
-moca_total;MoCA (range 0-30);continuous;MoCA;Montreal Cognitive Assessment, Total Score
-smoca_total;sMoCA (range 0-16);continuous;MoCA;Short Form Montreal Cognitive Assessment, Total Score
-moca_7;MoCA 7 (range 0-3);nominal;MoCA;Montreal Cognitive Assessment, Serial 7s
-vf_k;VF K (number of words per minute);continuous;MoCA;Verbal Fluency, Letter K
-moca_cloc;MoCA (range 0-3);nominal;MoCA;Montreal Cognitive Assessment, Clock Drawing
-moca_cube;MoCA (range 0-1);binary;MoCA;Montreal Cognitive Assessment, Cube Copying
-moca_5words;MoCA (range 0-5);nominal;MoCA;Montreal Cognitive Assessment, 5 Words Recall
-moca_anim;MoCA (range 0-3);nominal;MoCA;Montreal Cognitive Assessment, Animal Naming
-moca_abs;MoCA (range 0-2);nominal;MoCA;Montreal Cognitive Assessment, Abstraction Similarities
-bdi;BDI (range 0-63);continuous;Affect;Beck Depression Inventory, Total Score
-stai_1;STAI I (range 0-80);continuous;Affect;State Trait-Anxiety Inventory, Total Score
-stai_2;STAI II (range 0-8 0);continuous;Affect;State Trait-Anxiety Inventory, Total Score
-faq;FAQ (range 0-30);continuous;IADL;Functional Assessment Questionnaire, Total Score
-faq_9;FAQ 9 (range 0-1);nominal;IADL;Functional Assessment Questionnaire, Item 9
-drsii;DRS-II (range 0-144);continuous;Screening;Dementia Rating Scale Second Edition, Total Score
-nart;NART (range 0-50);continuous;Screening;National Adult Reading Test, Total Score
-tmt_a;TMT A (total time in seconds);continuous;Attention and Working Memory;Trail Making Test, Part A
-pst_d;PST D (total time in seconds);continuous;Attention and Working Memory;Prague Stroop Test, Dots
-lns;LNS (range 0-21);continuous;Attention and Working Memory;Letter Number sequencing, Total Score
-ds_b;WAIS DSB (range 0-14);continuous;Attention and Working Memory;Wechsler Adult Intelligence Scale Digit Span, Backwards
-corsi_b;WAIS CB (range 0-16);continuous;Attention and Working Memory;Wechsler Adult Intelligence Scale Corsi Block Test, Backwards
-tol;ToL (range 0-108);continuous;Executive Function;Tower of London, Total Score
-cf;CF (number of words per minute);continuous;Executive Function;Categorical Verbal Fluency, Total Number of Words per Minute
-tmt_b;TMT B (total time in seconds);continuous;Executive Function;Trail Making Test, Part B
-pst_w;PST W (total time in seconds);continuous;Executive Function;Prague Stroop Test, Words
-pst_c;PST C (total time in seconds);continuous;Executive Function;Prague Stroop Test, Colours
-sim;WAIS Similarities (range 0-19);continuous;Language;Wechsler Adult Intelligence Scale, Similarities
-bnt_60;BNT 60 (range 0-60);continuous;Language;Boston Naming Test, Total Score
-ravlt_irs;RAVLT (range 0-75);continuous;Language;Rey Auditory Verbal Learning Test, Immediate Recall Trials (I-V)
-ravlt_b;RAVLT B (range 0-15);continuous;Memory;Rey Auditory Verbal Learning Test, Interference Trial (List B)
-ravlt_6;RAVLT B (range 0-15);continuous;Memory;Rey Auditory Verbal Learning Test, Immediate Recall (Post-Interference Recall)
-ravlt_30;RAVLT delayed recall (range 0-15);continuous;Memory;Rey Auditory Verbal Learning Test, Delayed Recall
-ravlt_drec50;RAVLT WLR 50 (range 0-50);continuous;Memory;Rey Auditory Verbal Learning Test, Recognition Trial (Number of correct responses from 50 items)
-ravlt_drec15;RAVLT WLR 15 (range 0-15);continuous;Memory;Rey Auditory Verbal Learning Test, Recognition Trial (Number of correct responses from 15 items)
-bvmt_irs;BVMTR (range 0-36);continuous;Memory;Brief Verbal Memory Test, Immediate Recall Trials (I-III)
-bvmt_30;BVMTR delayed recall (range 0-12);continuous;Memory;Brief Verbal Memory Test, Delayed Recall
-bvmt_drec;BVMTR FCR (range 0-12);continuous;Memory;Brief Verbal Memory Test, Forced Choice Recognition
-jol;JoLO (range 0-30);continuous;Visuospatial Function;Boston Judgement of Line Orientation, Total Score
-clox_i;CLOX (range 0-15);continuous;Visuospatial Function;Clock Drawing Test, Total Score
-gp_r;GPT (total time in seconds);continuous;Visuospatial Function;Groove Pegboard Test Right Hand, Total Time in Seconds
-gp_l;GPT (total time in seconds);continuous;Visuospatial Function;Groove Pegboard Test Left Hand, Total Time in Seconds
+name;label;type;group;note;bracket
+sex;Sex of Participants (Male, Female);binary;Demographics;;
+age;Age of Participants (in Years);continuous;Demographics;;
+type_pd;"Type of PD: Akinetic-rigid, Tremor-dominant; Axial";nominal;Clinical;;
+hy_stage;Hoehn Yahr stage;nominal;Clinical;;range 0-5
+pd_dur;PD duration (in years);continuous;Clinical;;
+asym_park;asym_park;binary;Clinical;;
+ledd;L-DOPA (in mg);continuous;Clinical;;
+updrsiii_off;UPDRS III off state;continuous;Clinical;;
+updrsiii_on;UPDRS III on state;continuous;Clinical;;
+mmse;Total score;continuous;MMSE;Mini Mental State Exam, Total Score;range 0-30
+mmse_7;Sevens;nominal;MMSE;Mini Mental State Exam, Serial 7s;range 0-5
+vf_s;VF S;continuous;MMSE;Verbal Fluency, Letter S;number of words per minute
+cloc;Clock Drawing;nominal;MMSE;Clock Drawing;range 0-2
+mmse_pent;Pentagons;binary;MMSE;Mini Mental State Exam, Pentagons;range 0-1
+mmse_3words;Three words;nominal;MMSE;Mini Mental State Exam, 3 Words Recall;range 0-3
+moca_total;Total score;continuous;MoCA;Montreal Cognitive Assessment, Total Score;range 0-30
+smoca_total;sMoCA total score;continuous;MoCA;Short Form Montreal Cognitive Assessment, Total Score;range0-16
+moca_7;Sevens;nominal;MoCA;Montreal Cognitive Assessment, Serial 7s;range 0-3
+vf_k;VF K;continuous;MoCA;Verbal Fluency, Letter K;number of words per minute
+moca_cloc;Clock drawing;nominal;MoCA;Montreal Cognitive Assessment, Clock Drawing;range 0-3
+moca_cube;Cube drawing;binary;MoCA;Montreal Cognitive Assessment, Cube Copying;range 0-1
+moca_5words;Five words;nominal;MoCA;Montreal Cognitive Assessment, 5 Words Recall;range 0-5
+moca_anim;Animal naming;nominal;MoCA;Montreal Cognitive Assessment, Animal Naming;range 0-3
+moca_abs;Abstraction;nominal;MoCA;Montreal Cognitive Assessment, Abstraction Similarities;range 0-2
+bdi;BDI;continuous;Affect;Beck Depression Inventory, Total Score;range 0-63
+stai_1;STAI I;continuous;Affect;State Trait-Anxiety Inventory, Total Score;range 0-80
+stai_2;STAI II;continuous;Affect;State Trait-Anxiety Inventory, Total Score;range 0-80
+faq;FAQ;continuous;IADL;Functional Assessment Questionnaire, Total Score;range 0-30
+faq_9;FAQ 9;nominal;IADL;Functional Assessment Questionnaire, Item 9;range 0-1
+drsii;DRS-II;continuous;Screening;Dementia Rating Scale Second Edition, Total Score;range 0-144
+nart;NART;continuous;Screening;National Adult Reading Test, Total Score;range 0-50
+z_tmt_a;TMT A;continuous;Attention and Working Memory;Trail Making Test, Part A;z-score
+z_ds_b;WAIS DSB;continuous;Attention and Working Memory;Wechsler Adult Intelligence Scale Digit Span, Backwards;z-score
+z_vf_animals;CF;continuous;Executive Function;Categorical Verbal Fluency, Total Number of Words per Minute;z-score
+z_pst_c;PST C;continuous;Executive Function;Prague Stroop Test, Colours;z-score
+z_sim;WAIS Similarities;continuous;Language;Wechsler Adult Intelligence Scale, Similarities;z-score
+mci_bnt_60;BNT 60;continuous;Language;Boston Naming Test, Total Score;with deficit
+z_ravlt_30;RAVLT delayed recall;continuous;Memory;Rey Auditory Verbal Learning Test, Delayed Recall;z-score
+z_bvmt_30;BVMTR delayed recall;continuous;Memory;Brief Verbal Memory Test, Delayed Recall;z-score
+z_wms_family_30;WAIS Family Pictures;continuous;Memory;Wechsler Adult Intelligence Family Pictures;z-score
+z_jol;JoLO;continuous;Visuospatial Function;Boston Judgement of Line Orientation, Total Score;z-score
+z_clox_i;CLOX;continuous;Visuospatial Function;Clock Drawing Test, Total Score;z-score

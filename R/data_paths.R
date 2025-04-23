@@ -26,19 +26,22 @@ data_paths <- function(dir = 'data-raw') {
       'item',
       'demo',
       'meta',
-      'scoring'
+      'scoring',
+      'variables'
     ),
     file = c(
       'ItemData.csv', # Item-wise data (originally 'Level1critPDD2.0.csv')
       'REDCapData.csv', # Demography (originally 'ITEMPO-ManaExportNeuropsych_DATA_2024-12-17_1821.csv')
       'MetaData.csv', # Meta-data (originally 'ITEMPO_DATA_2024-01-17_1153.csv')
-      'TestScoring.csv' # Scoring of psychological variables
+      'TestScoring.csv', # Scoring of psychological variables
+      'VariablesOfInterest.csv' # Variables to be printed in tables
     ),
     message = c(
       paste0('\nItem-wise data is missing or mislabelled!\nInsert a valid file "ItemData.csv" into the /',dir,' folder!\n'),
       paste0('\nREDCap data is missing or mislabelled!\nInsert a valid file "REDCapData.csv" into the /',dir,' folder!\n'),
       paste0('\nPatient identification data is missing or mislabelled!\nInsert a valid file "MetaData.csv" into the /',dir,' folder!\n'),
-      paste0('\nFile with test scoring data is missing or mislabelled!\nInsert a valid file "TestScoring.csv" into the /',dir,' folder!\n')
+      paste0('\nFile with test scoring data is missing or mislabelled!\nInsert a valid file "TestScoring.csv" into the /',dir,' folder!\n'),
+      paste0('\nFile with variable labels is missing or mislabelled!\nInsert a valid file "VariablesOfInterest.csv" into the /',dir,' folder!\n')
     )
   ) |>
     mutate(path = here::here(dir, file))

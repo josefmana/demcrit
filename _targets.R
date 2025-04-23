@@ -33,11 +33,13 @@ list(
   ),
   tar_target(
     name    = sample_description,
-    command = compute_descriptives(raw_data, here::here('data-raw','VariablesOfInterest.csv'))
+    command = compute_descriptives(raw_data, here::here('data-raw','VariablesOfInterest.csv')),
+    cue     = tar_cue("always")
   ),
   tar_target(
     name    = prevalence_summaries,
-    command = summarise_prevalence(pdd_data, here::here('data-raw','VariablesOfInterest.csv'))
+    command = summarise_prevalence(pdd_data, here::here('data-raw','VariablesOfInterest.csv')),
+    cue     = tar_cue("always")
   ),
   tar_target(
     name    = concordance_statistics,

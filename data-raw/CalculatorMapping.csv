@@ -8,5 +8,5 @@ BNT_HS;bnt_60;language;1
 RAVLT-DR;ravlt_30;memory;1
 BVMT;bvmt_30;memory;1
 WMS-III FP-DR;wms_family_30;memory;1
-JoL;clox_i;construction;1
-CLOX I;jol;construction;1
+JoL;jol;construction;1
+CLOX I;clox_i;construction;1
