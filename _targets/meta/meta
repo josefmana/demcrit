@@ -8,7 +8,7 @@ check_names|function|4d10ffa672300ced|||||||||||||||
 check_ranges|function|d15da46662c3de4a|||||||||||||||
 compatibility_check|function|d52126ab14a41142|||||||||||||||
 compute_demography|function|c71be62673314456|||||||||||||||
-compute_descriptives|function|8eb6f3863f464269|||||||||||||||
+compute_descriptives|function|6ebf37f8feb5ecc8|||||||||||||||
 compute_z_score|function|71597906b1dd704d|||||||||||||||
 concordance_statistics|stem|7f378e56fcfb011e|921709cbafa24f27|2dc05b232a8c5006|1652126210||t20201.4895398003s|1da012eddfd693db|2193165|rds|local|vector|||43.33|upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set t|
 confusion_matrices|stem|edca056c9e6878c0|bc597578442b0440|bbb58521b5379eb2|1346846978||t20137.554602272s|s921b|921|rds|local|vector|||0.06||
@@ -35,11 +35,11 @@ import_item_data|function|ea18e62cd48ef49e|||||||||||||||
 import_metadata|function|8f7a8b335869f453|||||||||||||||
 import_outcome_data|function|c369b1c2b252765e|||||||||||||||
 import_redcap_data|function|e6cd7ff220e46b97|||||||||||||||
-inputs|pattern|261870e7dbcb6625|36bdc44cf11ac220||-106948080||||39710|file|local|vector||inputs_f660d1f7e4668e0f*inputs_d8f1df70ab56cc98*inputs_0f4dd30380099a0b*inputs_0f555361f85433b8*inputs_2c2b151feeb375d4|0||
+inputs|pattern|7e0a927aac648ba3|36bdc44cf11ac220||-106948080||||2981|file|local|vector||inputs_f660d1f7e4668e0f*inputs_d8f1df70ab56cc98*inputs_0f4dd30380099a0b*inputs_0f555361f85433b8*inputs_2c2b151feeb375d4|0||
 inputs_0f4dd30380099a0b|branch|bcde28072076caab|36bdc44cf11ac220|2c530c1562a7fbd1|-177372684|/Users/martinakvapilova/Desktop/Ph.D./Articles/DemCrit/DemCrit/data-raw/MetaData.csv|t20188.23125s|4b3b8d7b0b47eb7b|34200|file|local|vector|inputs||0||
 inputs_0f555361f85433b8|branch|d8e469e6f18ed9d8|36bdc44cf11ac220|2c530c1562a7fbd1|-1505876925|/Users/martinakvapilova/Desktop/Ph.D./Articles/DemCrit/DemCrit/data-raw/TestScoring.csv|t20188.2319444444s|6632ce5cbfcda6f5|874|file|local|vector|inputs||0||
 inputs_1e9f341725c391fc|branch|9b6d7063bca3dd8c|36bdc44cf11ac220|2c530c1562a7fbd1|-2115131145|/Users/josefmana/Desktop/EXCELES/DemCrit/data-raw/MetaData.csv|t20165.4259807837s|s54955b|54955|file|local|vector|inputs||0||
-inputs_2c2b151feeb375d4|branch|3ba611c12b0ee827|36bdc44cf11ac220|2c530c1562a7fbd1|-1923639276|/Users/martinakvapilova/Desktop/Ph.D./Articles/DemCrit/DemCrit/data-raw/VariablesOfInterest.csv|t20201.4813135472s|188cc4ecae426b99|3522|file|local|vector|inputs||0||
+inputs_2c2b151feeb375d4|branch|075551045a22f9d9|36bdc44cf11ac220|2c530c1562a7fbd1|-1923639276|/Users/martinakvapilova/Desktop/Ph.D./Articles/DemCrit/DemCrit/data-raw/VariablesOfInterest.csv|t20201.5707576855s|c2221643b468f288|2981|file|local|vector|inputs||0||
 inputs_2da3053e6969bea6|branch|d8e469e6f18ed9d8|36bdc44cf11ac220|2c530c1562a7fbd1|-1095963527|/Users/josefmana/Desktop/EXCELES/DemCrit/data-raw/TestScoring.csv|t20173.2908516864s|s874b|874|file|local|vector|inputs||0||
 inputs_31d4202f6f2e872b|branch|0c6180e3ab97628a|36bdc44cf11ac220|2c530c1562a7fbd1|-474348276|/Users/josefmana/Desktop/EXCELES/DemCrit/data-raw/ItemData.csv|t20182.2986149645s|s29954b|29954|file|local|vector|inputs||0||
 inputs_5a6f75dd2a80a0b9|branch|37f8f078475a52ec|36bdc44cf11ac220|2c530c1562a7fbd1|-2131370934|/Users/josefmana/Desktop/EXCELES/DemCrit/data-raw/REDCapData.csv|t20181.8158217593s|s1570263b|1570263|file|local|vector|inputs||0.001||
@@ -53,7 +53,7 @@ inputs_d8f1df70ab56cc98|branch|37f8f078475a52ec|36bdc44cf11ac220|2c530c1562a7fbd
 inputs_d9026ba1ed987b0f|branch|bcde28072076caab|36bdc44cf11ac220|2c530c1562a7fbd1|183075758|/Users/josefmana/Desktop/EXCELES/DemCrit/data-raw/MetaData.csv|t20175.5473662199s|s34200b|34200|file|local|vector|inputs||0||
 inputs_e75fedd98e2901b9|branch|d8e469e6f18ed9d8|36bdc44cf11ac220|2c530c1562a7fbd1|579325868|/Users/josefmana/Desktop/mercenaries/pd/DemCr1t/data-raw/TestScoring.csv|t20172.5451222857s|s874b|874|file|local|vector|inputs||0||
 inputs_f660d1f7e4668e0f|branch|8d78ddf828171fb5|36bdc44cf11ac220|2c530c1562a7fbd1|-1603994889|/Users/martinakvapilova/Desktop/Ph.D./Articles/DemCrit/DemCrit/data-raw/ItemData.csv|t20201.4888292693s|4b2161714877e772|39710|file|local|vector|inputs||0||
-inputs_files|stem|bffb1003d415bfec|f8d248d7fb1a5ff4|e466e5fdf660fd59|-706827970||t20201.4889941199s|216fa2272502dc69|182|rds|local|vector||inputs_files_5d6ac180632abc12*inputs_files_a52c4640d4c94695*inputs_files_e48d1b41ceed25ce*inputs_files_6f8803a0e74916b4*inputs_files_bf35a7c3b6059099|1.071||
+inputs_files|stem|bffb1003d415bfec|f8d248d7fb1a5ff4|e466e5fdf660fd59|-706827970||t20201.5708084748s|216fa2272502dc69|182|rds|local|vector||inputs_files_5d6ac180632abc12*inputs_files_a52c4640d4c94695*inputs_files_e48d1b41ceed25ce*inputs_files_6f8803a0e74916b4*inputs_files_bf35a7c3b6059099|1.014||
 item_data|stem|b1a459b69d04e2b6|81f1ee517f6a2f26|bebfeb0c0c3c2565|-1845079801||t20051.4382663421s|29f0a9678088413b|5743|rds|local|vector|||0.001||
 item_file|stem|6a88ca890111347d|63fc15b2a4143460|72bcc8ce1a1f95c0|-438538363|/Users/josefmana/Desktop/mercenaries/pd/dem-cr1t/_raw/PDD_cr1t2.0.csv|t19745.5749914478s|fec038a3ef5f48d6|18104|file|local|vector|||0||
 iterate_pdd|function|4de788b6480d2820|||||||||||||||
@@ -76,11 +76,11 @@ pdd_matrix|stem|9c584ae7e1bc906f|8782409052cff650|c6ba1c2106074fb5|-663081461||t
 plot_confusion|function|f8c7f412ebf25cd8|||||||||||||||
 preliminary_pdd|function|395192311c2214de|||||||||||||||
 prepare_data|function|3672143da0b5c4b0|||||||||||||||
-prevalence_summaries|stem|6d8d5826635ff9bc|c2f18cbfe0cc9ce9|faf30f4955acad7e|1223548645||t20201.4890317188s|ebc62db4ee2864f3|163884|rds|local|vector|||0.224||
-raw_data|stem|fe962cf8d850ecbb|1b69f38707b7ad3d|59f809a10d704265|-1101284392||t20201.4890161403s|9f85c3697c6e5cb6|36056|rds|local|vector|||1.874|One or more parsing issues, call problems on your data frame for details,e.g.  dat  vroom...  problemsdat|
+prevalence_summaries|stem|9ca88f2b16358db3|c2f18cbfe0cc9ce9|faf30f4955acad7e|1223548645||t20201.5708353883s|f9b2b24d5d6275eb|163468|rds|local|vector|||0.242||
+raw_data|stem|fe962cf8d850ecbb|1b69f38707b7ad3d|e415f5b72aa421c5|-1101284392||t20201.5708297866s|9f85c3697c6e5cb6|36056|rds|local|vector|||1.82|One or more parsing issues, call problems on your data frame for details,e.g.  dat  vroom...  problemsdat|
 read_data|function|af06f98fa05cb555|||||||||||||||
 rprint|function|c8603b8057994b56|||||||||||||||
-sample_description|stem|f58067a2a15df979|4ec64e2e3cc15808|6edf0da0f95e1246|-1070305744||t20201.4890284972s|a42461faf27f4d29|6881|rds|local|vector|||0.277||
+sample_description|stem|9b7701549067cc7a|4ec64e2e3cc15808|5fbfe3c787ab1d74|-1070305744||t20201.5708318826s|cc47c4664fdbddbc|7126|rds|local|vector|||0.175||
 scoring|stem|7c69455d80e1e40b|8cd422999535a6ca|f3e232d593ba4fee|1794795297||t20135.4083564815s|s484b|484|rds|local|vector|||0.001||
 scoring_file|stem|d8e469e6f18ed9d8|527bad725bc19671|72bcc8ce1a1f95c0|-77689938|/Users/josefmana/Desktop/mercenaries/pd/dem-cr1t/helpers/test_scoring.csv|t19739.8398500979s|6632ce5cbfcda6f5|874|file|local|vector|||0.299||
 scoring_path|stem|d8e469e6f18ed9d8|b598d41433387a77|2c530c1562a7fbd1|-854085725|/Users/josefmana/Desktop/EXCELES/demcrit/helpers/test_scoring.csv|t20137.2974773148s|s874b|874|file|local|vector|||0||

@@ -11,7 +11,8 @@
 #' second column, type of variable (continuous, binary or
 #' nominal) in the third column, and optionally a fourth column
 #' denoting group and a fifth column that maps each
-#' label to its description in the table's note.
+#' label to its description in the table's note, sixth column that
+#' describes all type of score.
 #' Alternatively, a path to a csv delimited by semi-colon
 #' containing such a table.
 #'
@@ -49,7 +50,11 @@ compute_descriptives <- function(d0, vois) {
           c('Md','minmax','M','SD'),
           function(f) ifelse(
             test = pull(v[i, 3]) == 'continuous',
-            yes  = do_summary(pull(d0[ , pull(v[i, 1])]), ifelse(f %in% c('M','SD'), 2, 0), f),
+            yes  = ifelse(
+              test = pull(v[i, 4]) %in% c("Attention and Working Memory", "Executive Function", "Language", "Memory", "Visuospatial Function"),
+              yes  = do_summary(pull(d0[ , pull(v[i, 1])]), 2, f),
+              no   = do_summary(pull(d0[ , pull(v[i, 1])]), ifelse(f %in% c('M','SD'), 2, 0), f)
+            ),
             no   = '-'
           )
         )
@@ -60,6 +65,20 @@ compute_descriptives <- function(d0, vois) {
   # Prepare a gt table:
   gtab <-
     demtab |>
+    mutate(
+      variable = sapply(
+        seq_len(length(variable)),
+        function(i)
+          paste0(
+            variable[i],
+            ifelse(
+              is.na(v[v[ , 2] == variable[i] & v[ , 4] == group[i], 6]),
+              "",
+              paste0(" (", v[v[ , 2] == variable[i] & v[ , 4] == group[i], 6], ")")
+            )
+          )
+      )
+    ) |>
     gt_apa_table(
       grp = 'group',
       tit = '<b>Table 2</br>
