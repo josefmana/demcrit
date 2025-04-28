@@ -1,4 +1,5 @@
-#' Specify criteria.
+#' Compute a cartesian product to specify
+#' criteria operationalisations.
 #'
 #' This is purely a helper function that
 #' specifies a tibble with specifications

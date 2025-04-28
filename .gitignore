@@ -1,3 +1,5 @@
+_targets/meta/meta
+
 # Files not supposed to be shared
 _manuscript/_extensions/
 data-raw/ItemData.csv
