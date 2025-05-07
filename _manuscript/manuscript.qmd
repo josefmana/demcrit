@@ -106,19 +106,17 @@ crit <- tar_read(pdd_data, store = upstore)$criteria
 
 Parkinson’s disease (PD) is a neurodegenerative disorder characterised by a progressive onset of motor symptoms, including rigidity, bradykinesia, postural instability and resting tremor. Beyond motor symptoms, patients routinely suffer from non-motor impairments [@postuma2015], such as cognitive decline. This decline might peak in Parkinson’s disease dementia (PDD) in a subset of patients [@meireles2012].
 
-Despite its clinical relevance, the diagnosis of PDD remains complex. *The original **International Parkinson and Movement Disorder Society (MDS)** diagnostic criteria [@dubois2007], first formalized in 2006*^[**JM: I ain't sure it was the first time PDD criteria were formalised; e.g., Aarsland et al. - dx.doi.org/10.1001/archneur.60.3.387 - used DSM criteria for PDD already in 2003. Consequently I added the specification that these were MDS crtieria.**], were heavily influenced by frameworks established primarily for Alzheimer’s disease (AD). Although these criteria provided a valuable initial foundation, they lacked the specificity required to capture the distinct pathophysiological and cognitive features of PD-related dementia [@emre2007; @yamashita2023].
+Despite its clinical relevance, the diagnosis of PDD remains complex. The original International Parkinson and Movement Disorder Society (MDS) diagnostic criteria [@dubois2007], first formalized in 2007, were heavily influenced by frameworks established primarily for Alzheimer’s disease (AD). Although these criteria provided a valuable initial foundation, they lacked the specificity required to capture the distinct pathophysiological and cognitive features of PD-related dementia [@emre2007; @yamashita2023].
 
-*One notable feature of the original criteria was the provision of an algorithm that allowed for flexibility in test selection [@dubois2007]*^[**JM: This came out of nowhere according to me. I think it would make more sense to introduce level I vs II first then introduce the algortihm for level I (i.e., Dubois's Table 2) and focus on it.**]. Specifically, clinicians could choose between months reversed or seven backwards for attention assessment, lexical fluency or clock drawing for executive function evaluation. Moreover, the critaria included MMSE pentagons for evaluation of visuospatial ability, and three-word recall for memory assessment. Agreement across different criteria allows for the parallel computation of inter-rater reliability , which, in turn, facilitates the calculation of construct validity [@conway1995] further strengthening the diagnostic framework for PDD.
+To enhance diagnostic accuracy, the MDS introduced a two-level system for Parkinson’s disease dementia. Level I criteria are designed for clinical use, relying on brief cognitive assessments and clinical judgment. Level II criteria involve comprehensive neuropsychological testing across multiple domains, providing greater diagnostic detail for research or specialized settings [@emre2007].
 
-*Subsequent steps have introduced the concept of Parkinson’s disease mild cognitive impairment (PD-MCI), refining the understanding of cognitive dysfunction in PD [@litvan2012]. The PD-MCI criteria have propelled progress in diverse areas, enabling improvements in clinical characterization, identification of genetic correlates, therapeutic interventions, clinical trial design, and the assessment of progression risk to PDD [@hoogland2017; @hoogland2019; @aarsland2021].*^[**JM: I do not believe this section is needed for the article. You could keep it for yourself and use it in your dissertion but discussion history of MCI, albeit briefly, is out of scope of this manuscript in my humble correct opinion.**]
+One notable feature of the original Level I criteria was the provision of an algorithm that allowed for flexibility in test selection [@dubois2007]. Specifically, clinicians could choose between months reversed or seven backwards for attention assessment, lexical fluency or clock drawing for executive function evaluation. Moreover, the critaria included MMSE pentagons for evaluation of visuospatial ability, and three-word recall for memory assessment. Agreement across different criteria allows for the parallel computation of inter-rater reliability , which, in turn, facilitates the calculation of construct validity [@conway1995] further strengthening the diagnostic framework for PDD.
 
-Currently, efforts are focused on refining the PDD diagnostic framework to improve its consistency and applicability in both research and clinical contexts [@kulisevsky2024]. *Our prior investigations have underscored the importance of employing rigorous psychometric methodologies to differentiate PD-MCI from PDD [@bezdicek2016; @deuschl2006].*^[**JM: The citations do not seem to match the statement - Bezdicek (2016) is about a processing speed theory of cognitive impairment in healthy older adults, Deuschl (2006) is an RCT of DBS. I'd drop this sentence altogether.**]
+According to a recent metanalysis, the epidemiological estimates of PDD prevalence among individuals with PD vary widely, ranging from 14% to 55%, depending on methodological criteria employed [@sousa2022]. Moreover, factors such as patients` sex [@cereda2016], age and disease duration appear to modulate the risk of cognitive decline [@oh2016; @rana2012].
 
-*According to a recent metanalysis, the epidemiological estimates of PDD prevalence among individuals with PD vary widely, ranging from 14% to 55%^[**JM: It makes sense to report some point estimate as well.**], depending on methodological criteria employed [@sousa2022]. Moreover, factors such as patients` sex [@cereda2016], age and disease duration appear to modulate the risk of cognitive decline [@oh2016; @rana2012].*^[**JM: Good, I'd push this paragraph higher.**]
+Currently, efforts are focused on refining the PDD diagnostic framework to improve its consistency and applicability in both research and clinical contexts [@kulisevsky2024].
 
-The present study evaluates the diagnostic concordance between the original Level I PDD criteria, as established by the MDS Task Force [@emre2007; @dubois2007] and criteria inspired by the recent call for change [@kulisevsky2024] within a cohort of PD patients *selected for DBS*^[**JM: Not true, the cohort is of patients being considered for DBS, not selected for DBS.**]. Furthermore, both sets of criteria are compared to PDD diagnosed on Level II. The study aims to address following research objectives (RO): 1) to estimate the prevalence of PDD among patients considered for DBS (RO1), 2) to assess variability in PDD diagnosis depending on the diagnostic criteria applied (RO2), 3) to evaluate the diagnostic concordance between different sets of PDD criteria (RO3), and 4) to identify diagnostic components that contribute to variability in PDD classification across criteria (RO4). By addressing these objectives, this study seeks to validate the revised PDD criteria and evaluate their relevance in the context of DBS eligibility, thereby contributing to the refinement of cognitive assessment protocols in PD.
-
-Suggestion: (MK) **(RO1) To estimate the prevalence of Parkinson’s disease dementia (PDD) and evaluate the diagnostic variability and concordance across different PDD criteria. (RO2) To identify specific diagnostic components that contribute to variability in PDD classification across the applied criteria.**^[**JM:Nice! Let's state it this way.**]
+The present study evaluates the diagnostic concordance between the original Level I PDD criteria, as established by the MDS Task Force [@emre2007; @dubois2007] and criteria inspired by the recent call for change [@kulisevsky2024] within a cohort of PD patients considered for DBS. Furthermore, both sets of criteria are compared to PDD diagnosed on Level II. The study aims to address following research objectives (RO): (RO1) To estimate the prevalence of Parkinson’s disease dementia (PDD) and evaluate the diagnostic variability and concordance across different PDD criteria. (RO2) To identify specific diagnostic components that contribute to variability in PDD classification across the applied criteria.
 
 # Methods
 
@@ -146,13 +144,25 @@ Ethical approval for the study protocol was obtained from the Ethics Committee o
 
 ## Neuropsychological Assessment
 
-Cognitive performance was evaluated at both Level I (abbreviated assessment) and Level II (comprehensive assessment) according to the standard MDS neuropsychology battery for Parkinson's Disease Mild Cognitive Impairment (PD-MCI) [@litvan2012, @bezdicek2017]. Level I was assessed using the Mini-Mental State Examination (MMSE) [@stepankova2014; @folstein1975] and the Montreal Cognitive Assessment (MoCA) [@kopecek2016; @nasreddine2005]. The neuropsychological assessment at Level II covered five cognitive domains, each evaluated through specific tests as follows: attention and working memory assessed using Trail Making Test Part A (TMT-A) [@bezdicek2012; @reitan2004], and WAIS Digit Span Backward (WAIS DSB) [@wechsler1997]; executive function evaluated via Categorical Verbal Fluency (CF) [@benton1989]^[**JM: This one instead - https://doi.org/10.14735/amcsnn2015292**], and subtest from the Prague Stroop Test – Colors (PST-C) [@bezdicek2021]; language measured with the WAIS Similarities subtest [@wechsler1997], and the Boston Naming Test (BNT-60) [@kaplan1983]; memory examined using the Rey Auditory Verbal Learning Test (RAVLT) [@frydrychova2018; @rey1964]^[**JM: Do not forget this - https://doi.org/10.1080/13825585.2013.865699**] for delayed recall, and the Brief Visual Memory Test–Revised (BVMTR) [@havlik2020; @benedict1997] for *delayed recall*^[**JM: The same label is used for RAVLT-DR and BVMT-R-DR here, we should sort it out.**], or WAIS Family Pictures subtest [@wechsler1997] *including delayed recall and forced choice recognition*^[**JM: We did not use any recognition. Should tidy this section such that it includes only indexes used by our study.**]; visuospatial function assessed through the Judgment of Line Orientation Test (JoLO) [@benton1983], and Clock Drawing Test (CLOX) [@royall1998].
+Cognitive performance was evaluated at both Level I (abbreviated assessment) and Level II (comprehensive assessment) according to the standard MDS neuropsychology battery for Parkinson's Disease Mild Cognitive Impairment (PD-MCI) [@litvan2012, @bezdicek2017]. Level I was assessed using the Mini-Mental State Examination (MMSE) [@stepankova2014; @folstein1975] and the Montreal Cognitive Assessment (MoCA) [@kopecek2016; @nasreddine2005]. The neuropsychological assessment at Level II covered five cognitive domains, each evaluated through specific tests as follows: attention and working memory assessed using Trail Making Test Part A (TMT-A) [@bezdicek2012; @reitan2004], and WAIS Digit Span Backward (WAIS DSB) [@wechsler1997]; executive function evaluated via Categorical Verbal Fluency (CF) [@benton1989][^1], and subtest from the Prague Stroop Test – Colors (PST-C) [@bezdicek2021]; language measured with the WAIS Similarities subtest [@wechsler1997], and the Boston Naming Test (BNT-60) [@kaplan1983]; memory examined using the Rey Auditory Verbal Learning Test (RAVLT) [@frydrychova2018; @rey1964][^2] for delayed recall, and the Brief Visual Memory Test–Revised (BVMTR) [@havlik2020; @benedict1997] for *delayed recall*[^3], or WAIS Family Pictures subtest [@wechsler1997] *including delayed recall and forced choice recognition*[^4]; visuospatial function assessed through the Judgment of Line Orientation Test (JoLO) [@benton1983], and Clock Drawing Test (CLOX) [@royall1998].
 
-In addition to the core cognitive assessments, *tasks such as*^[**JM: Stating such as "such as" are usually not appropritate in Methods section of a scientific study, because all methods should be reported exactly.**] the Clock Drawing Test (CDT) and Letter Fluency tasks were included to capture domain-specific impairments. The classification of Parkinson’s Disease Dementia (PDD) based on Level I criteria was determined using established scoring thresholds from the original criteria [@dubois2007] with corresponding MoCA equivalents.
+[^1]: **JM: This one instead - https://doi.org/10.14735/amcsnn2015292**
+
+[^2]: **JM: Do not forget this - https://doi.org/10.1080/13825585.2013.865699**
+
+[^3]: **JM: The same label is used for RAVLT-DR and BVMT-R-DR here, we should sort it out.**
+
+[^4]: **JM: We did not use any recognition. Should tidy this section such that it includes only indexes used by our study.**
+
+In addition to the core cognitive assessments, *tasks such as*[^5] the Clock Drawing Test (CDT) and Letter Fluency tasks were included to capture domain-specific impairments. The classification of Parkinson’s Disease Dementia (PDD) based on Level I criteria was determined using established scoring thresholds from the original criteria [@dubois2007] with corresponding MoCA equivalents.
+
+[^5]: **JM: Stating such as "such as" are usually not appropritate in Methods section of a scientific study, because all methods should be reported exactly.**
 
 To assess functional impairment, the Functional Activities Questionnaire (FAQ) [@bezdicek2016; @pfeffer1982] was administered. Additionally, neuropsychiatric status was evaluated using the Beck Depression Inventory-II (BDI-II) [@ciharova2020; @beck1996] and State-Trait Anxiety Inventory (STAI) [@spielberg1983; @mullner1980]. Psychotic symptoms were assessed through structured psychiatric interviews conducted by a trained psychiatrist.
 
-## Theoretical and Empirical Estimands^[**JM: Put most of it to Appendix.**]
+## Theoretical and Empirical Estimands[^6]
+
+[^6]: **JM: Put most of it to Appendix.**
 
 *Following the framework proposed by Lundberg et al. (2021), this section connects our research objectives and their corresponding theoretical (i.e., targets of inference) and empirical (i.e., data-driven) estimands. The theoretical estimand refers to a unit-specific quantity defined over a target population and represents the ideal quantity that would address the research question under optimal conditions, such as access to complete population data or perfect experimental control. In contrast, the empirical estimand corresponds to the quantity that is actually computable using the available dataset, given real world constraints. In our study, the target population for all theoretical estimands is defined as individuals diagnosed with Parkinson’s disease (PD) who are potential candidates for deep brain stimulation (DBS) treatment.*
 
@@ -164,15 +174,15 @@ To assess functional impairment, the Functional Activities Questionnaire (FAQ) [
 
 *Finally, for the RO4, the theoretical estimand is defined as the set of diagnostic components whose variation systematically alters the probability of a probable PDD diagnosis. This aspect of the study is exploratory in nature. Empirically, we assess the contribution of each diagnostic feature by examining how variations in operational definitions (e.g., domain-specific thresholds, criteria for functional impairment) influence the empirical estimands derived for the first three objectives. This allows us to identify the diagnostic elements most responsible for inter-criterion discrepancies. We approach this RO from an exploratory point of view and evaluate the importance of each PDD criteria component by observing change in empirical estimands for RO1-3 when stratified by different oprationalization decisions.*
 
-## Operationalization of Parkinson's Disease Dementia^[**JM: Add a section with some logic (Cartezian product) to Appendix as well.**]
+## Operationalization of Parkinson's Disease Dementia[^7]
 
-In this study, we applied three distinct sets of diagnostic criteria for **probable**[^1] PDD at Level I. The first set was based on the original framework [@dubois2007], which utilized the Mini-Mental State Examination (MMSE) as a global cognitive screening tool, supplemented by assessments of attention, executive function, visuospatial abilities, and memory. The second set of criteria was drawn from the recent call for change of dementia diagnostic guidelines [@kulisevsky2024], which advocate for more sensitive cognitive domain assessments in the context of Parkinson's disease (PD). This updated approach incorporated specific items from the Montreal Cognitive Assessment (MoCA) to better detect PD-related dementia. The third approach applied the Czech version of the shortened Montreal Cognitive Assessment (sMoCA) [@bezdicek2020], a time-efficient modification designed to ascertain whether equivalent cognitive impairments could be reliably identified using a reduced testing protocol. Lastly, the fourth approach followed the Level II battery protocol, which is commonly used in the evaluation of PD-MCI. **The Level II methodology, including the use of a regression-based normative scoring approach, has been detailed in a prior study [@bezdicek2017]. Refer to @tbl-criteria**[^2] to a summary of the components and scoring thresholds of each diagnostic criterion. All non-cognitive criteria of probable PDD (i.e., diagnosis of PD that developed before dementia and absence of Major Depression, delirium or other abnormalities that obscure diagnosis were established by an independent neurological and psychiatric assessments and held true for all patients in the sample).
+[^7]: **JM: Add a section with some logic (Cartezian product) to Appendix as well.**
 
-[^1]: **JM: We should unite the terminlogy. Most importantly, I reckon, we should differentiate between "probable PDD" (what is implied by meeting all the criteria within an operationalization) and "PDD" (the latent state of patient's cognition); and to use consistently the following trifecta - "criterion," "operationalization" and their "component".**
+In this study, we applied three distinct sets of diagnostic criteria for **probable**[^8] PDD at Level I. The first set was based on the original framework [@dubois2007], which utilized the Mini-Mental State Examination (MMSE) as a global cognitive screening tool, supplemented by assessments of attention, executive function, visuospatial abilities, and memory. The second set of criteria was drawn from the recent call for change of dementia diagnostic guidelines [@kulisevsky2024], which advocate for more sensitive cognitive domain assessments in the context of Parkinson's disease (PD). This updated approach incorporated specific items from the Montreal Cognitive Assessment (MoCA) to better detect PD-related dementia. The third approach applied the Czech version of the shortened Montreal Cognitive Assessment (sMoCA) [@bezdicek2020], a time-efficient modification designed to ascertain whether equivalent cognitive impairments could be reliably identified using a reduced testing protocol. Lastly, the fourth approach followed the Level II battery protocol, which is commonly used in the evaluation of PD-MCI. **The Level II methodology, including the use of a regression-based normative scoring approach, has been detailed in a prior study [@bezdicek2017]. Refer to @tbl-criteria**[^9] to a summary of the components and scoring thresholds of each diagnostic criterion. All non-cognitive criteria of probable PDD (i.e., diagnosis of PD that developed before dementia and absence of Major Depression, delirium or other abnormalities that obscure diagnosis were established by an independent neurological and psychiatric assessments and held true for all patients in the sample).
 
-[^3]: **JM: We should unite the terminology. Most importantly, I reckon, we should differentiate between "probable PDD" (what is implied by meeting all the criteria within an operationalization) and "PDD" (the latent state of patient's cognition); and to use consistently the following trifecta - "criterion," "operationalization" and their "component".**
+[^8]: **JM: We should unite the terminlogy. Most importantly, I reckon, we should differentiate between "probable PDD" (what is implied by meeting all the criteria within an operationalization) and "PDD" (the latent state of patient's cognition); and to use consistently the following trifecta - "criterion," "operationalization" and their "component".**
 
-[^2]: **JM: Placeholder until we make the table proper.**
+[^9]: **JM: Placeholder until we make the table proper.**
 
 ```{r}
 #| label: "tbl-criteria"
@@ -203,15 +213,15 @@ For each of these diagnostic approaches, we applied two operationalization strat
 
 For sample description, we summarized continuous variables using mean, standard deviation, median, minimum, and maximum values. Categorical variables were summarized by the number of patients in each category. To address study objectives, we started by repeatedly assigning each patient the diagnosis of probable PDD based on each PDD operationalization listed in @tbl-criteria resulting in a `r sum(data$incl)` (patients) $\times$ `r sum(critnum)` (operationalizations) matrix where each cell indicates whether a patient (row) meets criteria for probable PDD according to an operationalization (column). PDD prevalence estimates were then computed as $\frac{N_{PDD}}{N_{total}}$ separately for each operationalization to address RO1.
 
-To address RO2-4, a set of two class cross-tabulations with associated statistics was computed for each pair of operationalizations via the `confusionMatrix()` function from the R package *caret* [@kuhn2008]. For each pair of operationalizations, the analysis was repeated twice such that each variables of the pair served once as the reference and once as the predictor. Following measures were used to evaluate pairwise concordance between different operationalizations of PDD criteria: 1) Cohen's $\kappa$ with its 95% confidence interval (CI) computed via the `cohen.kappa()` function from the R package *psych* [@revelle2024]; 2) Accuracy (i.e., the proportion of correct predictions, both true positives and true negatives, among the total number of cases) with its 95% CI; 3) Sensitivity/Recall (i.e., the proportion of true positives); and 4) Specificity (i.e., the proportion of true negatives).[^4]
+To address RO2-4, a set of two class cross-tabulations with associated statistics was computed for each pair of operationalizations via the `confusionMatrix()` function from the R package *caret* [@kuhn2008]. For each pair of operationalizations, the analysis was repeated twice such that each variables of the pair served once as the reference and once as the predictor. Following measures were used to evaluate pairwise concordance between different operationalizations of PDD criteria: 1) Cohen's $\kappa$ with its 95% confidence interval (CI) computed via the `cohen.kappa()` function from the R package *psych* [@revelle2024]; 2) Accuracy (i.e., the proportion of correct predictions, both true positives and true negatives, among the total number of cases) with its 95% CI; 3) Sensitivity/Recall (i.e., the proportion of true positives); and 4) Specificity (i.e., the proportion of true negatives).[^10]
 
-[^4]: Unlike Cohen's $\kappa$, Accuracy, Sensitivity and Specificity are not symmetrical, i.e., their value depend on which variable is considered reference and which is considered predictor. Consequently, we report these values twice for each pair of operationalizations. Note that the Sensitivity of a reference/predictor pair corresponds to the Positive Predictive Value if their roles were reversed. The same relationship holds true between the Specificity and the Negative Predictive Value.
+[^10]: Unlike Cohen's $\kappa$, Accuracy, Sensitivity and Specificity are not symmetrical, i.e., their value depend on which variable is considered reference and which is considered predictor. Consequently, we report these values twice for each pair of operationalizations. Note that the Sensitivity of a reference/predictor pair corresponds to the Positive Predictive Value if their roles were reversed. The same relationship holds true between the Specificity and the Negative Predictive Value.
 
 Finally, the No Information Rate (NIR) was calculated for each pair of operationalizations. NIR is the accuracy that could be obtained by always predicting the majority class and in our case it is equivalent to the complement of the PDD prevalence estimate according to the reference operationalization. Accuracy of prediction was subsequently compared to the NIR via a one-sided Exact Binomial Test as implemented by the `binom.test()` R stats function. Reference/predictor pairs associated with p \< .05 were considered to show significantly better accuracy than NIR. In other word, for reference/predictor pairs associated with p \< .05, we conclude that knowing the probable PDD status according to the predictor operationalization helps to estimate the probable PDD status according to the reference operationalization and the two opeartionalizations thus show substantial concordance.
 
-Data wrangling and visualizations were done in the *tidyverse* package [@wickham2019] and tables were formatted in the *gt* package [@iannone2024]. All analyses were conducted with the R (version `r with(version, paste(major, minor, sep="."))`) software environment for statistical computing [@rsoft]. The software code supporting this article is available at <https://github.com/josefmana/DemCr1t.git>.[^5]
+Data wrangling and visualizations were done in the *tidyverse* package [@wickham2019] and tables were formatted in the *gt* package [@iannone2024]. All analyses were conducted with the R (version `r with(version, paste(major, minor, sep="."))`) software environment for statistical computing [@rsoft]. The software code supporting this article is available at <https://github.com/josefmana/DemCr1t.git>.[^11]
 
-[^5]: **JM: Do not forget to make it public before submitted!**
+[^11]: **JM: Do not forget to make it public before submitted!**
 
 # Results
 
@@ -226,9 +236,9 @@ perc <- prev$table$perc
 
 ## Sample Description
 
-A total of `r sum(data$incl)` patients were included. Demographic and clinical characteristics of the sample are summarized in @tbl-desc. **...**[^6]
+A total of `r sum(data$incl)` patients were included. Demographic and clinical characteristics of the sample are summarized in @tbl-desc. **...**[^12]
 
-[^6]: **JM: Give some brief impressions from the Table 2 here. E.g., evaluate sex proportion, age, (we are missing education for some reason) etc. with general PD population (e.g., from some meta-analysis). Maybe say a word or two about mean cognitive profile or its spread.**
+[^12]: **JM: Give some brief impressions from the Table 2 here. E.g., evaluate sex proportion, age, (we are missing education for some reason) etc. with general PD population (e.g., from some meta-analysis). Maybe say a word or two about mean cognitive profile or its spread.**
 
 \[Insert Table 2 here\]
 
@@ -240,13 +250,13 @@ desc$gtable
 
 ## Prevalence Estimates
 
-Operationalization-wise prevalence estimates are presented in @tbl-prev. On average, estimated prevalence was `r do_summary(perc, 2, "M")`% (SD = `r do_summary(perc, 2, "SD")`, Md = `r do_summary(perc, 2, "Md")`, range `r do_summary(perc, 2, "minmax")`). Notably, the prevalence estimate was substantially lower when FAQ item 9 was used as a criterion of IADL deficit (M = `r do_summary(perc[grepl("FAQ 9", prev$table$IADL)], 2, "M")`%, SD = `r do_summary(perc[grepl("FAQ 9", prev$table$IADL)], 2, "SD")`, range `r do_summary(perc[grepl("FAQ 9", prev$table$IADL)], 2, "minmax")`) compared to using total FAQ score criterion (M = `r do_summary(perc[!grepl("FAQ 9", prev$table$IADL)], 2, "M")`%, SD = `r do_summary(perc[!grepl("FAQ 9", prev$table$IADL)], 2, "SD")`, range `r do_summary(perc[!grepl("FAQ 9", prev$table$IADL)], 2, "minmax")`) as demonstrated also in @fig-prev.[^7]
+Operationalization-wise prevalence estimates are presented in @tbl-prev. On average, estimated prevalence was `r do_summary(perc, 2, "M")`% (SD = `r do_summary(perc, 2, "SD")`, Md = `r do_summary(perc, 2, "Md")`, range `r do_summary(perc, 2, "minmax")`). Notably, the prevalence estimate was substantially lower when FAQ item 9 was used as a criterion of IADL deficit (M = `r do_summary(perc[grepl("FAQ 9", prev$table$IADL)], 2, "M")`%, SD = `r do_summary(perc[grepl("FAQ 9", prev$table$IADL)], 2, "SD")`, range `r do_summary(perc[grepl("FAQ 9", prev$table$IADL)], 2, "minmax")`) compared to using total FAQ score criterion (M = `r do_summary(perc[!grepl("FAQ 9", prev$table$IADL)], 2, "M")`%, SD = `r do_summary(perc[!grepl("FAQ 9", prev$table$IADL)], 2, "SD")`, range `r do_summary(perc[!grepl("FAQ 9", prev$table$IADL)], 2, "minmax")`) as demonstrated also in @fig-prev.[^13]
 
-[^7]: **JM: For oneself - work on the code here, it ain't good.**
+[^13]: **JM: For oneself - work on the code here, it ain't good.**
 
-\[Insert Table 3 and Figure 1[^8] here\]
+\[Insert Table 3 and Figure 1[^14] here\]
 
-[^8]: **JM: For thyself - add description.**
+[^14]: **JM: For thyself - add description.**
 
 ```{r}
 #| label: "tbl-prev"
@@ -262,15 +272,15 @@ prev$plot
 
 ## Criteria Concordance
 
-Results of the analyses of prediction Accuracy, Cohen's $\kappa$, Sensitivity and Specificity are presented in @fig-acc, @fig-kappa, @fig-sens and @fig-spec respectively. Numerical results are available ... [^9]
+Results of the analyses of prediction Accuracy, Cohen's $\kappa$, Sensitivity and Specificity are presented in @fig-acc, @fig-kappa, @fig-sens and @fig-spec respectively. Numerical results are available ... [^15]
 
-[^9]: **JM: ... as some kind of Supplementary Table, ideally html but Excel file would work as well.**
+[^15]: **JM: ... as some kind of Supplementary Table, ideally html but Excel file would work as well.**
 
 **In this section, we need to discuss among ourselves what and how to report such that the results give enough information, the most important information and are readable as well.**
 
-\[Insert Figure 2[^10] here\]
+\[Insert Figure 2[^16] here\]
 
-[^10]: **JM: For thyself - add description.**
+[^16]: **JM: For thyself - add description.**
 
 ```{r}
 #| label: "fig-acc"
@@ -286,19 +296,19 @@ This study evaluated the applicability and validity of diagnostic frameworks for
 
 One of the key findings of this study was the broad range of estimated PDD rate depending on the operationalization strategy. As seen in Table 3, the rate of PDD presence estimates varied from 2.00% to 16.75%, with the highest being derived from a combination of the sMoCA and the total FAQ score combination. When only FAQ item 9 was used to determine IADL deficits, the rate estimates were significantly lower (M = 3.09%, SD = 0.48), underscoring significant influence of functional assessment choice on diagnostic outcomes.
 
-These findings are lower in comparison with previous research demonstrating wide variability in reported PDD rate among PD patients. For instance, retrospective study reported a PDD rate of 19.7% [@rana2012], while a clinical investigation by Aarsland et al. found even higher rate of around 30% [@aarsland2011]. A recent complex meta-analysis synthesizing global data placed the pooled rate at 26.30% [@sousa2022]. Compared to these estimates, our study reports generally lower prevalence rates, likely reflecting differences in sample characteristics, diagnostic criteria, and methodology. 
+These findings are lower in comparison with previous research demonstrating wide variability in reported PDD rate among PD patients. For instance, retrospective study reported a PDD rate of 19.7% [@rana2012], while a clinical investigation by Aarsland et al. found even higher rate of around 30% [@aarsland2011]. A recent complex meta-analysis synthesizing global data placed the pooled rate at 26.30% [@sousa2022]. Compared to these estimates, our study reports generally lower prevalence rates, likely reflecting differences in sample characteristics, diagnostic criteria, and methodology.
 
-Notably, our cohort consisted of patients being evaluated for DBS, a procedure typically reserved for individuals with relatively preserved cognitive function, which inherently biases against higher PDD prevalence rate. These comparisons emphasize that the observed lower prevalence in our sample is likely attributable to the preselection of cognitively intact individuals for DBS consideration, as well as to methodological variations such as the use of brief screening tool and differing IADL operationalizations.[^11]
+Notably, our cohort consisted of patients being evaluated for DBS, a procedure typically reserved for individuals with relatively preserved cognitive function, which inherently biases against higher PDD prevalence rate. These comparisons emphasize that the observed lower prevalence in our sample is likely attributable to the preselection of cognitively intact individuals for DBS consideration, as well as to methodological variations such as the use of brief screening tool and differing IADL operationalizations.[^17]
 
-[^11]: **Keep it?**
+[^17]: **Keep it?**
 
-## Cognitive and Clinical Context [^12]
+## Cognitive and Clinical Context [^18]
+
+[^18]: **Keep this section?**
 
 The relatively low prevalence of PDD across operationalizations may also reflect the relatively preserved cognitive profile of the DBS cohort, as evident in Table 2. The mean MoCA (M = 24.07, SD = 3.48) and MMSE (M = 26.69, SD = 2.22) scores suggest that on average the patients were functioning at a globally intact level. This likely reflects the pre-selection of cognitively preserved individuals for DBS, in line with standard eligibility criteria [@bronstein2011].
 
 Memory performance, such as RAVLT and BVMTR delayed recall scores, also pointed to only mild deficits, particularly in domains central to the PDD vs. PD-MCI distinction. This aligns with previous findings that Level I criteria may overestimate dementia in patients with subtle impairments unless operational thresholds are rigorously defined [@aarsland2021; @bezdicek2016].
-
-[^12]: **Keep this section?**
 
 ## Implications for DBS Eligibility and Clinical Practice
 
