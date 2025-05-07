@@ -79,11 +79,7 @@ compute_descriptives <- function(d0, vois) {
           )
       )
     ) |>
-    gt_apa_table(
-      grp = 'group',
-      tit = '<b>Table 2</br>
-      Sample description.</b> Demographic, clinical and cognitive characteristics of the sample.'
-    ) |>
+    gt_apa_table(grp = 'group') |>
     cols_label(variable ~ '', minmax ~ 'Min-max')
   # If there are notes, add them to the table:
   if (ncol(v) > 4 && any(!is.na(v$note))) {
