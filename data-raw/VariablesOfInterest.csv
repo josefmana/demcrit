@@ -1,11 +1,8 @@
 name;label;type;group;note;bracket
-sex;Sex of Participants;binary;Demographics;;Males
-age;Age of Participants;continuous;Demographics;;in Years
+sex;Sex;binary;Demographics;;Males
+age;Age;continuous;Demographics;;in Years
 edu_years;Education;continuous;Demographics;;in Years
-type_pd;Type of PD;nominal;Clinical;;Akinetic-rigid, Tremor-dominant, Axial
-hy_stage;Hoehn Yahr stage;nominal;Clinical;;Range 0-5
 pd_dur;PD duration;continuous;Clinical;;in Years
-ledd;L-DOPA;continuous;Clinical;;in Miligrams
 updrsiii_off;UPDRS III off state;continuous;Clinical;Unified Parkinson’s Disease Rating Scale Part III, Off medication;Range 0-132
 updrsiii_on;UPDRS III on state;continuous;Clinical;Unified Parkinson’s Disease Rating Scale Part III, On medication;Range 0-132
 mmse;Total score;continuous;MMSE;;Range 0-30
@@ -24,8 +21,8 @@ moca_5words;Five words;nominal;MoCA;;Range 0-5
 moca_anim;Animal naming;nominal;MoCA;;Range 0-3
 moca_abs;Abstraction;nominal;MoCA;;Range 0-2
 bdi;BDI;continuous;Affect;Beck Depression Inventory;Range 0-63
-stai_1;STAI I;continuous;Affect;State Trait-Anxiety Inventory, Part I;Range 0-80
-stai_2;STAI II;continuous;Affect;State Trait-Anxiety Inventory, Part II;Range 0-80
+stai_1;STAI X1;continuous;Affect;State Trait-Anxiety Inventory (STAI), Part 1 (state anxiety);Range 0-80
+stai_2;STAI X2;continuous;Affect;STAI, Part 2 (trait anxiety);Range 0-80
 faq;FAQ;continuous;IADL;Functional Assessment Questionnaire;Range 0-30
 faq_9;FAQ 9;nominal;IADL;Functional Assessment Questionnaire, Item 9;Range 0-1
 drsii;DRS-II;continuous;Screening;Dementia Rating Scale Second Edition;Range0-144

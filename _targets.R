@@ -4,12 +4,12 @@ library(tarchetypes)
 # Set target options:
 tar_option_set(
   packages = c(
-    "here",      # for path listing
+    "here", # for path listing
     "tidyverse", # for data wrangling
-    "janitor",   # for cleaning names of diacritics
-    "psych",     # for Cohen's Kappa calculation
-    "caret",     # for confusion matrixes
-    "gt"         # for tableing
+    "janitor", # for cleaning names of diacritics
+    "psych", # for Cohen's Kappa calculation
+    "caret", # for confusion matrixes
+    "gt" # for tableing
   )
 )
 
