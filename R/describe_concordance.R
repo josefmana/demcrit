@@ -81,7 +81,7 @@ describe_concordance <- function(d0, vars) {
         function(i) ifelse(
           test = reference[i] == predictor[i],
           yes  = '1.00',
-          no   = do_summary(confmats[[i]]$overall[c('Accuracy','AccuracyUpper','AccuracyLower')], 3, 'estCI')
+          no   = do_summary(confmats[[i]]$overall[c('Accuracy','AccuracyUpper','AccuracyLower')], 2, 'estCI')
         )
       ),
       # Raw values for Kappa & Accuracy (and NIR):
