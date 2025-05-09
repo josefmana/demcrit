@@ -94,11 +94,13 @@ echo: false
 
 library(targets)
 library(tidyverse)
+library(gt)
 
 upstore <- here::here(tar_config_get("store"))
 tar_source(here::here("R"))
 data <- tar_read(raw_data, store = upstore)
 crit <- tar_read(pdd_data, store = upstore)$criteria
+vars <- tar_read(variables, store = upstore)
 
 ```
 
@@ -158,37 +160,9 @@ In addition to the core cognitive assessments, *tasks such as*[^4] the Clock Dra
 
 To assess functional impairment, the Functional Activities Questionnaire (FAQ) [@bezdicek2016; @pfeffer1982] was administered. Additionally, neuropsychiatric status was evaluated using the Beck Depression Inventory-II (BDI-II) [@ciharova2020; @beck1996] and State-Trait Anxiety Inventory (STAI) [@spielberg1983; @mullner1980]. Psychotic symptoms were assessed through structured psychiatric interviews conducted by a trained psychiatrist.
 
-## Theoretical and Empirical Estimands[^5]
+## Diagnostic algorithms for probable Parkinson's Disease Dementia
 
-[^5]: **JM: Put most of it to Appendix.**
-
-*Following the framework proposed by Lundberg et al. (2021), this section connects our research objectives and their corresponding theoretical (i.e., targets of inference) and empirical (i.e., data-driven) estimands. The theoretical estimand refers to a unit-specific quantity defined over a target population and represents the ideal quantity that would address the research question under optimal conditions, such as access to complete population data or perfect experimental control. In contrast, the empirical estimand corresponds to the quantity that is actually computable using the available dataset, given real world constraints. In our study, the target population for all theoretical estimands is defined as individuals diagnosed with Parkinson’s disease (PD) who are potential candidates for deep brain stimulation (DBS) treatment.*
-
-*The theoretical estimand corresponding to the RO1 is the true prevalence of probable PDD in this population. Empirically, this is estimated by calculating the proportion of patients classified as having probable PDD according to each of the diagnostic criteria under consideration.*
-
-*For the RO2, the theoretical estimand is the variance in prevalence attributable to the diagnostic process itself—that is, the extent to which different sets of criteria yield differing prevalence estimates for the same population. This variability is empirically quantified by comparing the distribution of PDD classifications across criteria within the cohort.*
-
-*The RO3 concerns diagnostic concordance. Here, the theoretical estimand is a set of population-level contingency tables comparing PDD classifications assigned by each pair of diagnostic criteria, along with derived metrics such as sensitivity, specificity, and kappa coefficients. The corresponding empirical estimands are represented by matrices generated through pairwise Receiver Operating Characteristic (ROC) curve analyses that evaluate the discriminatory performance of each diagnostic set.*
-
-*Finally, for the RO4, the theoretical estimand is defined as the set of diagnostic components whose variation systematically alters the probability of a probable PDD diagnosis. This aspect of the study is exploratory in nature. Empirically, we assess the contribution of each diagnostic feature by examining how variations in operational definitions (e.g., domain-specific thresholds, criteria for functional impairment) influence the empirical estimands derived for the first three objectives. This allows us to identify the diagnostic elements most responsible for inter-criterion discrepancies. We approach this RO from an exploratory point of view and evaluate the importance of each PDD criteria component by observing change in empirical estimands for RO1-3 when stratified by different oprationalization decisions.*
-
-## Operationalization of Parkinson's Disease Dementia[^6]
-
-[^6]: **JM: Add a section with some logic (Cartezian product) to Appendix as well.**
-
-In this study, we applied three distinct sets of diagnostic criteria for **probable**[^7] PDD at Level I. The first set was based on the original framework [@dubois2007], which utilized the Mini-Mental State Examination (MMSE) as a global cognitive screening tool, supplemented by assessments of attention, executive function, visuospatial abilities, and memory. The second set of criteria was drawn from the recent call for change of dementia diagnostic guidelines [@kulisevsky2024], which advocate for more sensitive cognitive domain assessments in the context of Parkinson's disease (PD). This updated approach incorporated specific items from the Montreal Cognitive Assessment (MoCA) to better detect PD-related dementia. The third approach applied the Czech version of the shortened Montreal Cognitive Assessment (sMoCA) [@bezdicek2020], a time-efficient modification designed to ascertain whether equivalent cognitive impairments could be reliably identified using a reduced testing protocol. Lastly, the fourth approach followed the Level II battery protocol, which is commonly used in the evaluation of PD-MCI. **The Level II methodology, including the use of a regression-based normative scoring approach, has been detailed in a prior study [@bezdicek2017]. Refer to @tbl-criteria**[^8] to a summary of the components and scoring thresholds of each diagnostic criterion. All non-cognitive criteria of probable PDD (i.e., diagnosis of PD that developed before dementia and absence of Major Depression, delirium or other abnormalities that obscure diagnosis were established by an independent neurological and psychiatric assessments and held true for all patients in the sample).
-
-[^7]: **JM: We should unite the terminlogy. Most importantly, I reckon, we should differentiate between "probable PDD" (what is implied by meeting all the criteria within an operationalization) and "PDD" (the latent state of patient's cognition); and to use consistently the following trifecta - "criterion," "operationalization" and their "component".**
-
-[^8]: **JM: Placeholder until we make the table proper.**
-
-```{r}
-#| label: "tbl-criteria"
-
-gt::gt(crit)
-```
-
-\[Insert Table 1 here\]
+In this study, we applied three distinct sets of diagnostic algorithms for probable PDD at Level I. The first set was based on the original framework [@dubois2007], which utilized the Mini-Mental State Examination (MMSE) as a global cognitive screening tool, supplemented by assessments of attention, executive function, visuospatial abilities, and memory. The second set of algorithms was based on the recent call for change of dementia diagnostic guidelines [@kulisevsky2024], which advocates for more sensitive cognitive domain assessments in the context of PD. This updated approach incorporated specific items from the Montreal Cognitive Assessment (MoCA). The third approach applied the Czech version of the shortened Montreal Cognitive Assessment (sMoCA) [@bezdicek2020], a time-efficient modification designed to measure global cognitive performance using a reduced testing protocol that omits items providing redundant information. Lastly, the fourth approach followed the Level II protocol for diagnosis of PDD and Mild Cognitive Impairment in PD (PD-MCI) [@dubois2007; @litvan2012]. The Level II methodology, including the use of a regression-based normative scoring approach, has been detailed in a prior study [@bezdicek2017]. In this study, the thresholds for cognitive impairment at Level II were set at $z \leq -1.5$. All non-cognitive criteria of probable PDD (i.e., diagnosis of PD that developed before dementia and absence of Major Depression, delirium or other abnormalities that obscure diagnosis) held true for all patients in the sample according to the psychiatric and neurological examinations.
 
 ```{r}
 #| label: "criteria-check"
@@ -205,19 +179,30 @@ continue <- !any(critnum == 0)
 stopifnot("Some criteria are missing" = continue)
 ```
 
-For each of these diagnostic approaches, we applied two operationalization strategies based on deficits in Instrumental Activities of Daily Living (IADL). First, we utilized FAQ item 9, which approximates the pill questionnaire from the original criteria [@dubois2007] employing a cut-off score of 2 points or higher. Second, we applied the entire Functional Activities Questionnaire (FAQ) as suggested in the call for change [@kulisevsky2024], employing a cut-off score of 7 points or higher based on Czech normative data [@bezdicek2011]. These methodologies resulted in a total of `r sum(critnum)` operationalizations, which were distributed across different diagnostic criteria: `r critnum["mmse"]` MMSE-based, `r critnum["moca"]` MoCA-based, `r critnum["smoca"]` sMoCA-based, and `r critnum["lvlII"]` based on the Level II battery.
+For each of these diagnostic approaches, we applied two operationalizations of deficits in Instrumental Activities of Daily Living (IADL). First, we utilized FAQ item 9, which approximates the pill questionnaire from the original criteria [@dubois2007] employing a cut-off score of 2 points or higher. Second, we applied the entire Functional Activities Questionnaire (FAQ) as suggested in the call for change [@kulisevsky2024], employing a cut-off score of 7 points or higher based on Czech normative data [@bezdicek2011]. These methodologies resulted in a total of `r sum(critnum)` algorithms, which were distributed across different diagnostic criteria: `r critnum["mmse"]` MMSE-based, `r critnum["moca"]` MoCA-based, `r critnum["smoca"]` sMoCA-based, and `r critnum["lvlII"]` based on the Level II battery (see @tbl-crits and Appendix @tbl-algos for the exact specification of each algorithm).
+
+```{r}
+#| label: "tbl-crits"
+#| tbl-cap: "Summary of probable PDD operationalizations compared in the study."
+
+table_criteria(vars)
+```
+
+\[Insert @tbl-crits here\]
 
 ## Statistical Analyses
 
-For sample description, we summarized continuous variables using mean, standard deviation, median, minimum, and maximum values. Categorical variables were summarized by the number of patients in each category. To address study objectives, we started by repeatedly assigning each patient the diagnosis of probable PDD based on each PDD operationalization listed in @tbl-criteria resulting in a `r sum(data$incl)` (patients) $\times$ `r sum(critnum)` (operationalizations) matrix where each cell indicates whether a patient (row) meets criteria for probable PDD according to an operationalization (column). PDD prevalence estimates were then computed as $\frac{N_{PDD}}{N_{total}}$ separately for each operationalization to address RO1.
+Following the framework proposed by Lundberg et al. (2021), in this study we explicitly connect our research objectives and their corresponding theoretical (i.e., targets of inference) and empirical (i.e., data-driven) estimands to statistical estimates. The theoretical estimand refers to a unit-specific quantity defined over a target population and represents the ideal quantity that would address the research question under optimal conditions, such as access to complete population data or perfect experimental control. In contrast, the empirical estimand corresponds to the quantity that is actually computable using the available dataset, given real world constraints. The full description of the study's estimands and their relation to our research objectives is presented in the Appendix (see @tbl-estimands).
 
-To address RO2-4, a set of two class cross-tabulations with associated statistics was computed for each pair of operationalizations via the `confusionMatrix()` function from the R package *caret* [@kuhn2008]. For each pair of operationalizations, the analysis was repeated twice such that each variables of the pair served once as the reference and once as the predictor. Following measures were used to evaluate pairwise concordance between different operationalizations of PDD criteria: 1) Cohen's $\kappa$ with its 95% confidence interval (CI) computed via the `cohen.kappa()` function from the R package *psych* [@revelle2024]; 2) Accuracy (i.e., the proportion of correct predictions, both true positives and true negatives, among the total number of cases) with its 95% CI; 3) Sensitivity/Recall (i.e., the proportion of true positives); and 4) Specificity (i.e., the proportion of true negatives).[^9]
+To address study objectives, we started by repeatedly assigning each patient the diagnosis of probable PDD based on each PDD algorithm listed in @tbl-crits (see also @tbl-algos) resulting in a `r sum(data$incl)` (patients) $\times$ `r sum(critnum)` (operationalizations) matrix where each cell indicates whether a patient (row) meets criteria for probable PDD according to an algorithm (column)^[**JM: This could and should be shared most likely, as long, as we anonymize properly. Let's ask Oto Mestek and the NPO team how and if is it possible.**]. PDD rate estimates were computed as $\frac{N_{PDD}}{N_{total}}$ separately for each algortihm. The predictive value of age and sex was then evaluated by fitting a set of logistic regressions, one for each algorithm for probable PDD, whereby the probable PDD was predicted by age, sex and their interaction.
 
-[^9]: Unlike Cohen's $\kappa$, Accuracy, Sensitivity and Specificity are not symmetrical, i.e., their value depend on which variable is considered reference and which is considered predictor. Consequently, we report these values twice for each pair of operationalizations. Note that the Sensitivity of a reference/predictor pair corresponds to the Positive Predictive Value if their roles were reversed. The same relationship holds true between the Specificity and the Negative Predictive Value.
+Next, a set of two class cross-tabulations with associated statistics was computed for each pair of algorithms via the `confusionMatrix()` function from the R package *caret* [@kuhn2008]. For each pair of algorithms, the analysis was repeated twice such that each variable of the pair served once as the reference and once as the predictor. Following measures were used to evaluate pairwise concordance between different algorithms for probable PDD: 1) Cohen's $\kappa$ with its 95% confidence interval (CI) computed via the `cohen.kappa()` function from the R package *psych* [@revelle2024]; 2) Accuracy (i.e., the proportion of correct predictions, both true positives and true negatives, among the total number of cases) with its 95% CI; 3) Sensitivity/Recall (i.e., the proportion of true positives); and 4) Specificity (i.e., the proportion of true negatives).[^10]
 
-Finally, the No Information Rate (NIR) was calculated for each pair of operationalizations. NIR is the accuracy that could be obtained by always predicting the majority class and in our case it is equivalent to the complement of the PDD prevalence estimate according to the reference operationalization. Accuracy of prediction was subsequently compared to the NIR via a one-sided Exact Binomial Test as implemented by the `binom.test()` R stats function. Reference/predictor pairs associated with p \< .05 were considered to show significantly better accuracy than NIR. In other word, for reference/predictor pairs associated with p \< .05, we conclude that knowing the probable PDD status according to the predictor operationalization helps to estimate the probable PDD status according to the reference operationalization and the two opeartionalizations thus show substantial concordance.
+[^10]: Unlike Cohen's $\kappa$, Accuracy, Sensitivity and Specificity are not symmetrical, i.e., their value depends on which variable is considered reference and which is considered predictor. Consequently, we report these values twice for each pair of algorithms. Note that the Sensitivity of a reference/predictor pair corresponds to the Positive Predictive Value if their roles were reversed. The same relationship holds true between the Specificity and the Negative Predictive Value.
 
-Data wrangling and visualizations were done in the *tidyverse* package [@wickham2019] and tables were formatted in the *gt* package [@iannone2024]. All analyses were conducted with the R (version `r with(version, paste(major, minor, sep="."))`) software environment for statistical computing [@rsoft]. The software code supporting this article is available at <https://github.com/josefmana/DemCr1t.git>.[^10]
+Finally, the No Information Rate (NIR) was calculated for each pair of algorithms. NIR is the accuracy that could be obtained by always predicting the majority class and in our case it is equivalent to the complement of the PDD rate estimate according to the reference algorithm. Accuracy of prediction was compared to the NIR via a one-sided Exact Binomial Test as implemented by the `binom.test()` R stats function. Reference/predictor pairs associated with p \< .05 were considered to show significantly better accuracy than NIR. In other words, for reference/predictor pairs associated with p \< .05, we conclude that knowing the probable PDD status according to the predictor algorithm helps to estimate the probable PDD status according to the reference algorithm and the two algorithms thus show substantial concordance.
+
+Data wrangling and visualizations were done in the *tidyverse* package [@wickham2019] and tables were formatted in the *gt* package [@iannone2024]. All analyses were conducted within the R (version `r with(version, paste(major, minor, sep="."))`) software environment for statistical computing [@rsoft]. The software code supporting this article is available at <https://github.com/josefmana/DemCr1t.git>.[^11]
 
 [^10]: **JM: Do not forget to make it public before submitted!**
 
@@ -226,65 +211,140 @@ Data wrangling and visualizations were done in the *tidyverse* package [@wickham
 ```{r}
 #| label: "results"
 
-desc <- tar_read(sample_description    , store = upstore)
-prev <- tar_read(prevalence_summaries  , store = upstore)
+desc <- tar_read(sample_description, store = upstore)
+prev <- tar_read(prevalence_summaries, store = upstore)
+pred <- tar_read(demographic_predictors, store = upstore)
 conc <- tar_read(concordance_statistics, store = upstore)
 perc <- prev$table$perc
+
+# In-text demographic data
+sex <- subset(desc$table, variable == "Sex")$N
+age <- paste0(subset(desc$table, variable == "Age")[ , c("M", "SD")] |> paste(collapse = " (SD = "),") years of age")
+edu <- paste0(subset(desc$table, variable == "Education")[ , c("M", "SD")] |> paste(collapse = " (SD = ")," ) years of education")
+dur <- paste0(subset(desc$table, variable == "PD duration")[ , c("M", "SD")] |> paste(collapse = " (SD = "),") years of disease duration")
+updrs_off <- paste0(subset(desc$table, variable == "UPDRS III off state")[ , c("M", "SD")] |> paste(collapse = " (SD = "),") Unified Parkinson Disease Rating Scale (UPDRS), part III in medication OFF state")
+updrs_on <- paste0(subset(desc$table, variable == "UPDRS III on state")[ , c("M", "SD")] |> paste(collapse = " (SD = "),") UPDRS III in medication ON state")
+
+# In-text rate estimates
+rates_overall <- sapply(c("M", "SD", "Md", "minmax"), function(f) do_summary(perc, 2, f))
+rates_FAQ9 <- sapply(c("M", "SD", "Md", "minmax"), function(f) do_summary(perc[grepl("FAQ 9", prev$table$IADL)], 2, f))
+rates_FAQtot <- sapply(c("M", "SD", "Md", "minmax"), function(f) do_summary(perc[prev$table$IADL == "FAQ > 7"], 2, f))
+
+# Minimum p-value of logistic regressions
+min_p <- subset(pred$values, quantity == "p-value")$estimate |> min() |> do_summary(3, "p")
 ```
 
 ## Sample Description
 
-A total of `r sum(data$incl)` patients were included. Demographic and clinical characteristics of the sample are summarized in @tbl-desc. **...**[^11]
-
-[^11]: **JM: Give some brief impressions from the Table 2 here. E.g., evaluate sex proportion, age, (we are missing education for some reason) etc. with general PD population (e.g., from some meta-analysis). Maybe say a word or two about mean cognitive profile or its spread.**
-
-\[Insert Table 2 here\]
+A total of `r sum(data$incl)` patients were included. The sample included `r sex` men, with an average of `r age`, `r edu`, `r dur`, `r updrs_off` and `r updrs_on`. Cognitive characteristics of the sample are summarized in @tbl-desc.
 
 ```{r}
 #| label: "tbl-desc"
+#| tbl-cap: "Cognitive characteristics of the sample."
 
 desc$gtable
 ```
 
-## Prevalence Estimates
+\[Insert @tbl-desc here\]
 
-Operationalization-wise prevalence estimates are presented in @tbl-prev. On average, estimated prevalence was `r do_summary(perc, 2, "M")`% (SD = `r do_summary(perc, 2, "SD")`, Md = `r do_summary(perc, 2, "Md")`, range `r do_summary(perc, 2, "minmax")`). Notably, the prevalence estimate was substantially lower when FAQ item 9 was used as a criterion of IADL deficit (M = `r do_summary(perc[grepl("FAQ 9", prev$table$IADL)], 2, "M")`%, SD = `r do_summary(perc[grepl("FAQ 9", prev$table$IADL)], 2, "SD")`, range `r do_summary(perc[grepl("FAQ 9", prev$table$IADL)], 2, "minmax")`) compared to using total FAQ score criterion (M = `r do_summary(perc[!grepl("FAQ 9", prev$table$IADL)], 2, "M")`%, SD = `r do_summary(perc[!grepl("FAQ 9", prev$table$IADL)], 2, "SD")`, range `r do_summary(perc[!grepl("FAQ 9", prev$table$IADL)], 2, "minmax")`) as demonstrated also in @fig-prev.[^12]
+## PDD Rate Estimates
 
-[^12]: **JM: For oneself - work on the code here, it ain't good.**
+Algorithm-wise rate of PDD estimates are presented in @tbl-rates. On average, estimated PDD rate was `r rates_overall["M"]`% (SD = `r rates_overall["SD"]`, Md = `r rates_overall["Md"]`, range `r rates_overall["minmax"]`). Notably, the estimates were substantially lower when FAQ item 9 was used as a criterion of IADL deficit (M = `r rates_FAQ9["M"]`% SD = `r rates_FAQ9["SD"]`, Md = `r rates_FAQ9["Md"]`, range `r rates_FAQ9["minmax"]`) compared to using total FAQ score criterion (M = `r rates_FAQtot["M"]`% SD = `r rates_FAQtot["SD"]`, Md = `r rates_FAQtot["Md"]`, range `r rates_FAQtot["minmax"]`) as demonstrated also in @fig-prev. Neither age nor sex or their interaction (*p*s $\geq$ `r min_p`) reliably predicted probable PDD classification across algorithms (see @fig-data and @fig-pars).
 
-\[Insert Table 3 and Figure 1[^13] here\]
-
-[^13]: **JM: For thyself - add description.**
-
-```{r}
-#| label: "tbl-prev"
-
-prev$gtable
-```
+\[Insert @fig-prev here\]
 
 ```{r}
 #| label: "fig-prev"
+#| fig-cap: "Summary of the estimates of probable PDD rate across operationalizations under consideration. Vertical lines represent estimates arrived at by using sMoCA (dotted) or Level II (dashed) with FAQ item 9 (orange) or FAQ total score (blue) as criteria for probable PDD."
 
 prev$plot
 ```
 
-## Criteria Concordance
+## Concordance between Algorithms
 
-Results of the analyses of prediction Accuracy, Cohen's $\kappa$, Sensitivity and Specificity are presented in @fig-acc, @fig-kappa, @fig-sens and @fig-spec respectively. Numerical results are available ... [^14]
+```{r}
+#| label: kappas
+
+algos <- list(
+  faq_tot = subset(prev$table, IADL == "FAQ > 7")$type,
+  faq_9 = subset(prev$table, IADL == "FAQ 9 > 1")$type
+)
+
+# Check for overlap:
+continue <- !(any(algos$faq_tot %in% algos$faq_9) || any(algos$faq_9 %in% algos$faq_tot))
+stopifnot("Some algorithm(s) use both IADL operationalisations!" = continue)
+
+# Prepare combinations within IADL operationalisation:
+kappas <-
+  lapply(
+    set_names(names(algos)),
+    function(o)
+      combn(algos[[o]], 2) |>
+      t() |>
+      as_tibble() |>
+      `colnames<-`(c("predictor", "reference")) |>
+      left_join(conc$table, by = c("predictor", "reference")) |>
+      select(Kappa_raw) |>
+      pull()
+  )
+
+# Add cross-operationalisation cases
+kappas$cross <- subset(conc$table, predictor %in% algos$faq_9 & reference %in% algos$faq_tot)$Kappa_raw
+
+# Extract Kappa summaries:
+kappa_sums <-
+  sapply(
+    names(kappas),
+    function(i)
+      paste0(do_summary(kappas[[i]], 2, "M"),", SD = ", do_summary(kappas[[i]], 2, "SD"))
+  )
+```
+
+Results of the analyses of prediction Accuracy, Cohen's $\kappa$, Sensitivity and Specificity are presented in @fig-acc, @fig-kappa, @fig-sens and @fig-spec respectively. **Numerical results are available at ... [^15].** Generally, algorithms that employed the same operationalization of IADL deficit showed substantial pairwise concordance, however, algorithms that operationalized IADL deficit differently did not. Whereas among algorithms with identical IADL deficit operationalization, the agreement judged by Cohen's $\kappa$ was moderately high (operationalization by FAQ total score: $\kappa$ = `r kappa_sums["faq_tot"]`; operationalization by FAQ item 9: $\kappa$ = `r kappa_sums["faq_9"]`), among algorithms that differ in IADL deficit operationalization it was low ($\kappa$ = `r kappa_sums["cross"]`).
 
 [^14]: **JM: ... as some kind of Supplementary Table, ideally html but Excel file would work as well.**
 
-**In this section, we need to discuss among ourselves what and how to report such that the results give enough information, the most important information and are readable as well.**
-
-\[Insert Figure 2[^15] here\]
-
-[^15]: **JM: For thyself - add description.**
+\[Insert @fig-acc here\]
 
 ```{r}
 #| label: "fig-acc"
+#| fig-cap: "Prediction accuracy matrix. The matrix depict accuracy of "
 
 conc$plots$Accuracy
 ```
+
+## Prediction of Level II Criteria
+
+```{r}
+#| label: "lvlII-stats"
+
+lvlII_rates <- c(
+  faq_tot = subset(prev$table, type == "Lvl.II (1)")$perc |> do_summary(2) |> paste0("%"),
+  faq_9 = subset(prev$table, type == "Lvl.II (2)")$perc |> do_summary(2) |> paste0("%")
+)
+
+smoca_stats <- c(
+  spec = subset(conc$table, predictor == "sMoCA (1)" & reference == "Lvl.II (1)")$Specificity |> do_summary(2),
+  sens = subset(conc$table, predictor == "sMoCA (1)" & reference == "Lvl.II (1)")$Sensitivity |> do_summary(2)
+)
+```
+
+For easier interpretability of our results, we next examine cases where Level II algorithms served as a reference and Level I algorithms as a predictor. @tbl-approx shows five Level I algorithms with the highest and five with the lowest accuracy in predicting Level II classification of probable PDD.
+
+When IADL deficit was defined by total FAQ score, the Level II estimate of PDD rate was `r lvlII_rates["faq_tot"]`. All five Level I algorithms that approximated the Level II classification most accurately were MoCA-based and defined Executive Function deficit by Clock drawing rather than Lexical fluency test. On the other hand, two out of the five Level I algorithms with the lowest accuracy were MMSE-based, whereas the remaining three were MoCA-based and defined Executive Function deficit by Lexical fluency test.
+
+When IADL deficit was defined by FAQ item 9 score, the Level II estimate of PDD rate was `r lvlII_rates["faq_9"]`. Overall, the difference between the most accurate and the least accurate Level I algorithms was lower than in the case of IADL deficit being defined by FAQ total score (see @tbl-approx). The five most accurate algorithms were all MoCA-based, defined Executive Function deficit by Clock drawing (with threshold < 2) and in majority of cases defined Language deficit by Animal naming. Two out of the five Level I algorithms with the lowest accuracy were MMSE-based, whereas the remaining three were MoCA-based and defined Executive Function deficit by Clock drawing (with threshold < 3) and Language deficit by Abstraction.
+
+Finally, if the predictors are sorted by their balanced accuracy (i.e., average of sensitivity and specificity) instead of raw accuracy, the results are similar with the exception that for prediction of Level II with total FAQ score algorithm for probable PDD, the highest balanced accuracy was achieved by the sMoCA algorithm with sensitivity `r smoca_stats["sens"]` and specificity `r smoca_stats["spec"]` (see @tbl-approx-bal).
+
+```{r}
+#| label: "tbl-approx"
+#| tbl-cap: "Level I algorithms for probable PDD as predictors of Level II classification as the reference."
+
+table_levelII_approximations(conc$table, algos, "Accuracy_raw")
+```
+
+\[Insert @tbl-approx here\]
 
 # Discussion
 
@@ -333,6 +393,133 @@ Ultimately, this study contributes to the improving landscape of PDD diagnostics
 # References
 
 # Appendix
+
+## Derivation of the Algorithms Set
+
+Both, the original PDD criteria [@dubois2007] and the call for their change [@kulisevsky2024] allow for several distinct combinations of items to be used to define cognitive impairment. Consequently, in this study we derived all algorithms for probable PDD on Level I that are in line with published criteria. This procedure parallel the diagnostic algorithm outlined in Table 2 of @dubois2007. Specifically, in this study, we varied the exact specification of items 3-5 of this table (i.e., the measure of global cognitive impairment, the measure of the impact on IADLs and the measures of impaired cognition).
+
+For each set of criteria (MMSE-based, MoCA-based, sMoCA-based and Level II), we first specified the items and then the thresholds for each item used to define probable PDD. If more than one option was present in either the choice of the item or the choice of the threshold, we created an algorithm for each choice in turn. The final set of algorithms was arrived at by computing the Cartesian product of all possibilities provided by varying items and thresholds. All combinations are presented in @tbl-algos.
+
+For MMSE-based algorithms, the following sets of items served as the basis:
+
+$Global = \{MMSE < 26\}$
+
+$Attention = \{{Sevens\ backwards < 4}\}$
+
+$Executive = \{{Clock\ drawing} < 2, {Lexical\ fluency\ (S)} < 10\}$
+
+$Construction = \{Pentagons < 1\}$
+
+$Memory = \{{Three{\text-}words\ recall} < 3\}$
+
+$IADL = \{FAQ > 7, {FAQ\ (it. 9)} > 1\}$
+
+The ensuing Cartesian product $Global \times Attention \times Executive \times Construction \times Memory \times IADL$ results in $1 \times 1 \times 2 \times 1 \times 1 \times 2 = 4$ MMSE-based algorithms for probable PDD.
+
+For MoCA-based algorithms, the following sets of items served as the basis:
+
+$Global = \{MoCA < 26\}$
+
+$Attention = \{{Sevens\ backwards < 3}\}$
+
+$Executive = \{{Clock\ drawing} < 2, {Clock\ drawing} < 3, {Lexical\ fluency\ (K)} < 11\}$
+
+$Construction = \{Cube\ drawing < 1\}$
+
+$Memory = \{Five{\text-}words\ recall < 1, Five{\text-}words\ recall < 2, Five{\text-}words\ recall < 3, Five{\text-}words\ recall < 4, Five{\text-}words\ recall < 5\}$
+
+$Language = \{Abstraction < 2, Animal\ naming < 3\}$
+
+$IADL = \{FAQ > 7, {FAQ\ (it. 9)} > 1\}$
+
+Note that the additional language domain adds complexity to establishing a diagnostic algorithm because simply by adding it to the set of items, the number of potential algorithms doubles. Further complexity is added by the fact that there are so far no guidelines for selecting a diagnostic threshold for Clock drawing and Five-words recall tests, both of which differ from their counterparts used by @dubois2007. Finally, although the Sevens backwards item has different thresholds in MoCA-based compared to MMSE-based algorithms, this difference is solely due to a difference in scoring whereby 3 points in MoCA correspond to 4 or 5 points in MMSE. The Seven backwards item threshold for MoCA-based algorithms used in this study is thus equivalent to its MMSE-based counterpart.
+
+Computing the Cartesian product $Global \times Attention \times Executive \times Construction \times Memory \times Language \times IADL$ yields $1 \times 1 \times 3 \times 1 \times 5 \times 2 \times 2 = 60$ distinct MoCA-based algorithms for probable PDD.
+
+For sMoCA-based algorithms, the following sets of items served as the basis:
+
+$Global = \{sMoCA < 13\}$
+
+$IADL = \{FAQ > 7, {FAQ\ (it. 9)} > 1\}$
+
+yielding $Global \times IADL$, i.e., $1 \times 2 = 2$ distinct sMoCA-based algorithms for probable PDD.
+
+Finally, the Level II algorithms were based on the following sets of items:
+
+$Attention = \{z(TMT\ A) < -1.5\ \cup z(WAIS\ DSB) < -1.5\}$
+
+$Executive = \{z(CF\ A) < -1.5\ \cup z(PST\ C) < -1.5\}$
+
+$Construction = \{z(JoLO) < -1.5\ \cup z(CLOXI) < -1.5\}$
+
+$Memory = \{z(RAVLT\ DR) < -1.5\ \cup z(BVMTR\ DR) < -1.5\ \cup z(WMS\text-III\ Family\ Pictures) < -1.5\}$
+
+$Language = \{z(WAIS\ Similarities) < -1.5 \ \cup z(BNT\ 60) < -1.5\}$
+
+$IADL = \{FAQ > 7, {FAQ\ (it. 9)} > 1\}$
+
+where $z()$ denotes calculation of age, sex and education adjusted z-score. This yields $1 \times 1 \times 1 \times 1 \times 1 \times 2 = 2$ distinct Level II algorithms for probable PDD in the current study. All but the BNT 60 item were evaluated using regression norms published by @bezdicek2017. Since the original article used BNT 30 instead of BNT 60, we approximated the deficit in BNT 60 by comparing patients' raw score to age- and education-specific normative values reported by @zemanova2016. Specifically, patients whose BNT 60 score fell below 5^th^ percentile of their demographic group in Table 6 of @zemanova2016 were considered to show signs of impaired performance.
+
+### Operationalization of Impaired Cognition
+
+In the original criteria, item 4 of Level I criteria, i.e., impaired cognition, was defined as follows: *"The proposed diagnostic criteria require a profile of cognitive deficits, typical of those described for PD-D, in two or more of four domains."* [@dubois2007, p. 2316] Consequently, we defined impaired cognition as a deficit in two or more domains of four in MMSE-based criteria and as a deficit in two or more of five domains in MoCA-based criteria. sMoCA-based criteria omitted the "impaired cognition" item altogether because they were intended as a shorter screening alternative to classical Level I assessment. Finally, for the Level II criteria, we employed standard definition of impaired cognition as the *"[i]mpairment on at least two neuropsychological tests, represented by either two impaired tests in one cognitive domain or one impaired test in two different cognitive domains."* [@litvan2012, Table 1]
+
+```{r}
+#| label: "tbl-algos"
+#| tbl-cap: "Summary of all algortihms for probable PDD used in the study."
+
+prev$gtables$algorithms
+```
+
+## Theoretical and Empirical Estimands
+
+In this study, we follow the framework proposed by @lundberg2021 for specifying targets of inference (i.e., the estimands) in qunatitative sciences to increase transparency and connect statistical evidence to relevant theory. @tbl-estimands contains verbal description of the components relating to each of our proclaimed research objectives and map them to the population quantity of interest (the theoretical estimand), data-dependent quantity that could be estimated (the empirical estimand) and quantities that are reported in the study (statistical estimates).
+
+```{r}
+#| label: "tbl-estimands"
+#| tbl-cap: "Mapping between research objectives and quantities of interest in the current study."
+
+table_estimands()
+```
+
+The RO1 - to estimate the prevalence of PDD and evaluate the diagnostic variability and concordance across different algorithms of probable PDD - was divided into four distinct research objectives:
+
+- to estimate the rate of PDD within PD (RO1.1),
+- to estimated variability of this rate (RO1.2),
+- to evaluate predictive value of demographic variables for probable PDD classification (RO1.3) and
+- to evaluate concordance between different probable PDD operationalizations and criteria (RO1.4).
+
+Estimates relating to RO1.1 and RO1.3 cannot be safely generalized beyond a population of PD patients that are candidates for DBS due to the systematic differences between DBS candidates pool and general PD population (such as the lower age of DBS candidates compared to the general PD population). On the other hand, the estimates relating to RO1.4 (and to a lesser degree to RO1.2^[Because the quantity of interest is a rate and could thus be though of as a sum of binomially distributed PDD occurences divided by the total number of patients, its variance will likely systematically vary with its mean. Specifically, as the rate goes from extremes to 0.5, the variance increases. Consequently, if our estimate of the rate was lower than the true population rate, e.g., because our sample includes younger patients compared to the general PD population, our estimate of variance would also lower than the true variance of PDD rate in the general PD population. Nonetheless, the between-algorithm variability may not be affected by this phenomenon as unlike variability of PDD rate, we do not have reason to assume it comes about by summing independent binomial events]) may not be substantially influenced by the sample at hand as the primary source of their variance might come from variability in measures employed (e.g., MMSE vs MoCA to assess global cognitive performance) rather than variability in patients' performance. Assuming that there is no substantial Differential Item Functioning for DBS candidates compared to a broader population of patients with PD, the estimates relating to RO1.4 can be cautiously generalized beyond the current sample.
+
+Finally, for the RO2, the theoretical estimand is defined as the set of diagnostic components whose variation systematically alters the probability of a probable PDD diagnosis. This aspect of the study is exploratory in nature. Empirically, we assess the contribution of each diagnostic feature by examining how variations in operational definitions (e.g., domain-specific thresholds, criteria for functional impairment) influence the statistical estimates derived for the first objective. This allows us to identify the diagnostic elements most responsible for between-algorithm discrepancies.
+
+## Supplementary Presentation of Results
+
+```{r}
+#| label: "tbl-rates"
+#| tbl-cap: "Estimates of the rate of probable PDD in the sample."
+
+prev$gtables$rates
+```
+
+```{r}
+#| label: "tbl-approx-bal"
+#| tbl-cap: "Level I algorithms for probable PDD as predictors of Level II classification as the reference arranged by their balanced accuracy score."
+
+table_levelII_approximations(conc$table, algos, "Balanced Accuracy")
+```
+
+```{r}
+#| label: "fig-data"
+
+pred$plots$data
+```
+
+```{r}
+#| label: "fig-pars"
+
+pred$plots$parameters
+```
 
 ```{r}
 #| label: "fig-kappa"
