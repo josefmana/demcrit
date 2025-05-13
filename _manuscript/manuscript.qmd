@@ -75,12 +75,12 @@ keywords:
   - Parkinson's disease dementia
   - level I criteria
 format:
+ apaquarto-docx: 
+    toc: false
  apaquarto-pdf:
-   documentmode: man
-   a4paper: true
-   pdf-engine: lualatex
-   floatsintext: false
-   keep-tex: false
+    # Can be jou (journal), man (manuscript), stu (student), or doc (document)
+    documentmode: man
+    keep-tex: true
 bibliography: references.bib
 floatsintext: false
 numbered-lines: false

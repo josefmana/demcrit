@@ -1,0 +1,146 @@
+---
+lang: en
+title: "Updated Criteria for the Diagnostic Procedure for Parkinson’s Disease Dementia on Level I and their Validity in Deep Brain Stimulation Cohort"
+shorttitle: "Parkinson's Disease Dementia Level I Criteria"
+author:
+  - name: Martina Mana
+    corresponding: false
+    orcid: "0009-0007-4665-3946"
+    role:
+      - Conceptualization
+      - Data curation
+      - Writing - original draft
+    affiliations:
+      - id: "1FM"
+        name: "First Faculty of Medicine and General University Hospital in Prague, Charles University, Czech Republic"
+        department: "Department of Neurology and Centre of Clinical Neuroscience"
+  - name: Josef Mana
+    corresponding: false
+    orcid: "0000-0002-7817-3978" 
+    email: "josef.mana@lf1.cuni.cz"
+    role:
+      - Conceptualization
+      - Data curation
+      - Investigation
+      - Formal analysis
+      - Software
+      - Methodology
+      - Project administration
+      - Validation
+      - Writing - original draft
+    affiliations:
+      - id: "1FM"
+        name: "First Faculty of Medicine and General University Hospital in Prague, Charles University, Czech Republic"
+        department: "Department of Neurology and Centre of Clinical Neuroscience"
+  - name: Tereza Uhrova
+    corresponding: false
+    email: "tereza.uhrova@vfn.cz"
+    role:
+      - Investigation
+    affiliations:
+      - id: "1FM"
+        name: "First Faculty of Medicine and General University Hospital in Prague, Charles University, Czech Republic"
+        department: "Department of Neurology and Centre of Clinical Neuroscience"
+  - name: Robert Jech
+    corresponding: false
+    orcid: "0000-0002-9732-8947"
+    email: "jech@cesnet.cz"
+    role:
+      - Funding acquisition
+      - Resources
+      - Writing - review & editing
+    affiliations:
+      - id: "1FM"
+        name: "First Faculty of Medicine and General University Hospital in Prague, Charles University, Czech Republic"
+        department: "Department of Neurology and Centre of Clinical Neuroscience"
+  - name: Ondrej Bezdicek
+    corresponding: true
+    orcid: "0000-0002-5108-0181"
+    email: "ondrej.bezdicek@gmail.com"
+    role:
+      - Investigation
+      - Data curation
+      - Funding acquisition
+      - Conceptualization
+      - Project administration
+      - Supervision
+      - Writing - original draft
+    affiliations:
+      - id: "1FM"
+        name: "First Faculty of Medicine and General University Hospital in Prague, Charles University, Czech Republic"
+        department: "Department of Neurology and Centre of Clinical Neuroscience"
+abstract: ""
+keywords:
+  - Parkinson’s disease
+  - Parkinson's disease dementia
+  - level I criteria
+format:
+ apaquarto-pdf:
+    # Can be jou (journal), man (manuscript), stu (student), or doc (document)
+    documentmode: man
+    keep-tex: true
+bibliography: bibliography.bib
+floatsintext: false
+numbered-lines: false
+suppress-title-page: false
+warning: false
+echo: false
+---
+
+```{r}
+#| label: "import"
+
+library(targets)
+library(tidyverse)
+library(gt)
+
+upstore <- here::here(tar_config_get("store"))
+tar_source(here::here("R"))
+data <- tar_read(raw_data, store = upstore)
+crit <- tar_read(pdd_data, store = upstore)$criteria
+vars <- tar_read(variables, store = upstore)
+```
+
+# Introduction
+
+Parkinson’s disease (PD) is a neurodegenerative disorder defined by a gradual onset of motor impairment, including rigidity, bradykinesia, postural instability and resting tremor. Additionally, patients frequently suffer from a range of non-motor impairments [@postuma2015], particularly cognitive decline. This state might result in Parkinson’s disease dementia (PDD) in a subset of patients [@meireles2012].
+
+Despite its clinical relevance, the diagnosis of PDD remains complex. The original criteria formalized in 2007 by the International Parkinson and Movement Disorder Society (MDS) [@dubois2007] were heavily influenced by frameworks established primarily for Alzheimer’s disease (AD). **Although these criteria provided a valuable base, they lacked the specificity to detect the specific cognitive aspects of PDD [@emre2007; @yamashita2023].**^[**JM: Are we sure the references provide evidence supporting our statement that MDS criteria lacked specificity for cognitive aspects of PDD? Emre et al. (2007) is one of the series of PDD-criteria-creating articles together with Dubois et al. (2007) and it does not say the criteria are not specific. Yamashita et al. (2023) is not concerned with criteria at all, instead they use any definition of PDD that was present in their source studies to evaluate predictive value of biomarkers for PDD. I do not think our argument here is valid based on the provided evidence.**]
+
+In order to increase diagnostic accuracy, the MDS also developed a levelled system for PDD detection. Level I criteria are designed primarily for clinical use, consisting of brief cognitive assessments **and relying on clinical judgement**^[**JM: Is this a statement directly from the source? If not, I would drop the clinical judgement part as all diagnoses are likely to rely on clinical judgement anyway.**]. In contrast, Level II criteria use comprehensive neuropsychological testing across cognitive domains to provide greater diagnostic specificity [@emre2007].
+
+One specific feature of the original Level I criteria was the presence of an algorithm allowing flexibility in test selection. The criteria included (Mini-Mental State Examination) MMSE pentagons for evaluation of visuospatial ability, three-word recall for memory assessment,  months reversed or seven backwards for attention assessment and lexical fluency or clock drawing for executive function assessment [@dubois2007].^[**JM: I would introduce the algorithm in a little bit of more detail. E.g., "The original criteria included a straightforward algorithm for diagnosis of probable PDD consisting of eight items that needed to be fullfilled simultaneously. ... **]
+
+According to a recent meta-nalysis, the estimates of PDD rate within PD vary widely, ranging from 14% up to 55%, depending on methodological criteria employed [@sousa2022]. Moreover, factors such as patients` sex [@cereda2016], age and disease duration appear to modulate the risk of cognitive decline [@oh2016; @rana2012]. Currently, efforts are focused on refining the PDD diagnostic framework to improve its consistency and applicability in both research and clinical contexts [@kulisevsky2024].^[**JM: This shall be even higher, the second paragraphs is a good place for this one according to my humble correct opinion.**]
+
+**The present study evaluates the diagnostic concordance**^[**JM: There is not much reasoning substantiating these goals in the introduction. We would be better off restructuring the introduction with a more straightforward logic that goes: "This is PDD" -> "PDD is important" -> "This is how PDD is measured" -> "This is why the PDD measurement is imperfect" -> "This is what can help us to make sense of the PDD measurement" -> "Ergo, that's why we do what we do in this study."**] between the original Level I criteria for PDD, as established by the MDS Task Force [@emre2007; @dubois2007] and criteria inspired by the recent call for change [@kulisevsky2024]. Furthermore, both sets of criteria are compared to PDD diagnosed on Level II. The study aims to address the following research objectives (RO): (RO1) To estimate the Parkinson’s disease dementia (PDD) rate and evaluate the diagnostic variability and concordance across different PDD criteria. (RO2) To identify specific diagnostic components contributing to PDD classification variability across criteria.
+
+# Methods
+
+## Participants
+
+```{r}
+#| label: "dates"
+
+continue <- all(!is.na(data$assdate))
+stopifnot("Some assessment dates are missing" = continue)
+
+dates <-
+  sapply(
+    c("min", "max"),
+    function(f) {
+      date <- do.call(f, list(data$assdate))
+      paste(month(date, label = T, abbr = F), year(date))
+    }
+  )
+```
+
+This study retrospectively analyzed clinical data from a cohort of patients with PD at the General University Hospital in Prague. All patients were diagnosed with idiopathic PD by a movement disorder specialist according to the MDS Clinical Diagnostic Criteria for PD [@postuma2015]. Clinical records spanning `r dates["min"]` to `r dates["max"]` were examined. All participants underwent neuropsychological evaluation conducted by a trained clinical psychologist (OB) as part of standard preoperative cognitive assessments for DBS eligibility at the General University Hospital in Prague.
+
+Ethical approval for the study protocol was obtained from the Ethics Committee of the General University Hospital in Prague. Informed consent was secured from all patients prior to their neuropsychological assessments, in adherence to ethical research guidelines.
+
+## Neuropsychological Assessment
+
+Cognitive performance was evaluated at both Level I (abbreviated assessment) and Level II (comprehensive assessment) according to the standard MDS neuropsychology battery for Parkinson's Disease Mild Cognitive Impairment (PD-MCI) [@litvan2012, @bezdicek2017]. Level I was assessed using the Mini-Mental State Examination (MMSE) [@stepankova2014; @folstein1975] and the Montreal Cognitive Assessment (MoCA) [@kopecek2016; @nasreddine2005]. The neuropsychological assessment at Level II covered five cognitive domains, each evaluated through specific tests as follows: attention and working memory assessed using Trail Making Test Part A (TMT-A) [@bezdicek2012; @reitan2004], and WAIS Digit Span Backward (WAIS DSB) [@wechsler1997]; executive function evaluated via Categorical Verbal Fluency (CF) [@nikolai2015], and subtest from the Prague Stroop Test – Colors (PST-C) [@bezdicek2021]; language measured with the WAIS Similarities subtest [@wechsler1997], and the Boston Naming Test (BNT-60) [@zemanova2016; @kaplan1983]; memory examined using the Rey Auditory Verbal Learning Test (RAVLT) [@frydrychova2018; @bezdicek2013; @rey1964] delayed recall, and the Brief Visual Memory Test–Revised (BVMTR) [@havlik2020; @benedict1997] delayed recall, or WAIS Family Pictures subtest [@wechsler1997] delayed recall; visuospatial function assessed through the Judgment of Line Orientation Test (JoLO) [@benton1983], and Clock Drawing Test (CLOX) [@royall1998].
+
+# References
