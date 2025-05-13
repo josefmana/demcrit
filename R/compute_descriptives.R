@@ -22,15 +22,15 @@
 #'
 #' @examples
 #' \dontrun{
-#' p    <- data_paths('data-raw')
+#' p    <- data_paths("data-raw")
 #' data <- prepare_data(p)
-#' demo <- compute_descriptives(data, here::here('data-raw','VariablesOfInterest.csv'))
+#' demo <- compute_descriptives(data, here::here("data-raw", "VariablesOfInterest.csv"))
 #' }
 #' @export
 compute_descriptives <- function(d0, vois) {
   # Get variables of interest:
   if (is.character(vois)) {
-    v <- readr::read_delim(vois, delim = ';', col_types = cols())
+    v <- readr::read_delim(vois, delim = ";", col_types = cols())
   } else {
     v <- vois
   }
@@ -42,20 +42,20 @@ compute_descriptives <- function(d0, vois) {
         variable = pull(v[i, 2]),
         group    = pull(v[i, 4]),
         N  = case_when(
-          pull(v[i, 3]) == 'binary'     ~ do_summary(d0[ , pull(v[i, 1])], 0, 'Nperc'),
-          pull(v[i, 3]) == 'nominal'    ~ do_summary(d0[ , pull(v[i, 1])], 0, 'Nslash'),
-          pull(v[i, 3]) == 'continuous' ~ do_summary(d0[ , pull(v[i, 1])], 0, 'N')
+          pull(v[i, 3]) == "binary"     ~ do_summary(d0[ , pull(v[i, 1])], 0, "Nperc"),
+          pull(v[i, 3]) == "nominal"    ~ do_summary(d0[ , pull(v[i, 1])], 0, "Nslash"),
+          pull(v[i, 3]) == "continuous" ~ do_summary(d0[ , pull(v[i, 1])], 0, "N")
         ),
         sapply(
-          c('Md','minmax','M','SD'),
+          c("Md","minmax","M","SD"),
           function(f) ifelse(
-            test = pull(v[i, 3]) == 'continuous',
+            test = pull(v[i, 3]) == "continuous",
             yes  = ifelse(
               test = pull(v[i, 4]) %in% c("Attention and Working Memory", "Executive Function", "Language", "Memory", "Visuospatial Function"),
               yes  = do_summary(pull(d0[ , pull(v[i, 1])]), 2, f),
-              no   = do_summary(pull(d0[ , pull(v[i, 1])]), ifelse(f %in% c('M','SD'), 2, 0), f)
+              no   = do_summary(pull(d0[ , pull(v[i, 1])]), ifelse(f %in% c("M","SD"), 2, 0), f)
             ),
-            no   = '-'
+            no   = "-"
           )
         )
       )
@@ -65,6 +65,7 @@ compute_descriptives <- function(d0, vois) {
   # Prepare a gt table:
   gtab <-
     demtab |>
+    filter(!(group %in% c("Demographics", "Clinical"))) |>
     mutate(
       variable = sapply(
         seq_len(length(variable)),
@@ -79,16 +80,16 @@ compute_descriptives <- function(d0, vois) {
           )
       )
     ) |>
-    gt_apa_table(grp = 'group') |>
-    cols_label(variable ~ '', minmax ~ 'Min-max')
+    gt_apa_table(grp = "group") |>
+    cols_label(variable ~ "", minmax ~ "Min-max")
   # If there are notes, add them to the table:
   if (ncol(v) > 4 && any(!is.na(v$note))) {
     notes <- v[complete.cases(v[ , 5]), c(2,5)]
-    text  <- paste0(pull(notes[ , 1]),': ',pull(notes[ , 2])) |> paste(collapse = ', ')
+    text  <- paste0(pull(notes[ , 1]),": ",pull(notes[ , 2])) |> paste(collapse = ", ")
     # Add the text:
     gtab <-
       gtab |>
-      tab_source_note(html(paste0('<i>Note.</i> ',text)))
+      tab_source_note(html(paste0("<i>Note.</i> ",text)))
   }
   # Return results:
   list(table = demtab, gtable = gtab)
