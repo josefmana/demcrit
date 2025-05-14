@@ -1,6 +1,6 @@
 ---
 lang: en
-title: "Updated Criteria for the Diagnostic Procedure for Parkinson’s Disease Dementia on Level I and their Validity in Deep Brain Stimulation Cohort"
+title: "Evaluation of Diagnostic Concordance Between Algorithms for Parkinson’s Disease Dementia"
 shorttitle: "Parkinson's Disease Dementia Level I Criteria"
 author:
   - name: Martina Mana
@@ -75,10 +75,9 @@ keywords:
   - Parkinson's disease dementia
   - level I criteria
 format:
- apaquarto-pdf:
-    # Can be jou (journal), man (manuscript), stu (student), or doc (document)
-    documentmode: man
-    keep-tex: true
+ # apaquarto-pdf:
+   # documentmode: man
+   # keep-tex: true
  apaquarto-docx: 
     toc: false
 bibliography: bibliography.bib
@@ -186,9 +185,9 @@ Next, a set of two class cross-tabulations with associated statistics was comput
 
 Finally, the No Information Rate (NIR) was calculated for each pair of algorithms. NIR is the accuracy that could be obtained by always predicting the majority class and in our case it is equivalent to the complement of the PDD rate estimate according to the reference algorithm. Accuracy of prediction was compared to the NIR via a one-sided Exact Binomial Test as implemented by the `binom.test()` R stats function. Reference/predictor pairs associated with p \< .05 were considered to show significantly better accuracy than NIR. In other words, for reference/predictor pairs associated with p \< .05, we conclude that knowing the probable PDD status according to the predictor algorithm helps to estimate the probable PDD status according to the reference algorithm and the two algorithms thus show substantial concordance.
 
-Data wrangling and visualizations were done in the *tidyverse* package [@wickham2019] and tables were formatted in the *gt* package [@iannone2024]. All analyses were conducted within the R (version `r with(version, paste(major, minor, sep="."))`) software environment for statistical computing [@rsoft]. The software code supporting this article is available at <https://github.com/josefmana/DemCr1t.git>.[^2]
+Data wrangling and visualizations were done in the *tidyverse* package [@wickham2019] and tables were formatted in the *gt* package [@iannone2024]. All analyses were conducted within the R (version `r with(version, paste(major, minor, sep="."))`) software environment for statistical computing [@rsoft]. The software code supporting this article is available at <https://github.com/josefmana/DemCr1t.git>.[^1]
 
-[^2]: **JM: Do not forget to make it public before submitted!**
+[^1]: **JM: Do not forget to make it public before submitted!**
 
 # Results
 
@@ -297,9 +296,9 @@ kappa_iadl <-
 kappa_iadl_sums <- paste0(do_summary(x = kappa_iadl, 2, "M"),", SD = ", do_summary(x = kappa_iadl, 2, "SD"))
 ```
 
-Results of the analyses of prediction Accuracy, Cohen's $\kappa$, Sensitivity and Specificity are presented in @fig-acc, @fig-kappa, @fig-sens and @fig-spec respectively. **Numerical results are available at ...** [^3]. Generally, algorithms that employed the same operationalization of IADL deficit showed substantial pairwise concordance, however, algorithms that operationalized IADL deficit differently did not. Whereas among algorithms with identical IADL deficit operationalization, the agreement judged by Cohen's $\kappa$ was moderately high (operationalization by FAQ total score: $\kappa$ = `r kappa_sums["faq_tot"]`; operationalization by FAQ item 9: $\kappa$ = `r kappa_sums["faq_9"]`), among algorithms that differ in IADL deficit operationalization but are otherwise identical it was low: $\kappa$ = `r kappa_iadl_sums`.
+Results of the analyses of prediction Accuracy, Cohen's $\kappa$, Sensitivity and Specificity are presented in @fig-acc, @fig-kappa, @fig-sens and @fig-spec respectively. **Numerical results are available at ...** [^2]. Generally, algorithms that employed the same operationalization of IADL deficit showed substantial pairwise concordance, however, algorithms that operationalized IADL deficit differently did not. Whereas among algorithms with identical IADL deficit operationalization, the agreement judged by Cohen's $\kappa$ was moderately high (operationalization by FAQ total score: $\kappa$ = `r kappa_sums["faq_tot"]`; operationalization by FAQ item 9: $\kappa$ = `r kappa_sums["faq_9"]`), among algorithms that differ in IADL deficit operationalization but are otherwise identical it was low: $\kappa$ = `r kappa_iadl_sums`.
 
-[^3]: **JM: Should provide an excel sheet or html table the readers could go through by themselves.**
+[^2]: **JM: Should provide an excel sheet or html table the readers could go through by themselves.**
 
 \[Insert Figure 2 here\]
 
@@ -381,7 +380,7 @@ Nevertheless, the analysis of the algorithm concordance might not be affected by
 
 Furthermore, another limitation is the use of the FAQ questionnaire for IADL assessment. FAQ is subjective and informant-reliant, which may result in biased data. For future research, we suggest the use of more objective, modernized tools for IADl assessment, such as performance-based methods [@schmitter-edgecombe2020] or questionnaire adaptation including questions regarding gadgets use and digital literacy [@postema2024]. Our results emphasize the importance of IADL deficit for the PDD diagnosis, therefore, we suggest exploring more reliable tools with high ecological validity.
 
-Finally, whereas our study systematically investigated how varying definition of global deficit, impaired cognition and IADL deficit affect probable PDD  classification, it did not explore associations of PDD diagnosis with its neuropsychiatric (e.g. anxiety profile) and biomarker correlates. Future studies would benefit from focusing on these aspects of PDD.
+Finally, whereas our study systematically investigated how varying definition of global deficit, impaired cognition and IADL deficit affect probable PDD classification, it did not explore associations of PDD diagnosis with its neuropsychiatric (e.g. anxiety profile) and biomarker correlates. Future studies would benefit from focusing on these aspects of PDD.
 
 # Conclusions
 
@@ -488,9 +487,9 @@ The RO1 - to estimate the PDD rate and evaluate the diagnostic variability and c
 -   to evaluate predictive value of demographic variables for probable PDD classification (RO1.3) and
 -   to evaluate concordance between different probable PDD operationalizations and criteria (RO1.4).
 
-Estimates relating to RO1.1 and RO1.3 cannot be safely generalized beyond a population of PD patients that are candidates for DBS due to the systematic differences between DBS candidates pool and general PD population (such as the lower age of DBS candidates compared to the general PD population). On the other hand, the estimates relating to RO1.4 (and to a lesser degree to RO1.2[^4]) may not be substantially influenced by the sample at hand as the primary source of their variance might come from variability in measures employed (e.g., MMSE vs MoCA to assess global cognitive performance) rather than variability in patients' performance. Assuming that there is no substantial Differential Item Functioning for DBS candidates compared to a broader population of patients with PD, the estimates relating to RO1.4 can be cautiously generalized beyond the current sample.
+Estimates relating to RO1.1 and RO1.3 cannot be safely generalized beyond a population of PD patients that are candidates for DBS due to the systematic differences between DBS candidates pool and general PD population (such as the lower age of DBS candidates compared to the general PD population). On the other hand, the estimates relating to RO1.4 (and to a lesser degree to RO1.2[^3]) may not be substantially influenced by the sample at hand as the primary source of their variance might come from variability in measures employed (e.g., MMSE vs MoCA to assess global cognitive performance) rather than variability in patients' performance. Assuming that there is no substantial Differential Item Functioning for DBS candidates compared to a broader population of patients with PD, the estimates relating to RO1.4 can be cautiously generalized beyond the current sample.
 
-[^4]: Because the quantity of interest is a rate and could thus be though of as a sum of binomially distributed PDD occurences divided by the total number of patients, its variance will likely systematically vary with its mean. Specifically, as the rate goes from extremes to 0.5, the variance increases. Consequently, if our estimate of the rate was lower than the true population rate, e.g., because our sample includes younger patients compared to the general PD population, our estimate of variance would also lower than the true variance of PDD rate in the general PD population. Nonetheless, the between-algorithm variability may not be affected by this phenomenon as unlike variability of PDD rate, we do not have reason to assume it comes about by summing independent binomial events
+[^3]: Because the quantity of interest is a rate and could thus be though of as a sum of binomially distributed PDD occurences divided by the total number of patients, its variance will likely systematically vary with its mean. Specifically, as the rate goes from extremes to 0.5, the variance increases. Consequently, if our estimate of the rate was lower than the true population rate, e.g., because our sample includes younger patients compared to the general PD population, our estimate of variance would also lower than the true variance of PDD rate in the general PD population. Nonetheless, the between-algorithm variability may not be affected by this phenomenon as unlike variability of PDD rate, we do not have reason to assume it comes about by summing independent binomial events
 
 Finally, for the RO2, the theoretical estimand is defined as the set of diagnostic components whose variation systematically alters the probability of a probable PDD diagnosis. This aspect of the study is exploratory in nature. Empirically, we assess the contribution of each diagnostic feature by examining how variations in operational definitions (e.g., domain-specific thresholds, criteria for functional impairment) influence the statistical estimates derived for the first objective. This allows us to identify the diagnostic elements most responsible for between-algorithm discrepancies.
 
