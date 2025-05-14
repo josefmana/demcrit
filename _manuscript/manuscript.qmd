@@ -180,9 +180,7 @@ table_criteria(vars)
 
 Following the framework proposed by @lundberg2021, in this study we explicitly connect our research objectives and their corresponding theoretical (i.e., targets of inference) and empirical (i.e., data-driven) estimands to statistical estimates. The theoretical estimand refers to a unit-specific quantity defined over a target population and represents the ideal quantity that would address the research question under optimal conditions, such as access to complete population data or perfect experimental control. In contrast, the empirical estimand corresponds to the quantity that is actually computable using the available dataset, given real world constraints. The full description of the study's estimands and their relation to our research objectives is presented in the Appendix (see @tbl-estimands).
 
-To address study objectives, we started by repeatedly assigning each patient the diagnosis of probable PDD based on each PDD algorithm listed in @tbl-crits (see also @tbl-algos) resulting in a `r sum(data$incl)` (patients) $\times$ `r sum(critnum)` (algorithms) matrix where each cell indicates whether a patient (row) meets criteria for probable PDD according to an algorithm (column)[^1]. PDD rate estimates were computed as $\frac{N_{PDD}}{N_{total}}$ separately for each algortihm. The predictive value of age and sex was then evaluated by fitting a set of logistic regressions, one for each algorithm for probable PDD, whereby the probable PDD was predicted by age, sex and their interaction.
-
-[^1]: **JM: This could and should be shared most likely, as long, as we anonymize properly. Let's ask Oto Mestek and the NPO team how and if is it possible.**
+To address study objectives, we started by repeatedly assigning each patient the diagnosis of probable PDD based on each PDD algorithm listed in @tbl-crits (see also @tbl-algos) resulting in a `r sum(data$incl)` (patients) $\times$ `r sum(critnum)` (algorithms) matrix where each cell indicates whether a patient (row) meets criteria for probable PDD according to an algorithm (column). PDD rate estimates were computed as $\frac{N_{PDD}}{N_{total}}$ separately for each algortihm. The predictive value of age and sex was then evaluated by fitting a set of logistic regressions, one for each algorithm for probable PDD, whereby the probable PDD was predicted by age, sex and their interaction.
 
 Next, a set of two class cross-tabulations with associated statistics was computed for each pair of algorithms via the `confusionMatrix()` function from the R package *caret* [@kuhn2008]. For each pair of algorithms, the analysis was repeated twice such that each variable of the pair served once as the reference and once as the predictor. Following measures were used to evaluate pairwise concordance between different algorithms for probable PDD: 1) Cohen's $\kappa$ with its 95% confidence interval (CI) computed via the `cohen.kappa()` function from the R package *psych* [@revelle2024]; 2) Accuracy (i.e., the proportion of correct predictions, both true positives and true negatives, among the total number of cases) with its 95% CI; 3) Sensitivity/Recall (i.e., the proportion of true positives); and 4) Specificity (i.e., the proportion of true negatives).
 
@@ -285,9 +283,21 @@ kappa_sums <-
     function(i)
       paste0(do_summary(kappas[[i]], 2, "M"),", SD = ", do_summary(kappas[[i]], 2, "SD"))
   )
+
+# Add Kappa summaries of algos with same everything but different IADL:
+kappa_iadl <-
+  data.frame(
+    predictor = c("Lvl.II (1)", "MMSE (1)", "MMSE (3)", paste0("MoCA (",seq(1,59,2),")"), "sMoCA (1)"),
+    reference = c("Lvl.II (2)", "MMSE (2)", "MMSE (4)", paste0("MoCA (",seq(2,60,2),")"), "sMoCA (2)")
+  ) |>
+    left_join(conc$table) |>
+    select(Kappa_raw) |>
+    pull()
+
+kappa_iadl_sums <- paste0(do_summary(x = kappa_iadl, 2, "M"),", SD = ", do_summary(x = kappa_iadl, 2, "SD"))
 ```
 
-Results of the analyses of prediction Accuracy, Cohen's $\kappa$, Sensitivity and Specificity are presented in @fig-acc, @fig-kappa, @fig-sens and @fig-spec respectively. **Numerical results are available at ...** [^3]. Generally, algorithms that employed the same operationalization of IADL deficit showed substantial pairwise concordance, however, algorithms that operationalized IADL deficit differently did not. Whereas among algorithms with identical IADL deficit operationalization, the agreement judged by Cohen's $\kappa$ was moderately high (operationalization by FAQ total score: $\kappa$ = `r kappa_sums["faq_tot"]`; operationalization by FAQ item 9: $\kappa$ = `r kappa_sums["faq_9"]`), among algorithms that differ in IADL deficit operationalization it was low ($\kappa$ = `r kappa_sums["cross"]`).
+Results of the analyses of prediction Accuracy, Cohen's $\kappa$, Sensitivity and Specificity are presented in @fig-acc, @fig-kappa, @fig-sens and @fig-spec respectively. **Numerical results are available at ...** [^3]. Generally, algorithms that employed the same operationalization of IADL deficit showed substantial pairwise concordance, however, algorithms that operationalized IADL deficit differently did not. Whereas among algorithms with identical IADL deficit operationalization, the agreement judged by Cohen's $\kappa$ was moderately high (operationalization by FAQ total score: $\kappa$ = `r kappa_sums["faq_tot"]`; operationalization by FAQ item 9: $\kappa$ = `r kappa_sums["faq_9"]`), among algorithms that differ in IADL deficit operationalization but are otherwise identical it was low: $\kappa$ = `r kappa_iadl_sums`.
 
 [^3]: **JM: Should provide an excel sheet or html table the readers could go through by themselves.**
 
@@ -334,13 +344,22 @@ table_levelII_approximations(conc$table, algos, "Accuracy_raw")
 
 # Discussion
 
-This study systematically investigated the application of multiple Level I diagnostic criteria for PDD. Our results show variability in PDD rate estimates, strongly influenced by the choice of cognitive screening instruments (MMSE, MoCA and sMoCA) and the operationalization of functional impairment. The divergence observed across algorithms demonstrates the sensitivity of diagnostic outcomes to seemingly negligible methodological choices.
+This study systematically investigated the application of multiple Level I diagnostic criteria for PDD. Our results show variability in PDD rate estimates, strongly influenced by the choice of cognitive screening instrument (MMSE, MoCA and sMoCA) and the operationalization of functional impairment. The divergence observed across algorithms demonstrates the sensitivity of diagnostic outcomes to seemingly negligible methodological choices.
 
 ## Variability in PDD Rate Estimates
 
-Our results showed a wide range in estimated PDD rate across algorithms, ranging from 2.00% to 16.75%. Estimates reached lower rates when using solely FAQ item 9 (as an approximation of the pill questionnaire suggested by @dubois2007) in comparison with the full FAQ scale. This discrepancy highlights the diagnostic importance of how IADLs are assessed.
+```{r}
+#| label: rates-minmax
 
-Our overall PDD rates were consistently lower than previous studies regarding PDD among PD patients, demonstrating wide variability based on various criteria used. For instance, a retrospective study reported a PDD rate of 19.7% [@rana2012], while other clinical investigation found even higher rate, reaching up to 30% [@aarsland2005]. A recent complex meta-analysis synthesizing global data placed the expected PDD rate in PD at 26.30% [@sousa2022]. Compared to these estimates, our study reports generally lower PDD rates, likely reflecting differences in diagnostic criteria, methodology and sample characteristics. Specifically, age was repeatedly shown to be a strong predictor of PDD across studies[@rana2012; @sousa2022]. In our sample, we did not observe age-related PDD rate within our cohort, likely due to low age variability.
+rate_min <- sub("-.*", "", rates_overall["minmax"])
+rate_max <- sub(".*-", "", rates_overall["minmax"])
+```
+
+Our results showed a wide range in estimated PDD rate across algorithms, ranging from `r rate_min`% to `r rate_max`%. Estimates reached lower rates when using solely FAQ item 9 (as an approximation of the pill questionnaire suggested by @dubois2007) in comparison with the full FAQ scale. This discrepancy highlights the diagnostic importance of how IADLs are assessed.
+
+Our overall PDD rates were consistently lower than previous studies regarding PDD among PD patients, demonstrating wide variability based on various criteria used. For instance, a retrospective study reported a PDD rate of 19.7% [@rana2012], while other clinical investigation found even higher rate, reaching up to 30% [@aarsland2005]. A recent meta-analysis synthesizing global data placed the expected PDD rate in PD at 26.30% [@sousa2022]. Compared to these estimates, our study reports generally lower PDD rates, likely reflecting differences in diagnostic criteria, methodology and sample characteristics. Specifically, our sample was younger compared to other PD cohorts and age was repeatedly shown to be a strong predictor of PDD across studies [@rana2012; @sousa2022].
+
+Interestingly, we did not observe any reliable age-related differences in PDD rate within our cohort. This lack of age-dependency may, however, be also stemming from the relatively younger age of our cohort, because previous reports indicate that association between age and PDD is not linear but increases with age and may not reach substantial values before the age of 70 [@rana2012].
 
 ## Concordance Between Diagnostic Algorithms
 
@@ -352,23 +371,23 @@ Overall, when the same IADL definitions were used across algorithms, we observed
 
 Using Level II diagnosis as the reference, MoCA-based Level I algorithms, particularly those using Clock Drawing to assess executive function, demonstrated the highest predictive accuracy. This supports recent proposals to modernize PDD diagnostic frameworks [@kulisevsky2024], favouring MoCA-derived components and broader functional assessment tools. In contrast, MMSE-based algorithms consistently underperformed, suggesting limited sensitivity in capturing cognitive deficits typical in PDD.
 
-The advantage of MoCA-based algorithm was evident in combination with using the FAQ total score, reaching accuracy rates of 94–99%, along with high sensitivity and specificity. Furthermore, in the algorithm using sMoCA, the raw accuracy was moderate, however, the balanced accuracy (i.e. combined sensitivity and specificity) was robust. These findings imply that simplified tools such as sMoCA may be a promising tool for heightening efficiency of the assessment while maintaining diagnostic accuracy.
+The advantage of MoCA-based algorithm was evident in combination with using the FAQ total score, reaching accuracy rates of 94–99%. Furthermore, in the algorithm using sMoCA, the raw accuracy was moderate, however, the balanced accuracy (i.e. combined sensitivity and specificity) was high. These findings imply that simplified tools such as sMoCA may be a promising tool for heightening efficiency of the assessment while maintaining diagnostic accuracy.
 
 ## Limitations and Future Directions
 
-This study’s generalizability is limited by its retrospective design and the homogeneity of the patient cohort, which may not reflect broader PD populations with varying cognitive profiles. Specifically, the younger age of the sample and possible lack of high-risk phenotypes for PDD compared to the general population of people with PD might have been responsible for comparatively lower PDD rate estimates in our study.
+This study’s generalizability is limited by its retrospective design and the homogeneity of the patient cohort, which does not reflect broader PD populations with varying cognitive profiles. Specifically, the younger age of the sample and possible lack of high-risk phenotypes for PDD compared to the general population of people with PD might have been responsible for comparatively lower PDD rate estimates in our study.
 
 Nevertheless, the analysis of the algorithm concordance might not be affected by the sample to the same degree allowing for a broader generalization. Future studies should aim to replicate our results on larger and different cohorts of PD patients. To make this process easier, the code used to generate our results is publicly available and easily applicable to similarly structured data.
 
-Furthermore, another limitation is the use of the FAQ questionnaire for IADL assessment. FAQ is highly subjective and informant-reliant, which may result in biased data. We recommend the use of more objective, modernized tools for IADl assessment, such as performance-based methods[@schmitter-edgecombe2020] or questionnaire adaptation including questions regarding gadgets use and digital literacy [@postema2024]. Our results emphasise the importance of IADL deficit for the PDD diagnosis, therefore, we advocate for using more reliable tools with high ecological validity.
+Furthermore, another limitation is the use of the FAQ questionnaire for IADL assessment. FAQ is subjective and informant-reliant, which may result in biased data. For future research, we suggest the use of more objective, modernized tools for IADl assessment, such as performance-based methods [@schmitter-edgecombe2020] or questionnaire adaptation including questions regarding gadgets use and digital literacy [@postema2024]. Our results emphasize the importance of IADL deficit for the PDD diagnosis, therefore, we suggest exploring more reliable tools with high ecological validity.
+
+Finally, whereas our study systematically investigated how varying definition of global deficit, impaired cognition and IADL deficit affect probable PDD  classification, it did not explore associations of PDD diagnosis with its neuropsychiatric (e.g. anxiety profile) and biomarker correlates. Future studies would benefit from focusing on these aspects of PDD.
 
 # Conclusions
 
 Our study highlights the variability in PDD classification across Level I diagnostic algorithms, heavily influenced by IADL operationalization and the choice of cognitive screening tools. The findings support the call for a change of the current diagnostic criteria [@kulisevsky2024], favouring the use of MoCA-based components and comprehensive IADL assessments.
 
 Conservative criteria, such as reliance on pill questionnaire (i.e. FAQ item 9 equivalence), may fail to detect functional decline and thus under-identify true cases of PDD. Importantly, concordance across algorithms rises significantly, reaching moderate to high values, when the same definition of IADL is used (either FAQ total or FAQ item 9). Moreover, when using MoCA-based algorithms instead of MMSE-based ones, we can observe better approximations to the Level II battery.
-
-Future research should validate these strategies longitudinally and explore the possible integration of biomarkers, neuropsychiatric variables (e.g. anxiety profile) and modernised IADL methods to further improve diagnostic reliability, accuracy and consistency of PDD diagnostics.
 
 # References
 
