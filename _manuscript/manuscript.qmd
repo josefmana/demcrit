@@ -80,6 +80,9 @@ format:
    # keep-tex: true
  apaquarto-docx: 
     toc: false
+author-note:
+  disclosures:
+    financial-support: "Supported by The project National Institute for Neurological Research (Programme EXCELES, ID Project No. LX22NPO5107) - Funded by the European Union – Next Generation EU; Charles University: Cooperatio Program in Neuroscience; General University Hospital in Prague project MH CZ-DRO-VFN64165."
 bibliography: bibliography.bib
 floatsintext: false
 numbered-lines: false
@@ -137,7 +140,7 @@ dates <-
   )
 ```
 
-This study retrospectively analyzed clinical data from a cohort of patients with PD at the General University Hospital in Prague. All patients were diagnosed with idiopathic PD by a movement disorder specialist according to the MDS Clinical Diagnostic Criteria for PD [@postuma2015]. Clinical records spanning `r dates["min"]` to `r dates["max"]` were examined. All participants were candidates for for Deep Brain Stimulation (DBS) treatment and underwent neuropsychological evaluation conducted by a trained clinical psychologist (OB) as part of standard preoperative assessments forDBS eligibility at the General University Hospital in Prague.
+This study retrospectively analyzed clinical data from a cohort of patients with PD at the General University Hospital in Prague. All patients were diagnosed with idiopathic PD by a movement disorder specialist according to the MDS Clinical Diagnostic Criteria for PD [@postuma2015]. Clinical records spanning `r dates["min"]` to `r dates["max"]` were examined. All participants were candidates for Deep Brain Stimulation (DBS) treatment and underwent neuropsychological evaluation conducted by a trained clinical psychologist (OB) as part of standard preoperative assessments for DBS eligibility at the General University Hospital in Prague.
 
 ## Neuropsychological Assessment
 
