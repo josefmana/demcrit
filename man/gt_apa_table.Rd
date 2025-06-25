@@ -2,30 +2,27 @@
 % Please edit documentation in R/gt_apa_table.R
 \name{gt_apa_table}
 \alias{gt_apa_table}
-\title{Get APA-style gt table.}
+\title{Generate an APA-style table using the gt package}
 \usage{
 gt_apa_table(x, grp = NULL, nms = NULL, tit = "")
 }
 \arguments{
-\item{x}{A tibble/data.frame to be APAed.}
+\item{x}{A tibble or data frame to be formatted as an APA-style table.}
 
-\item{grp}{A column name to be applied to
-the gt::gt() groupname_col parameter (NULL
-by default).}
+\item{grp}{An optional column name (as a string or symbol) to use for grouping
+rows via \code{gt::gt()}'s \code{groupname_col} parameter. Defaults to \code{NULL}.}
 
-\item{nms}{A column name to be applied to
-the gt::gt() rowname_col parameter (NULL
-by default).}
+\item{nms}{An optional column name (as a string or symbol) to use for row names
+via \code{gt::gt()}'s \code{rowname_col} parameter. Defaults to \code{NULL}.}
 
-\item{tit}{A character including table name.
-Will be forced to become html (No Name by default).}
+\item{tit}{A character string specifying the table title. Will be converted to
+HTML format. Defaults to \code{"No Name"}.}
 }
 \value{
-A gt object of a table in APA format.
+A \code{gt} table object formatted according to APA style.
 }
 \description{
-This function takes in a tibble or a data.frame
-and returns APA-style table created via the gt
-package. All gt quirks and perks apply to the
-resulting object.
+Converts a tibble or data frame into an APA-formatted table using the
+\pkg{gt} package. The resulting object inherits all the features and
+customizations provided by \code{gt}.
 }

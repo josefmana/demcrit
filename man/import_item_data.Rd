@@ -2,27 +2,26 @@
 % Please edit documentation in R/import_item_data.R
 \name{import_item_data}
 \alias{import_item_data}
-\title{Import item-wise data.}
+\title{Import item-data}
 \usage{
 import_item_data(path)
 }
 \arguments{
-\item{paths}{Path to data. Should be generated
-by \code{data_paths}.}
+\item{paths}{A character string specifying the path to the data file. Typically generated
+by the \code{data_paths} function.}
 }
 \value{
-A tibbles with item level data.
+A tibble containing item-level data.
 }
 \description{
-Using data path, this function imports the
-item-level data in a suitable format.
-It also checks for unrealistic values in MMSE.
-The function and is supposed to be run
-within the larger \code{prepare_data}.
+Imports item-level data from a specified file path, checks for unrealistic values
+(e.g., in MMSE scores), and prepares the data for further processing.
+This function is intended to be called within the larger \code{prepare_data} workflow.
 }
 \examples{
 \dontrun{
-p    <- data_paths('data-raw')
+p    <- data_paths("data-raw")
 data <- import_item_data(p[1])
 }
+
 }

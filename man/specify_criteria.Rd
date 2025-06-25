@@ -2,18 +2,18 @@
 % Please edit documentation in R/specify_criteria.R
 \name{specify_criteria}
 \alias{specify_criteria}
-\title{Specify criteria.}
+\title{Specify criteria operationalisations for PDD diagnosis}
 \usage{
 specify_criteria()
 }
 \value{
-A tibble with columns indicating
-type of criterion as well as single indexes
-and thresholds. To be used within a wrapper
-function \code{diagnose_pdd_sample}.
+A tibble where each row represents one unique operationalisation
+of PDD diagnostic criteria. Columns indicate the type of criteria, individual
+test indexes, thresholds, and other relevant parameters.
 }
 \description{
-This is purely a helper function that
-specifies a tibble with specifications
-of single algorithms for PDD diagnosis.
+Computes a Cartesian product of possible diagnostic components to define
+all combinations of operationalised criteria for probable Parkinson’s disease
+dementia (PDD). This function is a helper and is typically called within
+\code{diagnose_pdd_sample}.
 }

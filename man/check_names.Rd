@@ -2,34 +2,31 @@
 % Please edit documentation in R/check_names.R
 \name{check_names}
 \alias{check_names}
-\title{Check names of the hand-written data.}
+\title{Check patient names in hand-written data}
 \usage{
 check_names(d, nms)
 }
 \arguments{
-\item{d}{Data set with names to be checked.}
+\item{d}{A data frame containing patient names to be checked (e.g., hand-written data).}
 
-\item{nms}{Data set with proper names according
-to REDCap.}
+\item{nms}{A data frame or vector containing the correct patient names (e.g., from REDCap).}
 }
 \value{
-Nothing, only prints a message with names
-discrepancies. Ought to be run within the \code{prepare_data}
-function where it could be made silent.
+Nothing. Prints a message listing any discrepancies found. Intended to be called
+within the \code{prepare_data()} function, where the check can optionally be silenced.
 }
 \description{
-This function compares patients' names
-in the hand-written data and REDCap.
+Compares patient names between a manually entered dataset and a reference set of
+correct names (e.g., from REDCap) to identify any discrepancies.
 }
 \examples{
 \dontrun{
-p    <- data_paths('data-raw')
+p <- data_paths("data-raw")
 
-# Checks names:
-data <- prepare_data(p)
-data <- prepare_data(p, check.names = T)
+# With name checking:
+data <- prepare_data(p, check.names = TRUE)
 
-# Does not check names:
-data <- prepare_data(p, check.names = F)
+# Without name checking:
+data <- prepare_data(p, check.names = FALSE)
 }
 }

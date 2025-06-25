@@ -2,30 +2,26 @@
 % Please edit documentation in R/data_paths.R
 \name{data_paths}
 \alias{data_paths}
-\title{Define paths to data.}
+\title{Define file paths to raw data for analysis}
 \usage{
 data_paths(dir = "data-raw")
 }
 \arguments{
-\item{dir}{Input directory where data reside,
-defaults to dir = 'data-raw'.}
+\item{dir}{A character string specifying the input directory where raw data files reside.
+Defaults to \code{"data-raw"}.}
 }
 \value{
-A character vector with paths towards
-all raw data used in this study.
+A named character vector with file paths to all required raw data files.
 }
 \description{
-This function prepares a set of paths to data
-that will be used in the analysis. The naming
-conventions are set and the function will inform
-the user if the data in the folder of interest ain't
-compatible with the script.
-To be then pushed to \code{prepare_data} function
-for pre-processing.
+Prepares a set of file paths pointing to all required raw data files used in the analysis.
+The function enforces naming conventions and validates compatibility between the contents
+of the specified directory and the expected structure. It is intended to be used as input
+for the \code{prepare_data} function.
 }
 \examples{
 \dontrun{
-p    <- data_paths('data-raw')
+p    <- data_paths("data-raw")
 data <- prepare_data(p)
 }
 }

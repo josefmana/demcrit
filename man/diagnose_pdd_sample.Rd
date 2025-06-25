@@ -2,33 +2,36 @@
 % Please edit documentation in R/diagnose_pdd_sample.R
 \name{diagnose_pdd_sample}
 \alias{diagnose_pdd_sample}
-\title{Diagnose PDD using all available criteria
-in all patients.}
+\title{Diagnose PDD in all patients using all available criteria}
 \usage{
 diagnose_pdd_sample(d0)
 }
 \arguments{
-\item{d0}{A tibble with the data generated
-by \code{prepare_data}}
+\item{d0}{A tibble containing the dataset prepared using \code{prepare_data}.}
 }
 \value{
-A list containing two tibbles with
-(i) criteria specification and (ii) patient id,
-criterion type (to be mapped to criteria specification),
-PDD diagnosis, single criteria akin to Table 2 of
-Dubois et al. (2007) and impairment statements for
-each cognitive domain according to Level I.
+A list with two tibbles:
+\describe{
+\item{\code{criteria}}{A tibble containing the full specification of all criteria used.}
+\item{\code{diagnoses}}{A tibble containing:
+\itemize{
+\item Patient ID
+\item Criterion label (linked to the specification)
+\item PDD diagnosis (TRUE/FALSE)
+\item Individual diagnostic flags corresponding to Table 2 in Dubois et al. (2007)
+\item Impairment labels across cognitive domains (per Level I criteria)
+}}
+}
 }
 \description{
-This function takes in study data and loops
-through all criteria specifications (generated
-internally via the \code{specify_criteria}
-function) and patients to arrive at PDD
-diagnosis.
+Applies all available diagnostic criteria for probable Parkinson’s disease
+dementia (PDD) across the full dataset. The set of criteria is generated internally
+via the \code{specify_criteria} function. Each patient is assessed using each
+specification, and the corresponding diagnoses and supporting information are recorded.
 }
 \examples{
 \dontrun{
-p    <- data_paths('data-raw')
+p <- data_paths("data-raw")
 data <- prepare_data(p)
 pdd  <- diagnose_pdd_sample(data)
 }

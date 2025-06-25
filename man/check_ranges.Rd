@@ -2,26 +2,24 @@
 % Please edit documentation in R/check_ranges.R
 \name{check_ranges}
 \alias{check_ranges}
-\title{Check ranges of included data.}
+\title{Check value ranges in the prepared dataset}
 \usage{
 check_ranges(d)
 }
 \arguments{
-\item{d}{A data set prepared within the
-\code{prepare_data} function.}
+\item{d}{A data frame prepared via the \code{prepare_data} function.}
 }
 \value{
-Optionally a message with data that
-are out of range and indicator to stop the
-analysis.
+Nothing. Prints a message listing any out-of-range values and may
+terminate execution if invalid data are detected.
 }
 \description{
-This checks data ranges of data for the
-analysis.
+Validates whether values in the dataset fall within expected ranges for analysis.
+Used primarily as a safeguard to identify possible data entry errors.
 }
 \examples{
 \dontrun{
-p    <- data_paths('data-raw')
-data <- prepare_data(p)
+p <- data_paths("data-raw")
+data <- prepare_data(p)  # Automatically performs range checks
 }
 }

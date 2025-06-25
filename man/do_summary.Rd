@@ -2,42 +2,51 @@
 % Please edit documentation in R/do_summary.R
 \name{do_summary}
 \alias{do_summary}
-\title{Summarises data in one of a set of pre-specified ways.}
+\title{Summarise data using predefined summary types}
 \usage{
 do_summary(x, dec, sum = NULL)
 }
 \arguments{
-\item{x}{A vector to be summarised.}
+\item{x}{A vector of data to be summarised.}
 
-\item{dec}{An integer denoting decimals.}
+\item{dec}{An integer specifying the number of decimal places for numeric summaries.}
 
-\item{sum}{A type of summary. Takes in NULL (default)
-for simple printing, 'N' for number of observations,
-'msd' for M ± SD, 'M' for mean, SD' for standard deviation,
-'Md' for median, 'IQR', for interquartile range,
-'minmax' for minimum-maximum, Min' for minimum, 'Max'
-for maximum, p' for a p-value (for tables), 'ptext'
-for a p-value (for in-text), 'Nperc' for a N (\%)
-representation of a binary variable, 'Nslash' for a
-N(group1)/N(group2)/... representation of nominal
-variable with unlimited number of categories.}
+\item{sum}{A character string specifying the type of summary to compute. Possible values:
+\describe{
+\item{NULL (default)}{Simple printing of the vector}
+\item{"N"}{Number of observations}
+\item{"msd"}{Mean ± standard deviation}
+\item{"M"}{Mean}
+\item{"SD"}{Standard deviation}
+\item{"Md"}{Median}
+\item{"IQR"}{Interquartile range}
+\item{"minmax"}{Minimum–maximum range}
+\item{"Min"}{Minimum}
+\item{"Max"}{Maximum}
+\item{"p"}{p-value (formatted for tables)}
+\item{"ptext"}{p-value (formatted for in-text reporting)}
+\item{"Nperc"}{Count and percentage for binary variables}
+\item{"Nslash"}{Counts separated by slashes for nominal variables with any number of categories}
+\item{"estCI"}{Estimate with confidence interval, e.g., "estimate \link{CI}"}
+}}
 }
 \value{
-A summary of choice.
+A character string or numeric summary as specified by \code{sum}.
 }
 \description{
-This function computes demographic summaries
-of the sample including their graphical
-representation.
+Computes descriptive summaries of a given vector, optionally including graphical
+representation (planned for future versions). Supports various summary types
+tailored for continuous, binary, and nominal variables.
 }
 \examples{
 \dontrun{
-p    <- data_paths('data-raw')
+p <- data_paths("data-raw")
 data <- prepare_data(p)
 
-M  <- do_summary(data[ , 25], 2, 'M')
-SD <- do_summary(data[ , 25], 2, 'SD')
-Md <- do_summary(data[ , 25], 2, 'Md')
-mm <- do_summary(data[ , 25], 0, 'minmax')
+M <- do_summary(data[, 25], 2, "M")
+SD <- do_summary(data[, 25], 2, "SD")
+Md <- do_summary(data[, 25], 2, "Md")
+mm <- do_summary(data[, 25], 0, "minmax")
 }
+
 }

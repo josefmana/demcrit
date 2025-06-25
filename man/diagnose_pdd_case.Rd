@@ -2,31 +2,33 @@
 % Please edit documentation in R/diagnose_pdd_case.R
 \name{diagnose_pdd_case}
 \alias{diagnose_pdd_case}
-\title{Diagnose PDD of a sample of patients using
-one set of criteria.}
+\title{Diagnose PDD in a single patient sample using specified criteria}
 \usage{
 diagnose_pdd_case(x, c)
 }
 \arguments{
-\item{x}{A patients data matrix.}
+\item{x}{A data frame or matrix containing patient-level variables used for diagnosis.}
 
-\item{c}{A vector with PDD
-criteria.}
+\item{c}{A named vector (or single-row data frame) specifying the criteria
+to be applied for PDD diagnosis.}
+}
+\value{
+A logical vector indicating PDD diagnosis for each patient
+(TRUE = diagnosed, FALSE = not diagnosed).
 }
 \description{
-This function takes in a data matrix of
-patients' data and a vector of criteria to
-use and diagnoses each patient with PDD
-(or not) according to the criteria. Ought
-to be used within the wrapper function
+Applies a specified set of diagnostic criteria to a data matrix representing
+patient-level data to determine whether each patient meets the criteria for
+probable Parkinson’s disease dementia (PDD).
+This function is intended to be used internally by the wrapper function
 \code{diagnose_pdd_sample}.
 }
 \examples{
 \dontrun{
-p    <- data_paths('data-raw')
+p <- data_paths("data-raw")
 data <- prepare_data(p)
 crit <- specify_criteria()
 pdd  <- diagnose_pdd_case(data, crit[1, ])
-}.
+}
 
 }
