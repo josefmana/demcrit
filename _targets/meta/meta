@@ -1,4 +1,22 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
+.Random.seed|object|5f3fb3c44bf00f56|||||||||||||||
+assign_cognitive_impairment|function|466de7cfc5c0efa7|||||||||||||||
+check_compatibility|function|9de3216189ba48d7|||||||||||||||
+check_names|function|4d10ffa672300ced|||||||||||||||
+check_ranges|function|d15da46662c3de4a|||||||||||||||
+compute_descriptives|function|47417ab5ec284fac|||||||||||||||
+compute_z_score|function|71597906b1dd704d|||||||||||||||
+concordance_statistics|stem|9220e5cf9ec729d2|921709cbafa24f27|83f58884bb2be0b2|1652126210||t20264.7656440423s|bffd7ba015883184|2161381|rds|local|vector|||37.759|upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set t|
+data_paths|function|344f1df5e786d452|||||||||||||||
+demographic_predictors|stem|3136f6d32cd835a1|31f3cad834f6813a|9a00ac80c71f2982|1455378101||t20264.7656546343s|32f0522968b03151|3628169|rds|local|vector|||0.551|Vectorized input to element_text is not officially supported.ℹ Results may be unexpected or may change in future versions of ggplot2.|
+describe_concordance|function|2395784d5578204f|||||||||||||||
+diagnose_pdd_case|function|979d187165a6efc4|||||||||||||||
+diagnose_pdd_sample|function|105efb14fea71f26|||||||||||||||
+do_summary|function|529787ca236a8350|||||||||||||||
+gt_apa_table|function|8afb8b94860c3461|||||||||||||||
+import_item_data|function|cd7ece1b76db6a51|||||||||||||||
+import_redcap_data|function|943ae6f27a90bfd9|||||||||||||||
+inputs|pattern|447ea3cd8e62d15f|36bdc44cf11ac220||-106948080||||0|file|local|vector||inputs_f660d1f7e4668e0f*inputs_d8f1df70ab56cc98*inputs_0f4dd30380099a0b*inputs_0f555361f85433b8*inputs_2c2b151feeb375d4|0||
 inputs_0f4dd30380099a0b|branch|bcde28072076caab|36bdc44cf11ac220|2c530c1562a7fbd1|-177372684|/Users/martinakvapilova/Desktop/Ph.D./Articles/DemCrit/DemCrit/data-raw/MetaData.csv|t20188.23125s|4b3b8d7b0b47eb7b|34200|file|local|vector|inputs||0||
 inputs_0f555361f85433b8|branch|d8e469e6f18ed9d8|36bdc44cf11ac220|2c530c1562a7fbd1|-1505876925|/Users/martinakvapilova/Desktop/Ph.D./Articles/DemCrit/DemCrit/data-raw/TestScoring.csv|t20188.2319444444s|6632ce5cbfcda6f5|874|file|local|vector|inputs||0||
 inputs_163c1d8e4781cb77|branch|88f8608cf65ce66d|36bdc44cf11ac220|2c530c1562a7fbd1|-1408296718|/Users/josefmana/Desktop/mercenaries/pd/DemCr1t/data-raw/VariablesOfInterest.csv|t20215.689386162s|s2746b|2746|file|local|vector|inputs||0||
@@ -14,37 +32,19 @@ inputs_d8f1df70ab56cc98|branch|37f8f078475a52ec|36bdc44cf11ac220|2c530c1562a7fbd
 inputs_d9026ba1ed987b0f|branch|bcde28072076caab|36bdc44cf11ac220|2c530c1562a7fbd1|183075758|/Users/josefmana/Desktop/EXCELES/DemCrit/data-raw/MetaData.csv|t20175.5473662199s|s34200b|34200|file|local|vector|inputs||0||
 inputs_e75fedd98e2901b9|branch|d8e469e6f18ed9d8|36bdc44cf11ac220|2c530c1562a7fbd1|579325868|/Users/josefmana/Desktop/mercenaries/pd/DemCr1t/data-raw/TestScoring.csv|t20172.5451222857s|s874b|874|file|local|vector|inputs||0||
 inputs_f660d1f7e4668e0f|branch|9a0488aa7d76da9f|36bdc44cf11ac220|2c530c1562a7fbd1|-1603994889|/Users/martinakvapilova/Desktop/Ph.D./Articles/DemCrit/DemCrit/data-raw/ItemData.csv|t20214.4527049672s|5f711c90eaecf5a1|40961|file|local|vector|inputs||0||
-summarise_prevalence|function|cf33f964a521a6ea|||||||||||||||
-variables|stem|88f8608cf65ce66d|04a0725861e99ba4|2c530c1562a7fbd1|-1580994253|/Users/josefmana/Desktop/mercenaries/pd/DemCr1t/data-raw/VariablesOfInterest.csv|t20215.689386162s|s2746b|2746|file|local|vector|||1.04||
-inputs|pattern|f5b59dd6cf7181c5|36bdc44cf11ac220||-106948080||||0|file|local|vector||inputs_a3915f7e8594d62a*inputs_b16253493e44079c*inputs_c0ccf9a6c269d82f*inputs_e75fedd98e2901b9*inputs_163c1d8e4781cb77|0||
+inputs_files|stem|bffb1003d415bfec|f8d248d7fb1a5ff4|07d6edc6520f6f43|-706827970||t20264.7651700733s|216fa2272502dc69|182|rds|local|vector||inputs_files_5d6ac180632abc12*inputs_files_a52c4640d4c94695*inputs_files_e48d1b41ceed25ce*inputs_files_6f8803a0e74916b4*inputs_files_bf35a7c3b6059099|0.011||
+manuscript|stem|8379c1479c3ce79c|b85b9b64f5cd5106|d8bcd2ce29d37eff|-1793997187|_manuscript/manuscript.docx*_manuscript/manuscript.qmd|t20264.7657938957s|768d96e03f4f3bc8|603505|file|local|vector|||11.764||
+pdd_data|stem|6c88bb19658cbf2d|421a79b539387d7b|16952d0bf36125af|-6092328||t20264.765200814s|c36aac9ec541a81e|16488|rds|local|vector|||0.766||
+prepare_data|function|fa8ca76b40d252a4|||||||||||||||
 prevalence_summaries|stem|03dab0bf6182f341|0103c00622a07e57|4e12642e17155c27|1223548645||t20264.3317285841s|s175306b|175306|rds|local|vector|||0.242||
-raw_data|stem|39ec2b11015d2093|1b69f38707b7ad3d|2eef83d1e90f11ba|-1101284392||t20264.4587985398s|s36076b|36076|rds|local|vector|||2.013|One or more parsing issues, call problems on your data frame for details,e.g.  dat  vroom...  problemsdat|
-pdd_data|stem|e7c1e5978fb963bf|421a79b539387d7b|1883f0d0646902dc|-6092328||t20264.4588095165s|s16488b|16488|rds|local|vector|||0.934||
-sample_description|stem|4478e5d17709a0b3|a385ccf0415246b0|41e479527b198135|-1070305744||t20264.4588116606s|s6546b|6546|rds|local|vector|||0.18||
-concordance_statistics|stem|e33fa768640a7740|921709cbafa24f27|d675a643094dd372|1652126210||t20264.4593076161s|s2162359b|2162359|rds|local|vector|||42.442|upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set t|
-demographic_predictors|stem|188a44b168b8cf03|31f3cad834f6813a|b35135d8dfd65912|1455378101||t20264.4593149403s|s3625628b|3625628|rds|local|vector|||0.239|Vectorized input to element_text is not officially supported.ℹ Results may be unexpected or may change in future versions of ggplot2.|
-do_summary|function|529787ca236a8350
-gt_apa_table|function|8afb8b94860c3461
-import_redcap_data|function|943ae6f27a90bfd9
-check_ranges|function|d15da46662c3de4a
-diagnose_pdd_case|function|979d187165a6efc4
-specify_criteria|function|a11b5082aa84b16a
-regress_pdd_on_demographics|function|c6135fe6847bf520
-check_compatibility|function|9de3216189ba48d7
-compute_z_score|function|71597906b1dd704d
-.Random.seed|object|f645096da354f852
-check_names|function|4d10ffa672300ced
-import_item_data|function|cd7ece1b76db6a51
-data_paths|function|344f1df5e786d452
-describe_concordance|function|2395784d5578204f
-table_levelII_approximations|function|f331b4d11c874fc0
-summarise_rates|function|e03f2b4822594051
-table_estimands|function|734dc33d8840bbed
-table_criteria|function|98d80df1ea4f212c
-compute_descriptives|function|47417ab5ec284fac
-diagnose_pdd_sample|function|105efb14fea71f26
-assign_cognitive_impairment|function|466de7cfc5c0efa7
-prepare_data|function|fa8ca76b40d252a4
-inputs_files|stem|dc126323fa3b2420|f8d248d7fb1a5ff4|07d6edc6520f6f43|-706827970||t20264.492475865s|s173b|173|rds|local|vector||inputs_files_90101cca56bca1e5*inputs_files_3eeea4da6ab3a0f0*inputs_files_6cad275383f66436*inputs_files_ffb1bf453ec9c8a3*inputs_files_de4afc58724fa30b|1.019||
-rate_summaries|stem|366799c946d539ea|5445afa5b3559adb|88ff64ca2698e06c|292778141||t20264.4924810125s|s175490b|175490|rds|local|vector|||0.364||
-manuscript|stem|1c33fb233906436b|e697cddef7f5a96f|ce9e4288c4888254|-1793997187|_manuscript/manuscript.docx*_manuscript/manuscript.qmd|t20264.4926240719s|s603940b|603940|file|local|vector|||11.866||
+rate_summaries|stem|80c05b396e4ffa55|5445afa5b3559adb|3107ede0ee6df6c0|292778141||t20264.7656580055s|340940db17d7621e|175528|rds|local|vector|||0.23||
+raw_data|stem|198a80f682070a9f|1b69f38707b7ad3d|49405e08db677297|-1101284392||t20264.7651918191s|0fa915e23ce4c392|36076|rds|local|vector|||1.865|One or more parsing issues, call problems on your data frame for details,e.g.  dat  vroom...  problemsdat|
+regress_pdd_on_demographics|function|c6135fe6847bf520|||||||||||||||
+sample_description|stem|b528bb671b70b8c9|a385ccf0415246b0|ff266033278c29eb|-1070305744||t20264.7652026783s|4a6f80792bbedc8b|6546|rds|local|vector|||0.156||
+specify_criteria|function|a11b5082aa84b16a|||||||||||||||
+summarise_prevalence|function|cf33f964a521a6ea|||||||||||||||
+summarise_rates|function|e03f2b4822594051|||||||||||||||
+table_criteria|function|98d80df1ea4f212c|||||||||||||||
+table_estimands|function|734dc33d8840bbed|||||||||||||||
+table_levelII_approximations|function|f331b4d11c874fc0|||||||||||||||
+variables|stem|88f8608cf65ce66d|04a0725861e99ba4|2c530c1562a7fbd1|-1580994253|/Users/martinakvapilova/Desktop/Ph.D./Articles/DemCrit/DemCrit/data-raw/VariablesOfInterest.csv|t20215.4913071982s|52550efceb24262b|2746|file|local|vector|||0.944||
