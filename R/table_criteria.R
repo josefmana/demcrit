@@ -1,26 +1,17 @@
-#' Prepare a table summarising probable
-#' PDD criteria being compared in the
-#' study.
+#' Generate a summary table of PDD criteria used in the study
 #'
-#' Takes no parameters other than variable
-#' names. The content can be altered
-#' only by changing the code. This function
-#' is used as a shortcut to create table
-#' summarising PDD cirteria used in the
-#' study without cluttering the
-#' Quarto document.
+#' This function creates a pre-specified summary table of the probable PDD
+#' criteria compared in the study. It is intended as a shortcut to insert
+#' a clean table into a Quarto document without cluttering the main text.
+#' The table content is hardcoded and can only be changed by modifying the function code.
 #'
-#' @param vars A data.frame/tibble/matrix with variable
-#' names in the first column, variable labels in the
-#' second column, type of variable (continuous, binary or
-#' nominal) in the third column, and optionally a fourth column
-#' denoting group and a fifth column that maps each
-#' label to its description in the table's note.
-#' Alternatively, a path to a csv delimited by semi-colon
-#' containing such a table.
+#' @param vars A data.frame, tibble, or matrix with variable names in the first column,
+#' variable labels in the second column, variable type (continuous, binary, or nominal)
+#' in the third column, an optional fourth column indicating group, and a fifth column
+#' mapping each label to a note or description. Alternatively, a path to a semicolon-delimited
+#' CSV file containing such a table.
 #'
-#' @returns A gt table object containing
-#' pre-specified summary of the criteria.
+#' @returns A \code{gt} table object containing the summary of criteria used in the study.
 #'
 #' @export
 table_criteria <- function(vars) {

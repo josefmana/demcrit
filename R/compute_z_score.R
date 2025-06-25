@@ -1,23 +1,29 @@
-#' Calculates z-score(s) based on raw score, regression
-#' calculator values and demographic variables.
+#' Compute z-score(s) based on raw scores and demographic regression model
 #'
-#' This function takes in regression calculator, raw
-#' performance metrics, age, gender and education level
-#' of patients and computes a set of z-scores out of it.
+#' Computes z-scores for a given test index using regression parameters from a normative
+#' calculator, along with the patient's raw score and demographic information
+#' (age, gender, education).
 #'
-#' @param calc A data.frame/tibble with regression parameters
-#' of the calculator.
-#' @param x A vector of raw performance scores.
-#' @param nam A character containing test index label.
-#' @param AGE A numeric denoting years of age.
-#' @param GEN A numeric denoting gender (Man = 1,
-#' Woman = 0)
-#' @param EDU A numeric denoting years of education.
+#' @param calc A data frame or tibble containing regression parameters from the calculator.
+#' @param x A numeric vector of raw performance scores.
+#' @param nam A character string specifying the test index label (must match an entry in \code{calc}).
+#' @param AGE A numeric vector indicating the participant's age (in years).
+#' @param GEN A numeric vector indicating gender (1 = man, 0 = woman).
+#' @param EDU A numeric vector indicating years of education.
 #'
-#' @returns
+#' @returns A numeric vector of computed z-scores, one for each raw score in \code{x}.
 #'
 #' @examples
 #' \dontrun{
+#' # Example usage:
+#' z <- compute_z_score(
+#'   calc = regression_table,
+#'   x = c(35, 42, 28),
+#'   nam = "Digit Span Backward",
+#'   AGE = c(67, 70, 74),
+#'   GEN = c(1, 0, 1),
+#'   EDU = c(15, 12, 16)
+#' )
 #' }
 #' @export
 compute_z_score <- function(calc, x, nam, AGE, GEN, EDU) {

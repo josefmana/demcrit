@@ -42,7 +42,7 @@ list(
   ),
   tar_target(
     name = prevalence_summaries,
-    command = summarise_prevalence(pdd_data, variables)
+    command = summarise_rates(pdd_data, variables)
   ),
   tar_target(
     name = demographic_predictors,

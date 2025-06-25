@@ -1,18 +1,13 @@
-#' Prepare a table summarising study
-#' estimands.
+#' Generate a summary table of study estimands
 #'
-#' Takes no parameters, can be altered
-#' only by changing the code. This function
-#' is used as a shortcut to create table
-#' verbally describing study estimands for
-#' the Appendix without cluttering the
-#' Quarto document.
+#' This function creates a pre-specified table that provides a verbal summary
+#' of the study's estimands for inclusion in the Appendix. It is intended as a
+#' shortcut to insert a clean, structured description into a Quarto document
+#' without cluttering the main text. The table content is fixed and can only be
+#' modified by editing the function's code directly.
 #'
-#' @returns A gt table object containing
-#' pre-specified verbal summary of the
-#' theoretical estimands, the empirical
-#' estimands and the statistical estimates
-#' regarding the study.
+#' @returns A \code{gt} table object summarising the theoretical estimands,
+#' empirical estimands, and the corresponding statistical estimates used in the study.
 #'
 #' @export
 table_estimands <- function() {
@@ -58,7 +53,7 @@ table_estimands <- function() {
       grp = "RO",
       nms = "Statement"
     ) |>
-    tab_spanner(columns = c("Theoretical", "Population"), label = "Theoretical Estimand", gather = F) |>
+    tab_spanner(columns = c("Theoretical", "Population"), label = "Theoretical Estimand", gather = FALSE) |>
     cols_label(
       Theoretical ~ "Quantity",
       Empirical ~ "Empirical Estimand",

@@ -1,26 +1,27 @@
-#' Computes and visualises measures of concordance
-#' between pairs of criteria.
+#' Compute and visualise measures of concordance between diagnostic criteria
 #'
-#' This function computes pairwise statistics of
-#' probable PDD operationalisations concordance.
-#' The statistics include Cohen's Kappa, Sensitivity/PPV,
-#' Specificity/NPV and Accuracy.
+#' Computes pairwise concordance statistics between different operationalisations
+#' of probable Parkinson’s disease dementia (PDD). Metrics include Cohen's Kappa,
+#' Sensitivity, Positive Predictive Value (PPV), Specificity, Negative Predictive
+#' Value (NPV), and Accuracy. Visual summaries are also generated.
 #'
-#' @param d0 A list with PDD data generated via
+#' @param d0 A list containing PDD diagnostic results, as produced by
 #' \code{diagnose_pdd_sample}.
 #'
-#' @returns A list containing a table with summary
-#' statistics of each pairwise comparisons as well
-#' as a list containing visualised matrixes of
-#' Cohen's Kappa, Accuracy (with a stat. test against
-#' No Information Rate flags), Sensitivity and
-#' Specificity.
+#' @returns A list with two components:
+#' \describe{
+#'   \item{\code{stats}}{A data frame summarising pairwise concordance statistics
+#'   (e.g., Kappa, Accuracy, Sensitivity, Specificity, PPV, NPV).}
+#'   \item{\code{plots}}{A list of ggplot2-based visualisations, including matrices
+#'   of Cohen's Kappa, Accuracy (with significance tests against the No Information Rate),
+#'   Sensitivity, and Specificity.}
+#' }
 #'
 #' @examples
 #' \dontrun{
-#' p    <- data_paths('data-raw')
+#' p <- data_paths("data-raw")
 #' data <- prepare_data(p)
-#' pdd  <- diagnose_pdd_sample(data)
+#' pdd <- diagnose_pdd_sample(data)
 #' concmats <- describe_concordance(pdd)
 #' }
 #' @export
@@ -53,7 +54,7 @@ describe_concordance <- function(d0, vars) {
         d0$PDD |>
           filter(type %in% p[i, ]) |>
           pivot_wider(names_from = type, values_from = PDD, id_cols = id) |>
-          select(all_of(unlist(p[i, ], use.names = F))) |>
+          select(all_of(unlist(p[i, ], use.names = FALSE))) |>
           mutate_all(~2-as.numeric(.x)) |> # re-scoring such that prevalence is calculated for PDD == 1
           table() |>
           confusionMatrix()
@@ -72,16 +73,16 @@ describe_concordance <- function(d0, vars) {
         seq_len(length(reference)),
         function(i) ifelse(
           test = reference[i] == predictor[i],
-          yes  = '-',
-          no   = do_summary(k[[i]]$confid[1, ], 2, 'estCI')
+          yes  = "-",
+          no   = do_summary(k[[i]]$confid[1, ], 2, "estCI")
         )
       ),
       Accuracy = sapply(
         seq_len(length(reference)),
         function(i) ifelse(
           test = reference[i] == predictor[i],
-          yes  = '1.00',
-          no   = do_summary(confmats[[i]]$overall[c('Accuracy','AccuracyUpper','AccuracyLower')], 2, 'estCI')
+          yes = "1.00",
+          no = do_summary(confmats[[i]]$overall[c("Accuracy", "AccuracyUpper", "AccuracyLower")], 2, "estCI")
         )
       ),
       # Raw values for Kappa & Accuracy (and NIR):
@@ -89,52 +90,52 @@ describe_concordance <- function(d0, vars) {
         seq_len(length(reference)),
         function(i) ifelse(
           test = reference[i] == predictor[i],
-          yes  = NA,
-          no   = k[[i]]$kappa
+          yes = NA,
+          no = k[[i]]$kappa
         )
       ),
       McnemarPValue = sapply(
         seq_len(length(reference)),
         function(i) ifelse(
           test = reference[i] == predictor[i],
-          yes  = NA,
-          no   = confmats[[i]]$overall['McnemarPValue']
+          yes = NA,
+          no = confmats[[i]]$overall["McnemarPValue"]
         )
       ),
       Accuracy_raw = sapply(
         seq_len(length(reference)),
         function(i) ifelse(
           test = reference[i] == predictor[i],
-          yes  = 1,
-          no   = confmats[[i]]$overall['Accuracy']
+          yes = 1,
+          no = confmats[[i]]$overall["Accuracy"]
         )
       ),
       NoInformationRate_raw = sapply(
         seq_len(length(reference)),
         function(i) ifelse(
           test = reference[i] == predictor[i],
-          yes  = NA,
-          no   = confmats[[i]]$overall['AccuracyNull']
+          yes = NA,
+          no = confmats[[i]]$overall["AccuracyNull"]
         )
       ),
       AccuracyPValue = sapply(
         seq_len(length(reference)),
         function(i) ifelse(
           test = reference[i] == predictor[i],
-          yes  = NA,
-          no   = confmats[[i]]$overall['AccuracyPValue']
+          yes = NA,
+          no = confmats[[i]]$overall["AccuracyPValue"]
         )
       ),
       # All the other metrics:
       !!!set_names(rep(NA, length(metrics)), metrics),
       across(
         .cols = all_of(metrics),
-        .fns  = ~sapply(
+        .fns = ~sapply(
           seq_len(length(.x)),
           function(i) ifelse(
             test = reference[i] == predictor[i],
-            yes  = NA,
-            no   = confmats[[i]]$byClass[cur_column()]
+            yes = NA,
+            no = confmats[[i]]$byClass[cur_column()]
           )
         )
       ),
@@ -155,9 +156,9 @@ describe_concordance <- function(d0, vars) {
       xcol = sapply(
         seq_len(length(predictor)),
         function(i) ifelse(
-          test = subset(d0$criteria, type == predictor[i])$iadl == 'faq',
-          yes  = 'blue2',
-          no   = 'black'
+          test = subset(d0$criteria, type == predictor[i])$iadl == "faq",
+          yes = "blue2",
+          no = "black"
         )
       ),
       ycol = rev(xcol)
@@ -167,24 +168,23 @@ describe_concordance <- function(d0, vars) {
     tab |>
     mutate(
       across(
-        .cols = all_of(c('predictor','reference')),
-        .fns  = ~factor(
+        .cols = all_of(c("predictor", "reference")),
+        .fns = ~factor(
           .x,
           levels = ord[ , cur_column()],
-          ordered = T
+          ordered = TRUE
         )
       ),
       across(
-        #.cols = all_of(c('Kappa_raw', 'Sensitivity', 'Specificity')),
-        .cols = all_of(c('Kappa_raw')),
+        .cols = all_of(c("Kappa_raw")),
         .fns  = ~case_when(
-          as.numeric(predictor) < (nrow(ord)+ 1 - as.numeric(reference)) ~ .x,
+          as.numeric(predictor) < (nrow(ord) + 1 - as.numeric(reference)) ~ .x,
           predictor == reference ~ 1,
           .default = NA
         )
       ),
       Accuracy_raw = if_else(predictor == reference, NA, Accuracy_raw),
-      Accuracy_sig = if_else(AccuracyPValue < .05, '*', '')
+      Accuracy_sig = if_else(AccuracyPValue < .05, "*", "")
     )
   # Kappa matrix:
   kappaplt <-
@@ -192,36 +192,37 @@ describe_concordance <- function(d0, vars) {
     ggplot() +
     aes(x = predictor, y = reference, fill = Kappa_raw) +
     geom_tile() +
-    scale_fill_gradient2(high = 'steelblue', na.value = 'white') +
-    labs(x = 'Predictor', y = 'Reference') +
+    scale_fill_gradient2(high = "steelblue", na.value = "white") +
+    labs(x = "Predictor", y = "Reference") +
     theme(
-      axis.text.x = element_text(colour = if_else(ord$xcol == 'black', 'black', 'red3'), angle = 66, hjust = 1),
-      axis.text.y = element_text(colour = if_else(ord$ycol == 'black', 'black', 'red3'))
-    ) +
-    NULL
+      axis.text.x = element_text(colour = if_else(ord$xcol == "black", "black", "red3"), angle = 66, hjust = 1),
+      axis.text.y = element_text(colour = if_else(ord$ycol == "black", "black", "red3"))
+    )
   # Accuracy matrix:
-  E_NIR <- tab$NoInformationRate_raw |> unique() |> mean(na.rm = T) # Expected Negative Information Rate
+  E_NIR <-
+    tab$NoInformationRate_raw |>
+    unique() |>
+    mean(na.rm = TRUE) # Expected Negative Information Rate
   accplt <-
     ordtab |>
     ggplot() +
     aes(x = predictor, y = reference, fill = Accuracy_raw) +
     geom_tile() +
     geom_text(aes(label = Accuracy_sig)) +
-    scale_fill_gradient2(low = 'red4', high = 'yellow4', midpoint = E_NIR, na.value = 'white') +
-    labs(x = 'Predictor', y = 'Reference') +
+    scale_fill_gradient2(low = "red4", high = "yellow4", midpoint = E_NIR, na.value = "white") +
+    labs(x = "Predictor", y = "Reference") +
     theme(
       axis.text.x = element_text(colour = ord$xcol, angle = 66, hjust = 1),
       axis.text.y = element_text(colour = ord$ycol)
-    ) +
-    NULL
+    )
   # Sensitivity matrix:
   sensplt <-
     ordtab |>
     ggplot() +
     aes(x = predictor, y = reference, fill = Sensitivity) +
     geom_tile() +
-    scale_fill_gradient2(high = 'green4', na.value = 'white', midpoint = .5) +
-    labs(x = 'Predictor', y = 'Reference') +
+    scale_fill_gradient2(high = "green4", na.value = "white", midpoint = .5) +
+    labs(x = "Predictor", y = "Reference") +
     theme(
       axis.text.x = element_text(colour = ord$xcol, angle = 66, hjust = 1),
       axis.text.y = element_text(colour = ord$ycol)
@@ -233,8 +234,8 @@ describe_concordance <- function(d0, vars) {
     ggplot() +
     aes(x = predictor, y = reference, fill = Specificity) +
     geom_tile() +
-    scale_fill_gradient2(high = 'orange3', na.value = 'white', midpoint = .5) +
-    labs(x = 'Predictor', y = 'Reference') +
+    scale_fill_gradient2(high = "orange3", na.value = "white", midpoint = .5) +
+    labs(x = "Predictor", y = "Reference") +
     theme(
       axis.text.x = element_text(colour = ord$xcol, angle = 66, hjust = 1),
       axis.text.y = element_text(colour = ord$ycol)
@@ -244,8 +245,8 @@ describe_concordance <- function(d0, vars) {
   list(
     table = tab,
     plots = list(
-      Kappa       = kappaplt,
-      Accuracy    = accplt,
+      Kappa = kappaplt,
+      Accuracy = accplt,
       Sensitivity = sensplt,
       Specificity = specplt
     )
