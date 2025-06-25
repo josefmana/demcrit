@@ -205,8 +205,10 @@ describe_concordance <- function(d0, vars) {
     mean(na.rm = TRUE) # Expected Negative Information Rate
   accplt <-
     ordtab |>
+    select(-Accuracy) |>
+    rename("Accuracy" = "Accuracy_raw") |>
     ggplot() +
-    aes(x = predictor, y = reference, fill = Accuracy_raw) +
+    aes(x = predictor, y = reference, fill = Accuracy) +
     geom_tile() +
     geom_text(aes(label = Accuracy_sig)) +
     scale_fill_gradient2(low = "red4", high = "yellow4", midpoint = E_NIR, na.value = "white") +
