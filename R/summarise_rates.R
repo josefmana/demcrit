@@ -123,7 +123,7 @@ summarise_rates <- function(d0, vars, descending = TRUE) {
   lvlII_tot <- subset(prevs, type == subset(d0$criteria, group == "lvlII" & iadl == "faq"  )$type)$perc
   plt <-
     prevs |>
-    filter(!grepl("smoca", type)) |>
+    filter(!grepl("sMoCA|Lvl.II", type)) |>
     mutate(
       kind = sapply(
         seq_len(length(type)),
@@ -154,8 +154,6 @@ summarise_rates <- function(d0, vars, descending = TRUE) {
     geom_vline(xintercept = smoca_tot, lwd = 1, lty = "dotted", colour = "blue") +
     geom_vline(xintercept = lvlII_9, lwd = 1, lty = "dashed", colour = "orange3") +
     geom_vline(xintercept = lvlII_tot, lwd = 1, lty = "dashed", colour = "blue") +
-    #scale_colour_manual(values = c("brown", "purple2", "orange", "violet")) +
-    #scale_fill_manual(values = c("brown", "purple2", "orange", "violet")) +
     labs(x = "Estimated PDD rate (%)", y = "Density") +
     theme(legend.position = "bottom")
   # Return:

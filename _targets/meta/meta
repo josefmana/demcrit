@@ -23,7 +23,6 @@ pdd_data|stem|e7c1e5978fb963bf|421a79b539387d7b|1883f0d0646902dc|-6092328||t2026
 sample_description|stem|4478e5d17709a0b3|a385ccf0415246b0|41e479527b198135|-1070305744||t20264.4588116606s|s6546b|6546|rds|local|vector|||0.18||
 concordance_statistics|stem|e33fa768640a7740|921709cbafa24f27|d675a643094dd372|1652126210||t20264.4593076161s|s2162359b|2162359|rds|local|vector|||42.442|upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set to  1. . upper or lower confidence interval exceed  abs1  and set t|
 demographic_predictors|stem|188a44b168b8cf03|31f3cad834f6813a|b35135d8dfd65912|1455378101||t20264.4593149403s|s3625628b|3625628|rds|local|vector|||0.239|Vectorized input to element_text is not officially supported.ℹ Results may be unexpected or may change in future versions of ggplot2.|
-rate_summaries|stem|65b94647999a2f4d|5445afa5b3559adb|db8f04d46344528d|292778141||t20264.4593202221s|s175726b|175726|rds|local|vector|||0.391||
 do_summary|function|529787ca236a8350
 gt_apa_table|function|8afb8b94860c3461
 import_redcap_data|function|943ae6f27a90bfd9
@@ -33,18 +32,19 @@ specify_criteria|function|a11b5082aa84b16a
 regress_pdd_on_demographics|function|c6135fe6847bf520
 check_compatibility|function|9de3216189ba48d7
 compute_z_score|function|71597906b1dd704d
-.Random.seed|object|42acd3486cf4b8b2
+.Random.seed|object|f645096da354f852
 check_names|function|4d10ffa672300ced
 import_item_data|function|cd7ece1b76db6a51
 data_paths|function|344f1df5e786d452
 describe_concordance|function|2395784d5578204f
 table_levelII_approximations|function|f331b4d11c874fc0
-summarise_rates|function|703c472404b7315a
+summarise_rates|function|e03f2b4822594051
 table_estimands|function|734dc33d8840bbed
 table_criteria|function|98d80df1ea4f212c
 compute_descriptives|function|47417ab5ec284fac
 diagnose_pdd_sample|function|105efb14fea71f26
 assign_cognitive_impairment|function|466de7cfc5c0efa7
 prepare_data|function|fa8ca76b40d252a4
-inputs_files|stem|dc126323fa3b2420|f8d248d7fb1a5ff4|07d6edc6520f6f43|-706827970||t20264.4717546651s|s173b|173|rds|local|vector||inputs_files_90101cca56bca1e5*inputs_files_3eeea4da6ab3a0f0*inputs_files_6cad275383f66436*inputs_files_ffb1bf453ec9c8a3*inputs_files_de4afc58724fa30b|0.989||
-manuscript|stem|cf87c0bf1ee8ad72|e697cddef7f5a96f|61977cbcc2b7b47f|-1793997187|_manuscript/manuscript.docx*_manuscript/manuscript.qmd|t20264.4719003555s|s605106b|605106|file|local|vector|||12.006||
+inputs_files|stem|dc126323fa3b2420|f8d248d7fb1a5ff4|07d6edc6520f6f43|-706827970||t20264.492475865s|s173b|173|rds|local|vector||inputs_files_90101cca56bca1e5*inputs_files_3eeea4da6ab3a0f0*inputs_files_6cad275383f66436*inputs_files_ffb1bf453ec9c8a3*inputs_files_de4afc58724fa30b|1.019||
+rate_summaries|stem|366799c946d539ea|5445afa5b3559adb|88ff64ca2698e06c|292778141||t20264.4924810125s|s175490b|175490|rds|local|vector|||0.364||
+manuscript|stem|1c33fb233906436b|e697cddef7f5a96f|ce9e4288c4888254|-1793997187|_manuscript/manuscript.docx*_manuscript/manuscript.qmd|t20264.4926240719s|s603940b|603940|file|local|vector|||11.866||
