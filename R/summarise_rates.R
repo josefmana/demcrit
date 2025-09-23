@@ -43,9 +43,8 @@ summarise_rates <- function(d0, vars, descending = TRUE) {
   } else {
     v <- vars
   }
-  # Prepare and arrange the table with prevalences:
-  prevs <-
-    d0$PDD |>
+  # Prepare and arrange the table with PDD rates (previously called 'prevalences'):
+  prevs <- d0$PDD |>
     select(type, PDD) |>
     table() |>
     as_tibble() |>
@@ -55,23 +54,21 @@ summarise_rates <- function(d0, vars, descending = TRUE) {
       perc = 100 * `TRUE`/N,
       Rate = paste0(`TRUE`, " (", do_summary(perc, 2), "%)")
     )
-  # Prepare operationalisation labels:
-  opers <-
-    d0$criteria |>
+  # Prepare algorithm (previously called 'operationalisation') labels:
+  opers <- d0$criteria |>
     mutate(
-      Global = sapply(seq_len(length(type)), function(i) paste0(v[v[ , 1] == glob[i], 2]," < ", glob_t[i])),
-      Attention = sapply(seq_len(length(type)), function(i) paste0(v[v[ , 1] == atte[i], 2]," < ", atte_t[i])),
-      Executive = sapply(seq_len(length(type)), function(i) paste0(v[v[ , 1] == exec[i], 2]," < ", exec_t[i])),
-      Construction = sapply(seq_len(length(type)), function(i) paste0(v[v[ , 1] == cons[i], 2]," < ", cons_t[i])),
-      Memory = sapply(seq_len(length(type)), function(i) paste0(v[v[ , 1] == memo[i], 2]," < ", memo_t[i])),
-      Language = sapply(seq_len(length(type)), function(i) paste0(v[v[ , 1] == lang[i], 2]," < ", lang_t[i])),
-      IADL = sapply(seq_len(length(type)), function(i) paste0(v[v[ , 1] == iadl[i], 2]," > ", iadl_t[i]))
+      Global = sapply(seq_along(type), \(i) paste0(v[v[ , 1] == glob[i], 2]," < ", glob_t[i])),
+      Attention = sapply(seq_along(type), \(i) paste0(v[v[ , 1] == atte[i], 2]," < ", atte_t[i])),
+      Executive = sapply(seq_along(type), \(i) paste0(v[v[ , 1] == exec[i], 2]," < ", exec_t[i])),
+      Construction = sapply(seq_along(type), \(i) paste0(v[v[ , 1] == cons[i], 2]," < ", cons_t[i])),
+      Memory = sapply(seq_along(type), \(i) paste0(v[v[ , 1] == memo[i], 2]," < ", memo_t[i])),
+      Language = sapply(seq_along(type), \(i) paste0(v[v[ , 1] == lang[i], 2]," < ", lang_t[i])),
+      IADL = sapply(seq_along(type), \(i) paste0(v[v[ , 1] == iadl[i], 2]," > ", iadl_t[i]))
     ) |>
     select(type, Global, Attention, Executive, Construction, Memory, Language, IADL) |>
-    mutate_all(~ifelse(grepl("NA",.x), "-", .x))
+    mutate_all(\(x) ifelse(grepl("NA", x), "-", x))
   # Make the table:
-  tab <-
-    prevs |>
+  tab <- prevs |>
     left_join(opers, by = "type") |>
     select(-`FALSE`, -`TRUE`) |>
     relocate(N, .after = last_col()) |>
@@ -85,15 +82,13 @@ summarise_rates <- function(d0, vars, descending = TRUE) {
       Language = if_else(grepl("Lvl.II", type), "WAIS Similarities < -1.5 OR BNT 60 < -1.5", Language)
     )
   # Make a table showing estimated PDD rates:
-  gtab_rates <-
-    tab |>
+  gtab_rates <- tab |>
     arrange(desc(perc)) |>
     select(type, N, Rate) |>
     gt_apa_table() |>
     cols_label(type ~ "Algorithm")
   # Make a table showing algorithms' specification:
-  gtab_algos <-
-    tab |>
+  gtab_algos <- tab |>
     select(-perc, -N, -Rate) |>
     gt_apa_table() |>
     tab_spanner(
@@ -112,17 +107,15 @@ summarise_rates <- function(d0, vars, descending = TRUE) {
     notes <- v[complete.cases(v[ , 5]), c(2,5)]
     text <- paste0(pull(notes[ , 1]),": ",pull(notes[ , 2])) |> paste(collapse = ", ")
     # Add the text:
-    gtab_algos <-
-      gtab_algos |>
+    gtab_algos <- gtab_algos |>
       tab_source_note(html(paste0("<i>Note.</i> ",text)))
   }
   # Visualisation code:
   smoca_9 <- subset(prevs, type == subset(d0$criteria, group == "smoca" & iadl == "faq_9")$type)$perc
-  smoca_tot <- subset(prevs, type == subset(d0$criteria, group == "smoca" & iadl == "faq"  )$type)$perc
+  smoca_tot <- subset(prevs, type == subset(d0$criteria, group == "smoca" & iadl == "faq")$type)$perc
   lvlII_9 <- subset(prevs, type == subset(d0$criteria, group == "lvlII" & iadl == "faq_9")$type)$perc
   lvlII_tot <- subset(prevs, type == subset(d0$criteria, group == "lvlII" & iadl == "faq"  )$type)$perc
-  plt <-
-    prevs |>
+  plt <- prevs |>
     filter(!grepl("sMoCA|Lvl.II", type)) |>
     mutate(
       kind = sapply(

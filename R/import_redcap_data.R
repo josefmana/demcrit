@@ -12,14 +12,13 @@
 #' @examples
 #' \dontrun{
 #' p <- data_paths("data-raw")
-#' scor <- readr::read_delim(p[4], delim = ";")
+#' scor <- readr::read_delim(p[4], delim = ";", col_types = cols(rev = "c"))
 #' data <- import_redcap_data(p[2])
 #' }
 #'
 #' @export
 import_redcap_data <- function(path, scoring) {
-  df <-
-    read_csv(path, show_col_types = FALSE) |>
+  df <- readr::read_csv(path, show_col_types = FALSE) |>
     select(-contains("dbs"), -contains("post")) |>
     filter(grepl("screening", redcap_event_name)) |>
     rename(
@@ -40,7 +39,7 @@ import_redcap_data <- function(path, scoring) {
   }
   # Extract correct FAQ scores:
   faq_its <- unlist(strsplit(with(scoring, item[scale == "faq"]), ","))
-  for(i in faq_its) {
+  for (i in faq_its) {
     df[ , paste0("faq_", i)] <- NA
     for (j in seq_len(nrow(df))) {
       if (is.na(df[j, paste0("faq_uvod_", i)])) next
@@ -49,26 +48,24 @@ import_redcap_data <- function(path, scoring) {
     }
   }
   # Reverse item scores where applicable:
-  with(
-    scoring,
+  with(scoring, {
     for (i in scale[complete.cases(rev)]) {
       for (j in unlist(strsplit(rev[scale == i], ","))) {
         df[ , paste(i, j, sep = "_")] <<- (max[scale == i] + min[scale == i]) - df[ , paste(i, j, sep = "_")]
       }
     }
-  )
+  })
   # Check whether MoCA verbal fluency and vf_k are the same:
-  vf_fail <-
-    df |>
+  vf_fail <- df |>
     filter(vf_k != moca_fluence_k) |>
     select(id, neuropsy_years, vf_k, moca_fluence_k)
-  stop <- F
+  stop <- FALSE
   if (nrow(vf_fail) > 0) {
-    stop <- T
+    stop <- TRUE
     cat("\nSee the problematic cases below:\n\n")
     print(vf_fail)
   }
-  if(stop) cat("
+  if (stop) cat("
   There are some incongruities in verbal fluency data between MoCA and Level II.
   Using the Level II data in these cases to keep it consistent with the rest of data.\n\n"
   )
@@ -79,7 +76,6 @@ import_redcap_data <- function(path, scoring) {
   df |>
     select(-all_of( starts_with( paste0("faq_", c("fill", "uvod", "vykon", "nikdy", "score"))))) |>
     mutate(
-      id = sub("excluded_", "", id),
       faq = rowSums(across(starts_with("faq"))),
       bdi = rowSums(across(starts_with("bdi"))),
       stai_1 = rowSums(across(starts_with("staix1"))),
@@ -89,7 +85,7 @@ import_redcap_data <- function(path, scoring) {
       updrsiii_on = rowSums(across(all_of(paste0("mdsupdrs3", strsplit(pull(scoring[scoring$scale == "updrs_iii", "item"]), ",")[[1]], "on")))),
       age_lvl2 = time_length(
         difftime(as.Date(neuropsy_years), as.Date(birth)),
-        "years"
+        unit = "years"
       ),
       sex = factor(
         sex,
@@ -99,8 +95,8 @@ import_redcap_data <- function(path, scoring) {
       ),
       type_pd = factor(
         type_pd,
-        levels = 1:2,
-        labels = c("tremor-dominant", "akinetic-rigid"),
+        levels = 1:3,
+        labels = c("tremor-dominant", "akinetic-rigid", "axial"),
         ordered = FALSE
       ),
       asym_park = factor(
@@ -133,7 +129,7 @@ import_redcap_data <- function(path, scoring) {
       drsii, mmse, nart,
       moca_cube, moca_7, vf_k, moca_5words, moca_anim, moca_abs, moca_cloc, starts_with("moca_clock"),
       moca_total, smoca_total,
-      starts_with("faq"), bdi, stai_1, stai_2, gds_15,
+      starts_with("faq"), bdi, gds_15, stai_1, stai_2,
       tmt_a, ds_b, # lns, corsi_b, pst_d,
       pst_c, vf_animals, # cf, # tol, tmt_b, pst_w,
       sim, bnt_60,

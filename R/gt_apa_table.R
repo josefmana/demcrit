@@ -16,8 +16,7 @@
 #'
 #' @export
 gt_apa_table <- function(x, grp = NULL, nms = NULL, tit = "") {
-  x |>
-    gt(groupname_col = grp, rowname_col = nms) |>
+  x |> gt(groupname_col = grp, rowname_col = nms) |>
     tab_options(
       table.border.top.color = "white",
       heading.title.font.size = px(16),

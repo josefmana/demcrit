@@ -24,33 +24,26 @@ check_compatibility <- function(d1, d2) {
     NULL
   )
   # Prepare a table comparing common variables:
-  tvar <-
-    sapply(
-      d1$id,
-      function(i)
-        sapply(
-          commonvars,
-          function(j) ifelse(
-            test = !(i %in% d2$id),
-            yes  = NA,
-            no   = with(d1, get(j)[id == i & incl == 1]) == with(d2, get(j)[id == i])
-          )
-        )
-    ) |>
+  tvar <- sapply(d1$id, function(i) {
+    sapply(commonvars, function(j) {
+      ifelse(
+        test = !(i %in% d2$id),
+        yes  = NA,
+        no   = with(d1, get(j)[id == i & incl == 1]) == with(d2, get(j)[id == i])
+      )
+    })
+  }) |>
     t()
   # Evaluate mismatches:
-  tdisc <- lapply(
-    set_names(commonvars),
-    function(i) left_join(
+  tdisc <- map_dfr(set_names(commonvars), function(i) {
+    left_join(
       d1[d1$id %in% rownames(tvar[!tvar[ ,i], ]) & d1$incl == 1, c("id", i)],
       d2[d2$id %in% rownames(tvar[!tvar[ ,i], ]), c("id", i)],
-      by = "id",
+      by = join_by(id),
       suffix = c("_ItemData", "_REDCap")
     )
-  ) |>
-    reduce(full_join, by = "id")
+  })
   # Return mismatches as a data frame
-  d1 |>
-    select(id, surname, firstname, assdate) |>
+  d1 |> select(id, surname, firstname, assdate) |>
     right_join(tdisc, by = "id")
 }

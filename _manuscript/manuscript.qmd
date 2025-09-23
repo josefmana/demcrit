@@ -129,12 +129,10 @@ In the light of these proposals, the current study aims to evaluate the diagnost
 continue <- all(!is.na(data$assdate))
 stopifnot("Some assessment dates are missing" = continue)
 
-dates <- sapply(
-  c("min", "max"), function(f) {
-    date <- do.call(f, list(data$assdate))
-    paste(month(date, label = T, abbr = F), year(date))
-  }
-)
+dates <- sapply(c("min", "max"), function(f) {
+  date <- do.call(f, list(data$assdate))
+  paste(month(date, label = TRUE, abbr = FALSE), year(date))
+})
 ```
 
 This study retrospectively analyzed clinical data from a cohort of patients with PD at the General University Hospital in Prague. All patients were diagnosed with idiopathic PD by a movement disorder specialist according to the MDS Clinical Diagnostic Criteria for PD [@postuma2015]. Clinical records spanning `r dates["min"]` to `r dates["max"]` were examined. All participants were candidates for Deep Brain Stimulation (DBS) treatment and underwent neuropsychological evaluation conducted by a trained clinical psychologist (OB) as part of standard preoperative assessments for DBS eligibility at the General University Hospital in Prague.
@@ -152,12 +150,10 @@ In this study, we applied three distinct sets of diagnostic algorithms for proba
 ```{r}
 #| label: "crit-check"
 
-critnum <- sapply(
-  c("mmse", "moca", "smoca", "lvlII"), function(i) {
-    subset(crit, group == i) |>
-      nrow()
-  }
-)
+critnum <- sapply(c("mmse", "moca", "smoca", "lvlII"), function(i) {
+  subset(crit, group == i) |>
+    nrow()
+})
 
 continue <- !any(critnum == 0)
 stopifnot("Some criteria are missing" = continue)
@@ -208,13 +204,12 @@ updrs_off <- paste0(subset(desc$table, variable == "UPDRS III off state")[ , c("
 updrs_on <- paste0(subset(desc$table, variable == "UPDRS III on state")[ , c("M", "SD")] |> paste(collapse = " (SD = "),") UPDRS III in medication ON state")
 
 # In-text rate estimates
-rates_overall <- sapply(c("M", "SD", "Md", "minmax"), function(f) do_summary(perc, 2, f))
-rates_FAQ9 <- sapply(c("M", "SD", "Md", "minmax"), function(f) do_summary(perc[grepl("FAQ 9", rates$table$IADL)], 2, f))
-rates_FAQtot <- sapply(c("M", "SD", "Md", "minmax"), function(f) do_summary(perc[rates$table$IADL == "FAQ > 7"], 2, f))
+rates_overall <- sapply(c("M", "SD", "Md", "minmax"), \(f) do_summary(perc, 2, f))
+rates_FAQ9 <- sapply(c("M", "SD", "Md", "minmax"), \(f) do_summary(perc[grepl("FAQ 9", rates$table$IADL)], 2, f))
+rates_FAQtot <- sapply(c("M", "SD", "Md", "minmax"), \(f) do_summary(perc[rates$table$IADL == "FAQ > 7"], 2, f))
 
 # Minimum p-value of logistic regressions:
-min_p <-
-  subset(pred$values, quantity == "p-value")$estimate |>
+min_p <- subset(pred$values, quantity == "p-value")$estimate |>
   min() |>
   do_summary(3, "p")
 
@@ -261,38 +256,30 @@ rates$plot
 #| label: "kappas"
 
 # Prepare combinations within IADL operationalisation:
-kappas <- lapply(
-  set_names(names(algos)), function(o) {
-    combn(algos[[o]], 2) |>
+kappas <- lapply(set_names(names(algos)), function(o) {
+  combn(algos[[o]], 2) |>
       t() |>
       as_tibble() |>
       `colnames<-`(c("predictor", "reference")) |>
-      left_join(conc$table, by = c("predictor", "reference")) |>
-      select(Kappa_raw) |>
-      pull()
-  }
-)
+      left_join(conc$table, by = join_by(predictor, reference)) |>
+      pull(Kappa_raw)
+})
 
 # Add cross-operationalisation cases
 kappas$cross <- subset(conc$table, predictor %in% algos$faq_9 & reference %in% algos$faq_tot)$Kappa_raw
 
 # Extract Kappa summaries:
-kappa_sums <-
-  sapply(
-    names(kappas),
-    function(i)
-      paste0(do_summary(kappas[[i]], 2, "M"),", SD = ", do_summary(kappas[[i]], 2, "SD"))
-  )
+kappa_sums <- sapply(names(kappas), function(i) {
+  paste0(do_summary(kappas[[i]], 2, "M"),", SD = ", do_summary(kappas[[i]], 2, "SD"))
+})
 
 # Add Kappa summaries of algos with same everything but different IADL:
-kappa_iadl <-
-  data.frame(
-    predictor = c("Lvl.II (1)", "MMSE (1)", "MMSE (3)", paste0("MoCA (",seq(1,59,2),")"), "sMoCA (1)"),
+kappa_iadl <- data.frame(
+  predictor = c("Lvl.II (1)", "MMSE (1)", "MMSE (3)", paste0("MoCA (",seq(1,59,2),")"), "sMoCA (1)"),
     reference = c("Lvl.II (2)", "MMSE (2)", "MMSE (4)", paste0("MoCA (",seq(2,60,2),")"), "sMoCA (2)")
-  ) |>
-    left_join(conc$table) |>
-    select(Kappa_raw) |>
-    pull()
+) |>
+  left_join(conc$table) |>
+  pull(Kappa_raw)
 
 kappa_iadl_sums <- paste0(do_summary(x = kappa_iadl, 2, "M"),", SD = ", do_summary(x = kappa_iadl, 2, "SD"))
 ```

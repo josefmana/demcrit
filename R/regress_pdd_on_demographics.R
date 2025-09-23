@@ -31,22 +31,18 @@
 #' @export
 regress_pdd_on_demographics <- function(d0, d1) {
   # Extract orders for visualisation:
-  ord_id <-
-    d0 |>
+  ord_id <- d0 |>
     arrange(age) |>
     filter(!is.na(age)) |>
-    select(id) |>
-    pull()
-  ord_type <-
-    d1 |>
+    pull(id)
+  ord_type <- d1 |>
     select(PDD, type) |>
     table() |>
     prop.table() |>
     as_tibble() |>
     filter(PDD == TRUE) |>
     arrange(n) |>
-    select(type) |>
-    pull()
+    pull(type)
   # Prepare an anonimisation mapping:
   anon <- left_join(
     data.frame(id = ord_id),
@@ -57,26 +53,22 @@ regress_pdd_on_demographics <- function(d0, d1) {
     by ="id"
   )
   # Prepare data for analysis:
-  df <-
-    d1 |>
+  df <- d1 |>
     select(id, type, PDD) |>
-    left_join(d0 |> select(id, age, sex), by = "id") |>
+    left_join(d0 |> select(id, age, sex), by = join_by(id)) |>
     mutate(
       PDD = if_else(PDD, 1, 0),
       sid = factor(
-        sapply(
-          seq_len(length(id)),
-          function(i)
-            anon$sid[anon$id == id[i]]
-        ),
+        sapply(seq_along(id), function(i) {
+          anon$sid[anon$id == id[i]]
+        }),
         levels = anon$sid,
         ordered = TRUE
       ),
-      type = factor(type, levels = ord_type, ordered = T)
+      type = factor(type, levels = ord_type, ordered = TRUE)
     )
   # Visualise raw data:
-  plt_raw <-
-    df |>
+  plt_raw <- df |>
     filter(!is.na(sid)) |>
     ggplot() +
     aes(x = sid, y = type, fill = factor(PDD)) +
@@ -95,24 +87,19 @@ regress_pdd_on_demographics <- function(d0, d1) {
       )
     )
   # Get regression fits:
-  fits <-
-    lapply(
-      set_names(unique(df$type)),
-      function(i) glm(
-        formula = PDD ~ age * sex,
-        data = subset(df, type == i),
-        family = binomial(link = "logit")
-      )
+  fits <- lapply(set_names(unique(df$type)), function(i) {
+    glm(
+      formula = PDD ~ age * sex,
+      data = subset(df, type == i),
+      family = binomial(link = "logit")
     )
+  })
   # Get parameters:
-  pars <-
-    sapply(
-      set_names(names(fits)),
-      function(i) c(
-        or_ = exp(coefficients(fits[[i]])),
-        p_ = summary(fits[[i]])$coefficients[ , "Pr(>|z|)"]
+  pars <- sapply(set_names(names(fits)), function(i) {
+    c(or_ = exp(coefficients(fits[[i]])),
+      p_ = summary(fits[[i]])$coefficients[ , "Pr(>|z|)"]
       )
-    ) |>
+  }) |>
     t()|>
     as_tibble(rownames = "type") |>
     select(-contains("Intercept")) |>
@@ -140,8 +127,7 @@ regress_pdd_on_demographics <- function(d0, d1) {
       vline_p = if_else(quantity == "p-value", .05, NA)
     )
   # Plot regression results:
-  plt_regrs <-
-    pars |>
+  plt_regrs <- pars |>
     filter(estimate < 20) |>
     ggplot() +
     aes(x = estimate) +

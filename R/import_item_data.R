@@ -11,14 +11,13 @@
 #'
 #' @examples
 #' \dontrun{
-#' p    <- data_paths("data-raw")
+#' p <- data_paths("data-raw")
 #' data <- import_item_data(p[1])
 #' }
 #'
 #' @export
 import_item_data <- function(path) {
-  df <-
-    read_delim(path, delim = ";", col_types = cols()) |>
+  df <- readr::read_delim(path, delim = ";", col_types = cols()) |>
     rename(
       id = IPN,
       birth = born_NA_RC,
@@ -35,16 +34,16 @@ import_item_data <- function(path) {
         case_when(sex == "F" ~ 0, sex == "M" ~ 1),
         levels = 0:1,
         labels = c("female", "male"),
-        ordered = F
+        ordered = FALSE
       ),
       hand = factor(
         case_when(hand == "R" ~ 0, hand == "L" ~ 1),
         levels = 0:1,
         labels = c("right", "left"),
-        ordered = F
+        ordered = FALSE
       ),
-      across(ends_with("name"), ~make_clean_names(.x, allow_dupes = TRUE)),
-      across(all_of(c("assdate", "birth")), ~as.Date(.x, tryFormats = "%d.%m.%Y")),
+      across(ends_with("name"), \(x) janitor::make_clean_names(x, allow_dupes = TRUE)),
+      across(all_of(c("assdate", "birth")), \(x) as.Date(x, tryFormats = "%d.%m.%Y")),
       incl = 1 # As a baseline, include everyone
     )
   # Check MMSE variables:
@@ -68,7 +67,7 @@ import_item_data <- function(path) {
       print(mistakes[[i]][ , c("surname", "firstname", "id", "assdate", i)])
     }
   }
-  if(stop) stop("There seem to be typos in the data, check the data printed above to locate and repair them.")
+  if (stop) stop("There seem to be typos in the data.\nCheck the data printed above to locate and repair them.")
   # !Duplicated cases, rows selected manually:
   # IPN138: keep the first assessment because it is the "screening" in REDCap.
   # IPN347: keep the first assessment because the second one was just one year later & the first one is REDCap's "screening".

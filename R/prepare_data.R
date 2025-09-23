@@ -24,25 +24,27 @@ prepare_data <- function(p, check.names = TRUE) {
   Scoring <- readr::read_delim(p[4], delim = ";", col_types = cols(rev = "c"))
   REDCap <- import_redcap_data(p[2], Scoring)
   # Check names nd compatibility:
-  if(check.names) {
-    check_names(d = ItemData, nms = read_csv(p[3], show_col_types = FALSE))
+  if (check.names) {
+    check_names(d = ItemData, nms = readr::read_csv(p[3], show_col_types = FALSE))
   }
   disc <- check_compatibility(d1 = ItemData, d2 = REDCap)
   if (nrow(disc) > 1) {
     discfile <- here("temp", "discrepancies.csv")
-    cat(paste0("\n!!! There were some discrepancies, REDCap data were used !!!\nCheck the ", discfile," file\nto reconcile any incompatibilities.\n"))
-    if (!dir.exists("temp")) dir.create("temp")
-    write_csv(disc, discfile, na = "")
+    cat(glue::glue("\nThere were some discrepancies, REDCap data were used.\nCheck the {discfile} file to reconcile any incompatibilities.\n"))
+    if (!dir.exists("temp")) {
+      dir.create("temp")
+    }
+    readr::write_csv(disc, discfile, na = "")
   } else {
-    if (dir.exists("temp")) unlink("temp", recursive = TRUE)
+    if (dir.exists("temp")) {
+      unlink("temp", recursive = TRUE)
+    }
   }
   # Prepare a full data set:
-  df <-
-    ItemData |>
+  df <- ItemData |>
     filter(incl == 1) |>
     left_join(REDCap, by = "id", suffix = c("_iw", "_rc"))
-  cv <-
-    names(df)[grepl("_iw", names(df))] |>
+  cv <- names(df)[grepl("_iw", names(df))] |>
     sub(x = _, "_iw", "")
   for (i in cv) {
     df[ , i] <- NA
@@ -71,5 +73,5 @@ prepare_data <- function(p, check.names = TRUE) {
   map_file  <- here::here("data-raw", "CalculatorMapping.csv")
   ci_lvlII <- assign_cognitive_impairment(df, calc_file, map_file, "both")
   # Return the data:
-  left_join(df, ci_lvlII, by = "id")
+  df |> left_join(ci_lvlII, by = "id")
 }

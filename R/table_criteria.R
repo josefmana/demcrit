@@ -22,16 +22,14 @@ table_criteria <- function(vars) {
     v <- vars
   }
   v <- subset(v, group %in% c("Attention and Working Memory", "Executive Function", "Language", "Memory", "Visuospatial Function"))
-  note <-
-    paste0(
-      "Note. MMSE: Mini-Mental State Examination; MoCA: Montreal Cognitive Assessment; sMoCA: short version of the MoCA; ",
-      paste0(v$label,": ",v$note) |> paste(collapse = "; "),
-      ". The OR operator implies that exactly one of the criteria listed is utilized within a single operationalization;
+  note <- paste0(
+    "Note. MMSE: Mini-Mental State Examination; MoCA: Montreal Cognitive Assessment; sMoCA: short version of the MoCA; ",
+    paste0(v$label,": ",v$note) |> paste(collapse = "; "),
+    ". The OR operator implies that exactly one of the criteria listed is utilized within a single operationalization;
       the & operator implies that both criteria are used at the same time within a single operationalization;
       each threshold value within the set brackets {} was used to define probable PDD once in combination with all the
       other criteria on the same row."
-
-    )
+  )
   # Do the table:
   tibble(
     Type = c(

@@ -33,11 +33,11 @@ data_paths <- function(dir = "data-raw") {
       "VariablesOfInterest.csv" # Variables to be printed in tables
     ),
     message = c(
-      paste0("\nItem-wise data is missing or mislabelled!\nInsert a valid file 'ItemData.csv' into the /", dir, " folder!\n"),
-      paste0("\nREDCap data is missing or mislabelled!\nInsert a valid file 'REDCapData.csv' into the /", dir, " folder!\n"),
-      paste0("\nPatient identification data is missing or mislabelled!\nInsert a valid file 'MetaData.csv' into the /", dir, " folder!\n"),
-      paste0("\nFile with test scoring data is missing or mislabelled!\nInsert a valid file 'TestScoring.csv' into the /", dir, " folder!\n"),
-      paste0("\nFile with variable labels is missing or mislabelled!\nInsert a valid file 'VariablesOfInterest.csv' into the /", dir, " folder!\n")
+      glue::glue("\nItem-wise data is missing or mislabelled!\nInsert a valid file 'ItemData.csv' into the /{dir} folder!\n"),
+      glue::glue("\nREDCap data is missing or mislabelled!\nInsert a valid file 'REDCapData.csv' into the /{dir} folder!\n"),
+      glue::glue("\nPatient identification data is missing or mislabelled!\nInsert a valid file 'MetaData.csv' into the /{dir} folder!\n"),
+      glue::glue("\nFile with test scoring data is missing or mislabelled!\nInsert a valid file 'TestScoring.csv' into the /{dir} folder!\n"),
+      glue::glue("\nFile with variable labels is missing or mislabelled!\nInsert a valid file 'VariablesOfInterest.csv' into the /{dir} folder!\n")
     )
   ) |>
     mutate(path = here::here(dir, file))

@@ -24,18 +24,15 @@
 #'
 #' @export
 table_levelII_approximations <- function(values, struct, crit) {
-  lapply(
-    1:2,
-    function(ii)
-      values |>
+  map_dfr(1:2, function(ii) {
+    values |>
       filter(reference == paste0("Lvl.II (", ii, ")")) |>
       filter(predictor %in% struct[[ii]]) |>
       filter(!grepl("Lvl.II", predictor)) |>
       arrange(desc(get(crit))) |>
       select(reference, predictor, Kappa_raw, Accuracy_raw, AccuracyPValue, Sensitivity, Specificity) |>
       mutate(order = seq_len(length(reference)))
-  ) |>
-    do.call(rbind.data.frame, args = _) |>
+  }) |>
     pivot_wider(
       names_from = reference,
       id_cols = order,
@@ -46,8 +43,8 @@ table_levelII_approximations <- function(values, struct, crit) {
         order %in% 1:5 ~ "Top five",
         order %in% (length(order)-4):length(order) ~ "Bottom five"
       ),
-      across(contains("PValue"), ~do_summary(.x, 3, "p")),
-      across(where(is.numeric), ~do_summary(.x, 2))
+      across(contains("PValue"), \(x) do_summary(x, 3, "p")),
+      across(where(is.numeric), \(x) do_summary(x, 2))
     ) |>
     filter(!is.na(part)) |>
     select(part, ends_with("(1)"), ends_with("(2)")) |>

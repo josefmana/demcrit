@@ -30,12 +30,10 @@
 #' @export
 diagnose_pdd_sample <- function(d0) {
   crit <- specify_criteria()
-  pdd  <- lapply(seq_len(nrow(crit)), function(i) {
+  pdd <- map_dfr(seq_len(nrow(crit)), function(i) {
     diagnose_pdd_case(d0, crit[i, ]) |>
       mutate(type = crit$type[i], .after = id)
-  }) |>
-    reduce(full_join) |>
-    suppressMessages()
+  })
   # Return both criteria specification and PDD diagnoses:
   list(criteria = crit, PDD = pdd)
 }

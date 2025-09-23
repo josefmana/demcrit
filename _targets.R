@@ -1,17 +1,10 @@
+library(tidyverse) |> suppressPackageStartupMessages()
+library(gt)
 library(targets)
 library(tarchetypes)
 
 # Set target options:
-tar_option_set(
-  packages = c(
-    "here", # for path listing
-    "tidyverse", # for data wrangling
-    "janitor", # for cleaning names of diacritics
-    "psych", # for Cohen's Kappa calculation
-    "caret", # for confusion matrixes
-    "gt" # for tableing
-  )
-)
+tar_option_set()
 
 # Load all in-house functions:
 tar_source()

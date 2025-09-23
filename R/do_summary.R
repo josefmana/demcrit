@@ -71,7 +71,7 @@ do_summary <- function(x, dec, sum = NULL) {
     ifelse(x < .001, "< .001", paste0("= ", zerolead(x, dec)))
   } else if(sum == "Nperc") {
     t <- table(x)
-    paste0(t[2]," (",rprint(100*prop.table(t)[2], dec), "%)")
+    paste0(t[2]," (",rprint(100 * prop.table(t)[2], dec), "%)")
   } else if(sum == "Nslash") {
     paste(table(x), collapse = "/")
   } else if(sum == "estCI") {

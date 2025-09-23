@@ -2,8 +2,16 @@ Package: DemCrit
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+    person("Josef", "Mana", , "josef.mana@protonmail.com", role = c("aut", "cre"))
+    person("Martina", "Mana", , "kvapil.martina@gmail.com", role = c("aut", "cre"))
+Description: This package is not intended for public use. The idea is to provide a documentation
+behind data analysis that serves as a backbone of the empirical part of the paper
+Mana et al. (under review)^[Will be updated once the manuscript is accepted for
+publication.]. Furthermore, if we are able to share some of the data in the future, we will use
+this package to document processes that can be used to reproduce our results (since
+sharing raw patients data is out of question due to privacy concerns, the pre-processing
+pipeline presented here will be functional only on data owner's computer at the First
+Faculty of Medicine, Charles University).
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
     license
 Encoding: UTF-8

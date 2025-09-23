@@ -27,13 +27,11 @@
 #' }
 #' @export
 compute_z_score <- function(calc, x, nam, AGE, GEN, EDU) {
-  with(
-    calc, {
-      pars <- as.numeric(c(Constant[calc_lab == nam], age[calc_lab == nam], gender[calc_lab == nam], education[calc_lab == nam]))
-      data <- as.matrix(cbind(rep(1, length(x)), AGE, GEN, EDU))
-      x_bar <- data %*% pars
-      z <- c(sign[calc_lab == nam] * (x - x_bar) / RMSE[calc_lab == nam])
-      z
-    }
-  )
+  with(calc, {
+    pars <- as.numeric(c(Constant[calc_lab == nam], age[calc_lab == nam], gender[calc_lab == nam], education[calc_lab == nam]))
+    data <- as.matrix(cbind(rep(1, length(x)), AGE, GEN, EDU))
+    x_bar <- data %*% pars
+    z <- c(sign[calc_lab == nam] * (x - x_bar) / RMSE[calc_lab == nam])
+    z
+  })
 }

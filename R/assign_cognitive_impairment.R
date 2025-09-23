@@ -42,64 +42,58 @@
 #' @export
 assign_cognitive_impairment <- function(d0, calc, map, output = "both") {
   # Read map if it is a file
-  if(is.character(map)) {
+  if (is.character(map)) {
     m <- readr::read_delim(map, delim = ";", col_types = cols())
   } else {
     m <- map
   }
   # Read regression calculator file:
-  r <-
-    readxl::read_excel(calc, sheet = "equations", skip = 1) |>
+  r <- readxl::read_excel(calc, sheet = "equations", skip = 1) |>
     rename("calc_lab" = "...1") |>
     right_join(m, by = "calc_lab")
   # Prepare thresholds for BNT-60:
-  bnt_thresh <-
-    data.frame(
-      age_bottom = c(0, 0, 60, 60),
-      age_top    = c(60, 60, Inf, Inf),
-      edu_bottom = c(0, 12, 0, 12),
-      edu_top    = c(12, Inf, 12, Inf),
-      threshold  = c(49, 52, 50, 53)
-    )
+  bnt_thresh <- data.frame(
+    age_bottom = c(0, 0, 60, 60),
+    age_top    = c(60, 60, Inf, Inf),
+    edu_bottom = c(0, 12, 0, 12),
+    edu_top    = c(12, Inf, 12, Inf),
+    threshold  = c(49, 52, 50, 53)
+  )
   # Add CI-related values to data:
-  d1 <-
-    d0 |>
+  d1 <- d0 |>
     mutate(
-      gender = as.numeric(sex)-1, # to get man = 1, women = 0
+      gender = as.numeric(sex) - 1, # to get man = 1, women = 0
       across(
         .cols  = all_of(r$data_lab),
-        .fns   = ~compute_z_score(r, .x, r$calc_lab[r$data_lab == cur_column()], age, gender, edu_years),
+        .fns   = \(x) compute_z_score(r, x, r$calc_lab[r$data_lab == cur_column()], age, gender, edu_years),
         .names = "z_{.col}"
       ),
       across(
         .cols  = starts_with("z_"),
-        .fns   = ~if_else(.x <= -1.5, 1, 0),
+        .fns   = \(x) if_else(x <= -1.5, 1, 0),
         .names = "mci_{.col}"
       ),
-      mci_z_bnt_60 = # Re-score BNT because the calculator is for BNT-30 not -60
-        sapply(
-          seq_len(length(mci_z_bnt_60)),
-          function(i)
-            ifelse(
-              test = is.na(age[i]) || is.na(edu_years[i]), # To ensure correct format.
-              yes = NA,
-              no = if_else(
-                bnt_60[i] <= with(bnt_thresh, threshold[age[i] > age_bottom & age[i] <= age_top & edu_years[i] > edu_bottom & edu_years[i] <= edu_top]),
-                true  = 1,
-                false = 0
-              )
-            )
-
-      )
+      # Re-score BNT because the calculator is for BNT-30 not -60
+      mci_z_bnt_60 = sapply(seq_along(mci_z_bnt_60), function(i) {
+        ifelse(
+          test = is.na(age[i]) || is.na(edu_years[i]), # To ensure correct format.
+          yes = NA,
+          no = if_else(
+            bnt_60[i] <= with(bnt_thresh, threshold[age[i] > age_bottom & age[i] <= age_top & edu_years[i] > edu_bottom & edu_years[i] <= edu_top]),
+            true  = 1,
+            false = 0
+          )
+        )
+      })
     ) |>
     select(id, starts_with("z_"), starts_with("mci_"), -z_bnt_60) |>
-    rename_all(~sub("mci_z", "mci", .x)) |>
+    rename_all(\(x) sub("mci_z", "mci", x)) |>
     mutate(
       flags = rowSums(across(starts_with("mci_")), na.rm = TRUE),
-      nas   =
+      nas =
         rowSums(is.na(across(starts_with("mci_")))) -
         if_else(rowSums(is.na(across(all_of(c("mci_wms_family_30", "mci_bvmt_30"))))) < 2, 1, 0), # Only one of these need to be present.
-      CI    = case_when(
+      CI = case_when(
         flags >= 2 ~ 1,
         flags == 0 & nas < 2 ~ 0,
         flags == 1 & nas == 0 ~ 0,
@@ -108,11 +102,11 @@ assign_cognitive_impairment <- function(d0, calc, map, output = "both") {
       nonCI = 1-CI
     )
   # Return conditionally on selection:
-  if(output == "ci") {
+  if (output == "ci") {
     d1 |> select(id, CI, nonCI)
-  } else if(output == "z") {
+  } else if (output == "z") {
     d1 |> select(id, starts_with("z_"))
-  } else if(output == "both") {
+  } else if (output == "both") {
     d1
   }
 }
