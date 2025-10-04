@@ -18,7 +18,7 @@ list(
   ),
   tar_target(
     name = variables, # List variables for future use
-    command = here::here("data-raw","VariablesOfInterest.csv"),
+    command = here::here("data-raw", "VariablesOfInterest.csv"),
     format = "file"
   ),
   tar_target(

@@ -71,3 +71,5 @@ po/*~
 rsconnect/
 apa_processed.docx
 .Rproj.user
+inst/doc
+**/.quarto/
