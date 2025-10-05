@@ -31,19 +31,19 @@ library(psych)     # for cohen.kappa()
 library(gt)        # for table formatting
 ```
 
-During the review process of the article, the following question came up:
+During the article's review process, the following question arose:
 
 > How can **correlation** between FAQ scores and neuropsychological measures **inflate** concordance estimates?
 
-As answering this question did not seem straightforward, we opted for a brief simulation experiment exploring this topic.
+Because this question is not a straightforward one to address conceptually, we conducted a brief simulation experiment to explore it empirically.
 
-This vignette presents R code and its outcomes conducting a simulation study that compares algorithms' concordance as well as PDD rate estimates in a simplified scenario whereby the only variables varied between algorithms are operationalisation of IADL deficit (FAQ \> 7 vs. FAQ item 9 \< 1) and global cognitive deficit (MMSE \< 26 vs. MoCA \< 27). The remaining criteria are assumed to be met for parsimony's sake.
+This vignette presents the R code and results of a simulation study comparing algorithms’ concordance and PDD rate estimates in a simplified setting. In this scenario, the only differences between algorithms are the operationalisations of IADL deficit (FAQ \> 7 vs. FAQ item 9 \< 1) and global cognitive deficit (MMSE \< 26 vs. MoCA \< 27), while all other diagnostic criteria are assumed to be satisfied.
 
-Importantly, **within algorithms** we vary **correlation** between FAQ and MMSE/MoCA in the data generating process allowing us to compare differences in estimates between a scenario with no such correlation and correlation of the size observed in our data (see @tbl-data).
+Crucially, **within algorithms**, we vary correlation between FAQ and MMSE/MoCA in the data-generating process, allowing us to compare estimates under two conditions: one with no correlation (**independent** scenario) and one with a correlation of the size consistent with that observed in our data (**correlated** scenario, see @tbl-data).
 
 ```{r}
 #| label: tbl-data
-#| tbl-cap: Distribution moments (mean and standard deviation) and Pearson's correlations between FAQ, MMSE and MoCA as measured in the data.
+#| tbl-cap: Distribution moments (means and standard deviations) and Pearson's correlations between FAQ, MMSE and MoCA as measured in the observed data.
 #| echo: false
 
 data.frame(
@@ -67,14 +67,14 @@ data.frame(
 #| label: simulation-parameters
 
 # Simulation parameters:
-n <- 2000 # Sample size high enough to get stable estimates
-k <- 500 # Enough repetitions to see trends 
+n <- 2000 # sample size high enough to get stable estimates
+k <- 2000 # enough iterations to see trends 
 
 # Moments of the multivariate normal distribution:
 mu <- c(FAQ = 4.05, MMSE = 26.69, MoCA = 24.07) # vector of means
 sigma <- c(FAQ = 4.89, MMSE = 2.22, MoCA = 3.48) # vector of standard deviations
 
-# Covariance matrix from observed correlation:
+# Correlation matrix from observed data:
 corrs <- matrix(
   c(1, -0.21, -0.27,
     -0.21, 1, 0.63,
@@ -89,7 +89,7 @@ corrs <- matrix(
 # Get variance-covariance matrix for the correlated case:
 sigma_corr <- cor2cov(corrs, sigma)
 
-# Set FAQ/cognition covariances to zero for independent case:
+# Set FAQ/cognition covariances to zero for the independent case:
 sigma_indep <- sigma_corr
 sigma_indep["FAQ", ] <- c(sigma_indep["FAQ", "FAQ"], 0, 0)
 sigma_indep[, "FAQ"] <- c(sigma_indep["FAQ", "FAQ"], 0, 0)
@@ -97,19 +97,19 @@ sigma_indep[, "FAQ"] <- c(sigma_indep["FAQ", "FAQ"], 0, 0)
 
 ### FAQ, MMSE & MoCA
 
-To approximate the situation examined in the study, we simulate FAQ, MMSE and MoCA data from a common multivariate. In other words, we assume each subject $i$ has the following vector of observed scores:
+To approximate the situation examined in the study, we simulate FAQ, MMSE and MoCA data from a common multivariate. In other words, each subject $i$ was assumed to have the following vector of latent scores:
 
 $$
  Y_i = \begin{bmatrix} FAQ_i \\ MMSE_i \\ MoCA_i \end{bmatrix} \sim \mathcal{MVN_3}(\boldsymbol{\mu}, \boldsymbol{\Sigma})
 $$ {#eq-generate}
 
-with a vector of means $\boldsymbol\mu$ and variance-covariance matrix $\boldsymbol\Sigma$. Across simulations, the vector of means remained constant based on @tbl-data:
+where $\boldsymbol\mu$ denotes the vector of means and $\boldsymbol\Sigma$ the variance–covariance matrix. Across all simulations, the vector of means was fixed based on observed data (see @tbl-data):
 
 $$
 \boldsymbol\mu = \begin{bmatrix} 4.05 \\ 26.69 \\ 24.07 \end{bmatrix}
 $$ {#eq-mu}
 
-On the other, we used two different specification of the variance-covariance matrix. The first one was given by observation from our data set (@tbl-data) and constitutes the **correlated** scenario:
+Two different specification of the variance-covariance matrix were used. The first, based on observed data (@tbl-data), represents the **correlated** scenario:
 
 $$
 \boldsymbol\Sigma_{corr} =
@@ -130,21 +130,19 @@ $$
 $$ {#eq-sigma-indep}
 
 ### FAQ item 9
-To simulate data of FAQ item 9, assumed $\tau$-equivalence of FAQ (i.e., that all items have the same true score, cf. @trizano-hermosilla2016). We then applied probit link to generated FAQ total score to get probability of a positive response to any item:
+To simulate data for FAQ item 9, we assumed **$\tau$-equivalence** of FAQ (i.e., that all items share the same true score, cf. @trizano-hermosilla2016). We then applied probit link to the FAQ total score of each simulated patient to obtain the probability of a positive response to any item:
 
 $$
 p_i = \phi(z_i)
 $$ {#eq-p}
 
-where $\phi$ is the standard normal cumulative distribution function and $z_i$ is a standardised FAQ score of simulated patient $i$.
-
-Observed FAQ item 9 score was then generated from a binomial distribution via:
+where $\phi$ is the standard normal cumulative distribution function and $z_i$ is the standardised FAQ score for simulated patient $i$. The observed FAQ item 9 score was subsequently drawn from a binomial distribution via:
 
 $$
 \text{FAQ item 9}_i \sim \mathcal{Binomial}(n = 4, p_i)
 $$ {#eq-faq9}
 
-If the generated FAQ item 9 score was higher than generated FAQ total score, item 9 score was set at zero. Finally, all FAQ total score, MMSE and MoCA were left-censored by 0 and right-censored by 30 to respect scales' boundaries in real data.
+If the simulated FAQ item 9 score exceeded the corresponding simulated FAQ total score, it was set at zero. Finally, all simulated FAQ total, MMSE and MoCA scores were left-censored at 0 and right-censored at 30 to reflect real-world range of the respective scales.
 
 ```{r}
 #| label: simulation-func
@@ -161,7 +159,7 @@ simulate_pdd <- function(N, Mu, Sigma) {
   dat$FAQ  <- pmin(pmax(round(dat$FAQ), 0), 30)
   dat$MMSE <- pmin(pmax(round(dat$MMSE), 0), 30)
   dat$MoCA <- pmin(pmax(round(dat$MoCA), 0), 30)
-  # Define PDD classifications
+  # Define PDD classifications:
   dat$A1 <- as.numeric(dat$FAQ > 7 & dat$MMSE < 26)
   dat$A2 <- as.numeric((dat$FAQ9 > 1) & dat$MMSE < 26)
   dat$A3 <- as.numeric(dat$FAQ > 7 & dat$MoCA < 27)
@@ -173,7 +171,7 @@ simulate_pdd <- function(N, Mu, Sigma) {
 
 ## Diagnostic algorithms
 
-After generating the data using the process described above, each simulated patients was classified as suffering PDD (or not) according to each of the following for algorithms:
+After generating the data using the process described above, each simulated patient was classified as suffering from PDD (or not) according to all of the following four algorithms:
 
 $$
 \begin{aligned}
@@ -184,7 +182,7 @@ $$
 \end{aligned}
 $$ {#eq-algo}
 
-where $\mathbb{1}\{\cdot\}$ is the indicator function. In other words, simulated cases who fulfilled both conditions in brackets were considered as suffering PDD (PDD = 1) but not otherwise (PDD = 0).
+where $\mathbb{1}\{\cdot\}$ denotes the indicator function. In other words, simulated cases fulfilling both conditions in parentheses were classified as having PDD (PDD = 1); all others were classified as non-PDD (PDD = 0).
 
 ### Data
 
@@ -192,26 +190,17 @@ where $\mathbb{1}\{\cdot\}$ is the indicator function. In other words, simulated
 #| label: data
 
 d0 <- simulate_pdd(n, mu, sigma_indep) # independent scenario
-d1 <- simulate_pdd(n, mu, sigma_corr)  # dependent scenario
+d1 <- simulate_pdd(n, mu, sigma_corr)  # correlated scenario
 ```
 
-To ensure reliable results, N = `r n` cases were generated in this experiment. The simulation followed observed means, standard deviations and correlations as specified above. Since the **independent variable** of this experiment was presence/absence of correlation between FAQ and cognitive scores, the simulation was repeated under two conditions:
+To ensure reliable results, N = `r n` cases were generated in this experiment. The simulation was based on the observed means, standard deviations and correlations as specified above. The **independent variable** in this experiment was presence versus absence of correlation between FAQ and cognitive scores. Accordingly, the simulation was conducted under two conditions:
 
-* **independent** scenario using $\boldsymbol\Sigma_{indep}$ (@eq-sigma-indep),
-* **correlated** scenario using $\boldsymbol\Sigma_{corr}$ (@eq-sigma-corr).
+* **Independent** scenario using $\boldsymbol\Sigma_{indep}$ (@eq-sigma-indep),
+* **Correlated** scenario using $\boldsymbol\Sigma_{corr}$ (@eq-sigma-corr).
 
-All other simulation parameters (i.e., number of participants, vector of variables' means, variances of all variables, and MMSE/MoCA covariance) were held constant across simulations.
+All other simulation parameters (i.e., the number of participants, the vector of variable means, the variances of all variables, and the covariance between MMSE and MoCA) were held constant across conditions.
 
 ## Statistical analysis
-
-After we generated the data, following statistical estimates were computed within each (i.e., independent and correlated) scenario:
-
-* **PDD rate** for each algorithm,
-* **accuracy** for each pair of algorithms,
-* **balanced accuracy** for each pair of algorithms,
-* **Cohen's** $\boldsymbol\kappa$ for each pair of algorithms.
-
-Subsequently, PDD rates and concordance measures were compared between the same (pairs of) algorithms under independent vs correlated scenarios. No formal statistical test was conducted as this experiment constitutes a post hoc exploration rather than a direct investigation of our research objectives.
 
 ```{r}
 #| label: compare-func
@@ -263,14 +252,23 @@ summarise_results <- function(d0, d1, r = 1) {
 }
 ```
 
+After we generated the data, the following statistical estimates were computed within each scenario (i.e., independent and correlated):
+
+* **PDD rate** for each algorithm,
+* **accuracy** for each pair of algorithms,
+* **balanced accuracy** for each pair of algorithms,
+* **Cohen's** $\boldsymbol\kappa$ for each pair of algorithms.
+
+This procedure was repeated for `r k` iterations. Subsequently, the distributions of PDD rates and concordance measures were compared between the same (pairs of) algorithms across the two scenarios. Independent samples *t*-tests were used to compute 95% confidence intervals for the differences between scenarios within each diagnostic algorithm.
+
 ## Results
 
 ```{r}
 #| label: analysis
+#| cache: true
 
 # Calculate all results:
 res <- lapply(seq_len(k), function(i) {
-  set.seed(i) # seed for reproducibility
   d0 <- simulate_pdd(n, mu, sigma_indep)
   d1 <- simulate_pdd(n, mu, sigma_corr)
   summarise_results(d0, d1, i)
@@ -307,44 +305,95 @@ stats_conc <- map_dfr(c("Accuracy", "BalAcc", "Kappa"), function(y) {
       Independent = estimate1,
       Correlated = estimate2,
       Difference = estimate,
-      CI = glue::glue("[{do_summary(conf.low, 3)}, {do_summary(conf.high, 3)}]"),
+      Low = conf.low,
+      High = conf.high,
       Type = case_when(
         Comparison %in% c("A1A3", "A3A1", "A2A4", "A4A2") ~ "Aligned IADL & Mismatched Global Cognition",
         Comparison %in% c("A1A2", "A2A1", "A3A4", "A4A3") ~ "Mismatched IADL & Aligned Global Cognition",
         Comparison %in% c("A1A4", "A4A1", "A2A3", "A3A2") ~ "Mismatched IADL & Mismatched Global Cognition"
       )
     ) |>
-    dplyr::select(Index, Type, Comparison, Independent, Correlated, Difference, CI)
+    dplyr::select(Index, Type, Comparison, Independent, Correlated, Difference, Low, High)
 })
 ```
 
+The expected values (denoted $E(\cdot)$) and the differences between the independent and correlated scenarios in PDD rates, accuracy, balanced accuracy and Cohen's $\kappa$ are presented in @tbl-rates, @tbl-acc, @tbl-balacc, and @tbl-kappa, respectively.
+
+Across all algorithms, the **correlated** scenario generated **higher PDD rates** than the independent scenario, with differences of approximately 2–3% (@tbl-rates).
+
 ```{r}
 #| label: tbl-rates
-#| tbl-cap: Expectations of PDD rates (E(PDD Rate)) and differences between Independent and Correlated scenarion based on independent sample t-test.
+#| tbl-cap: Expectations of PDD rates and differences between the independent and correlated scenarios based on independent sample t-tests.
+#| echo: false
 
 stats_rates|>
   gt_apa_table() |>
   tab_spanner(label = "95% CI", columns = c(Low, High), gather = FALSE) |>
   tab_spanner(label = "Rate Difference", columns = c(Difference, Low, High), gather = FALSE) |>
-  tab_spanner(label = "E(PDD Rate)", columns = c(Independent, Correlated), gather = FALSE) |>
+  tab_spanner(label = md("*E*(PDD Rate)"), columns = c(Independent, Correlated), gather = FALSE) |>
   fmt_number(decimals = 3)
 ```
 
 ```{r}
-#| label: tbl-conc
+#| label: tab-func
+#| echo: false
 
-stats_conc |>
-  pivot_wider(names_from = Index, values_from = -c(Index, Type, Comparison)) |>
-  dplyr::select(Type, Comparison, ends_with("Accuracy"), ends_with("BalAcc"), ends_with("Kappa")) |>
-  gt_apa_table(grp = "Type") |>
-  tab_spanner(label = "Accuracy", columns = ends_with("Accuracy"), gather = FALSE) |>
-  tab_spanner(label = "Balanced Accuracy", columns = ends_with("BalAcc"), gather = FALSE) |>
-  tab_spanner(label = md("Cohen's $\\kappa$"), columns = ends_with("Kappa"), gather = FALSE) |>
-  fmt_number(decimals = 3) |>
-  cols_label(
-    starts_with("Independent") ~ "Independent",
-    starts_with("Correlated") ~ "Correlated",
-    starts_with("Difference") ~ "Difference",
-    starts_with("CI") ~ "95% CI"
-  )
+make_concordance_table <- function(dat, index, label) {
+  dat |>
+    filter(Index == index) |>
+    dplyr::select(-Index) |>
+    gt_apa_table(grp = "Type") |>
+    tab_spanner(label = "95% CI", columns = c(Low, High), gather = FALSE) |>
+    tab_spanner(label = md(glue::glue("{label} difference")), columns = c(Difference, Low, High), gather = FALSE) |>
+    tab_spanner(label = md(glue::glue("*E*({label})")), columns = c(Independent, Correlated), gather = FALSE) |>
+  fmt_number(decimals = 3)
+}
 ```
+
+The effect of the data-generating scenario on **concordance indeces** was more nuanced. For **accuracy**, the **correlated** scenario generally yielded **slightly lower** estimates than the independent one across most algorithm pairs (@tbl-acc). However, the magnitude of these differences did not exceed 1%.
+
+```{r}
+#| label: tbl-acc
+#| tbl-cap: Expectations of accuracy estimates and differences between the independent and correlated scenarios based on independent sample t-tests.
+#| echo: false
+
+make_concordance_table(stats_conc, "Accuracy", "Accuracy")
+```
+
+Results for **balanced accuracy** were more heterogeneous (@tbl-balacc). In algorithm pairs where **both** the IADL and global cognition criteria were **mismatched** (e.g., A1 vs A4), balanced accuracy was consistently **higher** under the **correlated** scenario, by roughly 3%.
+
+When the only **mismatch** concerned the **IADL** criterion, the **direction** of difference in balanced accuracy reversed depending on which algorithm was used as the reference (e.g., when A1 predicted A2, the correlated scenario yielded lower balanced accuracy, whereas when A2 predicted A1, it yielded higher values). The magnitude of this effect was comparable in both directions.
+
+Finally, when the only **mismatch** involved **global cognition** criterion, the **correlated** scenario led to **higher balanced accuracy** estimates in three out of four cases. The maximum difference was similar to the other comparison types, reaching up to 3.8%.
+
+```{r}
+#| label: tbl-balacc
+#| tbl-cap: Expectations of balanced accuracy estimates and differences between the independent and correlated scenarios based on independent sample t-tests.
+#| echo: false
+
+make_concordance_table(stats_conc, "BalAcc", "Balanced accuracy")
+```
+
+Lastly, Cohen's $\kappa$ showed the clearest and most consistent pattern of results (@tbl-kappa). In all cases, the **correlated** scenario yielded **higher** $\kappa$ values than the independent one, with differences ranging from `r do_summary(min(abs(subset(stats_conc, Index == "Kappa")$Difference)), 3)` to `r do_summary(max(abs(subset(stats_conc, Index == "Kappa")$Difference)), 3)`.
+
+```{r}
+#| label: tbl-kappa
+#| tbl-cap: Expectations of Cohen's κ estimates and differences between the independent and correlated scenarios based on independent sample t-tests.
+#| echo: false
+
+make_concordance_table(stats_conc, "Kappa", "Cohen's $\\kappa$")
+```
+
+## Conclusions
+
+::: {.callout-tip appearance="simple" icon=false}
+
+Based on the simulations presented in this vignette, we can conclude that the correlations between FAQ and global cognition measures of the magnitude observed in our empirical data imply that:
+
+- the **correlated** scenario is more **sensitive** to PDD, consistently yielding **higher PDD rates**,
+- the **correlated** scenario produces **accuracy estimates** that are **similar** to those from the independent scenario,
+- when considering **balanced accuracy**, the **correlated** scenario diverges from the independent one in more **nuanced** ways, yielding **higher** estimates in some comparisons and **lower** in others,
+- relative to the independent scenario, the **correlated** scenario tends to **slightly overestimate** Cohen’s $\kappa$ to a small degree^[Following the reference in the main text [@mchugh2012], a qualitative shift in the interpretation of Cohen’s $\kappa$ would require a difference of approximately 0.2, more than twice the largest difference observed in this simulation study.], and
+- overall, the differences between the **correlated** and **independent** scenarios are likely to be **small in magnitude**, unless higher correlations between diagnostic criteria are introduced in the data-generating process.^[Although this simulation employed a correlation matrix based on our empirical data, the code can be easily modified to generate data with stronger correlations, which would, in turn, produce larger differences between scenarios. For brevity, we leave this exploration to the reader.]
+
+:::
