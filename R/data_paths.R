@@ -6,7 +6,7 @@
 #' for the \code{prepare_data} function.
 #'
 #' @param dir A character string specifying the input directory where raw data files reside.
-#' Defaults to \code{"data-raw"}.
+#'    Defaults to \code{"data-raw"}.
 #'
 #' @returns A named character vector with file paths to all required raw data files.
 #'

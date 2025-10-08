@@ -6,8 +6,8 @@
 #' \code{diagnose_pdd_sample}.
 #'
 #' @returns A tibble where each row represents one unique operationalisation
-#' of PDD diagnostic criteria. Columns indicate the type of criteria, individual
-#' test indexes, thresholds, and other relevant parameters.
+#'    of PDD diagnostic criteria. Columns indicate the type of criteria, individual
+#'    test indexes, thresholds, and other relevant parameters.
 #'
 #' @export
 specify_criteria <- function() {

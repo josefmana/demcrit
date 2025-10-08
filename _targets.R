@@ -38,12 +38,24 @@ list(
     command = summarise_rates(pdd_data, variables)
   ),
   tar_target(
+    name = algorithms, # List all algorithms used in the study
+    command = list_algos(rate_summaries$table)
+  ),
+  tar_target(
     name = demographic_predictors, # Regress probable PDD on demographics
     command = regress_pdd_on_demographics(raw_data, pdd_data$PDD)
   ),
   tar_target(
+    name = demographic_predictors_adjusted, # Regress probable PDD on demographics adjusting for neuropsychiatry
+    command = regress_pdd_on_demographics(raw_data, pdd_data$PDD, form = "PDD ~ age * sex + bdi + stai_1 + stai_2")
+  ),
+  tar_target(
     name = concordance_statistics, # Describe concordance between different PDD algorithms
     command = describe_concordance(pdd_data)
+  ),
+  tar_target(
+    name = kappa_summmaries, # Etxract summaries of Cohen's kappa for the manuscript
+    command = summarise_kappa(algorithms, concordance_statistics$table)
   ),
   tar_quarto(
     name = manuscript, # Prepare the manuscript

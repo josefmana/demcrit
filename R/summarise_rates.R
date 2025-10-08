@@ -5,12 +5,12 @@
 #'
 #' @param d0 A list with PDD data generated via \code{diagnose_pdd_sample}.
 #' @param vars A data.frame, tibble, or matrix with variable names in the first column,
-#' variable labels in the second column, type of variable (continuous, binary, or nominal)
-#' in the third column, and optionally a fourth column denoting group and a fifth column
-#' mapping each label to its description in the table’s note.
-#' Alternatively, a path to a CSV file (semicolon-delimited) containing such a table.
+#'    variable labels in the second column, type of variable (continuous, binary, or nominal)
+#'    in the third column, and optionally a fourth column denoting group and a fifth column
+#'    mapping each label to its description in the table’s note.
+#'    Alternatively, a path to a CSV file (semicolon-delimited) containing such a table.
 #' @param descending A logical indicating whether operationalisations with the highest
-#' estimated PDD rates should be listed first (default is \code{TRUE}).
+#'    estimated PDD rates should be listed first (default is \code{TRUE}).
 #'
 #' @returns A list with:
 #' \describe{

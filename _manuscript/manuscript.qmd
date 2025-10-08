@@ -191,8 +191,10 @@ Data wrangling and visualizations were done in the *tidyverse* package [@wickham
 
 desc <- tar_read(sample_description, store = upstore)
 rates <- tar_read(rate_summaries, store = upstore)
+algos <- tar_read(algorithms, store = upstore)
 pred <- tar_read(demographic_predictors, store = upstore)
 conc <- tar_read(concordance_statistics, store = upstore)
+kappa <- tar_read(kappa_summmaries, store = upstore)
 perc <- rates$table$perc
 
 # In-text demographic data
@@ -212,15 +214,6 @@ rates_FAQtot <- sapply(c("M", "SD", "Md", "minmax"), \(f) do_summary(perc[rates$
 min_p <- subset(pred$values, quantity == "p-value")$estimate |>
   min() |>
   do_summary(3, "p")
-
-# List of algorithms:
-algos <- list(
-  faq_tot = subset(rates$table, IADL == "FAQ > 7")$type,
-  faq_9 = subset(rates$table, IADL == "FAQ 9 > 1")$type
-)
-
-continue <- !(any(algos$faq_tot %in% algos$faq_9) || any(algos$faq_9 %in% algos$faq_tot))
-stopifnot("Some algorithm(s) use both IADL operationalisations!" = continue)
 ```
 
 ## Sample Description
@@ -252,39 +245,7 @@ rates$plot
 
 ## Concordance between Algorithms
 
-```{r}
-#| label: "kappas"
-
-# Prepare combinations within IADL operationalisation:
-kappas <- lapply(set_names(names(algos)), function(o) {
-  combn(algos[[o]], 2) |>
-      t() |>
-      as_tibble() |>
-      `colnames<-`(c("predictor", "reference")) |>
-      left_join(conc$table, by = join_by(predictor, reference)) |>
-      pull(Kappa_raw)
-})
-
-# Add cross-operationalisation cases
-kappas$cross <- subset(conc$table, predictor %in% algos$faq_9 & reference %in% algos$faq_tot)$Kappa_raw
-
-# Extract Kappa summaries:
-kappa_sums <- sapply(names(kappas), function(i) {
-  paste0(do_summary(kappas[[i]], 2, "M"),", SD = ", do_summary(kappas[[i]], 2, "SD"))
-})
-
-# Add Kappa summaries of algos with same everything but different IADL:
-kappa_iadl <- data.frame(
-  predictor = c("Lvl.II (1)", "MMSE (1)", "MMSE (3)", paste0("MoCA (",seq(1,59,2),")"), "sMoCA (1)"),
-    reference = c("Lvl.II (2)", "MMSE (2)", "MMSE (4)", paste0("MoCA (",seq(2,60,2),")"), "sMoCA (2)")
-) |>
-  left_join(conc$table) |>
-  pull(Kappa_raw)
-
-kappa_iadl_sums <- paste0(do_summary(x = kappa_iadl, 2, "M"),", SD = ", do_summary(x = kappa_iadl, 2, "SD"))
-```
-
-Results of the analyses of prediction Accuracy, Cohen's $\kappa$, Sensitivity and Specificity are presented in @fig-acc, @fig-kappa, @fig-sens and @fig-spec respectively. **Numerical results are available at ...** [^2]. Generally, algorithms that employed the same operationalization of IADL deficit showed substantial pairwise concordance, however, algorithms that operationalized IADL deficit differently did not. Whereas among algorithms with identical IADL deficit operationalization, the agreement judged by Cohen's $\kappa$ was moderately high (operationalization by FAQ total score: $\kappa$ = `r kappa_sums["faq_tot"]`; operationalization by FAQ item 9: $\kappa$ = `r kappa_sums["faq_9"]`), among algorithms that differ in IADL deficit operationalization but are otherwise identical it was low: $\kappa$ = `r kappa_iadl_sums`.
+Results of the analyses of prediction Accuracy, Cohen's $\kappa$, Sensitivity and Specificity are presented in @fig-acc, @fig-kappa, @fig-sens and @fig-spec respectively. **Numerical results are available at ...** [^2]. Generally, algorithms that employed the same operationalization of IADL deficit showed substantial pairwise concordance, however, algorithms that operationalized IADL deficit differently did not. Whereas among algorithms with identical IADL deficit operationalization, the agreement judged by Cohen's $\kappa$ was moderately high (operationalization by FAQ total score: $\kappa$ = `r kappa$sums["faq_tot"]`; operationalization by FAQ item 9: $\kappa$ = `r kappa$sums["faq_9"]`), among algorithms that differ in IADL deficit operationalization but are otherwise identical it was low: $\kappa$ = `r kappa$sums["iadl"]`.
 
 [^2]: **JM: Should provide an excel sheet or html table the readers could go through by themselves.**
 

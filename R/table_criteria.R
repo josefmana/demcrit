@@ -6,10 +6,10 @@
 #' The table content is hardcoded and can only be changed by modifying the function code.
 #'
 #' @param vars A data.frame, tibble, or matrix with variable names in the first column,
-#' variable labels in the second column, variable type (continuous, binary, or nominal)
-#' in the third column, an optional fourth column indicating group, and a fifth column
-#' mapping each label to a note or description. Alternatively, a path to a semicolon-delimited
-#' CSV file containing such a table.
+#'    variable labels in the second column, variable type (continuous, binary, or nominal)
+#'    in the third column, an optional fourth column indicating group, and a fifth column
+#'    mapping each label to a note or description. Alternatively, a path to a semicolon-delimited
+#'    CSV file containing such a table.
 #'
 #' @returns A \code{gt} table object containing the summary of criteria used in the study.
 #'

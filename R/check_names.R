@@ -7,7 +7,7 @@
 #' @param nms A data frame or vector containing the correct patient names (e.g., from REDCap).
 #'
 #' @returns Nothing. Prints a message listing any discrepancies found. Intended to be called
-#' within the \code{prepare_data()} function, where the check can optionally be silenced.
+#'    within the \code{prepare_data()} function, where the check can optionally be silenced.
 #'
 #' @examples
 #' \dontrun{

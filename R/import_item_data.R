@@ -5,7 +5,7 @@
 #' This function is intended to be called within the larger \code{prepare_data} workflow.
 #'
 #' @param paths A character string specifying the path to the data file. Typically generated
-#' by the \code{data_paths} function.
+#'    by the \code{data_paths} function.
 #'
 #' @returns A tibble containing item-level data.
 #'

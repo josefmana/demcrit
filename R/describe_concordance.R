@@ -6,11 +6,11 @@
 #' Value (NPV), and Accuracy. Visual summaries are also generated.
 #'
 #' @param d0 A list containing PDD diagnostic results, as produced by
-#' \code{diagnose_pdd_sample}.
+#'    \code{diagnose_pdd_sample}.
 #'
 #' @returns A list with two components:
 #' \describe{
-#'   \item{\code{stats}}{A data frame summarising pairwise concordance statistics
+#'   \item{\code{table}}{A data frame summarising pairwise concordance statistics
 #'   (e.g., Kappa, Accuracy, Sensitivity, Specificity, PPV, NPV).}
 #'   \item{\code{plots}}{A list of ggplot2-based visualisations, including matrices
 #'   of Cohen's Kappa, Accuracy (with significance tests against the No Information Rate),

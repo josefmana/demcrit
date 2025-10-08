@@ -6,7 +6,7 @@
 #' @param d A data frame prepared via the \code{prepare_data} function.
 #'
 #' @returns Nothing. Prints a message listing any out-of-range values and may
-#' terminate execution if invalid data are detected.
+#'    terminate execution if invalid data are detected.
 #'
 #' @examples
 #' \dontrun{

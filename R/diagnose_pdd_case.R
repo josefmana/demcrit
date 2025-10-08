@@ -8,7 +8,7 @@
 #'
 #' @param x A data frame or matrix containing patient-level variables used for diagnosis.
 #' @param c A named vector (or single-row data frame) specifying the criteria
-#' to be applied for PDD diagnosis.
+#'    to be applied for PDD diagnosis.
 #'
 #' @returns A logical vector indicating PDD diagnosis for each patient
 #' (TRUE = diagnosed, FALSE = not diagnosed).

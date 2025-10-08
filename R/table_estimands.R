@@ -7,7 +7,8 @@
 #' modified by editing the function's code directly.
 #'
 #' @returns A \code{gt} table object summarising the theoretical estimands,
-#' empirical estimands, and the corresponding statistical estimates used in the study.
+#'    empirical estimands, and the corresponding statistical estimates used
+#'    in the study.
 #'
 #' @export
 table_estimands <- function() {

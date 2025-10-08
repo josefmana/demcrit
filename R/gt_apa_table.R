@@ -6,11 +6,11 @@
 #'
 #' @param x A tibble or data frame to be formatted as an APA-style table.
 #' @param grp An optional column name (as a string or symbol) to use for grouping
-#' rows via \code{gt::gt()}'s \code{groupname_col} parameter. Defaults to \code{NULL}.
+#'    rows via \code{gt::gt()}'s \code{groupname_col} parameter. Defaults to \code{NULL}.
 #' @param nms An optional column name (as a string or symbol) to use for row names
-#' via \code{gt::gt()}'s \code{rowname_col} parameter. Defaults to \code{NULL}.
+#'    via \code{gt::gt()}'s \code{rowname_col} parameter. Defaults to \code{NULL}.
 #' @param tit A character string specifying the table title. Will be converted to
-#' HTML format. Defaults to \code{"No Name"}.
+#'    HTML format. Defaults to \code{"No Name"}.
 #'
 #' @returns A \code{gt} table object formatted according to APA style.
 #'
