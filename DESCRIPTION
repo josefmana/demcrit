@@ -46,3 +46,4 @@ Depends:
     R (>= 3.5),
     tidyverse (>= 2.0.0)
 LazyData: true
+URL: https://josefmana.github.io/demcrit/

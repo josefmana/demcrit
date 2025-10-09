@@ -2,10 +2,8 @@ _targets/meta/meta
 
 # Files not supposed to be shared
 _manuscript/_extensions/
-data-raw/ItemData.csv
-data-raw/LevelIICalculator.xlsx
-data-raw/MetaData.csv
-data-raw/REDCapData.csv
+_manuscript/manuscript_files/
+data-raw/
 **/.DS_Store
 **/*.docx
 **/*.pages
