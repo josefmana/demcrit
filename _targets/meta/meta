@@ -1,61 +1,45 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-inputs_0f4dd30380099a0b|branch|bcde28072076caab|36bdc44cf11ac220|2c530c1562a7fbd1|-177372684|/Users/martinakvapilova/Desktop/Ph.D./Articles/DemCrit/DemCrit/data-raw/MetaData.csv|t20188.23125s|4b3b8d7b0b47eb7b|34200|file|local|vector|inputs||0||
-inputs_0f555361f85433b8|branch|d8e469e6f18ed9d8|36bdc44cf11ac220|2c530c1562a7fbd1|-1505876925|/Users/martinakvapilova/Desktop/Ph.D./Articles/DemCrit/DemCrit/data-raw/TestScoring.csv|t20188.2319444444s|6632ce5cbfcda6f5|874|file|local|vector|inputs||0||
-inputs_163c1d8e4781cb77|branch|88f8608cf65ce66d|36bdc44cf11ac220|2c530c1562a7fbd1|-1408296718|/Users/josefmana/Desktop/mercenaries/pd/DemCr1t/data-raw/VariablesOfInterest.csv|t20215.689386162s|s2746b|2746|file|local|vector|inputs||0||
-inputs_2c2b151feeb375d4|branch|88f8608cf65ce66d|36bdc44cf11ac220|2c530c1562a7fbd1|-1923639276|/Users/martinakvapilova/Desktop/Ph.D./Articles/DemCrit/DemCrit/data-raw/VariablesOfInterest.csv|t20215.4913071982s|52550efceb24262b|2746|file|local|vector|inputs||0||
-inputs_2da3053e6969bea6|branch|d8e469e6f18ed9d8|36bdc44cf11ac220|2c530c1562a7fbd1|-1095963527|/Users/josefmana/Desktop/EXCELES/DemCrit/data-raw/TestScoring.csv|t20173.2908516864s|s874b|874|file|local|vector|inputs||0||
-inputs_31d4202f6f2e872b|branch|9a0488aa7d76da9f|36bdc44cf11ac220|2c530c1562a7fbd1|-474348276|/Users/josefmana/Desktop/EXCELES/DemCrit/data-raw/ItemData.csv|t20215.265125368s|s40961b|40961|file|local|vector|inputs||0||
-inputs_3b3793ac4196512f|branch|88f8608cf65ce66d|36bdc44cf11ac220|2c530c1562a7fbd1|1149885518|/Users/josefmana/Desktop/EXCELES/DemCrit/data-raw/VariablesOfInterest.csv|t20215.278052205s|s2746b|2746|file|local|vector|inputs||0||
-inputs_5a6f75dd2a80a0b9|branch|37f8f078475a52ec|36bdc44cf11ac220|2c530c1562a7fbd1|-2131370934|/Users/josefmana/Desktop/EXCELES/DemCrit/data-raw/REDCapData.csv|t20181.8158217593s|s1570263b|1570263|file|local|vector|inputs||0||
-inputs_a3915f7e8594d62a|branch|9a0488aa7d76da9f|36bdc44cf11ac220|2c530c1562a7fbd1|-385018267|/Users/josefmana/Desktop/mercenaries/pd/DemCr1t/data-raw/ItemData.csv|t20216.4023199607s|s40961b|40961|file|local|vector|inputs||0||
-inputs_b16253493e44079c|branch|37f8f078475a52ec|36bdc44cf11ac220|2c530c1562a7fbd1|413248602|/Users/josefmana/Desktop/mercenaries/pd/DemCr1t/data-raw/REDCapData.csv|t20181.8158232419s|s1570263b|1570263|file|local|vector|inputs||0||
-inputs_c0ccf9a6c269d82f|branch|bcde28072076caab|36bdc44cf11ac220|2c530c1562a7fbd1|59567804|/Users/josefmana/Desktop/mercenaries/pd/DemCr1t/data-raw/MetaData.csv|t20175.7421714067s|s34200b|34200|file|local|vector|inputs||0||
-inputs_d8f1df70ab56cc98|branch|37f8f078475a52ec|36bdc44cf11ac220|2c530c1562a7fbd1|657226539|/Users/martinakvapilova/Desktop/Ph.D./Articles/DemCrit/DemCrit/data-raw/REDCapData.csv|t20188.2319444444s|9da4f6c2225f6843|1570263|file|local|vector|inputs||0||
-inputs_d9026ba1ed987b0f|branch|bcde28072076caab|36bdc44cf11ac220|2c530c1562a7fbd1|183075758|/Users/josefmana/Desktop/EXCELES/DemCrit/data-raw/MetaData.csv|t20175.5473662199s|s34200b|34200|file|local|vector|inputs||0||
-inputs_e75fedd98e2901b9|branch|d8e469e6f18ed9d8|36bdc44cf11ac220|2c530c1562a7fbd1|579325868|/Users/josefmana/Desktop/mercenaries/pd/DemCr1t/data-raw/TestScoring.csv|t20172.5451222857s|s874b|874|file|local|vector|inputs||0||
-inputs_f660d1f7e4668e0f|branch|9a0488aa7d76da9f|36bdc44cf11ac220|2c530c1562a7fbd1|-1603994889|/Users/martinakvapilova/Desktop/Ph.D./Articles/DemCrit/DemCrit/data-raw/ItemData.csv|t20214.4527049672s|5f711c90eaecf5a1|40961|file|local|vector|inputs||0||
-prevalence_summaries|stem|03dab0bf6182f341|0103c00622a07e57|4e12642e17155c27|1223548645||t20264.3317285841s|s175306b|175306|rds|local|vector|||0.242||
-summarise_prevalence|function|cf33f964a521a6ea|||||||||||||||
-variables|stem|88f8608cf65ce66d|04a0725861e99ba4|2c530c1562a7fbd1|-1580994253|/Users/josefmana/Desktop/mercenaries/DemCr1t/data-raw/VariablesOfInterest.csv|t20215.689386162s|s2746b|2746|file|local|vector|||0||
-inputs_cefc5209cf44946a|branch|9a0488aa7d76da9f|36bdc44cf11ac220|2c530c1562a7fbd1|-2092360385|/Users/josefmana/Desktop/mercenaries/DemCr1t/data-raw/ItemData.csv|t20216.4023199607s|s40961b|40961|file|local|vector|inputs||0.001||
-inputs_dc4e7f6a5f3674d3|branch|37f8f078475a52ec|36bdc44cf11ac220|2c530c1562a7fbd1|-721903236|/Users/josefmana/Desktop/mercenaries/DemCr1t/data-raw/REDCapData.csv|t20181.8158232419s|s1570263b|1570263|file|local|vector|inputs||0||
-inputs_32ab3e7de280d832|branch|bcde28072076caab|36bdc44cf11ac220|2c530c1562a7fbd1|118661240|/Users/josefmana/Desktop/mercenaries/DemCr1t/data-raw/MetaData.csv|t20175.7421714067s|s34200b|34200|file|local|vector|inputs||0||
-inputs_ad05261990d06a6d|branch|d8e469e6f18ed9d8|36bdc44cf11ac220|2c530c1562a7fbd1|-1904245616|/Users/josefmana/Desktop/mercenaries/DemCr1t/data-raw/TestScoring.csv|t20172.5451222857s|s874b|874|file|local|vector|inputs||0||
-inputs_5a94ee9cdf16a67c|branch|88f8608cf65ce66d|36bdc44cf11ac220|2c530c1562a7fbd1|-1789705869|/Users/josefmana/Desktop/mercenaries/DemCr1t/data-raw/VariablesOfInterest.csv|t20215.689386162s|s2746b|2746|file|local|vector|inputs||0||
-inputs|pattern|da49b8ffeed2f69d|36bdc44cf11ac220||-106948080||||1649044|file|local|vector||inputs_cefc5209cf44946a*inputs_dc4e7f6a5f3674d3*inputs_32ab3e7de280d832*inputs_ad05261990d06a6d*inputs_5a94ee9cdf16a67c|0.001||
-raw_data|stem|6f1e0d673195890d|1b69f38707b7ad3d|1ff7abc64f765696|-1101284392||t20369.3368714754s|s36007b|36007|rds|local|vector|||2.051|One or more parsing issues, call `problems()` on your data frame for details, e.g.:   dat <- vroom(...)   problems(dat)|
-pdd_data|stem|8c4bf55d001d73f5|421a79b539387d7b|e7b3164f67a37932|-6092328||t20369.3368779211s|s20821b|20821|rds|local|vector|||0.533||
-sample_description|stem|07428b59fdf1c568|a385ccf0415246b0|d781a7e3ba8ee794|-1070305744||t20369.3368801654s|s6557b|6557|rds|local|vector|||0.18||
-concordance_statistics|stem|06177d6b4413a08e|921709cbafa24f27|2ff4020ba83eacd8|1652126210||t20369.3377342724s|s2761114b|2761114|rds|local|vector|||73.215|upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set t|
-rate_summaries|stem|0d73f65761c7965f|5445afa5b3559adb|d160a2c008e940d9|292778141||t20369.3377479927s|s183581b|183581|rds|local|vector|||0.274||
-demographic_predictors|stem|4625d40c46407a37|31f3cad834f6813a|d41aad37aef06f83|1455378101||t20369.3534730191s|s12116266b|12116266|rds|local|vector|||0.497|Vectorized input to `element_text()` is not officially supported. ℹ Results may be unexpected or may change in future versions of ggplot2.|
-demographic_predictors_adjusted|stem|f68b9bd8a1f015f5|5b0e04cac90175a8|d41aad37aef06f83|597186536||t20369.3534974713s|s12802830b|12802830|rds|local|vector|||0.459|Vectorized input to `element_text()` is not officially supported. ℹ Results may be unexpected or may change in future versions of ggplot2.. glm.fit: fitted probabilities numerically 0 or 1 occurred|
-algorithms|stem|86eed2fbf3db0a73|1129b2ab2f42ac55|83dfe3d0d06904ae|-384826494||t20369.6567806134s|s323b|323|rds|local|vector|||0.001||
-kappa_summmaries|stem|65ff52c7fa6d69df|03c33b2b59734cd1|40781d599b84607d|163562731||t20369.6567852254s|s5238b|5238|rds|local|vector|||0.079|The `x` argument of `as_tibble.matrix()` must have unique column names if `.name_repair` is omitted as of tibble 2.0.0. ℹ Using compatibility `.name_repair`.|
+variables|stem|88f8608cf65ce66d|04a0725861e99ba4|2c530c1562a7fbd1|-1580994253|/Users/josefmana/Desktop/mercenaries/DemCrit/data-raw/VariablesOfInterest.csv|t20215.689386162s|s2746b|2746|file|local|vector|||0.001||
+inputs_fc2db4b526268992|branch|9a0488aa7d76da9f|36bdc44cf11ac220|2c530c1562a7fbd1|-1889708204|/Users/josefmana/Desktop/mercenaries/DemCrit/data-raw/ItemData.csv|t20216.4023199607s|s40961b|40961|file|local|vector|inputs||0||
+inputs_005b721586cf8228|branch|37f8f078475a52ec|36bdc44cf11ac220|2c530c1562a7fbd1|1306312376|/Users/josefmana/Desktop/mercenaries/DemCrit/data-raw/REDCapData.csv|t20181.8158232419s|s1570263b|1570263|file|local|vector|inputs||0.001||
+inputs_2e7c691dc76c0f32|branch|bcde28072076caab|36bdc44cf11ac220|2c530c1562a7fbd1|-82491160|/Users/josefmana/Desktop/mercenaries/DemCrit/data-raw/MetaData.csv|t20175.7421714067s|s34200b|34200|file|local|vector|inputs||0||
+inputs_f9c92f996575f9fe|branch|d8e469e6f18ed9d8|36bdc44cf11ac220|2c530c1562a7fbd1|253766599|/Users/josefmana/Desktop/mercenaries/DemCrit/data-raw/TestScoring.csv|t20172.5451222857s|s874b|874|file|local|vector|inputs||0||
+inputs_14358c69eba74906|branch|88f8608cf65ce66d|36bdc44cf11ac220|2c530c1562a7fbd1|1704196274|/Users/josefmana/Desktop/mercenaries/DemCrit/data-raw/VariablesOfInterest.csv|t20215.689386162s|s2746b|2746|file|local|vector|inputs||0.001||
+inputs|pattern|0368374fb407a42f|36bdc44cf11ac220||-106948080||||1649044|file|local|vector||inputs_fc2db4b526268992*inputs_005b721586cf8228*inputs_2e7c691dc76c0f32*inputs_f9c92f996575f9fe*inputs_14358c69eba74906|0.002||
+raw_data|stem|6f1e0d673195890d|1b69f38707b7ad3d|003ca9d6fecf60d9|-1101284392||t20370.7010480429s|s36007b|36007|rds|local|vector|||2.013|One or more parsing issues, call `problems()` on your data frame for details, e.g.:   dat <- vroom(...)   problems(dat)|
+pdd_data|stem|8c4bf55d001d73f5|421a79b539387d7b|89a4be9fe9a0b4d4|-6092328||t20370.7010542516s|s20821b|20821|rds|local|vector|||0.515||
+sample_description|stem|07428b59fdf1c568|a385ccf0415246b0|a5dc6faa96d68146|-1070305744||t20370.701056507s|s6557b|6557|rds|local|vector|||0.183||
+rate_summaries|stem|33d9fc73da0dd6db|5445afa5b3559adb|0ee62f71858f35a2|292778141||t20370.7010610078s|s184918b|184918|rds|local|vector|||0.305||
+concordance_statistics|stem|df56bf31180e5d74|921709cbafa24f27|e5b725c099d12cbb|1652126210||t20370.7019184309s|s2762468b|2762468|rds|local|vector|||73.504|upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set t|
+demographic_predictors|stem|fc0152dcf37f047b|31f3cad834f6813a|4d3410773f9c7731|1455378101||t20370.7019475263s|s12118401b|12118401|rds|local|vector|||0.922|Vectorized input to `element_text()` is not officially supported. ℹ Results may be unexpected or may change in future versions of ggplot2.|
+demographic_predictors_adjusted|stem|80e4e6c71cb6380e|5b0e04cac90175a8|4d3410773f9c7731|597186536||t20370.7019732701s|s12803467b|12803467|rds|local|vector|||0.578|Vectorized input to `element_text()` is not officially supported. ℹ Results may be unexpected or may change in future versions of ggplot2.. glm.fit: fitted probabilities numerically 0 or 1 occurred|
+algorithms|stem|86eed2fbf3db0a73|1129b2ab2f42ac55|76439c25635455de|-384826494||t20370.7019741104s|s323b|323|rds|local|vector|||0||
+kappa_summmaries|stem|65ff52c7fa6d69df|03c33b2b59734cd1|483aa2cef662c218|163562731||t20370.701977974s|s5238b|5238|rds|local|vector|||0.03|The `x` argument of `as_tibble.matrix()` must have unique column names if `.name_repair` is omitted as of tibble 2.0.0. ℹ Using compatibility `.name_repair`.|
 do_summary|function|529787ca236a8350
-.Random.seed|object|9585d8e075c133e4
-import_item_data|function|b5886d015694ccf9
+.onLoad|function|516a2a026a8d475a
+.Random.seed|object|3d1a521b844f987e
+import_item_data|function|32331110f001620f
 compute_z_score|function|71597906b1dd704d
-data_paths|function|64acb2d4068c66b0
-diagnose_pdd_case|function|979d187165a6efc4
-gt_apa_table|function|8afb8b94860c3461
-check_compatibility|function|d6b83e0873d10eeb
-check_names|function|72321f61c2a0a4d3
-check_ranges|function|34907fdf020f81b0
-import_redcap_data|function|5ebc1635d9eab530
+data_paths|function|2526caf928bfd55d
+diagnose_pdd_case|function|58cce651d6ea1d75
+gt_apa_table|function|ef1a7384dc02344b
+check_compatibility|function|77cdda810975fedc
+check_names|function|e538dfa06ecfa01d
+check_ranges|function|51f453917504ccd2
+import_redcap_data|function|65339b4f987ac77e
 list_algos|function|76323a04a8c18a47
-specify_criteria|function|358969777e930e9f
-make_dendrogram|function|5c234f63fb6deb8e
-regress_pdd_on_demographics|function|ef4660cb824c7cf4
-summarise_kappa|function|8750e10e4fe527ca
-describe_concordance|function|9acb478bd6da26f6
-assign_cognitive_impairment|function|8c80f25b04d8db69
-table_criteria|function|98d80df1ea4f212c
-table_levelII_approximations|function|7cdb58755b6c2437
-table_estimands|function|734dc33d8840bbed
-summarise_rates|function|2260bccb70160066
-compute_descriptives|function|20f5fbe65d533814
-diagnose_pdd_sample|function|c61fb10cef1cf0eb
-prepare_data|function|7ef6f925c4ff24a3
-inputs_files|stem|d0ba727160d151bb|f8d248d7fb1a5ff4|c1ec424262520c8c|-706827970||t20369.663509999s|s171b|171|rds|local|vector||inputs_files_8c6a5318acd8cb8e*inputs_files_fe18f3519cbd5e76*inputs_files_d9f9e572173d912d*inputs_files_ccd67b3f21ea1b8c*inputs_files_f962d49cf95fff22|0.011||
-manuscript|stem|2a31b8dd1dcf5299|69345ccded7df368|89d6295c962c394b|-1793997187|_manuscript/manuscript.docx*_manuscript/manuscript.qmd|t20369.6636768247s|s681825b|681825|file|local|vector|||13.29||
+specify_criteria|function|24578542c9f015e7
+make_dendrogram|function|5b2ba3b940a0b054
+regress_pdd_on_demographics|function|606137adc3a1d685
+summarise_kappa|function|217191b6bd198648
+describe_concordance|function|cead68553e7c4cc6
+assign_cognitive_impairment|function|8b35e797bc7e9cce
+table_criteria|function|586e4b6e6766a929
+table_levelII_approximations|function|16d3cad60f2e5b51
+table_estimands|function|f4612f9709621843
+summarise_rates|function|23347e0090b55b25
+compute_descriptives|function|5dd18485f0b6fc00
+diagnose_pdd_sample|function|a34ec00c73c58f61
+prepare_data|function|171dd05aaff2d7ac
+inputs_files|stem|e04b8919ce933708|f8d248d7fb1a5ff4|a842bf887c902797|-706827970||t20370.7779126297s|s170b|170|rds|local|vector||inputs_files_4c4718f15c042a20*inputs_files_1f200c0ac1b83a34*inputs_files_663250c074565c6f*inputs_files_448b3887f641fbc7*inputs_files_0690578021c884fe|0.012||
+manuscript|stem|8718d4a94cb29a1a|da01b06ec298c8f3|0c48e3e996d58c2f|-1793997187|_manuscript/manuscript.docx*_manuscript/manuscript.qmd|t20370.7780942689s|s689727b|689727|file|local|vector|||14.529||
