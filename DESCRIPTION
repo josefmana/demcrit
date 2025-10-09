@@ -1,9 +1,9 @@
-Package: DemCrit
-Title: What the Package Does (One Line, Title Case)
+Package: demcrit
+Title: Validation of Algorithms for Parkinson's Disease Dementia
 Version: 0.0.0.9000
-Authors@R: 
-    person("Josef", "Mana", , "josef.mana@protonmail.com", role = c("aut", "cre"))
-    person("Martina", "Mana", , "kvapil.martina@gmail.com", role = c("aut", "cre"))
+Authors@R: c(
+    person("Josef", "Mana", , "josef.mana@protonmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-7817-3978")),
+    person("Martina", "Mana", , "kvapil.martina@gmail.com", role = c("aut")))
 Description: This package is not intended for public use. The idea is to provide a documentation
     behind data analysis that serves as a backbone of the empirical part of the paper
     Mana et al. (under review)^[Will be updated once the manuscript is accepted for
@@ -12,12 +12,37 @@ Description: This package is not intended for public use. The idea is to provide
     sharing raw patients data is out of question due to privacy concerns, the pre-processing
     pipeline presented here will be functional only on data owner's computer at the First
     Faculty of Medicine, Charles University).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
+Imports:
+    caret,
+    ggh4x,
+    ggraph,
+    glue,
+    gt,
+    here,
+    igraph,
+    janitor,
+    psych,
+    readr,
+    readxl,
+    dplyr,
+    tidyselect,
+    tidyr,
+    purrr,
+    lubridate,
+    tibble,
+    rlang,
+    ggplot2,
+    stringr
 Suggests: 
     knitr,
-    quarto
-VignetteBuilder: quarto
+    quarto,
+    rmarkdown
+VignetteBuilder: quarto, knitr
+Depends: 
+    R (>= 3.5),
+    tidyverse
+LazyData: true

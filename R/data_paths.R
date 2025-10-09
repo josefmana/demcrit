@@ -40,7 +40,7 @@ data_paths <- function(dir = "data-raw") {
       glue::glue("\nFile with variable labels is missing or mislabelled!\nInsert a valid file 'VariablesOfInterest.csv' into the /{dir} folder!\n")
     )
   ) |>
-    mutate(path = here::here(dir, file))
+    dplyr::mutate(path = here::here(dir, file))
   proceed <- TRUE
   for (i in seq_len(nrow(dfs))) {
     if (!file.exists(dfs[i, "path"])) {
@@ -48,7 +48,6 @@ data_paths <- function(dir = "data-raw") {
       proceed <- FALSE
     }
   }
-  message("\n")
   stopifnot("\nThe pipeline was terminated due to one or more data files being absent.
 Provide valid data files before marching on." = proceed)
   dfs$path

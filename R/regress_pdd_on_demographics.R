@@ -34,19 +34,19 @@
 regress_pdd_on_demographics <- function(d0, d1, form = "PDD ~ age * sex") {
   # Extract orders for visualisation:
   ord_id <- d0 |>
-    arrange(age) |>
-    filter(!is.na(age)) |>
-    pull(id)
+    dplyr::arrange(age) |>
+    dplyr::filter(!is.na(age)) |>
+    dplyr::pull(id)
   ord_type <- d1 |>
-    select(PDD, type) |>
+    dplyr::select(PDD, type) |>
     table() |>
     prop.table() |>
-    as_tibble() |>
-    filter(PDD == TRUE) |>
-    arrange(n) |>
-    pull(type)
+    tibble::as_tibble() |>
+    dplyr::filter(PDD == TRUE) |>
+    dplyr::arrange(n) |>
+    dplyr::pull(type)
   # Prepare an anonimisation mapping:
-  anon <- left_join(
+  anon <- dplyr::left_join(
     data.frame(id = ord_id),
     cbind.data.frame(
       id = unique(d0$id),
@@ -56,10 +56,10 @@ regress_pdd_on_demographics <- function(d0, d1, form = "PDD ~ age * sex") {
   )
   # Prepare data for analysis:
   df <- d1 |>
-    select(id, type, PDD) |>
-    left_join(d0, by = join_by(id)) |>
-    mutate(
-      PDD = if_else(PDD, 1, 0),
+    dplyr::select(id, type, PDD) |>
+    dplyr::left_join(d0, by = join_by(id)) |>
+    dplyr::mutate(
+      PDD = dplyr::if_else(PDD, 1, 0),
       sid = factor(
         sapply(seq_along(id), function(i) {
           anon$sid[anon$id == id[i]]
@@ -71,23 +71,23 @@ regress_pdd_on_demographics <- function(d0, d1, form = "PDD ~ age * sex") {
     )
   # Visualise raw data:
   plt_raw <- df |>
-    filter(!is.na(sid)) |>
-    ggplot() +
-    aes(x = sid, y = type, fill = factor(PDD)) +
-    geom_tile() +
-    scale_fill_manual(values = c("grey89", "red3"), na.value = "white") +
-    labs(x = NULL, y = NULL) +
-    theme(legend.position = "none") +
-    theme(axis.text.x = element_text(
+    dplyr::filter(!is.na(sid)) |>
+    ggplot2::ggplot() +
+    ggplot2::aes(x = sid, y = type, fill = factor(PDD)) +
+    ggplot2::geom_tile() +
+    ggplot2::scale_fill_manual(values = c("grey89", "red3"), na.value = "white") +
+    ggplot2::labs(x = NULL, y = NULL) +
+    ggplot2::theme(legend.position = "none") +
+    ggplot2::theme(axis.text.x = ggplot2::element_text(
       angle = 90,
       vjust = .5,
-      colour = case_when(
+      colour = dplyr::case_when(
         df$sex == "male" ~ "steelblue",
         df$sex == "female" ~ "red2"
       )
     ))
   # Get regression fits:
-  fits <- lapply(set_names(unique(df$type)), function(i) {
+  fits <- lapply(rlang::set_names(unique(df$type)), function(i) {
     glm(
       formula = as.formula(form),
       data = subset(df, type == i),
@@ -95,27 +95,27 @@ regress_pdd_on_demographics <- function(d0, d1, form = "PDD ~ age * sex") {
     )
   })
   # Get parameters:
-  pars <- sapply(set_names(names(fits)), function(i) {
+  pars <- sapply(rlang::set_names(names(fits)), function(i) {
     c(or_ = exp(coefficients(fits[[i]])),
       p_ = summary(fits[[i]])$coefficients[ , "Pr(>|z|)"]
       )
   }) |>
     t()|>
-    as_tibble(rownames = "type") |>
-    select(type, contains("age"), contains("sex")) |>
-    pivot_longer(
+    tibble::as_tibble(rownames = "type") |>
+    dplyr::select(type, tidyselect::contains("age"), tidyselect::contains("sex")) |>
+    tidyr::pivot_longer(
       cols = -type,
       names_to = c("quantity", "predictor"),
       names_sep = "_",
       values_to = "estimate"
     ) |>
-    mutate(
-      quantity = case_when(
+    dplyr::mutate(
+      quantity = dplyr::case_when(
         quantity == "or" ~ "Odds Ratio",
         quantity == "p" ~ "p-value"
       ),
       predictor = factor(
-        case_when(
+        dplyr::case_when(
           predictor == ".age" ~ "Age",
           predictor == ".sexmale" ~ "Sex",
           predictor == ".age:sexmale" ~ "Age * Sex"
@@ -123,18 +123,18 @@ regress_pdd_on_demographics <- function(d0, d1, form = "PDD ~ age * sex") {
         levels = c("Age", "Sex", "Age * Sex"),
         ordered = TRUE
       ),
-      vline_or = if_else(quantity == "Odds Ratio", 1, NA),
-      vline_p = if_else(quantity == "p-value", .05, NA)
+      vline_or = dplyr::if_else(quantity == "Odds Ratio", 1, NA),
+      vline_p = dplyr::if_else(quantity == "p-value", .05, NA)
     )
   # Plot regression results:
   plt_regrs <- pars |>
-    filter(estimate < 20) |>
-    ggplot() +
-    aes(x = estimate) +
-    geom_histogram(fill = "white", colour = "black", bins = 15) +
-    geom_vline(aes(xintercept = vline_or), linetype = "dashed", linewidth = .8, colour = "blue3") +
-    geom_vline(aes(xintercept = vline_p), linetype = "dashed", linewidth = .8, colour = "red3") +
-    labs(x = NULL, y = NULL) +
+    dplyr::filter(estimate < 20) |>
+    ggplot2::ggplot() +
+    ggplot2::aes(x = estimate) +
+    ggplot2::geom_histogram(fill = "white", colour = "black", bins = 15) +
+    ggplot2::geom_vline(ggplot2::aes(xintercept = vline_or), linetype = "dashed", linewidth = .8, colour = "blue3") +
+    ggplot2::geom_vline(ggplot2::aes(xintercept = vline_p), linetype = "dashed", linewidth = .8, colour = "red3") +
+    ggplot2::labs(x = NULL, y = NULL) +
     ggh4x::facet_grid2(quantity ~ predictor, scales = "free", independent = "all")
   # Return it:
   list(

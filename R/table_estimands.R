@@ -12,7 +12,7 @@
 #'
 #' @export
 table_estimands <- function() {
-  tibble(
+  tibble::tibble(
     RO = paste0("Research Objective ", c(rep(1,4), rep(2,1))),
     Statement = c(
       "To estimate the rate of PDD within PD.",
@@ -54,8 +54,8 @@ table_estimands <- function() {
       grp = "RO",
       nms = "Statement"
     ) |>
-    tab_spanner(columns = c("Theoretical", "Population"), label = "Theoretical Estimand", gather = FALSE) |>
-    cols_label(
+    gt::tab_spanner(columns = c("Theoretical", "Population"), label = "Theoretical Estimand", gather = FALSE) |>
+    gt::cols_label(
       Theoretical ~ "Quantity",
       Empirical ~ "Empirical Estimand",
       Estimate ~ "Statistical Estimate"

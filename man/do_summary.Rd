@@ -15,19 +15,19 @@ do_summary(x, dec, sum = NULL)
 \describe{
 \item{NULL (default)}{Simple printing of the vector}
 \item{"N"}{Number of observations}
-\item{"msd"}{Mean ± standard deviation}
+\item{"msd"}{Mean +/- standard deviation}
 \item{"M"}{Mean}
 \item{"SD"}{Standard deviation}
 \item{"Md"}{Median}
 \item{"IQR"}{Interquartile range}
-\item{"minmax"}{Minimum–maximum range}
+\item{"minmax"}{Minimum-maximum range}
 \item{"Min"}{Minimum}
 \item{"Max"}{Maximum}
 \item{"p"}{p-value (formatted for tables)}
 \item{"ptext"}{p-value (formatted for in-text reporting)}
 \item{"Nperc"}{Count and percentage for binary variables}
 \item{"Nslash"}{Counts separated by slashes for nominal variables with any number of categories}
-\item{"estCI"}{Estimate with confidence interval, e.g., "estimate \link{CI}"}
+\item{"estCI"}{Estimate with confidence interval, e.g., "estimate \verb{[CI]}"}
 }}
 }
 \value{

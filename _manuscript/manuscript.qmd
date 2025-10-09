@@ -100,9 +100,14 @@ library(gt)
 
 upstore <- here::here(tar_config_get("store"))
 tar_source(here::here("R"))
-data <- tar_read(raw_data, store = upstore)
-crit <- tar_read(pdd_data, store = upstore)$criteria
-vars <- tar_read(variables, store = upstore)
+
+load_target <- function(x) {
+  tar_read_raw(x, store = upstore)
+}
+
+data <- load_target("raw_data")
+crit <- load_target("pdd_data")$criteria
+vars <- load_target("variables")
 ```
 
 # Introduction
@@ -189,13 +194,13 @@ Data wrangling and visualizations were done in the *tidyverse* package [@wickham
 ```{r}
 #| label: "results"
 
-desc <- tar_read(sample_description, store = upstore)
-rates <- tar_read(rate_summaries, store = upstore)
-algos <- tar_read(algorithms, store = upstore)
-pred <- tar_read(demographic_predictors, store = upstore)
-conc <- tar_read(concordance_statistics, store = upstore)
-kappa <- tar_read(kappa_summmaries, store = upstore)
-perc <- rates$table$perc
+desc  <- load_target("sample_description")
+rates <- load_target("rate_summaries")
+algos <- load_target("algorithms")
+pred  <- load_target("demographic_predictors")
+conc  <- load_target("concordance_statistics")
+kappa <- load_target("kappa_summmaries")
+perc  <- rates$table$perc
 
 # In-text demographic data
 sex <- subset(desc$table, variable == "Sex")$N

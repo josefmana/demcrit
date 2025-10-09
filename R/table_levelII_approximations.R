@@ -10,9 +10,9 @@
 #'    \code{describe_concordance}.
 #' @param struct A list with two elements:
 #' \describe{
-#'   \item{[[1]]}{Character vector of Level I algorithm names derived using FAQ total > 7
+#'   \item{`[[1]]`}{Character vector of Level I algorithm names derived using FAQ total > 7
 #'   as the IADL criterion.}
-#'   \item{[[2]]}{Character vector of Level I algorithm names derived using FAQ item 9 > 1
+#'   \item{`[[2]]`}{Character vector of Level I algorithm names derived using FAQ item 9 > 1
 #'   as the IADL criterion. Note: order matters.}
 #' }
 #' @param crit A character string indicating which Level II algorithm is used
@@ -24,55 +24,55 @@
 #'
 #' @export
 table_levelII_approximations <- function(values, struct, crit) {
-  map_dfr(1:2, function(ii) {
+  purrr::map_dfr(1:2, function(ii) {
     values |>
-      filter(reference == paste0("Lvl.II (", ii, ")")) |>
-      filter(predictor %in% struct[[ii]]) |>
-      filter(!grepl("Lvl.II", predictor)) |>
-      arrange(desc(get(crit))) |>
-      select(reference, predictor, Kappa_raw, Accuracy_raw, AccuracyPValue, Sensitivity, Specificity) |>
-      mutate(order = seq_len(length(reference)))
+      dplyr::filter(reference == paste0("Lvl.II (", ii, ")")) |>
+      dplyr::filter(predictor %in% struct[[ii]]) |>
+      dplyr::filter(!grepl("Lvl.II", predictor)) |>
+      dplyr::arrange(dplyr::desc(get(crit))) |>
+      dplyr::select(reference, predictor, Kappa_raw, Accuracy_raw, AccuracyPValue, Sensitivity, Specificity) |>
+      dplyr::mutate(order = seq_len(length(reference)))
   }) |>
-    pivot_wider(
+    tidyr::pivot_wider(
       names_from = reference,
       id_cols = order,
       values_from = -c(reference, order)
     ) |>
-    mutate(
-      part = case_when(
+    dplyr::mutate(
+      part = dplyr::case_when(
         order %in% 1:5 ~ "Top five",
         order %in% (length(order)-4):length(order) ~ "Bottom five"
       ),
-      across(contains("PValue"), \(x) do_summary(x, 3, "p")),
-      across(where(is.numeric), \(x) do_summary(x, 2))
+      dplyr::across(tidyselect::contains("PValue"), \(x) do_summary(x, 3, "p")),
+      dplyr::across(tidyselect::where(is.numeric), \(x) do_summary(x, 2))
     ) |>
-    filter(!is.na(part)) |>
-    select(part, ends_with("(1)"), ends_with("(2)")) |>
+    dplyr::filter(!is.na(part)) |>
+    dplyr::select(part, tidyselect::ends_with("(1)"), tidyselect::ends_with("(2)")) |>
     gt_apa_table(grp = "part") |>
-    tab_spanner(columns = ends_with("(1)"), label = "Level II (1)", gather = FALSE) |>
-    tab_spanner(columns = ends_with("(2)"), label = "Level II (2)", gather = FALSE) |>
-    cols_label(
+    gt::tab_spanner(columns = tidyselect::ends_with("(1)"), label = "Level II (1)", gather = FALSE) |>
+    gt::tab_spanner(columns = tidyselect::ends_with("(2)"), label = "Level II (2)", gather = FALSE) |>
+    gt::cols_label(
       starts_with("predictor") ~ "Predictor",
-      starts_with("Kappa") ~ "κ",
+      starts_with("Kappa") ~ "\u03BA",
       starts_with("Accuracy_") ~ "Accuracy",
       starts_with("AccuracyP") ~ "p",
       starts_with("Sensitivity") ~ "Sensitivity",
       starts_with("Specificity") ~ "Specificity"
     ) |>
-    tab_footnote(
-      locations = cells_column_spanners("Level II (1)"),
+    gt::tab_footnote(
+      locations = gt::cells_column_spanners("Level II (1)"),
       footnote = "IADL deficite was defined as FAQ (total score) > 7"
     ) |>
-    tab_footnote(
-      locations = cells_column_spanners("Level II (2)"),
+    gt::tab_footnote(
+      locations = gt::cells_column_spanners("Level II (2)"),
       footnote = "IADL deficite was defined as FAQ (item 9) > 1"
     ) |>
-    tab_source_note(
-      "κ: Cohen's κ; p: p-value associated with a one-sided Exact Binomial Test comparing the Accuracy to
+    gt::tab_source_note(
+      "\u03BA: Cohen's \u03BA; p: p-value associated with a one-sided Exact Binomial Test comparing the Accuracy to
       the No Information Rate; The table shows five most accurate (Top five) and five least accurate (Bottom
       five) Level I algrithms for Parkinson's Disease Dementia (PDD) in predicting Level II classficiation
       of PDD. The algorithms were grouped by their definition of the deficit in Instrumental Activities
       of Daily Living (IADLs). The items comprising each listed algorithm can be found in Table A1."
     ) |>
-    opt_footnote_marks(marks = "letters")
+    gt::opt_footnote_marks(marks = "letters")
 }

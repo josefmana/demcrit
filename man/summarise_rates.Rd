@@ -25,8 +25,8 @@ A list with:
 \item{\code{plot}}{A \code{ggplot2} object visualising estimated PDD rates.}
 \item{\code{gtable}}{A named list of gt tables:
 \describe{
-\item{\code{gtab_rates}{An APA-style \code{gt} table summarising the results.}}
-\item{\code{gtab_algos}{An APA-style \code{gt} table listing algorithms used.}}
+\item{\code{gtab_rates}}{An APA-style \code{gt} table summarising the results.}
+\item{\code{gtab_algos}}{An APA-style \code{gt} table listing algorithms used.}
 }}
 }
 }

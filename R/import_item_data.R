@@ -4,7 +4,7 @@
 #' (e.g., in MMSE scores), and prepares the data for further processing.
 #' This function is intended to be called within the larger \code{prepare_data} workflow.
 #'
-#' @param paths A character string specifying the path to the data file. Typically generated
+#' @param path A character string specifying the path to the data file. Typically generated
 #'    by the \code{data_paths} function.
 #'
 #' @returns A tibble containing item-level data.
@@ -17,8 +17,8 @@
 #'
 #' @export
 import_item_data <- function(path) {
-  df <- readr::read_delim(path, delim = ";", col_types = cols()) |>
-    rename(
+  df <- readr::read_delim(path, delim = ";", col_types = readr::cols()) |>
+    dplyr::rename(
       id = IPN,
       birth = born_NA_RC,
       sex = gender_NA_RC,
@@ -27,23 +27,23 @@ import_item_data <- function(path) {
       faq = FAQ_seb,
       bdi = `BDI-II`
     ) |>
-    rename_all(tolower) |>
-    mutate(
+    dplyr::rename_all(tolower) |>
+    dplyr::mutate(
       cloc = clox_num + clox_hands,
       sex = factor(
-        case_when(sex == "F" ~ 0, sex == "M" ~ 1),
+        dplyr::case_when(sex == "F" ~ 0, sex == "M" ~ 1),
         levels = 0:1,
         labels = c("female", "male"),
         ordered = FALSE
       ),
       hand = factor(
-        case_when(hand == "R" ~ 0, hand == "L" ~ 1),
+        dplyr::case_when(hand == "R" ~ 0, hand == "L" ~ 1),
         levels = 0:1,
         labels = c("right", "left"),
         ordered = FALSE
       ),
-      across(ends_with("name"), \(x) janitor::make_clean_names(x, allow_dupes = TRUE)),
-      across(all_of(c("assdate", "birth")), \(x) as.Date(x, tryFormats = "%d.%m.%Y")),
+      dplyr::across(tidyselect::ends_with("name"), \(x) janitor::make_clean_names(x, allow_dupes = TRUE)),
+      dplyr::across(tidyselect::all_of(c("assdate", "birth")), \(x) as.Date(x, tryFormats = "%d.%m.%Y")),
       incl = 1 # As a baseline, include everyone
     )
   # Check MMSE variables:

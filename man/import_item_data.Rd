@@ -7,7 +7,7 @@
 import_item_data(path)
 }
 \arguments{
-\item{paths}{A character string specifying the path to the data file. Typically generated
+\item{path}{A character string specifying the path to the data file. Typically generated
 by the \code{data_paths} function.}
 }
 \value{
@@ -20,7 +20,7 @@ This function is intended to be called within the larger \code{prepare_data} wor
 }
 \examples{
 \dontrun{
-p    <- data_paths("data-raw")
+p <- data_paths("data-raw")
 data <- import_item_data(p[1])
 }
 

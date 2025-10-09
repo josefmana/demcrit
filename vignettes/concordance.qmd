@@ -1,0 +1,40 @@
+---
+title: "Concordance Results"
+format:
+  html:
+    theme: sandstone
+    embed-resources: true
+    code-fold: true
+vignette: >
+  %\VignetteIndexEntry{Concordance Results}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: '#>'
+---
+
+The purpose of this vignette is to provide raw statistical results of all concordance indexes for pairwise comparisons of algorithms for Parkinson's Disease Dementia discussed in the source article.
+
+```{r}
+#| label: setup
+
+# Load packages needed:
+library(gt)
+library(demcrit)
+
+# Read the data:
+data(concords)
+```
+
+```{r}
+#| label: tbl-concords
+#| tbl-cap: Random selection of twenty algorithm pairs.
+
+concords |>
+  dplyr::slice(sample(nrow(concords), 20)) |>
+  gt_apa_table() |>
+  fmt_number(decimals = 3) |>
+  fmt_missing(missing_text = "-")
+```

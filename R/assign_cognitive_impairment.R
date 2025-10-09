@@ -43,14 +43,14 @@
 assign_cognitive_impairment <- function(d0, calc, map, output = "both") {
   # Read map if it is a file
   if (is.character(map)) {
-    m <- readr::read_delim(map, delim = ";", col_types = cols())
+    m <- readr::read_delim(map, delim = ";", col_types = readr::cols())
   } else {
     m <- map
   }
   # Read regression calculator file:
   r <- readxl::read_excel(calc, sheet = "equations", skip = 1) |>
-    rename("calc_lab" = "...1") |>
-    right_join(m, by = "calc_lab")
+    dplyr::rename("calc_lab" = "...1") |>
+    dplyr::right_join(m, by = "calc_lab")
   # Prepare thresholds for BNT-60:
   bnt_thresh <- data.frame(
     age_bottom = c(0, 0, 60, 60),
@@ -61,16 +61,16 @@ assign_cognitive_impairment <- function(d0, calc, map, output = "both") {
   )
   # Add CI-related values to data:
   d1 <- d0 |>
-    mutate(
+    dplyr::mutate(
       gender = as.numeric(sex) - 1, # to get man = 1, women = 0
-      across(
-        .cols  = all_of(r$data_lab),
-        .fns   = \(x) compute_z_score(r, x, r$calc_lab[r$data_lab == cur_column()], age, gender, edu_years),
+      dplyr::across(
+        .cols = tidyselect::all_of(r$data_lab),
+        .fns = \(x) compute_z_score(r, x, r$calc_lab[r$data_lab == dplyr::cur_column()], age, gender, edu_years),
         .names = "z_{.col}"
       ),
-      across(
-        .cols  = starts_with("z_"),
-        .fns   = \(x) if_else(x <= -1.5, 1, 0),
+      dplyr::across(
+        .cols = tidyselect::starts_with("z_"),
+        .fns = \(x) dplyr::if_else(x <= -1.5, 1, 0),
         .names = "mci_{.col}"
       ),
       # Re-score BNT because the calculator is for BNT-30 not -60
@@ -78,7 +78,7 @@ assign_cognitive_impairment <- function(d0, calc, map, output = "both") {
         ifelse(
           test = is.na(age[i]) || is.na(edu_years[i]), # To ensure correct format.
           yes = NA,
-          no = if_else(
+          no = dplyr::if_else(
             bnt_60[i] <= with(bnt_thresh, threshold[age[i] > age_bottom & age[i] <= age_top & edu_years[i] > edu_bottom & edu_years[i] <= edu_top]),
             true  = 1,
             false = 0
@@ -86,26 +86,26 @@ assign_cognitive_impairment <- function(d0, calc, map, output = "both") {
         )
       })
     ) |>
-    select(id, starts_with("z_"), starts_with("mci_"), -z_bnt_60) |>
-    rename_all(\(x) sub("mci_z", "mci", x)) |>
-    mutate(
-      flags = rowSums(across(starts_with("mci_")), na.rm = TRUE),
+    dplyr::select(id, tidyselect::starts_with("z_"), tidyselect::starts_with("mci_"), -z_bnt_60) |>
+    dplyr::rename_all(\(x) sub("mci_z", "mci", x)) |>
+    dplyr::mutate(
+      flags = rowSums(dplyr::across(tidyselect::starts_with("mci_")), na.rm = TRUE),
       nas =
-        rowSums(is.na(across(starts_with("mci_")))) -
-        if_else(rowSums(is.na(across(all_of(c("mci_wms_family_30", "mci_bvmt_30"))))) < 2, 1, 0), # Only one of these need to be present.
-      CI = case_when(
+        rowSums(is.na(dplyr::across(tidyselect::starts_with("mci_")))) -
+        dplyr::if_else(rowSums(is.na(dplyr::across(tidyselect::all_of(c("mci_wms_family_30", "mci_bvmt_30"))))) < 2, 1, 0), # Only one of these need to be present.
+      CI = dplyr::case_when(
         flags >= 2 ~ 1,
         flags == 0 & nas < 2 ~ 0,
         flags == 1 & nas == 0 ~ 0,
         .default = NA
       ),
-      nonCI = 1-CI
+      nonCI = 1 - CI
     )
   # Return conditionally on selection:
   if (output == "ci") {
-    d1 |> select(id, CI, nonCI)
+    d1 |> dplyr::select(id, CI, nonCI)
   } else if (output == "z") {
-    d1 |> select(id, starts_with("z_"))
+    d1 |> dplyr::select(id, starts_with("z_"))
   } else if (output == "both") {
     d1
   }

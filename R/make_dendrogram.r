@@ -18,26 +18,26 @@
 make_dendrogram <- function(tab) {
   # Prepare data for plot edges:
   data <- tab |>
-    mutate(
-      Global = case_when(
-        grepl("sMoCA", type) ~ str_replace(Global, "total score ", ""),
-        grepl("MMSE", type) ~ str_replace(Global, "Total score", "MMSE"),
-        grepl("MoCA", type) ~ str_replace(Global, "Total score", "MoCA")
+    dplyr::mutate(
+      Global = dplyr::case_when(
+        grepl("sMoCA", type) ~ stringr::str_replace(Global, "total score ", ""),
+        grepl("MMSE", type) ~ stringr::str_replace(Global, "Total score", "MMSE"),
+        grepl("MoCA", type) ~ stringr::str_replace(Global, "Total score", "MoCA")
       ),
-      Attention = case_when(
-        grepl("MMSE", type) ~ str_replace(Attention, "Sevens", "MMSE 7s"),
-        grepl("MoCA", type) ~ str_replace(Attention, "Sevens", "MoCA 7s"),
+      Attention = dplyr::case_when(
+        grepl("MMSE", type) ~ stringr::str_replace(Attention, "Sevens", "MMSE 7s"),
+        grepl("MoCA", type) ~ stringr::str_replace(Attention, "Sevens", "MoCA 7s"),
         .default = Attention
       ),
-      Executive = case_when(
-        grepl("MoCA", type) ~ str_replace(Executive, "Clock drawing", "MoCA clock"),
+      Executive = dplyr::case_when(
+        grepl("MoCA", type) ~ stringr::str_replace(Executive, "Clock drawing", "MoCA clock"),
         .default = Executive
       ),
-      across(
+      dplyr::across(
         .cols = c(Attention, Executive, Construction, Memory, Language),
-        .fns = \(x) if_else(grepl("OR", x), NA, x)
+        .fns = \(x) dplyr::if_else(grepl("OR", x), NA, x)
       ),
-      across(everything(), \(x) if_else(x == "-", NA, x)),
+      dplyr::across(tidyselect::everything(), \(x) dplyr::if_else(x == "-", NA, x)),
       lvl0 = "",
       lvl1 = IADL,
       lvl2 = glue::glue("{lvl1}.{Global}"),
@@ -48,46 +48,46 @@ make_dendrogram <- function(tab) {
       lvl7 = glue::glue("{lvl6}.{Language}"),
       lvl8 = type
     ) |>
-    select(
-      starts_with("lvl"), IADL, Global, Attention, Executive,
+    dplyr::select(
+      tidyselect::starts_with("lvl"), IADL, Global, Attention, Executive,
       Construction, Memory, Language, type, N, Rate, perc
     )
   # Link
   edge_list <- rbind(
-    data |> select(lvl0, lvl1) |> unique() |> rename(from = lvl0, to = lvl1),
-    data |> select(lvl1, lvl2) |> unique() |> rename(from = lvl1, to = lvl2),
-    data |> select(lvl2, lvl3) |> unique() |> rename(from = lvl2, to = lvl3),
-    data |> select(lvl3, lvl4) |> unique() |> rename(from = lvl3, to = lvl4),
-    data |> select(lvl4, lvl5) |> unique() |> rename(from = lvl4, to = lvl5),
-    data |> select(lvl5, lvl6) |> unique() |> rename(from = lvl5, to = lvl6),
-    data |> select(lvl6, lvl7) |> unique() |> rename(from = lvl6, to = lvl7),
-    data |> select(lvl7, lvl8) |> unique() |> rename(from = lvl7, to = lvl8)
+    data |> dplyr::select(lvl0, lvl1) |> unique() |> dplyr::rename(from = lvl0, to = lvl1),
+    data |> dplyr::select(lvl1, lvl2) |> unique() |> dplyr::rename(from = lvl1, to = lvl2),
+    data |> dplyr::select(lvl2, lvl3) |> unique() |> dplyr::rename(from = lvl2, to = lvl3),
+    data |> dplyr::select(lvl3, lvl4) |> unique() |> dplyr::rename(from = lvl3, to = lvl4),
+    data |> dplyr::select(lvl4, lvl5) |> unique() |> dplyr::rename(from = lvl4, to = lvl5),
+    data |> dplyr::select(lvl5, lvl6) |> unique() |> dplyr::rename(from = lvl5, to = lvl6),
+    data |> dplyr::select(lvl6, lvl7) |> unique() |> dplyr::rename(from = lvl6, to = lvl7),
+    data |> dplyr::select(lvl7, lvl8) |> unique() |> dplyr::rename(from = lvl7, to = lvl8)
   ) |>
-    mutate(
-      from = case_when(
+    dplyr::mutate(
+      from = dplyr::case_when(
         to == "sMoCA (1)" ~ "FAQ > 7",
         to == "sMoCA (2)" ~ "FAQ 9 > 1",
-        grepl("NA.NA", from) ~ str_replace(from, "NA.NA", "NA"),
+        grepl("NA.NA", from) ~ stringr::str_replace(from, "NA.NA", "NA"),
         .default = from
       ),
-      to = case_when(
-        grepl("NA.NA", to) ~ str_replace(to, "NA.NA", "NA"),
+      to = dplyr::case_when(
+        grepl("NA.NA", to) ~ stringr::str_replace(to, "NA.NA", "NA"),
         .default = to
       )
     ) |>
-    filter(!grepl("sMoCA < 13", to)) |>
-    filter(!(from == "FAQ 9 > 1.NA" & to == "FAQ 9 > 1.NA")) |>
-    filter(!(from == "FAQ > 7.NA" & to == "FAQ > 7.NA"))
+    dplyr::filter(!grepl("sMoCA < 13", to)) |>
+    dplyr::filter(!(from == "FAQ 9 > 1.NA" & to == "FAQ 9 > 1.NA")) |>
+    dplyr::filter(!(from == "FAQ > 7.NA" & to == "FAQ > 7.NA"))
   #
   mygraph <- igraph::graph_from_data_frame(edge_list)
   # Rearrange the layout:
   layout <- ggraph::create_layout(mygraph, layout = "dendrogram", circular = FALSE)
   xcoords <- tibble(
-    Lvl.II = layout |> filter(grepl("sMoCA", name)) |> pull(x, name = name),
-    sMoCA = layout |> filter(grepl("Lvl.II", name)) |> pull(x, name = name)
+    Lvl.II = layout |> dplyr::filter(grepl("sMoCA", name)) |> pull(x, name = name),
+    sMoCA = layout |> dplyr::filter(grepl("Lvl.II", name)) |> pull(x, name = name)
   )
-  layout <- layout |> mutate(
-    x = case_when(
+  layout <- layout |> dplyr::mutate(
+    x = dplyr::case_when(
       name == "sMoCA (1)" ~ xcoords$sMoCA[1],
       name == "sMoCA (2)" ~ xcoords$sMoCA[2],
       name == "Lvl.II (1)" ~ xcoords$Lvl.II[1],
@@ -98,20 +98,20 @@ make_dendrogram <- function(tab) {
       name == "FAQ 9 > 1" ~ x[name == "FAQ 9 > 1.MoCA < 26"],
       .default = x
     ),
-    group = str_extract(layout$name, "[^ (]+")
+    group = stringr::str_extract(layout$name, "[^ (]+")
   ) |>
-    left_join(
-      tab |> select(type, perc) |> rename(name = type, `PDD rate` = perc),
-      by = join_by(name)
+    dplyr::left_join(
+      tab |> dplyr::select(type, perc) |> dplyr::rename(name = type, `PDD rate` = perc),
+      by = dplyr::join_by(name)
     )
   # Plot it:
   ggraph::ggraph(layout) +
     ggraph::geom_edge_bend(strength = 1) +
-    ggraph::geom_node_point(aes(filter = !leaf), size = 3, shape = 21, fill = "white") +
-    ggraph::geom_node_point(aes(filter = leaf, size = `PDD rate`, colour = group), alpha = 0.6) +
-    ggraph::geom_node_text(aes(label = name, filter = leaf, colour = group) , angle = 90 , hjust = 1, nudge_y = -0.2) +
-    theme_void() +
-    ylim(-1.5, NA) +
-    scale_colour_manual(values = c("red3", "green4", "navyblue", "purple3")) +
-    theme(legend.position = "none")
+    ggraph::geom_node_point(ggplot2::aes(filter = !leaf), size = 3, shape = 21, fill = "white") +
+    ggraph::geom_node_point(ggplot2::aes(filter = leaf, size = `PDD rate`, colour = group), alpha = 0.6) +
+    ggraph::geom_node_text(ggplot2::aes(label = name, filter = leaf, colour = group) , angle = 90 , hjust = 1, nudge_y = -0.2) +
+    ggplot2::theme_void() +
+    ggplot2::ylim(-1.5, NA) +
+    ggplot2::scale_colour_manual(values = c("red3", "green4", "navyblue", "purple3")) +
+    ggplot2::theme(legend.position = "none")
 }

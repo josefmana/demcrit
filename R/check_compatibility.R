@@ -20,30 +20,29 @@ check_compatibility <- function(d1, d2) {
   commonvars <- c(
     "sex", "mmse", "faq", "faq_9", "smoca_total", # "vf_k", is not checked because it comes from MoCA in ItemData but from Level II in REDCap data.
     paste0("moca_", c("7", "cube", "5words", "anim", "total")),
-    "bdi", "stai_1", "stai_2", # These variables are not used in analyses directly but will likely used to describe the sample.
-    NULL
+    "bdi", "stai_1", "stai_2" # These variables are not used in analyses directly but will likely used to describe the sample.
   )
   # Prepare a table comparing common variables:
   tvar <- sapply(d1$id, function(i) {
     sapply(commonvars, function(j) {
       ifelse(
         test = !(i %in% d2$id),
-        yes  = NA,
-        no   = with(d1, get(j)[id == i & incl == 1]) == with(d2, get(j)[id == i])
+        yes = NA,
+        no = with(d1, get(j)[id == i & incl == 1]) == with(d2, get(j)[id == i])
       )
     })
   }) |>
     t()
   # Evaluate mismatches:
-  tdisc <- map_dfr(set_names(commonvars), function(i) {
-    left_join(
+  tdisc <- purrr::map_dfr(rlang::set_names(commonvars), function(i) {
+    dplyr::left_join(
       d1[d1$id %in% rownames(tvar[!tvar[ ,i], ]) & d1$incl == 1, c("id", i)],
       d2[d2$id %in% rownames(tvar[!tvar[ ,i], ]), c("id", i)],
-      by = join_by(id),
+      by = dplyr::join_by(id),
       suffix = c("_ItemData", "_REDCap")
     )
   })
   # Return mismatches as a data frame
-  d1 |> select(id, surname, firstname, assdate) |>
-    right_join(tdisc, by = "id")
+  d1 |> dplyr::select(id, surname, firstname, assdate) |>
+    dplyr::right_join(tdisc, by = "id")
 }

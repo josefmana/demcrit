@@ -27,16 +27,15 @@
 #' @export
 describe_concordance <- function(d0) {
   # Get pairs of operationalisations:
-  p <- crossing(predictor = d0$criteria$type, reference = d0$criteria$type)
+  p <- tidyr::crossing(predictor = d0$criteria$type, reference = d0$criteria$type)
   # Calculate Kappas:
   k <- lapply(seq_len(nrow(p)), function(i) {
     if (p[i, 1] == p[i, 2]) {
       list(kappa = 1)
     } else {
-      d0$PDD |>
-        filter(type %in% p[i, ]) |>
-        pivot_wider(names_from = type, values_from = PDD, id_cols = id) |>
-        select(-id) |>
+      d0$PDD |> dplyr::filter(type %in% p[i, ]) |>
+        tidyr::pivot_wider(names_from = type, values_from = PDD, id_cols = id) |>
+        dplyr::select(-id) |>
         as.matrix() |>
         psych::cohen.kappa()
     }
@@ -46,10 +45,9 @@ describe_concordance <- function(d0) {
     if (p[i, 1] == p[i, 2]) {
       NULL
     } else {
-      d0$PDD |>
-        filter(type %in% p[i, ]) |>
-        pivot_wider(names_from = type, values_from = PDD, id_cols = id) |>
-        select(all_of(unlist(p[i, ], use.names = FALSE))) |>
+      d0$PDD |> dplyr::filter(type %in% p[i, ]) |>
+        tidyr::pivot_wider(names_from = type, values_from = PDD, id_cols = id) |>
+        dplyr::select(tidyselect::all_of(unlist(p[i, ], use.names = FALSE))) |>
         mutate_all(\(x) 2 - as.numeric(x)) |> # re-scoring such that prevalence is calculated for PDD == 1
         table() |>
         caret::confusionMatrix()
@@ -65,8 +63,8 @@ describe_concordance <- function(d0) {
       Kappa = sapply(seq_along(reference), function(i) {
         ifelse(
           test = reference[i] == predictor[i],
-          yes  = "-",
-          no   = do_summary(k[[i]]$confid[1, ], 2, "estCI")
+          yes = "-",
+          no = do_summary(k[[i]]$confid[1, ], 2, "estCI")
         )
       }),
       Accuracy = sapply(seq_along(reference), function(i) {
@@ -113,15 +111,15 @@ describe_concordance <- function(d0) {
         )
       }),
       # All the other metrics:
-      !!!set_names(rep(NA, length(metrics)), metrics),
-      across(
-        .cols = all_of(metrics),
+      !!!rlang::set_names(rep(NA, length(metrics)), metrics),
+      dplyr::across(
+        .cols = tidyselect::all_of(metrics),
         .fns = function(x) {
           sapply(seq_along(x), function(i) {
             ifelse(
               test = reference[i] == predictor[i],
               yes = NA,
-              no = confmats[[i]]$byClass[cur_column()]
+              no = confmats[[i]]$byClass[dplyr::cur_column()]
             )
           })
         }
@@ -131,11 +129,11 @@ describe_concordance <- function(d0) {
   # Get order of the criteria by prevalence:
   ord <- data.frame(
     predictor = tab |>
-      arrange(desc(Prevalence)) |>
-      distinct(reference) |>
-      pull()
+      dplyr::arrange(desc(Prevalence)) |>
+      dplyr::distinct(reference) |>
+      dplyr::pull()
   ) |>
-    mutate(
+    dplyr::mutate(
       reference = rev(predictor),
       # Colours to separate operationalisations based on IADL criterion
       xcol = sapply(seq_along(predictor), function(i) {
@@ -149,71 +147,71 @@ describe_concordance <- function(d0) {
     )
   # Add order to the table:
   ordtab <- tab |>
-    mutate(
-      across(
-        .cols = all_of(c("predictor", "reference")),
+    dplyr::mutate(
+      dplyr::across(
+        .cols = tidyselect::all_of(c("predictor", "reference")),
         .fns = \(x) factor(x, levels = ord[ , cur_column()], ordered = TRUE)
       ),
-      across(
-        .cols = all_of(c("Kappa_raw")),
+      dplyr::across(
+        .cols = tidyselect::all_of(c("Kappa_raw")),
         .fns  = function(x) case_when(
           as.numeric(predictor) < (nrow(ord) + 1 - as.numeric(reference)) ~ x,
           predictor == reference ~ 1,
           .default = NA
         )
       ),
-      Accuracy_raw = if_else(predictor == reference, NA, Accuracy_raw),
-      Accuracy_sig = if_else(AccuracyPValue < .05, "*", "")
+      Accuracy_raw = dplyr::if_else(predictor == reference, NA, Accuracy_raw),
+      Accuracy_sig = dplyr::if_else(AccuracyPValue < .05, "*", "")
     )
   # Kappa matrix:
   kappaplt <- ordtab |>
-    ggplot() +
-    aes(x = predictor, y = reference, fill = Kappa_raw) +
-    geom_tile() +
-    scale_fill_gradient2(high = "steelblue", na.value = "white") +
-    labs(x = "Predictor", y = "Reference") +
-    theme(
-      axis.text.x = element_text(colour = if_else(ord$xcol == "black", "black", "red3"), angle = 66, hjust = 1),
-      axis.text.y = element_text(colour = if_else(ord$ycol == "black", "black", "red3"))
+    ggplot2::ggplot() +
+    ggplot2::aes(x = predictor, y = reference, fill = Kappa_raw) +
+    ggplot2::geom_tile() +
+    ggplot2::scale_fill_gradient2(high = "steelblue", na.value = "white") +
+    ggplot2::labs(x = "Predictor", y = "Reference") +
+    ggplot2::theme(
+      axis.text.x = ggplot2::element_text(colour = dplyr::if_else(ord$xcol == "black", "black", "red3"), angle = 66, hjust = 1),
+      axis.text.y = ggplot2::element_text(colour = dplyr::if_else(ord$ycol == "black", "black", "red3"))
     )
   # Accuracy matrix:
   E_NIR <- tab$NoInformationRate_raw |>
     unique() |>
     mean(na.rm = TRUE) # Expected Negative Information Rate
   accplt <- ordtab |>
-    select(-Accuracy) |>
-    rename("Accuracy" = "Accuracy_raw") |>
-    ggplot() +
-    aes(x = predictor, y = reference, fill = Accuracy) +
-    geom_tile() +
-    geom_text(aes(label = Accuracy_sig)) +
-    scale_fill_gradient2(low = "red4", high = "yellow4", midpoint = E_NIR, na.value = "white") +
-    labs(x = "Predictor", y = "Reference") +
-    theme(
-      axis.text.x = element_text(colour = ord$xcol, angle = 66, hjust = 1),
-      axis.text.y = element_text(colour = ord$ycol)
+    dplyr::select(-Accuracy) |>
+    dplyr::rename("Accuracy" = "Accuracy_raw") |>
+    ggplot2::ggplot() +
+    ggplot2::aes(x = predictor, y = reference, fill = Accuracy) +
+    ggplot2::geom_tile() +
+    ggplot2::geom_text(aes(label = Accuracy_sig)) +
+    ggplot2::scale_fill_gradient2(low = "red4", high = "yellow4", midpoint = E_NIR, na.value = "white") +
+    ggplot2::labs(x = "Predictor", y = "Reference") +
+    ggplot2::theme(
+      axis.text.x = ggplot2::element_text(colour = ord$xcol, angle = 66, hjust = 1),
+      axis.text.y = ggplot2::element_text(colour = ord$ycol)
     )
   # Sensitivity matrix:
   sensplt <- ordtab |>
-    ggplot() +
-    aes(x = predictor, y = reference, fill = Sensitivity) +
-    geom_tile() +
-    scale_fill_gradient2(high = "green4", na.value = "white", midpoint = .5) +
-    labs(x = "Predictor", y = "Reference") +
-    theme(
-      axis.text.x = element_text(colour = ord$xcol, angle = 66, hjust = 1),
-      axis.text.y = element_text(colour = ord$ycol)
+    ggplot2::ggplot() +
+    ggplot2::aes(x = predictor, y = reference, fill = Sensitivity) +
+    ggplot2::geom_tile() +
+    ggplot2::scale_fill_gradient2(high = "green4", na.value = "white", midpoint = .5) +
+    ggplot2::labs(x = "Predictor", y = "Reference") +
+    ggplot2::theme(
+      axis.text.x = ggplot2::element_text(colour = ord$xcol, angle = 66, hjust = 1),
+      axis.text.y = ggplot2::element_text(colour = ord$ycol)
   )
   # Specificity matrix:
   specplt <- ordtab |>
-    ggplot() +
-    aes(x = predictor, y = reference, fill = Specificity) +
-    geom_tile() +
-    scale_fill_gradient2(high = "orange3", na.value = "white", midpoint = .5) +
-    labs(x = "Predictor", y = "Reference") +
-    theme(
-      axis.text.x = element_text(colour = ord$xcol, angle = 66, hjust = 1),
-      axis.text.y = element_text(colour = ord$ycol)
+    ggplot2::ggplot() +
+    ggplot2::aes(x = predictor, y = reference, fill = Specificity) +
+    ggplot2::geom_tile() +
+    ggplot2::scale_fill_gradient2(high = "orange3", na.value = "white", midpoint = .5) +
+    ggplot2::labs(x = "Predictor", y = "Reference") +
+    ggplot2::theme(
+      axis.text.x = ggplot2::element_text(colour = ord$xcol, angle = 66, hjust = 1),
+      axis.text.y = ggplot2::element_text(colour = ord$ycol)
     )
   # Return it all:
   list(

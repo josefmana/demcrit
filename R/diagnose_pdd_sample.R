@@ -30,9 +30,9 @@
 #' @export
 diagnose_pdd_sample <- function(d0) {
   crit <- specify_criteria()
-  pdd <- map_dfr(seq_len(nrow(crit)), function(i) {
+  pdd <- purrr::map_dfr(seq_len(nrow(crit)), function(i) {
     diagnose_pdd_case(d0, crit[i, ]) |>
-      mutate(type = crit$type[i], .after = id)
+      dplyr::mutate(type = crit$type[i], .after = id)
   })
   # Return both criteria specification and PDD diagnoses:
   list(criteria = crit, PDD = pdd)

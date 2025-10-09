@@ -2,3 +2,13 @@
 ^\.Rproj\.user$
 ^vignettes/\.quarto$
 ^vignettes/*_files$
+^data-raw$
+^LICENSE\.md$
+^_manuscript$
+^_nogit$
+^_targets$
+^_targets.R$
+^_targets_packages.R$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

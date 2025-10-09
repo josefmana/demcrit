@@ -1,5 +1,5 @@
 ---
-title: "Impact of Criteria Correlation on Concordance Estimates"
+title: "Impact of Correlation on Concordance"
 format:
   html:
     theme: sandstone
@@ -8,7 +8,7 @@ format:
     toc: true
 warning: false
 vignette: >
-  %\VignetteIndexEntry{The Impact of Criteria Correlation on Concordance Estimates}
+  %\VignetteIndexEntry{Impact of Correlation on Concordance}
   %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 knitr:
@@ -22,8 +22,7 @@ bibliography: references.bib
 #| label: setup
 
 # Load packages needed for this report:
-#library(DemCrit)
-targets::tar_source("../R")
+library(demcrit)
 library(tidyverse) # dor data wrangling
 library(MASS)      # for mvrnorm()
 library(caret)     # for confusionMatrix()
@@ -130,13 +129,13 @@ $$
 $$ {#eq-sigma-indep}
 
 ### FAQ item 9
-To simulate data for FAQ item 9, we assumed **$\tau$-equivalence** of FAQ (i.e., that all items share the same true score, cf. @trizano-hermosilla2016). We then applied probit link to the FAQ total score of each simulated patient to obtain the probability of a positive response to any item:
+To simulate data for FAQ item 9, we assumed $\boldsymbol{\tau}$**-equivalence** of FAQ (i.e., that all items share the same true score, cf. @trizano-hermosilla2016). We then applied probit link to the FAQ total score of each simulated patient to obtain the probability of a positive response to any item:
 
 $$
 p_i = \phi(z_i)
 $$ {#eq-p}
 
-where $\phi$ is the standard normal cumulative distribution function and $z_i$ is the standardised FAQ score for simulated patient $i$. The observed FAQ item 9 score was subsequently drawn from a binomial distribution via:
+where $\phi(\cdot)$ is the standard normal cumulative distribution function and $z_i$ is the standardised FAQ score for simulated patient $i$. The observed FAQ item 9 score was subsequently drawn from a binomial distribution via:
 
 $$
 \text{FAQ item 9}_i \sim \mathcal{Binomial}(n = 4, p_i)
@@ -342,7 +341,8 @@ make_concordance_table <- function(dat, index, label) {
   dat |>
     filter(Index == index) |>
     dplyr::select(-Index) |>
-    gt_apa_table(grp = "Type") |>
+    #gt_apa_table(grp = "Type") |>
+    gt(group = "Type") |>
     tab_spanner(label = "95% CI", columns = c(Low, High), gather = FALSE) |>
     tab_spanner(label = md(glue::glue("{label} difference")), columns = c(Difference, Low, High), gather = FALSE) |>
     tab_spanner(label = md(glue::glue("*E*({label})")), columns = c(Independent, Correlated), gather = FALSE) |>

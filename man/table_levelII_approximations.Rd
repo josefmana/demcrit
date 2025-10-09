@@ -13,9 +13,9 @@ table_levelII_approximations(values, struct, crit)
 
 \item{struct}{A list with two elements:
 \describe{
-\item{[\link{1}]}{Character vector of Level I algorithm names derived using FAQ total > 7
+\item{\verb{[[1]]}}{Character vector of Level I algorithm names derived using FAQ total > 7
 as the IADL criterion.}
-\item{[\link{2}]}{Character vector of Level I algorithm names derived using FAQ item 9 > 1
+\item{\verb{[[2]]}}{Character vector of Level I algorithm names derived using FAQ item 9 > 1
 as the IADL criterion. Note: order matters.}
 }}
 

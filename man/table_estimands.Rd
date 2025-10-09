@@ -8,7 +8,8 @@ table_estimands()
 }
 \value{
 A \code{gt} table object summarising the theoretical estimands,
-empirical estimands, and the corresponding statistical estimates used in the study.
+empirical estimands, and the corresponding statistical estimates used
+in the study.
 }
 \description{
 This function creates a pre-specified table that provides a verbal summary

@@ -17,7 +17,7 @@
 table_criteria <- function(vars) {
   # Prepare the note:
   if (is.character(vars)) {
-    v <- readr::read_delim(vars, delim = ";", col_types = cols())
+    v <- readr::read_delim(vars, delim = ";", col_types = readr::cols())
   } else {
     v <- vars
   }
@@ -31,7 +31,7 @@ table_criteria <- function(vars) {
       other criteria on the same row."
   )
   # Do the table:
-  tibble(
+  tibble::tibble(
     Type = c(
       rep("MMSE-based", 5),
       rep("MoCA-based", 6),
@@ -51,19 +51,19 @@ table_criteria <- function(vars) {
       "TMT A & WAIS DSB", "CF A & PST C", "JoLO & CLOXI", "RAVLT DR & (BVMTR DR OR WMS-III Family Pictures DR)", "WAIS Similarities & BNT 60"
     )
   ) |>
-    pivot_wider(names_from = Domain, values_from = Indexes) |>
+    tidyr::pivot_wider(names_from = Domain, values_from = Indexes) |>
     gt_apa_table() |>
-    sub_missing(missing_text = "-") |>
-    tab_spanner(
-      columns = all_of(c("Attention", "Executive Function", "Construction", "Memory", "Language")),
+    gt::sub_missing(missing_text = "-") |>
+    gt::tab_spanner(
+      columns = tidyselect::all_of(c("Attention", "Executive Function", "Construction", "Memory", "Language")),
       label = "Impaired Cognition"
     ) |>
-    tab_source_note(note) |>
-    tab_footnote(
-      locations = cells_body(rows = 4, columns = Memory),
+    gt::tab_source_note(note) |>
+    gt::tab_footnote(
+      locations = gt::cells_body(rows = 4, columns = Memory),
       footnote = "The visual memory was evaluated based on WMS-III Family Pictures or BVMTR depending on which
       test was used in the assessment. This lead to no missing values because each patient underwent assessment
       via one of these tests."
     ) |>
-    opt_footnote_marks(marks = "letters")
+    gt::opt_footnote_marks(marks = "letters")
 }

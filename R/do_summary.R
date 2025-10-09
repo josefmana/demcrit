@@ -10,19 +10,19 @@
 #' \describe{
 #'   \item{NULL (default)}{Simple printing of the vector}
 #'   \item{"N"}{Number of observations}
-#'   \item{"msd"}{Mean ± standard deviation}
+#'   \item{"msd"}{Mean +/- standard deviation}
 #'   \item{"M"}{Mean}
 #'   \item{"SD"}{Standard deviation}
 #'   \item{"Md"}{Median}
 #'   \item{"IQR"}{Interquartile range}
-#'   \item{"minmax"}{Minimum–maximum range}
+#'   \item{"minmax"}{Minimum-maximum range}
 #'   \item{"Min"}{Minimum}
 #'   \item{"Max"}{Maximum}
 #'   \item{"p"}{p-value (formatted for tables)}
 #'   \item{"ptext"}{p-value (formatted for in-text reporting)}
 #'   \item{"Nperc"}{Count and percentage for binary variables}
 #'   \item{"Nslash"}{Counts separated by slashes for nominal variables with any number of categories}
-#'   \item{"estCI"}{Estimate with confidence interval, e.g., "estimate [CI]"}
+#'   \item{"estCI"}{Estimate with confidence interval, e.g., "estimate `[CI]`"}
 #' }
 #'
 #' @returns A character string or numeric summary as specified by \code{sum}.
@@ -60,7 +60,7 @@ do_summary <- function(x, dec, sum = NULL) {
   } else if(sum == "N") {
     as.character(sum(!is.na(x)))
   } else if(sum == "msd") {
-    paste0(rprint(M(x),dec)," ± ",rprint(SD(x), dec))
+    paste0(rprint(M(x),dec)," \u00B1 ",rprint(SD(x), dec))
   } else if (sum == "IQR") {
     rprint(IQRna(x),dec)
   } else if(sum == "minmax") {

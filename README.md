@@ -1,4 +1,4 @@
-# Validation of (several) probable PDD algorithms
+# Validation of probable PDD algorithms
 
 This package is not intended for public use. The idea is to provide a documentation
 behind data analysis that serves as a backbone of the empirical part of the paper

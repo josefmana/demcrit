@@ -30,27 +30,27 @@
 compute_descriptives <- function(d0, vois) {
   # Get variables of interest:
   if (is.character(vois)) {
-    v <- readr::read_delim(vois, delim = ";", col_types = cols())
+    v <- readr::read_delim(vois, delim = ";", col_types = readr::cols())
   } else {
     v <- vois
   }
   # Prepare a demography table:
-  demtab <- map_df(seq_len(nrow(v)), function(i) {
+  demtab <- purrr::map_df(seq_len(nrow(v)), function(i) {
     c(
-      variable = pull(v[i, 2]),
-      group = pull(v[i, 4]),
-      N = case_when(
-        pull(v[i, 3]) == "binary" ~ do_summary(d0[ , pull(v[i, 1])], 0, "Nperc"),
-        pull(v[i, 3]) == "nominal" ~ do_summary(d0[ , pull(v[i, 1])], 0, "Nslash"),
-        pull(v[i, 3]) == "continuous" ~ do_summary(d0[ , pull(v[i, 1])], 0, "N")
+      variable = dplyr::pull(v[i, 2]),
+      group = dplyr::pull(v[i, 4]),
+      N = dplyr::case_when(
+        dplyr::pull(v[i, 3]) == "binary" ~ do_summary(d0[ , dplyr::pull(v[i, 1])], 0, "Nperc"),
+        dplyr::pull(v[i, 3]) == "nominal" ~ do_summary(d0[ , dplyr::pull(v[i, 1])], 0, "Nslash"),
+        dplyr::pull(v[i, 3]) == "continuous" ~ do_summary(d0[ , dplyr::pull(v[i, 1])], 0, "N")
       ),
       sapply(c("Md","minmax","M","SD"), function(f) {
         ifelse(
-          test = pull(v[i, 3]) == "continuous",
+          test = dplyr::pull(v[i, 3]) == "continuous",
           yes = ifelse(
-            test = pull(v[i, 4]) %in% c("Attention and Working Memory", "Executive Function", "Language", "Memory", "Visuospatial Function"),
-            yes = do_summary(pull(d0[ , pull(v[i, 1])]), 2, f),
-            no = do_summary(pull(d0[ , pull(v[i, 1])]), ifelse(f %in% c("M","SD"), 2, 0), f)
+            test = dplyr::pull(v[i, 4]) %in% c("Attention and Working Memory", "Executive Function", "Language", "Memory", "Visuospatial Function"),
+            yes = do_summary(dplyr::pull(d0[ , dplyr::pull(v[i, 1])]), 2, f),
+            no = do_summary(dplyr::pull(d0[ , dplyr::pull(v[i, 1])]), ifelse(f %in% c("M","SD"), 2, 0), f)
           ),
           no = "-"
         )
@@ -59,8 +59,8 @@ compute_descriptives <- function(d0, vois) {
   })
   # Prepare a gt table:
   gtab <- demtab |>
-    filter(!(group %in% c("Demographics", "Clinical"))) |>
-    mutate(
+    dplyr::filter(!(group %in% c("Demographics", "Clinical"))) |>
+    dplyr::mutate(
       variable = sapply(seq_along(variable), function(i) {
         paste0(
           variable[i],
@@ -77,10 +77,10 @@ compute_descriptives <- function(d0, vois) {
   # If there are notes, add them to the table:
   if (ncol(v) > 4 && any(!is.na(v$note))) {
     notes <- v[complete.cases(v[ , 5]), c(2,5)]
-    text  <- paste0(pull(notes[ , 1]), ": ", pull(notes[ , 2])) |> paste(collapse = ", ")
+    text  <- paste0(dplyr::pull(notes[ , 1]), ": ", dplyr::pull(notes[ , 2])) |> paste(collapse = ", ")
     # Add the text:
     gtab <- gtab |>
-      tab_source_note(html(paste0("<i>Note.</i> ", text)))
+      gt::tab_source_note(html(paste0("<i>Note.</i> ", text)))
   }
   # Return results:
   list(table = demtab, gtable = gtab)

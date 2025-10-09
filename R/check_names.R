@@ -21,10 +21,10 @@
 #' }
 check_names <- function(d, nms) {
   nms <- nms |>
-    filter(study_id %in% d$id) |>
-    column_to_rownames("study_id") |>
-    select(jmeno, prijmeni) |>
-    mutate_all(\(x) janitor::make_clean_names(x, allow_dupes = TRUE))
+    dplyr::filter(study_id %in% d$id) |>
+    tibble::column_to_rownames("study_id") |>
+    dplyr::select(jmeno, prijmeni) |>
+    dplyr::mutate_all(\(x) janitor::make_clean_names(x, allow_dupes = TRUE))
   tnam <- sapply(rownames(nms), function(i) {
     c(forname = nms[i, "jmeno"] == subset(d, id == i & incl == 1)$firstname,
       surname = nms[i, "prijmeni"] == subset(d, id == i & incl == 1)$surname
@@ -32,12 +32,12 @@ check_names <- function(d, nms) {
   }) |>
     t()
   discid <- rownames(tnam[(!tnam[ ,1] | !tnam[ ,2]), ])
-  disctab <- left_join(
-    nms[discid, ] |> rownames_to_column("id"),
+  disctab <- dplyr::left_join(
+    nms[discid, ] |> tibble::rownames_to_column("id"),
     d[d$id %in% discid, c("id", "firstname", "surname")],
-    by = join_by(id)
+    by = dplyr::join_by(id)
   ) |>
-    mutate(reason = if_else(
+    dplyr::mutate(reason = dplyr::if_else(
       condition = id == "IPN143",
       true = "married",
       false = "typo"
