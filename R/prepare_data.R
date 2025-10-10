@@ -1,4 +1,4 @@
-#' Pre-process data for analysis
+#' Pre-process Data for Analysis
 #'
 #' Takes in file paths to raw data, checks their format and compatibility,
 #' and if valid, proceeds to import and pre-process the data for analysis.
@@ -11,7 +11,17 @@
 #'
 #' @returns A tibble containing cleaned and pre-processed variables ready for analysis.
 #'    The function also performs validation checks and prints warnings or stops execution
-#'    if critical issues are detected (e.g., mismatched names, out-of-range values).
+#'    if critical issues are detected (e.g., mismatched names or out-of-range values).
+#'
+#' @seealso
+#' * [data_paths()] prepares `p`.
+#' * [import_redcap_data()] prepares data freom the REDCap database.
+#' * [import_item_data()] prepares hand-written item-level data.
+#' * [check_names()] compares patient names in item data and meta data.
+#' * [check_compatibility()] compares variables in item vs. REDCap data.
+#' * [check_ranges()] controls that neuropsychological variables are not out of range.
+#' * [assign_cognitive_impairment()] computes cognitive impairment status on level II
+#'    of assessment.
 #'
 #' @examples
 #' \dontrun{

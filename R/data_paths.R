@@ -1,4 +1,4 @@
-#' Define file paths to raw data for analysis
+#' Define Raw Data Paths
 #'
 #' Prepares a set of file paths pointing to all required raw data files used in the analysis.
 #' The function enforces naming conventions and validates compatibility between the contents
@@ -9,6 +9,8 @@
 #'    Defaults to \code{"data-raw"}.
 #'
 #' @returns A named character vector with file paths to all required raw data files.
+#'
+#' @seealso [prepare_data()] is the next step in analysis pipeline.
 #'
 #' @examples
 #' \dontrun{

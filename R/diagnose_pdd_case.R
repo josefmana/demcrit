@@ -1,4 +1,4 @@
-#' Diagnose PDD in a single patient sample using specified criteria
+#' Diagnose via a Single Algorithm
 #'
 #' Applies a specified set of diagnostic criteria to a data matrix representing
 #' patient-level data to determine whether each patient meets the criteria for
@@ -10,8 +10,10 @@
 #' @param c A named vector (or single-row data frame) specifying the criteria
 #'    to be applied for PDD diagnosis.
 #'
-#' @returns A logical vector indicating PDD diagnosis for each patient
-#' (TRUE = diagnosed, FALSE = not diagnosed).
+#' @returns A logical vector indicating probable PDD diagnosis for each
+#'    patient (`TRUE` = diagnosed, `FALSE` = not diagnosed).
+#'
+#' @seealso [diagnose_pdd_sample()] wraps the function to diagnose all patients.
 #'
 #' @examples
 #' \dontrun{

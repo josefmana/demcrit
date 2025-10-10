@@ -1,13 +1,15 @@
-#' Import item-data
+#' Import Item Data
 #'
-#' Imports item-level data from a specified file path, checks for unrealistic values
-#' (e.g., in MMSE scores), and prepares the data for further processing.
-#' This function is intended to be called within the larger \code{prepare_data} workflow.
+#' Imports item-level data from a specified file path, checks for unrealistic values,
+#' and prepares the data for further processing. This function is intended to be called
+#' within the larger \code{prepare_data} workflow.
 #'
 #' @param path A character string specifying the path to the data file. Typically generated
 #'    by the \code{data_paths} function.
 #'
 #' @returns A tibble containing item-level data.
+#'
+#' @seealso [prepare_data()] is a wrapper of this function.
 #'
 #' @examples
 #' \dontrun{

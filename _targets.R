@@ -39,7 +39,7 @@ list(
   ),
   tar_target(
     name = algorithms, # List all algorithms used in the study
-    command = list_algos(rate_summaries$table)
+    command = list_algorithms(rate_summaries$table)
   ),
   tar_target(
     name = demographic_predictors, # Regress probable PDD on demographics
@@ -47,7 +47,7 @@ list(
   ),
   tar_target(
     name = demographic_predictors_adjusted, # Regress probable PDD on demographics adjusting for neuropsychiatry
-    command = regress_pdd_on_demographics(raw_data, pdd_data$PDD, form = "PDD ~ age * sex + bdi + stai_1 + stai_2")
+    command = regress_pdd_on_demographics(raw_data, pdd_data$PDD, covs = c("bdi", "stai_1"))
   ),
   tar_target(
     name = concordance_statistics, # Describe concordance between different PDD algorithms

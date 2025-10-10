@@ -1,4 +1,4 @@
-# Validation of probable PDD algorithms
+# Validation of Algorithms for Parkinson's Disease Dementia
 
 This package is not intended for a widespread public use. The idea is to:
 

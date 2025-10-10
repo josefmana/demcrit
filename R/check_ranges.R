@@ -1,12 +1,14 @@
-#' Check value ranges in the prepared dataset
+#' Check Value Ranges of Relevant Variables
 #'
 #' Validates whether values in the dataset fall within expected ranges for analysis.
 #' Used primarily as a safeguard to identify possible data entry errors.
 #'
 #' @param d A data frame prepared via the \code{prepare_data} function.
 #'
-#' @returns Nothing. Prints a message listing any out-of-range values and may
+#' @returns Prints a message listing any out-of-range values and may
 #'    terminate execution if invalid data are detected.
+#'
+#' @seealso [prepare_data()] is a wrapper of this function.
 #'
 #' @examples
 #' \dontrun{

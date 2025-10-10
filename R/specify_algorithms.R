@@ -1,17 +1,20 @@
-#' Specify criteria operationalisations for PDD diagnosis
+#' Specify Algorithms for Probable PDD
 #'
 #' Computes a Cartesian product of possible diagnostic components to define
-#' all combinations of operationalised criteria for probable Parkinson’s disease
-#' dementia (PDD). This function is a helper and is typically called within
+#' all combinations of algorithms for probable Parkinson’s disease dementia (PDD).
+#' This function is a helper with no inputs and is typically called within
 #' \code{diagnose_pdd_sample}.
 #'
-#' @returns A tibble where each row represents one unique operationalisation
-#'    of PDD diagnostic criteria. Columns indicate the type of criteria, individual
-#'    test indexes, thresholds, and other relevant parameters.
+#' @returns A tibble where each row represents one unique diagnostic algorithm
+#'    for probable PDD. Columns indicate the type of algorithms, individual test
+#'    indexes, thresholds, and other relevant parameters.
+#'
+#' @seealso [diagnose_pdd_sample()] combines the algorithms with data to diagnose
+#'    single patients.
 #'
 #' @export
-specify_criteria <- function() {
-  # MMSE-based criteria
+specify_algorithms <- function() {
+  # MMSE-based algorithms
   mmse <- tidyr::crossing(exec = c("vf_s","cloc"), iadl = c("faq_9","faq")) |>
     dplyr::mutate(
       group = "mmse",
@@ -32,7 +35,7 @@ specify_criteria <- function() {
     dplyr::relocate(exec, .after = atte_t) |>
     dplyr::relocate(exec_t, .after = exec) |>
     dplyr::relocate(iadl, .before = iadl_t)
-  # MoCA-based criteria
+  # MoCA-based algorithms
   moca <- purrr::map_dfr(2:3, function(i) {
     tidyr::crossing(
       group = "moca",
@@ -55,7 +58,7 @@ specify_criteria <- function() {
       )
   }) |>
     mutate(type = paste0("MoCA (", seq_len(n()), ")"))
-  # sMoCA-based criteria
+  # sMoCA-based algorithms
   smoca <- tidyr::crossing(
     group = "smoca",
     glob = "smoca_total",
@@ -66,7 +69,7 @@ specify_criteria <- function() {
       type = paste0("sMoCA (", seq_len(dplyr::n()), ")"),
       iadl_t = dplyr::case_when(iadl == "faq" ~ 7, iadl == "faq_9" ~ 1)
     )
-  # Level II-based criteria
+  # Level II-based algorithms
   lvlII <- tidyr::crossing(
     group = "lvlII",
     glob = "nonCI",

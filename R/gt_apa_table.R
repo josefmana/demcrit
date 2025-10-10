@@ -1,7 +1,7 @@
-#' Generate an APA-style table using the gt package
+#' Generate an APA-style Table
 #'
 #' Converts a tibble or data frame into an APA-formatted table using the
-#' \pkg{gt} package. The resulting object inherits all the features and
+#' gt package. The resulting object inherits all the features and
 #' customizations provided by \code{gt}.
 #'
 #' @param x A tibble or data frame to be formatted as an APA-style table.
@@ -10,7 +10,7 @@
 #' @param nms An optional column name (as a string or symbol) to use for row names
 #'    via \code{gt::gt()}'s \code{rowname_col} parameter. Defaults to \code{NULL}.
 #' @param tit A character string specifying the table title. Will be converted to
-#'    HTML format. Defaults to \code{"No Name"}.
+#'    HTML format. Defaults to \code{""}.
 #'
 #' @returns A \code{gt} table object formatted according to APA style.
 #'

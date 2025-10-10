@@ -1,13 +1,17 @@
-#' Check patient names in hand-written data
+#' Check Patient Names
 #'
 #' Compares patient names between a manually entered dataset and a reference set of
-#' correct names (e.g., from REDCap) to identify any discrepancies.
+#' correct names (e.g., from REDCap) to identify discrepancies.
 #'
 #' @param d A data frame containing patient names to be checked (e.g., hand-written data).
 #' @param nms A data frame or vector containing the correct patient names (e.g., from REDCap).
 #'
-#' @returns Nothing. Prints a message listing any discrepancies found. Intended to be called
-#'    within the \code{prepare_data()} function, where the check can optionally be silenced.
+#' @returns  Prints a message listing any discrepancies found. Intended to be called
+#'    within the \code{prepare_data()} function, where it can optionally be silenced.
+#'
+#' @seealso
+#' * [prepare_data()] is a wrapper of this function.
+#' * [import_item_data()] prepares `d`.
 #'
 #' @examples
 #' \dontrun{

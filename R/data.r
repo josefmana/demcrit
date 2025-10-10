@@ -11,9 +11,9 @@
 #' are not.
 #'
 #' @seealso
-#' * [psych::cohen.kappa()] — computes and documents Cohen’s kappa and related
+#' * [psych::cohen.kappa()] computes and documents Cohen’s kappa and related
 #'   metrics.
-#' * [caret::confusionMatrix()] — computes and documents the remaining metrics.
+#' * [caret::confusionMatrix()] computes and documents the remaining metrics.
 #'
 #' @format ## `concords`
 #' A tibble with 7,744 rows and 20 columns:

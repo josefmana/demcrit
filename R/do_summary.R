@@ -1,4 +1,4 @@
-#' Summarise data using predefined summary types
+#' Summarise Data
 #'
 #' Computes descriptive summaries of a given vector, optionally including graphical
 #' representation (planned for future versions). Supports various summary types
@@ -8,7 +8,7 @@
 #' @param dec An integer specifying the number of decimal places for numeric summaries.
 #' @param sum A character string specifying the type of summary to compute. Possible values:
 #' \describe{
-#'   \item{NULL (default)}{Simple printing of the vector}
+#'   \item{`NULL` (default)}{Simple printing of the vector}
 #'   \item{"N"}{Number of observations}
 #'   \item{"msd"}{Mean +/- standard deviation}
 #'   \item{"M"}{Mean}
@@ -22,7 +22,7 @@
 #'   \item{"ptext"}{p-value (formatted for in-text reporting)}
 #'   \item{"Nperc"}{Count and percentage for binary variables}
 #'   \item{"Nslash"}{Counts separated by slashes for nominal variables with any number of categories}
-#'   \item{"estCI"}{Estimate with confidence interval, e.g., "estimate `[CI]`"}
+#'   \item{"estCI"}{Estimate with confidence interval, i.e., `estimate [CI]`}
 #' }
 #'
 #' @returns A character string or numeric summary as specified by \code{sum}.

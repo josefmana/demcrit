@@ -1,4 +1,4 @@
-#' Generate a summary table of study estimands
+#' Generate a Summary Table of Estimands
 #'
 #' This function creates a pre-specified table that provides a verbal summary
 #' of the study's estimands for inclusion in the Appendix. It is intended as a
@@ -9,6 +9,8 @@
 #' @returns A \code{gt} table object summarising the theoretical estimands,
 #'    empirical estimands, and the corresponding statistical estimates used
 #'    in the study.
+#'
+#' @seealso [gt_apa_table()] is used to format the table.
 #'
 #' @export
 table_estimands <- function() {

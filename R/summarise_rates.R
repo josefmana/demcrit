@@ -1,16 +1,22 @@
-#' Orders and prints algorithms based on their estimated PDD rates
+#' Order and Prints Algorithms
 #'
 #' This function computes summaries of the estimated PDD rates,
-#' stratified by diagnostic operationalisation.
+#' stratified by diagnostic algorithm.
 #'
 #' @param d0 A list with PDD data generated via \code{diagnose_pdd_sample}.
-#' @param vars A data.frame, tibble, or matrix with variable names in the first column,
-#'    variable labels in the second column, type of variable (continuous, binary, or nominal)
-#'    in the third column, and optionally a fourth column denoting group and a fifth column
-#'    mapping each label to its description in the table’s note.
-#'    Alternatively, a path to a CSV file (semicolon-delimited) containing such a table.
-#' @param descending A logical indicating whether operationalisations with the highest
-#'    estimated PDD rates should be listed first (default is \code{TRUE}).
+#' @param vars A data.frame, tibble, or matrix with  in the
+#'    following order:
+#'
+#'    1. variable names,
+#'    2. variable labels
+#'    3. type of variable (continuous, binary, or nominal)
+#'    4. optional, group,
+#'    5. optional, mapping each label to its description in the table’s note.
+#'
+#'    Alternatively, a path to a CSV file (semicolon-delimited) containing
+#'    such a table.
+#' @param descending A logical indicating whether algorithms with the highest
+#'    estimated PDD rates should be listed first (default is `TRUE`).
 #'
 #' @returns A list with:
 #' \describe{
@@ -22,6 +28,8 @@
 #'        \item{\code{gtab_algos}}{An APA-style \code{gt} table listing algorithms used.}
 #'        }}
 #' }
+#'
+#' @seealso [diagnose_pdd_sample()] prepares `d0`.
 #'
 #' @examples
 #' \dontrun{
@@ -55,7 +63,7 @@ summarise_rates <- function(d0, vars, descending = TRUE) {
       Rate = paste0(`TRUE`, " (", do_summary(perc, 2), "%)")
     )
   # Prepare algorithm (previously called 'operationalisation') labels:
-  opers <- d0$criteria |>
+  opers <- d0$algorithms |>
     dplyr::mutate(
       Global = sapply(seq_along(type), \(i) paste0(v[v[ , 1] == glob[i], 2]," < ", glob_t[i])),
       Attention = sapply(seq_along(type), \(i) paste0(v[v[ , 1] == atte[i], 2]," < ", atte_t[i])),
@@ -111,20 +119,20 @@ summarise_rates <- function(d0, vars, descending = TRUE) {
       gt::tab_source_note(gt::html(paste0("<i>Note.</i> ", text)))
   }
   # Visualisation code:
-  smoca_9 <- subset(prevs, type == subset(d0$criteria, group == "smoca" & iadl == "faq_9")$type)$perc
-  smoca_tot <- subset(prevs, type == subset(d0$criteria, group == "smoca" & iadl == "faq")$type)$perc
-  lvlII_9 <- subset(prevs, type == subset(d0$criteria, group == "lvlII" & iadl == "faq_9")$type)$perc
-  lvlII_tot <- subset(prevs, type == subset(d0$criteria, group == "lvlII" & iadl == "faq"  )$type)$perc
+  smoca_9 <- subset(prevs, type == subset(d0$algorithms, group == "smoca" & iadl == "faq_9")$type)$perc
+  smoca_tot <- subset(prevs, type == subset(d0$algorithms, group == "smoca" & iadl == "faq")$type)$perc
+  lvlII_9 <- subset(prevs, type == subset(d0$algorithms, group == "lvlII" & iadl == "faq_9")$type)$perc
+  lvlII_tot <- subset(prevs, type == subset(d0$algorithms, group == "lvlII" & iadl == "faq"  )$type)$perc
   plt <- prevs |>
     dplyr::filter(!grepl("sMoCA|Lvl.II", type)) |>
     dplyr::mutate(
       kind = sapply(
         seq_len(length(type)),
         function(i) dplyr::case_when(
-          d0$criteria$glob[d0$criteria$type == type[i]] == "mmse" & d0$criteria$iadl[d0$criteria$type == type[i]] == "faq_9" ~ 1,
-          d0$criteria$glob[d0$criteria$type == type[i]] == "mmse" & d0$criteria$iadl[d0$criteria$type == type[i]] == "faq" ~ 2,
-          d0$criteria$glob[d0$criteria$type == type[i]] == "moca_total" & d0$criteria$iadl[d0$criteria$type == type[i]] == "faq_9" ~ 3,
-          d0$criteria$glob[d0$criteria$type == type[i]] == "moca_total" & d0$criteria$iadl[d0$criteria$type == type[i]] == "faq" ~ 4
+          d0$algorithms$glob[d0$algorithms$type == type[i]] == "mmse" & d0$algorithms$iadl[d0$algorithms$type == type[i]] == "faq_9" ~ 1,
+          d0$algorithms$glob[d0$algorithms$type == type[i]] == "mmse" & d0$algorithms$iadl[d0$algorithms$type == type[i]] == "faq" ~ 2,
+          d0$algorithms$glob[d0$algorithms$type == type[i]] == "moca_total" & d0$algorithms$iadl[d0$algorithms$type == type[i]] == "faq_9" ~ 3,
+          d0$algorithms$glob[d0$algorithms$type == type[i]] == "moca_total" & d0$algorithms$iadl[d0$algorithms$type == type[i]] == "faq" ~ 4
         )
       ),
       `Operationalized by:` = factor(
