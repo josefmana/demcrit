@@ -2,7 +2,7 @@
 % Please edit documentation in R/import_redcap_data.R
 \name{import_redcap_data}
 \alias{import_redcap_data}
-\title{Import REDCap data}
+\title{Import REDCap Data}
 \usage{
 import_redcap_data(path, scoring)
 }
@@ -28,4 +28,10 @@ scor <- readr::read_delim(p[4], delim = ";", col_types = readr::cols(rev = "c"))
 data <- import_redcap_data(p[2])
 }
 
+}
+\seealso{
+\itemize{
+\item \code{\link[=data_paths]{data_paths()}} prepare \code{path}.
+\item \code{\link[=prepare_data]{prepare_data()}} is a wrapper of this function.
+}
 }

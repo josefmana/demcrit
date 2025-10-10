@@ -102,7 +102,7 @@ upstore <- here::here(tar_config_get("store"))
 tar_source(here::here("R"))
 
 data <- tar_read(raw_data, store = upstore)
-crit <- tar_read(pdd_data, store = upstore)$criteria
+crit <- tar_read(pdd_data, store = upstore)$algorithms
 vars <- tar_read(variables, store = upstore)
 ```
 
@@ -159,7 +159,7 @@ critnum <- sapply(c("mmse", "moca", "smoca", "lvlII"), function(i) {
 })
 
 continue <- !any(critnum == 0)
-stopifnot("Some criteria are missing" = continue)
+stopifnot("Some algorithms are missing" = continue)
 ```
 
 For each of these diagnostic approaches, we applied two operationalizations of deficits in Instrumental Activities of Daily Living (IADL). First, we utilized FAQ item 9, which approximates the pill questionnaire from the original criteria [@dubois2007] employing a cut-off score of 2 points or higher. Second, we applied the entire Functional Activities Questionnaire (FAQ) as suggested in the call for change [@kulisevsky2024], employing a cut-off score of 7 points or higher based on Czech normative data [@bezdicek2011]. These methodologies resulted in a total of `r sum(critnum)` algorithms, which were distributed across different diagnostic criteria: `r critnum["mmse"]` MMSE-based, `r critnum["moca"]` MoCA-based, `r critnum["smoca"]` sMoCA-based, and `r critnum["lvlII"]` based on the Level II battery (see @tbl-crits and Appendix @tbl-algos for the exact specification of each algorithm).
@@ -168,7 +168,7 @@ For each of these diagnostic approaches, we applied two operationalizations of d
 #| label: "tbl-crits"
 #| tbl-cap: "Summary of probable PDD operationalizations compared in the study."
 
-table_criteria(vars)
+table_algorithms(vars)
 ```
 
 \[Insert Table 1 here\]

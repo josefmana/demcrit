@@ -2,7 +2,7 @@
 % Please edit documentation in R/assign_cognitive_impairment.R
 \name{assign_cognitive_impairment}
 \alias{assign_cognitive_impairment}
-\title{Assign cognitive impairment status using Bezdicek et al.'s (2017) normative calculator}
+\title{Assign Cognitive Impairment Status}
 \usage{
 assign_cognitive_impairment(d0, calc, map, output = "both")
 }
@@ -31,16 +31,17 @@ Alternatively, a semicolon-delimited CSV file path containing such a table.}
 \value{
 Depending on the \code{output} argument:
 \describe{
-\item{\code{"ci"}}{A logical vector indicating cognitive impairment (TRUE/FALSE).}
+\item{\code{"ci"}}{A logical vector indicating cognitive impairment (\code{TRUE}/\code{FALSE}).}
 \item{\code{"z"}}{A data frame of computed z-scores per cognitive test.}
-\item{\code{"both"}}{A list with two elements: \code{z} (z-scores) and \code{ci} (impairment status).}
+\item{\code{"both"}}{A data.frame containing both \code{z} (z-scores) and \code{ci}
+(impairment status).}
 }
 }
 \description{
 Applies cognitive impairment classification based on z-scores computed via the normative
-regression calculator from Bezdicek et al. (2017), following Level II PD-MCI criteria
-proposed by Litvan et al. (2012). A patient is classified as cognitively impaired if they
-have two or more test scores with z < -1.5.
+regression calculator from Bezdicek et al. \href{https://doi.org/10.1080/13854046.2017.1293161}{(2017)},
+following Level II PD-MCI criteria proposed by Litvan et al. \href{https://doi.org/10.1002/mds.24893}{(2012)}.
+A patient is classified as cognitively impaired if they have two or more test scores with z < -1.5.
 }
 \examples{
 \dontrun{
@@ -51,4 +52,18 @@ ci <- assign_cognitive_impairment(
 )
 }
 
+}
+\references{
+Bezdicek, O., Sulc, Z., Nikolai, T., Stepankova, H., Kopecek, M., Jech, R., & Růžička, E. (2017).
+A parsimonious scoring and normative calculator for the Parkinson’s disease mild cognitive
+impairment battery. \emph{The Clinical Neuropsychologist, 31}(6-7), 1231-1247.
+\doi{10.1080/13854046.2017.1293161}
+
+Litvan, I., Goldman, J. G., Tröster, A. I., Schmand, B. A., Weintraub, D., Petersen, R. C.,
+... & Emre, M. (2012). Diagnostic criteria for mild cognitive impairment in Parkinson's disease:
+Movement Disorder Society Task Force guidelines. \emph{Movement disorders, 27}(3), 349-356.
+\doi{10.1002/mds.24893}
+}
+\seealso{
+\code{\link[=prepare_data]{prepare_data()}} is a wrapper of this function.
 }

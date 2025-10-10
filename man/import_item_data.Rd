@@ -2,7 +2,7 @@
 % Please edit documentation in R/import_item_data.R
 \name{import_item_data}
 \alias{import_item_data}
-\title{Import item-data}
+\title{Import Item Data}
 \usage{
 import_item_data(path)
 }
@@ -14,9 +14,9 @@ by the \code{data_paths} function.}
 A tibble containing item-level data.
 }
 \description{
-Imports item-level data from a specified file path, checks for unrealistic values
-(e.g., in MMSE scores), and prepares the data for further processing.
-This function is intended to be called within the larger \code{prepare_data} workflow.
+Imports item-level data from a specified file path, checks for unrealistic values,
+and prepares the data for further processing. This function is intended to be called
+within the larger \code{prepare_data} workflow.
 }
 \examples{
 \dontrun{
@@ -24,4 +24,7 @@ p <- data_paths("data-raw")
 data <- import_item_data(p[1])
 }
 
+}
+\seealso{
+\code{\link[=prepare_data]{prepare_data()}} is a wrapper of this function.
 }

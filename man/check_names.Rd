@@ -2,7 +2,7 @@
 % Please edit documentation in R/check_names.R
 \name{check_names}
 \alias{check_names}
-\title{Check patient names in hand-written data}
+\title{Check Patient Names}
 \usage{
 check_names(d, nms)
 }
@@ -12,12 +12,12 @@ check_names(d, nms)
 \item{nms}{A data frame or vector containing the correct patient names (e.g., from REDCap).}
 }
 \value{
-Nothing. Prints a message listing any discrepancies found. Intended to be called
-within the \code{prepare_data()} function, where the check can optionally be silenced.
+Prints a message listing any discrepancies found. Intended to be called
+within the \code{prepare_data()} function, where it can optionally be silenced.
 }
 \description{
 Compares patient names between a manually entered dataset and a reference set of
-correct names (e.g., from REDCap) to identify any discrepancies.
+correct names (e.g., from REDCap) to identify discrepancies.
 }
 \examples{
 \dontrun{
@@ -28,5 +28,11 @@ data <- prepare_data(p, check.names = TRUE)
 
 # Without name checking:
 data <- prepare_data(p, check.names = FALSE)
+}
+}
+\seealso{
+\itemize{
+\item \code{\link[=prepare_data]{prepare_data()}} is a wrapper of this function.
+\item \code{\link[=import_item_data]{import_item_data()}} prepares \code{d}.
 }
 }

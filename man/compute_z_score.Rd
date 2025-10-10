@@ -2,16 +2,16 @@
 % Please edit documentation in R/compute_z_score.R
 \name{compute_z_score}
 \alias{compute_z_score}
-\title{Compute z-score(s) based on raw scores and demographic regression model}
+\title{Compute Regression z-scores}
 \usage{
-compute_z_score(calc, x, nam, AGE, GEN, EDU)
+compute_z_score(calc, x, lbl, AGE, GEN, EDU)
 }
 \arguments{
 \item{calc}{A data frame or tibble containing regression parameters from the calculator.}
 
 \item{x}{A numeric vector of raw performance scores.}
 
-\item{nam}{A character string specifying the test index label (must match an entry in \code{calc}).}
+\item{lbl}{A character string specifying the test index label (must match an entry in \code{calc}).}
 
 \item{AGE}{A numeric vector indicating the participant's age (in years).}
 
@@ -33,7 +33,7 @@ calculator, along with the patient's raw score and demographic information
 z <- compute_z_score(
   calc = regression_table,
   x = c(35, 42, 28),
-  nam = "Digit Span Backward",
+  lbl = "Digit Span Backward",
   AGE = c(67, 70, 74),
   GEN = c(1, 0, 1),
   EDU = c(15, 12, 16)

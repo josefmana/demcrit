@@ -2,7 +2,7 @@
 % Please edit documentation in R/check_ranges.R
 \name{check_ranges}
 \alias{check_ranges}
-\title{Check value ranges in the prepared dataset}
+\title{Check Value Ranges of Relevant Variables}
 \usage{
 check_ranges(d)
 }
@@ -10,7 +10,7 @@ check_ranges(d)
 \item{d}{A data frame prepared via the \code{prepare_data} function.}
 }
 \value{
-Nothing. Prints a message listing any out-of-range values and may
+Prints a message listing any out-of-range values and may
 terminate execution if invalid data are detected.
 }
 \description{
@@ -22,4 +22,7 @@ Used primarily as a safeguard to identify possible data entry errors.
 p <- data_paths("data-raw")
 data <- prepare_data(p)  # Automatically performs range checks
 }
+}
+\seealso{
+\code{\link[=prepare_data]{prepare_data()}} is a wrapper of this function.
 }

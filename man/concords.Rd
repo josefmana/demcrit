@@ -56,9 +56,9 @@ are not.
 }
 \seealso{
 \itemize{
-\item \code{\link[psych:kappa]{psych::cohen.kappa()}} — computes and documents Cohen’s kappa and related
+\item \code{\link[psych:kappa]{psych::cohen.kappa()}} computes and documents Cohen’s kappa and related
 metrics.
-\item \code{\link[caret:confusionMatrix]{caret::confusionMatrix()}} — computes and documents the remaining metrics.
+\item \code{\link[caret:confusionMatrix]{caret::confusionMatrix()}} computes and documents the remaining metrics.
 }
 }
 \keyword{datasets}

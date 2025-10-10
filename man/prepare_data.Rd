@@ -2,7 +2,7 @@
 % Please edit documentation in R/prepare_data.R
 \name{prepare_data}
 \alias{prepare_data}
-\title{Pre-process data for analysis}
+\title{Pre-process Data for Analysis}
 \usage{
 prepare_data(p, check.names = TRUE)
 }
@@ -15,7 +15,7 @@ run to compare names in meta data and item data.}
 \value{
 A tibble containing cleaned and pre-processed variables ready for analysis.
 The function also performs validation checks and prints warnings or stops execution
-if critical issues are detected (e.g., mismatched names, out-of-range values).
+if critical issues are detected (e.g., mismatched names or out-of-range values).
 }
 \description{
 Takes in file paths to raw data, checks their format and compatibility,
@@ -29,4 +29,16 @@ p <- data_paths("data-raw")
 data <- prepare_data(p)
 }
 
+}
+\seealso{
+\itemize{
+\item \code{\link[=data_paths]{data_paths()}} prepares \code{p}.
+\item \code{\link[=import_redcap_data]{import_redcap_data()}} prepares data freom the REDCap database.
+\item \code{\link[=import_item_data]{import_item_data()}} prepares hand-written item-level data.
+\item \code{\link[=check_names]{check_names()}} compares patient names in item data and meta data.
+\item \code{\link[=check_compatibility]{check_compatibility()}} compares variables in item vs. REDCap data.
+\item \code{\link[=check_ranges]{check_ranges()}} controls that neuropsychological variables are not out of range.
+\item \code{\link[=assign_cognitive_impairment]{assign_cognitive_impairment()}} computes cognitive impairment status on level II
+of assessment.
+}
 }

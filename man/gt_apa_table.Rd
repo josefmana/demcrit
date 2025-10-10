@@ -2,7 +2,7 @@
 % Please edit documentation in R/gt_apa_table.R
 \name{gt_apa_table}
 \alias{gt_apa_table}
-\title{Generate an APA-style table using the gt package}
+\title{Generate an APA-style Table}
 \usage{
 gt_apa_table(x, grp = NULL, nms = NULL, tit = "")
 }
@@ -16,13 +16,13 @@ rows via \code{gt::gt()}'s \code{groupname_col} parameter. Defaults to \code{NUL
 via \code{gt::gt()}'s \code{rowname_col} parameter. Defaults to \code{NULL}.}
 
 \item{tit}{A character string specifying the table title. Will be converted to
-HTML format. Defaults to \code{"No Name"}.}
+HTML format. Defaults to \code{""}.}
 }
 \value{
 A \code{gt} table object formatted according to APA style.
 }
 \description{
 Converts a tibble or data frame into an APA-formatted table using the
-\pkg{gt} package. The resulting object inherits all the features and
+gt package. The resulting object inherits all the features and
 customizations provided by \code{gt}.
 }
