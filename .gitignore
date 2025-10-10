@@ -72,3 +72,5 @@ apa_processed.docx
 inst/doc
 **/.quarto/
 docs
+/doc/
+/Meta/
