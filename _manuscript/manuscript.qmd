@@ -75,9 +75,9 @@ keywords:
   - Parkinson's disease dementia
   - level I criteria
 format:
- # apaquarto-pdf:
-   # documentmode: man
-   # keep-tex: true
+ apaquarto-pdf:
+    documentmode: man
+    keep-tex: true
  apaquarto-docx: 
     toc: false
 author-note:
@@ -102,8 +102,15 @@ upstore <- here::here(tar_config_get("store"))
 tar_source(here::here("R"))
 
 data <- tar_read(raw_data, store = upstore)
-crit <- tar_read(pdd_data, store = upstore)$algorithms
 vars <- tar_read(variables, store = upstore)
+crit <- tar_read(pdd_data, store = upstore)$algorithms
+rates <- tar_read(rate_summaries, store = upstore)
+
+pres <- tar_read(pdd_data, store = upstore)$PDD |>
+  mutate(present = if_else(is.na(PDD), 0, 1)) |>
+  select(id, type, present) |>
+  pivot_wider(names_from = type, values_from = present) |>
+  column_to_rownames("id")
 ```
 
 # Introduction
@@ -151,18 +158,18 @@ In this study, we applied three distinct sets of diagnostic algorithms for proba
 Lastly, the fourth approach followed the Level II protocol for diagnosis of PDD and Mild Cognitive Impairment in PD (PD-MCI) [@dubois2007; @litvan2012]. The Level II methodology, including the use of a regression-based normative scoring approach, has been detailed in a prior study [@bezdicek2017]. In this study, the thresholds for cognitive impairment at Level II were set at $z \leq -1.5$. All non-cognitive criteria of probable PDD (i.e., diagnosis of PD that developed before dementia and absence of Major Depression, delirium or other abnormalities that obscure diagnosis) held true for all patients in the sample according to the psychiatric and neurological examinations.
 
 ```{r}
-#| label: "crit-check"
+#| label: "algo-check"
 
-critnum <- sapply(c("mmse", "moca", "smoca", "lvlII"), function(i) {
+algonum <- sapply(c("mmse", "moca", "smoca", "lvlII"), function(i) {
   subset(crit, group == i) |>
     nrow()
 })
 
-continue <- !any(critnum == 0)
+continue <- !any(algonum == 0)
 stopifnot("Some algorithms are missing" = continue)
 ```
 
-For each of these diagnostic approaches, we applied two operationalizations of deficits in Instrumental Activities of Daily Living (IADL). First, we utilized FAQ item 9, which approximates the pill questionnaire from the original criteria [@dubois2007] employing a cut-off score of 2 points or higher. Second, we applied the entire Functional Activities Questionnaire (FAQ) as suggested in the call for change [@kulisevsky2024], employing a cut-off score of 7 points or higher based on Czech normative data [@bezdicek2011]. These methodologies resulted in a total of `r sum(critnum)` algorithms, which were distributed across different diagnostic criteria: `r critnum["mmse"]` MMSE-based, `r critnum["moca"]` MoCA-based, `r critnum["smoca"]` sMoCA-based, and `r critnum["lvlII"]` based on the Level II battery (see @tbl-crits and Appendix @tbl-algos for the exact specification of each algorithm).
+For each of these diagnostic approaches, we applied two operationalizations of deficits in Instrumental Activities of Daily Living (IADL). First, we utilized FAQ item 9, which approximates the pill questionnaire from the original criteria [@dubois2007] employing a cut-off score of 2 points or higher. Second, we applied the entire Functional Activities Questionnaire (FAQ) as suggested in the call for change [@kulisevsky2024], employing a cut-off score of 7 points or higher based on Czech normative data [@bezdicek2011]. These methodologies resulted in a total of `r sum(algonum)` algorithms, which were distributed across different diagnostic criteria: `r algonum["mmse"]` MMSE-based, `r algonum["moca"]` MoCA-based, `r algonum["smoca"]` sMoCA-based, and `r algonum["lvlII"]` based on the Level II battery (see @fig-tree, @tbl-crits and Appendix @tbl-algos for the exact specification of each algorithm).
 
 ```{r}
 #| label: "tbl-crits"
@@ -177,15 +184,13 @@ table_algorithms(vars)
 
 Following the framework proposed @lundberg2021, in this study we explicitly connect our research objectives and their corresponding theoretical (i.e., targets of inference) and empirical (i.e., data-driven) estimands to statistical estimates. The theoretical estimand refers to a unit-specific quantity defined over a target population and represents the ideal quantity that would address the research question under optimal conditions, such as access to complete population data or perfect experimental control. In contrast, the empirical estimand corresponds to the quantity that is actually computable using the available dataset, given real world constraints. The full description of the study’s estimands and their relation to our research objectives is presented in the Appendix (see @tbl-estimands).
 
-To address study objectives, we started by repeatedly assigning each patient the diagnosis of probable PDD based on each PDD algorithm listed in @tbl-crits (see also @tbl-algos) resulting in a `r sum(data$incl)` (patients) $\times$ `r sum(critnum)` (algorithms) matrix where each cell indicates whether a patient (row) meets criteria for probable PDD according to an algorithm (column). PDD rate estimates were computed as $\frac{N_{PDD}}{N_{total}}$ separately for each algorithm. The predictive value of age and sex was then evaluated by fitting a set of logistic regressions, one for each algorithm for probable PDD, whereby the probable PDD was predicted by age, sex and their interaction.
+To address study objectives, we started by repeatedly assigning each patient the diagnosis of probable PDD based on each PDD algorithm listed in @tbl-crits (see also @tbl-algos) resulting in a `r sum(data$incl)` (patients) $\times$ `r sum(algonum)` (algorithms) matrix where each cell indicates whether a patient (row) meets criteria for probable PDD according to an algorithm (column). PDD rate estimates were computed as $\frac{N_{PDD}}{N_{total}}$ separately for each algorithm. The predictive value of age and sex was then evaluated by fitting a set of logistic regressions, one for each algorithm for probable PDD, whereby the probable PDD was predicted by age, sex and their interaction.
 
 Next, a set of two class cross-tabulations with associated statistics was computed for each pair of algorithms via the `confusionMatrix()` function from the R package *caret* [@kuhn2008]. For each pair of algorithms, the analysis was repeated twice such that each variable of the pair served once as the reference and once as the predictor. Following measures were used to evaluate pairwise concordance between different algorithms for probable PDD: 1) Cohen's $\kappa$ with its 95% confidence interval (CI) computed via the `cohen.kappa()` function from the R package *psych* [@revelle2024]; 2) Accuracy (i.e., the proportion of correct predictions, both true positives and true negatives, among the total number of cases) with its 95% CI; 3) Sensitivity/Recall (i.e., the proportion of true positives); and 4) Specificity (i.e., the proportion of true negatives).
 
 Finally, the No Information Rate (NIR) was calculated for each pair of algorithms. NIR is the accuracy that could be obtained by always predicting the majority class and in our case it is equivalent to the complement of the PDD rate estimate according to the reference algorithm. Accuracy of prediction was compared to the NIR via a one-sided Exact Binomial Test as implemented by the `binom.test()` R stats function. Reference/predictor pairs associated with p \< .05 were considered to show significantly better accuracy than NIR. In other words, for reference/predictor pairs associated with p \< .05, we conclude that knowing the probable PDD status according to the predictor algorithm helps to estimate the probable PDD status according to the reference algorithm and the two algorithms thus show substantial concordance.
 
-Data wrangling and visualizations were done in the *tidyverse* package [@wickham2019] and tables were formatted in the *gt* package [@iannone2024]. All analyses were conducted within the R (version `r with(version, paste(major, minor, sep="."))`) software environment for statistical computing [@rsoft]. The software code supporting this article is available at <https://github.com/josefmana/DemCr1t.git>.[^1]
-
-[^1]: **JM: Do not forget to make it public before submitted!**
+**Missing data were handled by complete cases analysis and pairwise complete cases analysis. In other words, each univariate and analysis pairwise comparison used all available data.** Data wrangling and visualizations were done in the *tidyverse* package [@wickham2019] and tables were formatted in the *gt* package [@iannone2024]. All analyses were conducted within the R (version `r with(version, paste(major, minor, sep="."))`) software environment for statistical computing [@rsoft]. The software code supporting this article is available at <https://github.com/josefmana/demcrit.git>.
 
 # Results
 
@@ -193,12 +198,24 @@ Data wrangling and visualizations were done in the *tidyverse* package [@wickham
 #| label: "results"
 
 desc  <- tar_read(sample_description, store = upstore)
-rates <- tar_read(rate_summaries, store = upstore)
 algos <- tar_read(algorithms, store = upstore)
 pred  <- tar_read(demographic_predictors, store = upstore)
 conc  <- tar_read(concordance_statistics, store = upstore)
 kappa <- tar_read(kappa_summmaries, store = upstore)
 perc  <- rates$table$perc
+
+# Total numbers:
+n_total <- sum(data$incl)
+id_excl <- names(which(rowSums(pres) == 0))
+n_excl <- length(id_excl)
+n_incl <- n_total - n_excl
+if (n_excl == 1) {
+  excl_txt <- paste0("one patient was excluded due to missing neuropsychological data, resulting in a final sample of ", n_incl, " patients")
+} else if (n_excl > 1) {
+  excl_txt <- paste0(english::english(n_excl), " patients were excluded due to missing neuropsychological data, resulting in a final sample of ", n_incl, " patients")
+} else {
+  excl_txt <- "no patients was excluded."
+}
 
 # Function for writing M (SD):
 msd_txt <- function(x, txt = "", tab = desc$table) {
@@ -233,7 +250,7 @@ min_p <- subset(pred$values, quantity == "p-value")$estimate |>
 
 ## Sample Description
 
-A total of `r sum(data$incl)` patients were included. The sample included `r sex` men, with an average of `r age`, `r edu`, `r dur`, `r updrs_off` and `r updrs_on`. **Descriptive statistics for neuropsychiatric symptoms indicated mild depressive and anxiety symptoms in our cohort, with the average BDI-II of `r bdi`, average STAI X1 of `r staix1`, and average STAI X2 of `r staix2`. However, according to the psychiatric assessment, none of the patients with probable PDD was suffering major depressive disorder, delirium or other neuropsychiatric abnormalities that would disqualify the diagnosis.** Cognitive characteristics of the sample are summarized in @tbl-desc.
+**Total of** `r n_total` patients **were considered for the study, out of which `r excl_txt`**. The sample included `r sex` men, with an average of `r age`, `r edu`, `r dur`, `r updrs_off` and `r updrs_on`. **Descriptive statistics for neuropsychiatric symptoms indicated mild depressive and anxiety symptoms in our cohort, with the average BDI-II of `r bdi`, average STAI X1 of `r staix1`, and average STAI X2 of `r staix2`. However, according to the psychiatric assessment, none of the patients with probable PDD was suffering from the major depressive disorder, delirium or other neuropsychiatric abnormalities that would disqualify the diagnosis.** Cognitive characteristics of the sample are summarized in @tbl-desc.
 
 ```{r}
 #| label: "tbl-desc"
@@ -246,25 +263,56 @@ desc$gtable
 
 ## PDD Rate Estimates
 
-Algorithm-wise rate of PDD estimates are presented in @tbl-rates. On average, estimated PDD rate was `r rates_overall["M"]`% (SD = `r rates_overall["SD"]`, Md = `r rates_overall["Md"]`, range `r rates_overall["minmax"]`). Notably, the estimates were substantially lower when FAQ item 9 was used as a criterion of IADL deficit (M = `r rates_FAQ9["M"]`% SD = `r rates_FAQ9["SD"]`, Md = `r rates_FAQ9["Md"]`, range `r rates_FAQ9["minmax"]`) compared to using total FAQ score criterion (M = `r rates_FAQtot["M"]`% SD = `r rates_FAQtot["SD"]`, Md = `r rates_FAQtot["Md"]`, range `r rates_FAQtot["minmax"]`) as demonstrated also in @fig-rates. Neither age nor sex or their interaction (*p*s $\geq$ `r min_p`) reliably predicted probable PDD classification across algorithms (see @fig-data and @fig-pars).
+```{r}
+#| label: "observations-univariate"
+
+obs <- rates$table|>
+  count(N) |>
+  mutate(perc_missing = glue::glue("{round(100 * (n_incl-N) / n_incl, 1)}%"))
+```
+
+Algorithm-wise rate of PDD estimates **corresponding numbers of patients with available data** are presented in @tbl-rates. **In total, there were `r obs[1, "n"]` algorithms based on `r obs[1, "N"]` complete observations (`r obs[1, "perc_missing"]` missing). One algorithm used `r obs[2, "N"]`, `r obs[3, "N"]`, and `r obs[4, "N"]` complete observations, respectively (`r obs[2, "perc_missing"]`, `r obs[3, "perc_missing"]` and `r obs[4, "perc_missing"]` missing). A further `r obs[5, "n"]` algorithms were based on `r obs[5, "N"]` complete observations (`r obs[5, "perc_missing"]` missing), and `r obs[6, "n"]` algorithms included the full sample of `r obs[6, "N"]` patients.**
+
+On average, estimated PDD rate was `r rates_overall["M"]`% (SD = `r rates_overall["SD"]`, Md = `r rates_overall["Md"]`, range `r rates_overall["minmax"]`). Notably, the estimates were substantially lower when FAQ item 9 was used as a criterion of IADL deficit (M = `r rates_FAQ9["M"]`% SD = `r rates_FAQ9["SD"]`, Md = `r rates_FAQ9["Md"]`, range `r rates_FAQ9["minmax"]`) compared to using total FAQ score criterion (M = `r rates_FAQtot["M"]`% SD = `r rates_FAQtot["SD"]`, Md = `r rates_FAQtot["Md"]`, range `r rates_FAQtot["minmax"]`) as demonstrated in @fig-tree **(see also @fig-rates for per-operationalisation distribution of PDD rate estimates)**. Neither age nor sex or their interaction (*p*s $\geq$ `r min_p`) reliably predicted probable PDD classification across algorithms (see @fig-data and @fig-pars).
 
 \[Insert Figure 1 here\]
 
 ```{r}
-#| label: "fig-rates"
-#| fig-cap: "Summary of the estimates of probable PDD rate."
-#| apa-note: "Vertical lines represent estimates arrived at by using sMoCA (dotted) or Level II (dashed) with FAQ item 9 (orange) or FAQ total score (blue) as criteria for probable PDD."
+#| label: "fig-tree"
+#| fig-cap: "A dendrogram representing algorithms creation."
 
-rates$plot
+make_dendrogram(rates$table)
 ```
 
 ## Concordance between Algorithms
 
-Results of the analyses of prediction Accuracy, Cohen's $\kappa$, Sensitivity and Specificity are presented in @fig-acc, @fig-kappa, @fig-sens and @fig-spec respectively. **Numerical results are available at ...** [^2]. Generally, algorithms that employed the same operationalization of IADL deficit showed substantial pairwise concordance, however, algorithms that operationalized IADL deficit differently did not. Whereas among algorithms with identical IADL deficit operationalization, the agreement judged by Cohen's $\kappa$ was moderately high (operationalization by FAQ total score: $\kappa$ = `r kappa$sums["faq_tot"]`; operationalization by FAQ item 9: $\kappa$ = `r kappa$sums["faq_9"]`), among algorithms that differ in IADL deficit operationalization but are otherwise identical it was low: $\kappa$ = `r kappa$sums["iadl"]`.
+```{r}
+#| label: "observations-bivariate"
 
-[^2]: **JM: Should provide an excel sheet or html table the readers could go through by themselves.**
+dims <- glue::glue("{dim(conc$table)[1]} rows x {dim(conc$table)[2]} columns")
 
-\[Insert Figure 2 here\]
+obs_pairs <- conc$table |>
+  count(N) |>
+  drop_na() |> # NA for cases where reference == predictor
+  mutate(perc = 100 * n / sum(n))
+
+min_miss <- glue::glue("{round(100 * (n_incl - obs_pairs[1, 'N']) / n_incl, 2)}%")
+
+K <- 200
+perc_above_k <- obs_pairs |>
+  filter(N >= K) |>
+  pull(perc) |>
+  sum() |>
+  do_summary(2)
+```
+
+Results of the analyses of prediction Accuracy, Cohen's $\kappa$, Sensitivity and Specificity are presented in @fig-acc, @fig-kappa, @fig-sens and @fig-spec respectively. **The number of complete pairwise cases ranged from `r obs_pairs[1, "N"]` (`r min_miss` missing) to `r obs_pairs[nrow(obs_pairs), "N"]` (full sample). Most comparisons (`r perc_above_k`%) were based off of `r K` or more observations.**[^1]
+
+[^1]: **Due to the large number of entries (`r dims` representing pairwise comparisons and metrics of interest respectively), the table with numerical results is not presented here or in the Appendix. Instead, we share the table share as data in the accompanying R package available at <https://github.com/josefmana/demcrit.git>. To obtain the table in format not dependent on R, follow the tutorial at <https://josefmana.github.io/demcrit/articles/concordance.html>**
+
+Generally, algorithms that employed the same operationalization of IADL deficit showed substantial pairwise concordance, however, algorithms that operationalized IADL deficit differently did not. Whereas among algorithms with identical IADL deficit operationalization, the agreement judged by Cohen's $\kappa$ was moderately high (operationalization by FAQ total score: $\kappa$ = `r kappa$sums["faq_tot"]`; operationalization by FAQ item 9: $\kappa$ = `r kappa$sums["faq_9"]`), among algorithms that differ in IADL deficit operationalization but are otherwise identical it was low: $\kappa$ = `r kappa$sums["iadl"]`.
+
+\[Insert Figure 3 here\]
 
 ```{r}
 #| label: "fig-acc"
@@ -342,11 +390,19 @@ This study’s generalizability is limited by its retrospective design and the h
 
 Nevertheless, the analysis of the algorithm concordance might not be affected by the sample to the same degree allowing for a broader generalization. **However, the use of a DBS cohort offered certain methodological advantages. For example, all patients underwent standardized and comprehensive neuropsychological testing, which resulted in well-characterized and high-quality dataset, allowing us to systematically evaluate multiple diagnostic algorithms.** Future studies should aim to replicate our results on larger and different cohorts **with more heterogenous sample**. To make this process easier, the code used to generate our results is publicly available and easily applicable to similarly structured data.
 
+**Due to the retrospective nature of the study, some patients lacked one or more key measures required for the diagnosis of probable PDD by certain algorithms. Missing data were handled using the pairwise complete cases method. The main advantages of this approach are its straightforward implementation and preservation of statistical power. However, it may introduce bias, particularly when data are not missing completely at random (MCAR) and when causal inference is the goal [@little2019].**
+
+**Modern alternatives, such as multiple imputation techniques, have been shown to produce less biased estimates than case deletion strategies in analyses based on confusion matrices [@karakaya2014], whereas the evidence supporting their superiority in the estimation of Cohen’s $\kappa$ remains limited [@deraadt2019]. These modern approaches also require careful specification of the imputation model and the underlying causal mechanism of missingness to ensure appropriate covariate selection [@long2011; @bianco2023]. For the sake of parsimony, we did not employ advanced missing-data techniques but instead explicitly described the observed missingness patterns. Consequently, our findings should be regarded as exploratory and primarily serve as a basis for hypothesis generation in future, more controlled studies.**
+
+**Another possible avenue for analysing the present data would be to exploit their hierarchical structure by fitting a multilevel model with algorithms nested within patients (see @fig-tree). Such an approach could leverage partial pooling [@gelman2012] and might approximate modern item response theory frameworks [@burkner2021], where PDD is conceptualised as a latent trait and the individual diagnostic algorithms act as items measuring it (). If feasible, this psychometric perspective may represent an exciting new direction for conceptualising complex clinical phenomena such as PDD [cf. @miller2012, @kiselica2021].**
+
 Furthermore, another limitation is the use of the FAQ questionnaire for IADL assessment. FAQ is subjective and informant-reliant, which may result in biased data. **At the same time, the questionnaire may vary across cultures, therefore, the results may not be transferable. For example, activities such as financial management or driving, may not be equally practiced across cultures or contexts, which might complicate interpretation of impairment levels. The FAQ scores may vary across cultures, and diagnostic thresholds may not be transferable across countries [@odonald2025]. This may influence both the sensitivity and ecological validity of the functional criteria used. Another limitation is that the FAQ scores may correlate with neuropsychological results of certain domains, specifically executive functions or memory [@vanrentergem2020; @moheb2017]. This overlap could artificially increase concordance between cognitive and functional criteria. For future research, we suggest using a PD-specific questionnaire, such as the Penn Parkinson's Daily Activities Questionnaire-15 [@brennan2016] or generally more objective methods, preferably performance-based ones. Our results underscore the importance of IADL measurement for the PDD diagnosis. Therefore, we recommend using more reliable tools with high ecological validity.** For future research, we suggest the use of more objective, modernized tools for IADl assessment, such as performance-based methods [@schmitter-edgecombe2020] or questionnaire adaptation including questions regarding gadgets use and digital literacy [@postema2024]. Our results emphasize the importance of IADL deficit for the PDD diagnosis, therefore, we suggest exploring more reliable tools with high ecological validity.
 
 **Additionally, the current study did not explore associations of PDD diagnosis with its neuropsychiatric correlates and biomarkers. We recommend examining models where psychiatric symptoms and biomarkers are treated as covariates to better capture their impact on PDD diagnosis.**
 
-??Finally, whereas our study systematically investigated how varying definition of global deficit, impaired cognition and IADL deficit affect probable PDD classification, it did not explore associations of PDD diagnosis with its neuropsychiatric (e.g. anxiety profile) and biomarker correlates. Future studies would benefit from focusing on these aspects of PDD.??^[**JM: Why was the previous paragraph added instead of this one? This looks perfectly functional. The same goes largely for the IADL discussion, the original was better (in terms of resources and logical coherence) at most places.**]
+??Finally, whereas our study systematically investigated how varying definition of global deficit, impaired cognition and IADL deficit affect probable PDD classification, it did not explore associations of PDD diagnosis with its neuropsychiatric (e.g. anxiety profile) and biomarker correlates. Future studies would benefit from focusing on these aspects of PDD.??[^2]
+
+[^2]: **JM: Why was the previous paragraph added instead of this one? This looks perfectly functional. The same goes largely for the IADL discussion, the original was better (in terms of resources and logical coherence) at most places.**
 
 # Conclusions
 
@@ -460,6 +516,14 @@ Estimates relating to RO1.1 and RO1.3 cannot be safely generalized beyond a popu
 Finally, for the RO2, the theoretical estimand is defined as the set of diagnostic components whose variation systematically alters the probability of a probable PDD diagnosis. This aspect of the study is exploratory in nature. Empirically, we assess the contribution of each diagnostic feature by examining how variations in operational definitions (e.g., domain-specific thresholds, criteria for functional impairment) influence the statistical estimates derived for the first objective. This allows us to identify the diagnostic elements most responsible for between-algorithm discrepancies.
 
 ## Supplementary Presentation of Results
+
+```{r}
+#| label: "fig-rates"
+#| fig-cap: "Summary of the estimates of probable PDD rate."
+#| apa-note: "Vertical lines represent estimates arrived at by using sMoCA (dotted) or Level II (dashed) with FAQ item 9 (orange) or FAQ total score (blue) as criteria for probable PDD."
+
+rates$plot
+```
 
 ```{r}
 #| label: "tbl-rates"
