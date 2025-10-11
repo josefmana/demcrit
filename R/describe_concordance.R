@@ -68,6 +68,14 @@ describe_concordance <- function(d0) {
   # for a guide to interpretation)
   tab <- p |>
     mutate(
+      # Number of observations:
+      N = sapply(seq_along(reference), function(i) {
+        ifelse(
+          test = reference[i] == predictor[i],
+          yes = NA,
+          no = k[[i]]$n.obs
+        )
+      }),
       # Estimate [95% CI] for Kappa & Accuracy:
       Kappa = sapply(seq_along(reference), function(i) {
         ifelse(

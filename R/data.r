@@ -16,10 +16,11 @@
 #' * [caret::confusionMatrix()] computes and documents the remaining metrics.
 #'
 #' @format ## `concords`
-#' A tibble with 7,744 rows and 20 columns:
+#' A tibble with 7,744 rows and 21 columns:
 #' \describe{
 #'   \item{predictor}{Character; name of the algorithm used as a predictor.}
 #'   \item{reference}{Character; name of the algorithm used as a reference.}
+#'   \item{N}{Integer; the number of patients used to do calculations.}
 #'   \item{Kappa}{Character; Cohen’s kappa with its 95% confidence interval.}
 #'   \item{Accuracy}{Character; accuracy estimate with its 95% confidence interval.}
 #'   \item{Kappa_raw}{Numeric; Cohen’s kappa estimate.}
