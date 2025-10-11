@@ -47,7 +47,7 @@ list(
   ),
   tar_target(
     name = demographic_predictors_adjusted, # Regress probable PDD on demographics adjusting for neuropsychiatry
-    command = regress_pdd_on_demographics(raw_data, pdd_data$PDD, covs = c("bdi", "stai_1"))
+    command = regress_pdd_on_demographics(raw_data, pdd_data$PDD, covs = c("bdi", "stai_1"), inter = FALSE)
   ),
   tar_target(
     name = concordance_statistics, # Describe concordance between different PDD algorithms

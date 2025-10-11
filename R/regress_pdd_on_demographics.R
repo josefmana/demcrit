@@ -11,6 +11,9 @@
 #' @param covs Either a character vector containing covariates of interest (in
 #'    which case the resulting formula will be `PDD ~ age * sex * (covariate1 + covariate2 + ...)`,
 #'    or `NULL` (default case whereby the resulting formula will be `PDD ~ age * sex`).
+#' @param inter A logical indicating whether covariates ought to be added to the
+#'    together with their interactions with predictors of interest (default and
+#'    recommended, `TRUE`) or as additive terms only (`FALSE`).
 #'
 #' @returns A list with the following components:
 #' \describe{
@@ -37,7 +40,7 @@
 #' }
 #'
 #' @export
-regress_pdd_on_demographics <- function(d0, d1, covs = NULL) {
+regress_pdd_on_demographics <- function(d0, d1, covs = NULL, inter = TRUE) {
   # Extract orders for visualisation:
   ord_id <- d0 |>
     dplyr::arrange(age) |>
@@ -51,7 +54,7 @@ regress_pdd_on_demographics <- function(d0, d1, covs = NULL) {
     dplyr::filter(PDD == TRUE) |>
     dplyr::arrange(n) |>
     dplyr::pull(type)
-  # Prepare an anonimisation mapping:
+  # Prepare further anonymisation mapping:
   anon <- dplyr::left_join(
     data.frame(id = ord_id),
     cbind.data.frame(
@@ -63,7 +66,7 @@ regress_pdd_on_demographics <- function(d0, d1, covs = NULL) {
   # Prepare data for analysis:
   df <- d1 |>
     dplyr::select(id, type, PDD) |>
-    dplyr::left_join(d0, by = join_by(id)) |>
+    dplyr::left_join(d0, by = dplyr::join_by(id)) |>
     dplyr::mutate(
       PDD = dplyr::if_else(PDD, 1, 0),
       sid = factor(
@@ -95,8 +98,10 @@ regress_pdd_on_demographics <- function(d0, d1, covs = NULL) {
   # Prepare model formula:
   if (is.null(covs)) {
     form <- formula(PDD ~ age * sex)
-  } else {
+  } else if (inter) {
     form <- as.formula(paste0("PDD ~ age * sex * (", paste(covs, collapse = " + "), ")"))
+  } else {
+    form <- as.formula(paste0("PDD ~ age * sex + ", paste(covs, collapse = " + ")))
   }
   # Get regression fits:
   fits <- lapply(rlang::set_names(unique(df$type)), function(i) {
@@ -114,7 +119,7 @@ regress_pdd_on_demographics <- function(d0, d1, covs = NULL) {
   }) |>
     t()|>
     tibble::as_tibble(rownames = "type") |>
-    dplyr::select(type, tidyselect::contains("age"), tidyselect::contains("sex")) |>
+    dplyr::select(type, or_.age, or_.sexmale, `or_.age:sexmale`, p_.age, p_.sexmale, `p_.age:sexmale`) |>
     tidyr::pivot_longer(
       cols = -type,
       names_to = c("quantity", "predictor"),

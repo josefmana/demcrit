@@ -85,5 +85,7 @@ prepare_data <- function(p, check.names = TRUE) {
   map_file  <- here::here("data-raw", "CalculatorMapping.csv")
   ci_lvlII <- assign_cognitive_impairment(df, calc_file, map_file, "both")
   # Return the data:
-  df |> dplyr::left_join(ci_lvlII, by = "id")
+  df |>
+    dplyr::left_join(ci_lvlII, by = "id") |>
+    dplyr::mutate(id = paste0("p", stringr::str_pad(sample(seq_len(dplyr::n())) , 3, pad = 0))) # anonymisation step
 }

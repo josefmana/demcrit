@@ -57,6 +57,7 @@ specify_algorithms <- function() {
         lang_t = dplyr::case_when(lang == "moca_abs" ~ 2 , lang == "moca_anim" ~ 3)
       )
   }) |>
+    dplyr::distinct() |>
     mutate(type = paste0("MoCA (", seq_len(n()), ")"))
   # sMoCA-based algorithms
   smoca <- tidyr::crossing(
