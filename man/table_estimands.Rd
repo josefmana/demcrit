@@ -2,13 +2,14 @@
 % Please edit documentation in R/table_estimands.R
 \name{table_estimands}
 \alias{table_estimands}
-\title{Generate a summary table of study estimands}
+\title{Generate a Summary Table of Estimands}
 \usage{
 table_estimands()
 }
 \value{
 A \code{gt} table object summarising the theoretical estimands,
-empirical estimands, and the corresponding statistical estimates used in the study.
+empirical estimands, and the corresponding statistical estimates used
+in the study.
 }
 \description{
 This function creates a pre-specified table that provides a verbal summary
@@ -16,4 +17,7 @@ of the study's estimands for inclusion in the Appendix. It is intended as a
 shortcut to insert a clean, structured description into a Quarto document
 without cluttering the main text. The table content is fixed and can only be
 modified by editing the function's code directly.
+}
+\seealso{
+\code{\link[=gt_apa_table]{gt_apa_table()}} is used to format the table.
 }

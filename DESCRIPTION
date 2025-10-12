@@ -1,11 +1,51 @@
-Package: DemCrit
-Title: What the Package Does (One Line, Title Case)
+Package: demcrit
+Title: Validation of Algorithms for Parkinson's Disease Dementia
 Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+Authors@R: c(
+    person("Josef", "Mana", , "josef.mana@protonmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-7817-3978")),
+    person("Martina", "Mana", , "kvapil.martina@gmail.com", role = c("aut")))
+Description: This package is not intended for public use. The idea is to provide a documentation
+    behind data analysis that serves as a backbone of the empirical part of the paper
+    Mana et al. (under review)^[Will be updated once the manuscript is accepted for
+    publication.]. Furthermore, if we are able to share some of the data in the future, we will use
+    this package to document processes that can be used to reproduce our results (since
+    sharing raw patients data is out of question due to privacy concerns, the pre-processing
+    pipeline presented here will be functional only on data owner's computer at the First
+    Faculty of Medicine, Charles University).
+License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
+Imports:
+    caret (>= 7.0-1),
+    ggh4x (>= 0.3.1),
+    ggraph (>= 2.2.1),
+    glue (>= 1.8.0),
+    gt (>= 1.0.0),
+    here (>= 1.0.1),
+    igraph (>= 2.1.4),
+    janitor (>= 2.2.1),
+    psych (>= 2.5.6),
+    readr (>= 2.1.5),
+    readxl (>= 1.4.5),
+    dplyr (>= 1.1.4),
+    tidyselect (>= 1.2.1),
+    tidyr (>= 1.3.1),
+    purrr (>= 1.0.4),
+    lubridate (>= 1.9.4),
+    tibble (>= 3.3.0),
+    rlang (>= 1.1.6),
+    ggplot2 (>= 3.5.2),
+    stringr (>= 1.5.1),
+    MASS (>= 7.3.60.0.1),
+    rstatix (>= 0.7.2)
+Suggests: 
+    knitr,
+    quarto,
+    rmarkdown
+VignetteBuilder: quarto, knitr
+Depends: 
+    R (>= 3.5),
+    tidyverse (>= 2.0.0)
+LazyData: true
+URL: https://josefmana.github.io/demcrit/

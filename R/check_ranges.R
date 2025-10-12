@@ -1,12 +1,14 @@
-#' Check value ranges in the prepared dataset
+#' Check Value Ranges of Relevant Variables
 #'
 #' Validates whether values in the dataset fall within expected ranges for analysis.
 #' Used primarily as a safeguard to identify possible data entry errors.
 #'
 #' @param d A data frame prepared via the \code{prepare_data} function.
 #'
-#' @returns Nothing. Prints a message listing any out-of-range values and may
-#' terminate execution if invalid data are detected.
+#' @returns Prints a message listing any out-of-range values and may
+#'    terminate execution if invalid data are detected.
+#'
+#' @seealso [prepare_data()] is a wrapper of this function.
 #'
 #' @examples
 #' \dontrun{
@@ -58,16 +60,19 @@ check_ranges <- function(d) {
   )
   #zerotrunc <- c("vf_k", "vf_s", "tmt_a", "pst_d", "tmt_b", "pst_w", "pst_c", "cf", "gp_r", "gp_l")
   zerotrunc <- c("tmt_a", "pst_c", "vf_animals")
-  for(i in zerotrunc) mistakes[[i]] <- subset(d, get(i) < 0)
-  for(i in paste0("faq_", seq_len(10))) mistakes[[i]] <- subset(d, !(get(i) %in% seq0(3)))
-  stop <- F
-  for(i in names(mistakes)) {
-    mistakes[[i]] <-
-      mistakes[[i]] |>
-      select(all_of(c("id", "surname", "firstname", "assdate", i))) |>
-      filter(!is.na(get(i)))
-    if(nrow(mistakes[[i]]) > 0) {
-      stop <- T
+  for (i in zerotrunc) {
+    mistakes[[i]] <- subset(d, get(i) < 0)
+  }
+  for (i in paste0("faq_", seq_len(10))) {
+    mistakes[[i]] <- subset(d, !(get(i) %in% seq0(3)))
+  }
+  stop <- FALSE
+  for (i in names(mistakes)) {
+    mistakes[[i]] <- mistakes[[i]] |>
+      dplyr::select(tidyselect::all_of(c("id", "surname", "firstname", "assdate", i))) |>
+      dplyr::filter(!is.na(get(i)))
+    if (nrow(mistakes[[i]]) > 0) {
+      stop <- TRUE
     }
   }
   # Return the results:

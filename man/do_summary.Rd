@@ -2,7 +2,7 @@
 % Please edit documentation in R/do_summary.R
 \name{do_summary}
 \alias{do_summary}
-\title{Summarise data using predefined summary types}
+\title{Summarise Data}
 \usage{
 do_summary(x, dec, sum = NULL)
 }
@@ -13,21 +13,21 @@ do_summary(x, dec, sum = NULL)
 
 \item{sum}{A character string specifying the type of summary to compute. Possible values:
 \describe{
-\item{NULL (default)}{Simple printing of the vector}
+\item{\code{NULL} (default)}{Simple printing of the vector}
 \item{"N"}{Number of observations}
-\item{"msd"}{Mean ± standard deviation}
+\item{"msd"}{Mean +/- standard deviation}
 \item{"M"}{Mean}
 \item{"SD"}{Standard deviation}
 \item{"Md"}{Median}
 \item{"IQR"}{Interquartile range}
-\item{"minmax"}{Minimum–maximum range}
+\item{"minmax"}{Minimum-maximum range}
 \item{"Min"}{Minimum}
 \item{"Max"}{Maximum}
 \item{"p"}{p-value (formatted for tables)}
 \item{"ptext"}{p-value (formatted for in-text reporting)}
 \item{"Nperc"}{Count and percentage for binary variables}
 \item{"Nslash"}{Counts separated by slashes for nominal variables with any number of categories}
-\item{"estCI"}{Estimate with confidence interval, e.g., "estimate \link{CI}"}
+\item{"estCI"}{Estimate with confidence interval, i.e., \code{estimate [CI]}}
 }}
 }
 \value{

@@ -2,20 +2,27 @@
 % Please edit documentation in R/summarise_rates.R
 \name{summarise_rates}
 \alias{summarise_rates}
-\title{Orders and prints algorithms based on their estimated PDD rates}
+\title{Order and Prints Algorithms}
 \usage{
 summarise_rates(d0, vars, descending = TRUE)
 }
 \arguments{
 \item{d0}{A list with PDD data generated via \code{diagnose_pdd_sample}.}
 
-\item{vars}{A data.frame, tibble, or matrix with variable names in the first column,
-variable labels in the second column, type of variable (continuous, binary, or nominal)
-in the third column, and optionally a fourth column denoting group and a fifth column
-mapping each label to its description in the table’s note.
-Alternatively, a path to a CSV file (semicolon-delimited) containing such a table.}
+\item{vars}{A data.frame, tibble, or matrix with  in the
+following order:
+\enumerate{
+\item variable names,
+\item variable labels
+\item type of variable (continuous, binary, or nominal)
+\item optional, group,
+\item optional, mapping each label to its description in the table’s note.
+}
 
-\item{descending}{A logical indicating whether operationalisations with the highest
+Alternatively, a path to a CSV file (semicolon-delimited) containing
+such a table.}
+
+\item{descending}{A logical indicating whether algorithms with the highest
 estimated PDD rates should be listed first (default is \code{TRUE}).}
 }
 \value{
@@ -25,14 +32,14 @@ A list with:
 \item{\code{plot}}{A \code{ggplot2} object visualising estimated PDD rates.}
 \item{\code{gtable}}{A named list of gt tables:
 \describe{
-\item{\code{gtab_rates}{An APA-style \code{gt} table summarising the results.}}
-\item{\code{gtab_algos}{An APA-style \code{gt} table listing algorithms used.}}
+\item{\code{gtab_rates}}{An APA-style \code{gt} table summarising the results.}
+\item{\code{gtab_algos}}{An APA-style \code{gt} table listing algorithms used.}
 }}
 }
 }
 \description{
 This function computes summaries of the estimated PDD rates,
-stratified by diagnostic operationalisation.
+stratified by diagnostic algorithm.
 }
 \examples{
 \dontrun{
@@ -46,4 +53,7 @@ rates1 <- summarise_rates(pdd, vars, TRUE)  # rates0 and rates1 are identical
 rates2 <- summarise_rates(pdd, vars, FALSE) # ascending order
 }
 
+}
+\seealso{
+\code{\link[=diagnose_pdd_sample]{diagnose_pdd_sample()}} prepares \code{d0}.
 }

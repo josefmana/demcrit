@@ -1,25 +1,26 @@
-#' Import item-data
+#' Import Item Data
 #'
-#' Imports item-level data from a specified file path, checks for unrealistic values
-#' (e.g., in MMSE scores), and prepares the data for further processing.
-#' This function is intended to be called within the larger \code{prepare_data} workflow.
+#' Imports item-level data from a specified file path, checks for unrealistic values,
+#' and prepares the data for further processing. This function is intended to be called
+#' within the larger \code{prepare_data} workflow.
 #'
-#' @param paths A character string specifying the path to the data file. Typically generated
-#' by the \code{data_paths} function.
+#' @param path A character string specifying the path to the data file. Typically generated
+#'    by the \code{data_paths} function.
 #'
 #' @returns A tibble containing item-level data.
 #'
+#' @seealso [prepare_data()] is a wrapper of this function.
+#'
 #' @examples
 #' \dontrun{
-#' p    <- data_paths("data-raw")
+#' p <- data_paths("data-raw")
 #' data <- import_item_data(p[1])
 #' }
 #'
 #' @export
 import_item_data <- function(path) {
-  df <-
-    read_delim(path, delim = ";", col_types = cols()) |>
-    rename(
+  df <- readr::read_delim(path, delim = ";", col_types = readr::cols()) |>
+    dplyr::rename(
       id = IPN,
       birth = born_NA_RC,
       sex = gender_NA_RC,
@@ -28,23 +29,23 @@ import_item_data <- function(path) {
       faq = FAQ_seb,
       bdi = `BDI-II`
     ) |>
-    rename_all(tolower) |>
-    mutate(
+    dplyr::rename_all(tolower) |>
+    dplyr::mutate(
       cloc = clox_num + clox_hands,
       sex = factor(
-        case_when(sex == "F" ~ 0, sex == "M" ~ 1),
+        dplyr::case_when(sex == "F" ~ 0, sex == "M" ~ 1),
         levels = 0:1,
         labels = c("female", "male"),
-        ordered = F
+        ordered = FALSE
       ),
       hand = factor(
-        case_when(hand == "R" ~ 0, hand == "L" ~ 1),
+        dplyr::case_when(hand == "R" ~ 0, hand == "L" ~ 1),
         levels = 0:1,
         labels = c("right", "left"),
-        ordered = F
+        ordered = FALSE
       ),
-      across(ends_with("name"), ~make_clean_names(.x, allow_dupes = TRUE)),
-      across(all_of(c("assdate", "birth")), ~as.Date(.x, tryFormats = "%d.%m.%Y")),
+      dplyr::across(tidyselect::ends_with("name"), \(x) janitor::make_clean_names(x, allow_dupes = TRUE)),
+      dplyr::across(tidyselect::all_of(c("assdate", "birth")), \(x) as.Date(x, tryFormats = "%d.%m.%Y")),
       incl = 1 # As a baseline, include everyone
     )
   # Check MMSE variables:
@@ -68,7 +69,7 @@ import_item_data <- function(path) {
       print(mistakes[[i]][ , c("surname", "firstname", "id", "assdate", i)])
     }
   }
-  if(stop) stop("There seem to be typos in the data, check the data printed above to locate and repair them.")
+  if (stop) stop("There seem to be typos in the data.\nCheck the data printed above to locate and repair them.")
   # !Duplicated cases, rows selected manually:
   # IPN138: keep the first assessment because it is the "screening" in REDCap.
   # IPN347: keep the first assessment because the second one was just one year later & the first one is REDCap's "screening".

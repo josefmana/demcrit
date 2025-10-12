@@ -2,7 +2,7 @@
 % Please edit documentation in R/data_paths.R
 \name{data_paths}
 \alias{data_paths}
-\title{Define file paths to raw data for analysis}
+\title{Define Raw Data Paths}
 \usage{
 data_paths(dir = "data-raw")
 }
@@ -24,4 +24,7 @@ for the \code{prepare_data} function.
 p    <- data_paths("data-raw")
 data <- prepare_data(p)
 }
+}
+\seealso{
+\code{\link[=prepare_data]{prepare_data()}} is the next step in analysis pipeline.
 }

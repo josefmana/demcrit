@@ -1,9 +1,12 @@
-# Validation of (several) probable PDD algorithms
+# Validation of Algorithms for Parkinson's Disease Dementia
 
-This package is not intended for public use. The idea is to provide a documentation
-behind data analysis that serves as a backbone of the empirical part of the paper
-Mana et al. (under review)^[Will be updated once the manuscript is accepted for
-publication.].
+This package is not intended for a widespread public use. The idea is to:
+
+1. provide a documentation behind data analysis that serves as a backbone
+of the empirical part of the paper Mana et al. (under review)^[Will be updated
+once the manuscript is accepted for publication.], and
+2. provide a set of functions used to generate our results that could be
+directly used or slightly adjusted for projects aiming at similar goals.
 
 Furthermore, if we are able to share some of the data in the future, we will use
 this package to document processes that can be used to reproduce our results (since
@@ -18,6 +21,7 @@ To start, ensure you have the correct dependencies:
 # install missing dependencies, if any
 devtools::install_deps()
 ```
+
 If you have the raw data at your disposal, make sure they are present in the
 `data-raw` folder (and correctly named, although, if they are not named correctly,
 the package will help you find the mistakes).
@@ -33,5 +37,12 @@ full pipeline via:
 targets::tar_make()
 ```
 
-Usage out of the pipeline will be sorted out later, once we know which (pre-processsed)
+If you wish to use the functions outside of the manuscript preparation pipe
+described below, you may wish to install the package as well:
+
+```r
+devtools::install()
+```
+
+Usage out of the pipeline will be detailed later, once we know which (pre-processsed)
 data can be shared ...

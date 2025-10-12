@@ -2,7 +2,7 @@
 % Please edit documentation in R/diagnose_pdd_case.R
 \name{diagnose_pdd_case}
 \alias{diagnose_pdd_case}
-\title{Diagnose PDD in a single patient sample using specified criteria}
+\title{Diagnose via a Single Algorithm}
 \usage{
 diagnose_pdd_case(x, c)
 }
@@ -13,8 +13,8 @@ diagnose_pdd_case(x, c)
 to be applied for PDD diagnosis.}
 }
 \value{
-A logical vector indicating PDD diagnosis for each patient
-(TRUE = diagnosed, FALSE = not diagnosed).
+A logical vector indicating probable PDD diagnosis for each
+patient (\code{TRUE} = diagnosed, \code{FALSE} = not diagnosed).
 }
 \description{
 Applies a specified set of diagnostic criteria to a data matrix representing
@@ -31,4 +31,7 @@ crit <- specify_criteria()
 pdd  <- diagnose_pdd_case(data, crit[1, ])
 }
 
+}
+\seealso{
+\code{\link[=diagnose_pdd_sample]{diagnose_pdd_sample()}} wraps the function to diagnose all patients.
 }

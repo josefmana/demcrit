@@ -1,4 +1,4 @@
-#' Generate a summary table of study estimands
+#' Generate a Summary Table of Estimands
 #'
 #' This function creates a pre-specified table that provides a verbal summary
 #' of the study's estimands for inclusion in the Appendix. It is intended as a
@@ -7,11 +7,14 @@
 #' modified by editing the function's code directly.
 #'
 #' @returns A \code{gt} table object summarising the theoretical estimands,
-#' empirical estimands, and the corresponding statistical estimates used in the study.
+#'    empirical estimands, and the corresponding statistical estimates used
+#'    in the study.
+#'
+#' @seealso [gt_apa_table()] is used to format the table.
 #'
 #' @export
 table_estimands <- function() {
-  tibble(
+  tibble::tibble(
     RO = paste0("Research Objective ", c(rep(1,4), rep(2,1))),
     Statement = c(
       "To estimate the rate of PDD within PD.",
@@ -53,8 +56,8 @@ table_estimands <- function() {
       grp = "RO",
       nms = "Statement"
     ) |>
-    tab_spanner(columns = c("Theoretical", "Population"), label = "Theoretical Estimand", gather = FALSE) |>
-    cols_label(
+    gt::tab_spanner(columns = c("Theoretical", "Population"), label = "Theoretical Estimand", gather = FALSE) |>
+    gt::cols_label(
       Theoretical ~ "Quantity",
       Empirical ~ "Empirical Estimand",
       Estimate ~ "Statistical Estimate"
