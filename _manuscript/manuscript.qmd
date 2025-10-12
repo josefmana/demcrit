@@ -149,11 +149,11 @@ This study retrospectively analyzed clinical data from a cohort of patients with
 
 Cognitive performance was evaluated at both Level I and Level II according to the standard MDS battery for Parkinson’s Disease Mild Cognitive Impairment (PD-MCI) [@litvan2012, @bezdicek2017]. Cognitive performance at Level I was assessed by the Mini-Mental State Examination (MMSE) [@stepankova2014; @folstein1975] and the Montreal Cognitive Assessment (MoCA) [@kopecek2016; @nasreddine2005]. The comprehensive neuropsychological assessment at Level II evaluated five cognitive domains through specific tests: attention and working memory assessed by Trail Making Test Part A (TMT-A) [@bezdicek2012; @reitan2004], and WAIS Digit Span Backward (WAIS DSB) [@wechsler1997], executive function by Categorical Verbal Fluency (CF) [@nikolai2015], and subtest from the Prague Stroop Test – Colors (PST-C) [@bezdicek2021], language by the WAIS Similarities subtest [@wechsler1997], and the Boston Naming Test (BNT-60) [@zemanova2016; @kaplan1983], memory by the Rey Auditory Verbal Learning Test (RAVLT) [@frydrychova2018; @bezdicek2013; @rey1964] delayed recall, and the Brief Visual Memory Test–Revised (BVMTR) [@havlik2020; @benedict1997] delayed recall, or WAIS Family Pictures subtest [@wechsler1997] delayed recall, visuospatial function assessed by the Judgment of Line Orientation Test (JoLO) [@benton1983], and Clock Drawing Test (CLOX) [@royall1998].
 
-The Functional Activities Questionnaire (FAQ) [@bezdicek2016; @pfeffer1982] was administered to assess functional impairment. The Beck Depression Inventory-II (BDI-II) [@ciharova2020; @beck1996] and State-Trait Anxiety Inventory (STAI) [@spielberg1983; @mullner1980] were used to assess neuropsychiatric status. **BDI-II and STAI are a part of the standard methods in our pre-DBS protocol, having well-established psychometric properties in PD populations [@leentjens2000; @dissanayaka2010]. Other psychiatric scales data, such as the Neuropsychiatric Inventory, were not available for our retrospective dataset. However, all patients underwent a comprehensive evaluation by a trained neuropsychiatrist, excluding the presence of major depression, apathy, psychosis, and visual hallucinations, ensuring that confounding neuropsychiatric conditions were not present in our sample.**
+The Functional Activities Questionnaire (FAQ) [@bezdicek2016; @pfeffer1982] was administered to assess functional impairment. The Beck Depression Inventory-II (BDI-II) [@ciharova2020; @beck1996] and State-Trait Anxiety Inventory (STAI) [@spielberg1983; @mullner1980] were used to assess neuropsychiatric status.
 
 ## Diagnostic algorithms for probable Parkinson's Disease Dementia
 
-In this study, we applied three distinct sets of diagnostic algorithms for probable PDD at Level I. The first set was based on the original framework [@dubois2007], which utilized the Mini-Mental State Examination (MMSE) as a global cognitive screening tool, supplemented by assessments of attention, executive function, visuospatial abilities, and memory. The second set of algorithms was based on the recent call for change of dementia diagnostic guidelines [@kulisevsky2024], which advocates for more sensitive cognitive domain assessments in the context of PD. This updated approach incorporated specific items from the Montreal Cognitive Assessment (MoCA). The third approach applied the Czech version of the shortened Montreal Cognitive Assessment (sMoCA) [@bezdicek2020], a time-efficient modification designed to measure global cognitive performance using a reduced testing protocol that omits items providing redundant information. **The sMoCA has been validated in Czech PD cohorts [@bezdicek2020] and shown to be sensitive to cognitive deficits while lowering patient burden [@roalf2017a]. Inclusion of the sMoCA in our study was motivated by its clinical utility in pre-surgical settings, where time restrictions and patients’ fatigue often limit the feasibility of longer assessments. Moreover, its inclusion allowed us to compare diagnostic performance across different screening lengths.**
+In this study, we applied three distinct sets of diagnostic algorithms for probable PDD at Level I. The first set was based on the original framework [@dubois2007], which utilized the Mini-Mental State Examination (MMSE) as a global cognitive screening tool, supplemented by assessments of attention, executive function, visuospatial abilities, and memory. The second set of algorithms was based on the recent call for change of dementia diagnostic guidelines [@kulisevsky2024], which advocates for more sensitive cognitive domain assessments in the context of PD. This updated approach incorporated specific items from the Montreal Cognitive Assessment (MoCA). The third approach applied the Czech version of the shortened Montreal Cognitive Assessment (sMoCA) [@bezdicek2020], a time-efficient modification designed to measure global cognitive performance using a reduced testing protocol that omits items providing redundant information. **The sMoCA has been validated in Czech PD cohort [@bezdicek2020] and shown to be sensitive to cognitive deficits while lowering patient burden [@roalf2017a]. We included the sMoCA in our study for its clinical utility in pre-surgical settings, where time restrictions and patients’ fatigue often limit the feasibility of longer assessments. Moreover, the Czech validation study reported comparable diagnostic accuracy between MoCA (AUC = 0.815) and sMoCA (AUC = 0.796) for distinguishing PD-MCI from PD-NC, supporting the sMoCA as a suitable and efficient alternative.**
 
 Lastly, the fourth approach followed the Level II protocol for diagnosis of PDD and Mild Cognitive Impairment in PD (PD-MCI) [@dubois2007; @litvan2012]. The Level II methodology, including the use of a regression-based normative scoring approach, has been detailed in a prior study [@bezdicek2017]. In this study, the thresholds for cognitive impairment at Level II were set at $z \leq -1.5$. All non-cognitive criteria of probable PDD (i.e., diagnosis of PD that developed before dementia and absence of Major Depression, delirium or other abnormalities that obscure diagnosis) held true for all patients in the sample according to the psychiatric and neurological examinations.
 
@@ -170,6 +170,8 @@ stopifnot("Some algorithms are missing" = continue)
 ```
 
 For each of these diagnostic approaches, we applied two operationalizations of deficits in Instrumental Activities of Daily Living (IADL). First, we utilized FAQ item 9, which approximates the pill questionnaire from the original criteria [@dubois2007] employing a cut-off score of 2 points or higher. Second, we applied the entire Functional Activities Questionnaire (FAQ) as suggested in the call for change [@kulisevsky2024], employing a cut-off score of 7 points or higher based on Czech normative data [@bezdicek2011]. These methodologies resulted in a total of `r sum(algonum)` algorithms, which were distributed across different diagnostic criteria: `r algonum["mmse"]` MMSE-based, `r algonum["moca"]` MoCA-based, `r algonum["smoca"]` sMoCA-based, and `r algonum["lvlII"]` based on the Level II battery (see @fig-tree, @tbl-crits and Appendix @tbl-algos for the exact specification of each algorithm).
+
+**Finally, patients were evaluated for psychiatric symptoms, including depression, delirium, apathy, anxiety and psychosis, by a neuropsychiatrist trained in evaluation of movement disorders patients (TU). Since severe psychiatric symptoms are exclusion criteria for the diagnosis of probable PDD (conditions 6-8), all patients diagnosed with PDD were double-checked for the presence of psychiatric symptoms in the hospital archives.**
 
 ```{r}
 #| label: "tbl-crits"
@@ -250,7 +252,7 @@ min_p <- subset(pred$values, quantity == "p-value")$estimate |>
 
 ## Sample Description
 
-**Total of** `r n_total` patients **were considered for the study, out of which `r excl_txt`**. The sample included `r sex` men, with an average of `r age`, `r edu`, `r dur`, `r updrs_off` and `r updrs_on`. **Descriptive statistics for neuropsychiatric symptoms indicated mild depressive and anxiety symptoms in our cohort, with the average BDI-II of `r bdi`, average STAI X1 of `r staix1`, and average STAI X2 of `r staix2`. However, according to the psychiatric assessment, none of the patients with probable PDD was suffering from the major depressive disorder, delirium or other neuropsychiatric abnormalities that would disqualify the diagnosis.** Cognitive characteristics of the sample are summarized in @tbl-desc.
+**Total of** `r n_total` patients **were considered for the study, out of which `r excl_txt`**. The sample included `r sex` men, with an average of `r age`, `r edu`, `r dur`, `r updrs_off` and `r updrs_on`. **Descriptive statistics for neuropsychiatric symptoms indicated within average level of depressive and anxiety symptoms in our cohort, with the average BDI-II of `r bdi`, average STAI X1 of `r staix1`, and average STAI X2 of `r staix2`. However, according to the psychiatric assessment, none of the patients with probable PDD was suffering from the major depressive disorder, delirium or other neuropsychiatric abnormalities that would excluded the diagnosis.** Cognitive characteristics of the sample are summarized in @tbl-desc.
 
 ```{r}
 #| label: "tbl-desc"
@@ -289,15 +291,19 @@ make_dendrogram(rates$table)
 ```{r}
 #| label: "observations-bivariate"
 
+# Dimensions of the results table:
 dims <- glue::glue("{dim(conc$table)[1]} rows x {dim(conc$table)[2]} columns")
 
+# Number of observations per algorithm pair:
 obs_pairs <- conc$table |>
   count(N) |>
   drop_na() |> # NA for cases where reference == predictor
   mutate(perc = 100 * n / sum(n))
 
+# The most missing values present:
 min_miss <- glue::glue("{round(100 * (n_incl - obs_pairs[1, 'N']) / n_incl, 2)}%")
 
+# Percentage of algorithm pairs with N > K-1
 K <- 200
 perc_above_k <- obs_pairs |>
   filter(N >= K) |>
@@ -370,7 +376,18 @@ Our results showed a wide range in estimated PDD rate across algorithms, ranging
 
 Our overall PDD rates were consistently lower than previous studies regarding PDD among PD patients, demonstrating wide variability based on various criteria used. For instance, a retrospective study reported a PDD rate of 19.7% [@rana2012], while other clinical investigation found even higher rate, reaching up to 30% [@aarsland2005]. A recent meta-analysis synthesizing global data placed the expected PDD rate in PD at 26.30% [@sousa2022]. Compared to these estimates, our study reports generally lower PDD rates, likely reflecting differences in diagnostic criteria, methodology and sample characteristics. Specifically, our sample was younger compared to other PD cohorts and age was repeatedly shown to be a strong predictor of PDD across studies [@rana2012; @sousa2022].
 
-Interestingly, we did not observe any reliable age-related differences in PDD rate within our cohort. This lack of age-dependency may, however, be also stemming from the relatively younger age of our cohort, because previous reports indicate that association between age and PDD is not linear but increases with age and may not reach substantial values before the age of 70 [@rana2012]. **In our sample, the younger age and preserved cognitive level might limit age-related effects. This fact could bias algorithm results toward higher specificity but lower sensitivity [@larvin2023]. Previous studies report that DBS candidates tend to be, on average, younger and cognitively less impaired than the general PD population [@bronstein2011], which could bias diagnostic algorithm performance toward overestimating specificity. Therefore, our findings may not be fully generalizable to older or more cognitively impaired people with PD.**
+```{r}
+#| label: "age-over-70"
+
+over70 <- data |>
+  mutate(older = 100 * (age >= 70)) |>
+  pull(older) |>
+  mean(na.rm = TRUE) |>
+  round(1) |>
+  paste0("%")
+```
+
+Interestingly, we did not observe any reliable age-related differences in PDD rate within our cohort. This lack of age-dependency may, however, be also stemming from the relatively younger age of our cohort, because previous reports indicate that association between age and PDD is not linear but increases with age and may not reach substantial values before **older age. In both @rana2012 and @oh2016, nine out of ten patients with dementia were 70 years of age or older. In our sample, only `r over70` participants were in this age range. Consequently, studies with older cohorts are probably necessary to detect a robust association between age and the risk of probable PDD.**
 
 ## Concordance Between Diagnostic Algorithms
 
@@ -384,6 +401,18 @@ Using Level II diagnosis as the reference, MoCA-based Level I algorithms, partic
 
 The advantage of MoCA-based algorithm was evident in combination with using the FAQ total score, reaching accuracy rates of 94–99%. Furthermore, in the algorithm using sMoCA, the raw accuracy was moderate, however, the balanced accuracy (i.e. combined sensitivity and specificity) was high. These findings imply that simplified tools such as sMoCA may be a promising tool for heightening efficiency of the assessment while maintaining diagnostic accuracy. **This underscores the clinical utility of sMoCA screening tool. Although raw accuracy was moderate, balanced accuracy results ensure avoidance of bias from class imbalance. From a practical point of view, it suggests that even brief screening tools can achieve reliable classification, which means an advantage for routine clinical settings and time-restricted assessments.**
 
+## Constraints on Generality
+
+**Given the single-center nature of our study and the specific cohort, several not yet discussed constraints on generality apply to our findings. These can be broadly separated into three topics; age distribution, cognitive phenotype and cultural background.**
+
+**In our sample, the younger age and preserved cognitive level might limit age-related effects. This fact could bias algorithm results toward higher specificity but lower sensitivity [@larvin2023]. Previous studies report that DBS candidates tend to be, on average, younger and cognitively less impaired than the general PD population [@bronstein2011], which could bias diagnostic algorithm performance toward overestimating specificity. Therefore, our findings may not be fully generalizable to older or more cognitively impaired people with PD.**
+
+**Previous longitudinal studies of DBS**
+
+**FAQ culturally different.**
+
+**Finally, our results may generalise well to other pre-DBS cohorts.**
+
 ## Limitations and Future Directions
 
 This study’s generalizability is limited by its retrospective design and the homogeneity of the patient cohort, which does not reflect broader PD populations with varying cognitive profiles. Specifically, the younger age of the sample and possible lack of high-risk phenotypes for PDD compared to the general population of people with PD might have been responsible for comparatively lower PDD rate estimates in our study.
@@ -394,7 +423,7 @@ Nevertheless, the analysis of the algorithm concordance might not be affected by
 
 **Modern alternatives, such as multiple imputation techniques, have been shown to produce less biased estimates than case deletion strategies in analyses based on confusion matrices [@karakaya2014], whereas the evidence supporting their superiority in the estimation of Cohen’s $\kappa$ remains limited [@deraadt2019]. These modern approaches also require careful specification of the imputation model and the underlying causal mechanism of missingness to ensure appropriate covariate selection [@long2011; @bianco2023]. For the sake of parsimony, we did not employ advanced missing-data techniques but instead explicitly described the observed missingness patterns. Consequently, our findings should be regarded as exploratory and primarily serve as a basis for hypothesis generation in future, more controlled studies.**
 
-**Another possible avenue for analysing the present data would be to exploit their hierarchical structure by fitting a multilevel model with algorithms nested within patients (see @fig-tree). Such an approach could leverage partial pooling [@gelman2012] and might approximate modern item response theory frameworks [@burkner2021], where PDD is conceptualised as a latent trait and the individual diagnostic algorithms act as items measuring it (). If feasible, this psychometric perspective may represent an exciting new direction for conceptualising complex clinical phenomena such as PDD [cf. @miller2012, @kiselica2021].**
+**Another possible avenue for analysing the present data would be to exploit their hierarchical structure by fitting a multilevel model with algorithms nested within cognitive tests (see @fig-tree). Such an approach could leverage partial pooling [@gelman2012] and might approximate modern item response theory frameworks [@burkner2021], where PDD is conceptualised as a latent trait and the individual diagnostic algorithms act as items measuring it. If feasible, this psychometric perspective may represent an exciting new direction for conceptualising complex clinical phenomena such as PDD (cf. @miller2012, @kiselica2021).**
 
 Furthermore, another limitation is the use of the FAQ questionnaire for IADL assessment. FAQ is subjective and informant-reliant, which may result in biased data. **At the same time, the questionnaire may vary across cultures, therefore, the results may not be transferable. For example, activities such as financial management or driving, may not be equally practiced across cultures or contexts, which might complicate interpretation of impairment levels. The FAQ scores may vary across cultures, and diagnostic thresholds may not be transferable across countries [@odonald2025]. This may influence both the sensitivity and ecological validity of the functional criteria used. Another limitation is that the FAQ scores may correlate with neuropsychological results of certain domains, specifically executive functions or memory [@vanrentergem2020; @moheb2017]. This overlap could artificially increase concordance between cognitive and functional criteria. For future research, we suggest using a PD-specific questionnaire, such as the Penn Parkinson's Daily Activities Questionnaire-15 [@brennan2016] or generally more objective methods, preferably performance-based ones. Our results underscore the importance of IADL measurement for the PDD diagnosis. Therefore, we recommend using more reliable tools with high ecological validity.** For future research, we suggest the use of more objective, modernized tools for IADl assessment, such as performance-based methods [@schmitter-edgecombe2020] or questionnaire adaptation including questions regarding gadgets use and digital literacy [@postema2024]. Our results emphasize the importance of IADL deficit for the PDD diagnosis, therefore, we suggest exploring more reliable tools with high ecological validity.
 
