@@ -1,0 +1,46 @@
+name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
+do_summary|function|529787ca236a8350
+.onLoad|function|516a2a026a8d475a
+.Random.seed|object|7102faf10cd0e2d6
+import_item_data|function|32331110f001620f
+compute_z_score|function|c7c17e8b542c349e
+data_paths|function|2526caf928bfd55d
+diagnose_pdd_case|function|58cce651d6ea1d75
+check_compatibility|function|77cdda810975fedc
+check_names|function|e538dfa06ecfa01d
+check_ranges|function|51f453917504ccd2
+import_redcap_data|function|65339b4f987ac77e
+specify_algorithms|function|e560624799f44e3f
+make_dendrogram|function|5b2ba3b940a0b054
+list_algorithms|function|76323a04a8c18a47
+gt_apa_table|function|ef1a7384dc02344b
+regress_pdd_on_demographics|function|f435f884eeaf95e9
+summarise_kappa|function|217191b6bd198648
+describe_concordance|function|2c54189410ed74ac
+assign_cognitive_impairment|function|cc167ff2b2ce7b49
+diagnose_pdd_sample|function|c1d1baa0ee234e03
+table_algorithms|function|586e4b6e6766a929
+table_levelII_approximations|function|16d3cad60f2e5b51
+table_estimands|function|f4612f9709621843
+summarise_rates|function|bd25830f8de7c4d4
+compute_descriptives|function|5dd18485f0b6fc00
+prepare_data|function|d4f2223d761eefeb
+variables|stem|88f8608cf65ce66d|04a0725861e99ba4|2c530c1562a7fbd1|-1580994253|/Users/josefmana/Desktop/mercenaries/DemCrit/data-raw/VariablesOfInterest.csv|t20370.7817127255s|s2746b|2746|file|local|vector|||0||
+inputs_files|stem|e04b8919ce933708|f8d248d7fb1a5ff4|a842bf887c902797|-706827970||t20373.7557680367s|s170b|170|rds|local|vector||inputs_files_4c4718f15c042a20*inputs_files_1f200c0ac1b83a34*inputs_files_663250c074565c6f*inputs_files_448b3887f641fbc7*inputs_files_0690578021c884fe|0.013||
+inputs_fc2db4b526268992|branch|9a0488aa7d76da9f|36bdc44cf11ac220|2c530c1562a7fbd1|-1889708204|/Users/josefmana/Desktop/mercenaries/DemCrit/data-raw/ItemData.csv|t20370.781712745s|s40961b|40961|file|local|vector|inputs||0||
+inputs_005b721586cf8228|branch|37f8f078475a52ec|36bdc44cf11ac220|2c530c1562a7fbd1|1306312376|/Users/josefmana/Desktop/mercenaries/DemCrit/data-raw/REDCapData.csv|t20370.7817127406s|s1570263b|1570263|file|local|vector|inputs||0||
+inputs_2e7c691dc76c0f32|branch|bcde28072076caab|36bdc44cf11ac220|2c530c1562a7fbd1|-82491160|/Users/josefmana/Desktop/mercenaries/DemCrit/data-raw/MetaData.csv|t20370.7817127514s|s34200b|34200|file|local|vector|inputs||0||
+inputs_f9c92f996575f9fe|branch|d8e469e6f18ed9d8|36bdc44cf11ac220|2c530c1562a7fbd1|253766599|/Users/josefmana/Desktop/mercenaries/DemCrit/data-raw/TestScoring.csv|t20370.7817127492s|s874b|874|file|local|vector|inputs||0||
+inputs_14358c69eba74906|branch|88f8608cf65ce66d|36bdc44cf11ac220|2c530c1562a7fbd1|1704196274|/Users/josefmana/Desktop/mercenaries/DemCrit/data-raw/VariablesOfInterest.csv|t20370.7817127255s|s2746b|2746|file|local|vector|inputs||0||
+inputs|pattern|0368374fb407a42f|36bdc44cf11ac220||-106948080||||1649044|file|local|vector||inputs_fc2db4b526268992*inputs_005b721586cf8228*inputs_2e7c691dc76c0f32*inputs_f9c92f996575f9fe*inputs_14358c69eba74906|0||
+raw_data|stem|c5b498bfce338ace|1b69f38707b7ad3d|b936403cacdbd090|-1101284392||t20373.7557918631s|s35947b|35947|rds|local|vector|||1.969|One or more parsing issues, call `problems()` on your data frame for details, e.g.:   dat <- vroom(...)   problems(dat)|
+pdd_data|stem|83d9e2a298d96ca8|421a79b539387d7b|6f289b1ad67f6d3d|-6092328||t20373.755796851s|s16511b|16511|rds|local|vector|||0.411||
+sample_description|stem|07428b59fdf1c568|a385ccf0415246b0|dcc62be64bfa9998|-1070305744||t20373.7557991994s|s6557b|6557|rds|local|vector|||0.192||
+demographic_predictors_neuropsychiatry_adjusted|stem|e266981512dfdfe9|9cddc32e42babf77|73d3042f234e87b7|-1868746882||t20373.7558183426s|s9840062b|9840062|rds|local|vector|||0.377|Vectorized input to `element_text()` is not officially supported. ℹ Results may be unexpected or may change in future versions of ggplot2.. glm.fit: fitted probabilities numerically 0 or 1 occurred|
+demographic_predictors_cereda_adjusted|stem|521ef13b329aaead|24f1400f539b9127|73d3042f234e87b7|-1876856922||t20373.7558377848s|s9999792b|9999792|rds|local|vector|||0.397|Vectorized input to `element_text()` is not officially supported. ℹ Results may be unexpected or may change in future versions of ggplot2.|
+rate_summaries|stem|f1361f62ed4cccd1|5445afa5b3559adb|efeeb835d7fb90c7|292778141||t20373.7558416004s|s176943b|176943|rds|local|vector|||0.246||
+concordance_statistics|stem|83269279517caa6c|921709cbafa24f27|97113301227dd7ab|1652126210||t20373.7563956946s|s2200729b|2200729|rds|local|vector|||47.451|upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set t|
+demographic_predictors|stem|b615fe94273d31c7|31f3cad834f6813a|73d3042f234e87b7|1455378101||t20373.7564132738s|s9449121b|9449121|rds|local|vector|||0.231|Vectorized input to `element_text()` is not officially supported. ℹ Results may be unexpected or may change in future versions of ggplot2.|
+algorithms|stem|f5b5f9a9f9365cc2|169ba396bc162d2a|fb9a51913538b2a3|-384826494||t20373.7564138428s|s286b|286|rds|local|vector|||0||
+kappa_summmaries|stem|8b7d5e8a50d07c9b|03c33b2b59734cd1|f22caf4d2745fe06|163562731||t20373.7564189469s|s4643b|4643|rds|local|vector|||0.03|The `x` argument of `as_tibble.matrix()` must have unique column names if `.name_repair` is omitted as of tibble 2.0.0. ℹ Using compatibility `.name_repair`.|
+manuscript|stem|e8e6e24471662367|ad532cc57815b4e5|b4e0bb628447a1ad|-1793997187|_manuscript/manuscript.docx*_manuscript/manuscript.pdf*_manuscript/manuscript.qmd|t20373.7567376362s|s1177318b|1177318|file|local|vector|||26.7||

@@ -77,9 +77,9 @@ keywords:
   - functional assessment
   - cognitive assessment
 format:
- apaquarto-pdf:
-    documentmode: man
-    keep-tex: true
+ #apaquarto-pdf:
+  #  documentmode: man
+  #  keep-tex: true
  apaquarto-docx: 
     toc: false
 author-note:
@@ -406,21 +406,17 @@ The advantage of MoCA-based algorithm was evident in combination with using the 
 
 ## Constraints on Generality
 
-**Given the single-center nature of our study and the specific cohort, several not yet discussed constraints on generality apply to our findings. These can be broadly separated into three topics; age distribution, cognitive phenotype and cultural background.**
+**This study’s generalizability is limited by the homogeneity of the patient cohort, which does not reflect the diversity of cognitive profiles seen in broader PD populations. Specifically, the younger age of the sample, and a possible underrepresentation of high-risk phenotypes for PDD constraints the generality of the presented findings.**
 
-**In our sample, the younger age and preserved cognitive level might limit age-related effects. This fact could bias algorithm results toward higher specificity but lower sensitivity [@larvin2023]. Previous studies report that DBS candidates tend to be, on average, younger and cognitively less impaired than the general PD population [@bronstein2011], which could bias diagnostic algorithm performance toward overestimating specificity. Therefore, our findings may not be fully generalizable to older or more cognitively impaired people with PD.**
+**As noted above, the younger age of our sample may partly explain the lower rate of PDD observed compared to previous studies. As discussed in the *Theoretical and Empirical Estimands* section of the Appendix, neither estimates of PDD rate nor predictive performance of demographic variables should therefore not be generalized beyond PD patients that are candidates for DBS. The extent to which our findings on the concordance between diagnostic algorithms apply to the broader PD population remains to be determined in future studies using different types of cohorts, such as de novo patients or community-based samples.**
 
-**Previous longitudinal studies of DBS**
+**Longitudinal cohort studies suggest that patients considered for DBS represent a subset of the PD population with a distinct cognitive phenotype [@bove2020; @mana2024]. Specifically, findings of gradual post-surgical cognitive decline predicted by pre-surgical executive deficits indicate that DBS candidates may be preferentially drawn from a fronto-striatal phenotype characterized by slowly progressing executive dysfunction, rather than from a posterior phenotype marked by visuospatial impairment [@kehagia2012]. Importantly, patients with the posterior phenotype may be at greater risk of developing PDD within as little as five years after disease onset [@williams-gray2009; @summers2024].**
 
-**FAQ culturally different.**
+**In our study, visuospatial function was assessed uniformly across all algorithms within a given screening measure (MoCA cube or MMSE pentagons). By contrast, we compared two operationalizations of executive dysfunction, the clock drawing test and lexical fluency. The clock drawing test showed stronger predictive value for level II diagnosis than lexical fluency, suggesting that even within our cohort, patients who developed PDD may exhibit features of the posterior phenotype.**
 
-**Finally, our results may generalise well to other pre-DBS cohorts.**
+**However, the use of a DBS cohort also offered several methodological advantages. All patients underwent standardized and comprehensive neuropsychological testing, resulting in a well-characterized dataset that enabled a systematic evaluation of multiple diagnostic algorithms. Moreover, because dementia is a common exclusion criterion for DBS treatment [@bronstein2011], examining the diagnostic accuracy of algorithms for PDD in a pre-DBS cohort is informative in its own right.**
 
 ## Limitations and Future Directions
-
-This study’s generalizability is limited by its retrospective design and the homogeneity of the patient cohort, which does not reflect broader PD populations with varying cognitive profiles. Specifically, the younger age of the sample and possible lack of high-risk phenotypes for PDD compared to the general population of people with PD might have been responsible for comparatively lower PDD rate estimates in our study.
-
-Nevertheless, the analysis of the algorithm concordance might not be affected by the sample to the same degree allowing for a broader generalization. **However, the use of a DBS cohort offered certain methodological advantages. For example, all patients underwent standardized and comprehensive neuropsychological testing, which resulted in well-characterized and high-quality dataset, allowing us to systematically evaluate multiple diagnostic algorithms.** Future studies should aim to replicate our results on larger and different cohorts **with more heterogenous sample**. To make this process easier, the code used to generate our results is publicly available and easily applicable to similarly structured data.
 
 **Due to the retrospective nature of the study, some patients lacked one or more key measures required for the diagnosis of probable PDD by certain algorithms. Missing data were handled using the pairwise complete cases method. The main advantages of this approach are its straightforward implementation and preservation of statistical power. However, it may introduce bias, particularly when data are not missing completely at random (MCAR) and when causal inference is the goal [@little2019].**
 
@@ -428,7 +424,7 @@ Nevertheless, the analysis of the algorithm concordance might not be affected by
 
 **Another possible avenue for analysing the present data would be to exploit their hierarchical structure by fitting a multilevel model with algorithms nested within cognitive tests (see @fig-tree). Such an approach could leverage partial pooling [@gelman2012] and might approximate modern item response theory frameworks [@burkner2021], where PDD is conceptualised as a latent trait and the individual diagnostic algorithms act as items measuring it. If feasible, this psychometric perspective may represent an exciting new direction for conceptualising complex clinical phenomena such as PDD (cf. @miller2012, @kiselica2021).**
 
-Furthermore, another limitation is the use of the FAQ questionnaire for IADL assessment. FAQ is subjective and informant-reliant, which may result in biased data. **At the same time, the questionnaire may vary across cultures, therefore, the results may not be transferable. For example, activities such as financial management or driving, may not be equally practiced across cultures or contexts, which might complicate interpretation of impairment levels. The FAQ scores may vary across cultures, and diagnostic thresholds may not be transferable across countries [@odonald2025]. This may influence both the sensitivity and ecological validity of the functional criteria used. Another limitation is that the FAQ scores may correlate with neuropsychological results of certain domains, specifically executive functions or memory [@vanrentergem2020; @moheb2017]. This overlap could artificially increase concordance between cognitive and functional criteria. For future research, we suggest using a PD-specific questionnaire, such as the Penn Parkinson's Daily Activities Questionnaire-15 [@brennan2016] or generally more objective methods, preferably performance-based ones. Our results underscore the importance of IADL measurement for the PDD diagnosis. Therefore, we recommend using more reliable tools with high ecological validity.** For future research, we suggest the use of more objective, modernized tools for IADl assessment, such as performance-based methods [@schmitter-edgecombe2020] or questionnaire adaptation including questions regarding gadgets use and digital literacy [@postema2024]. Our results emphasize the importance of IADL deficit for the PDD diagnosis, therefore, we suggest exploring more reliable tools with high ecological validity.
+Furthermore, another limitation is the use of the FAQ questionnaire for IADL assessment. FAQ is subjective and informant-reliant, which may result in biased data. **At the same time, the questionnaire may vary across cultures, therefore, the results may not be transferable. For example, activities such as financial management or driving, may not be equally practiced across cultures or contexts, which might complicate interpretation of impairment levels. The FAQ scores may vary across cultures, and diagnostic thresholds may not be transferable across countries [@odonald2025]. This may influence both the sensitivity and ecological validity of the functional criteria used [@bezdicek2011; @bezdicek2016b]. Another limitation is that the FAQ scores may correlate with neuropsychological results of certain domains, specifically executive functions or memory [@vanrentergem2020; @moheb2017]. This overlap could artificially increase concordance between cognitive and functional criteria. For future research, we suggest using a PD-specific questionnaire, such as the Penn Parkinson's Daily Activities Questionnaire-15 [@brennan2016] or generally more objective methods, preferably performance-based ones. Our results underscore the importance of IADL measurement for the PDD diagnosis. Therefore, we recommend using more reliable tools with high ecological validity.** For future research, we suggest the use of more objective, modernized tools for IADl assessment, such as performance-based methods [@schmitter-edgecombe2020] or questionnaire adaptation including questions regarding gadgets use and digital literacy [@postema2024]. Our results emphasize the importance of IADL deficit for the PDD diagnosis, therefore, we suggest exploring more reliable tools with high ecological validity.
 
 **Additionally, the current study did not explore associations of PDD diagnosis with its neuropsychiatric correlates and biomarkers. We recommend examining models where psychiatric symptoms and biomarkers are treated as covariates to better capture their impact on PDD diagnosis.**
 
@@ -438,9 +434,11 @@ Furthermore, another limitation is the use of the FAQ questionnaire for IADL ass
 
 # Conclusions
 
-In sum,our study systematically investigated how varying definitions of impaired cognition and IADL deficit affect PDD diagnostic accuracy. Our study highlights the variability in PDD classification across Level I diagnostic algorithms, significantly influenced by IADL operationalisation and the choice of cognitive screening tools. The findings strongly support the call for a change of the current diagnostic criteria [@kulisevsky2024], favouring the use of MoCA-based components and comprehensive IADL assessments.
+In sum, our study systematically investigated how varying definitions of impaired cognition and IADL deficit affect PDD diagnostic accuracy. Our study highlights the variability in PDD classification across Level I diagnostic algorithms, significantly influenced by IADL operationalisation and the choice of cognitive screening tools. The findings strongly support the call for a change of the current diagnostic criteria [@kulisevsky2024], favouring the use of MoCA-based components and comprehensive IADL assessments.
 
 Conservative criteria, such as reliance on pill questionnaire (i.e. FAQ item 9 equivalence), may fail to detect functional decline and thus under-identify true cases of PDD. Importantly, concordance across algorithms rises significantly, reaching moderate to high values, when the same definition of IADL is used (either FAQ total or FAQ item 9). Moreover, when using MoCA-based algorithms instead of MMSE-based ones, we can observe better approximations to the Level II battery.
+
+Future studies should aim to replicate our results on larger and different cohorts **with more heterogenous sample**. To make this process easier, the code used to generate our results is publicly available and easily applicable to similarly structured data.
 
 # References
 
