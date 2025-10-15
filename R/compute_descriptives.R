@@ -84,7 +84,7 @@ compute_descriptives <- function(d0, vois) {
     text  <- paste0(dplyr::pull(notes[ , 1]), ": ", dplyr::pull(notes[ , 2])) |> paste(collapse = ", ")
     # Add the text:
     gtab <- gtab |>
-      gt::tab_source_note(html(paste0("<i>Note.</i> ", text)))
+      gt::tab_source_note(html(glue::glue("<i>Note.</i> {text}, All percentages were calculated from the whole sample.")))
   }
   # Return results:
   list(table = demtab, gtable = gtab)

@@ -186,7 +186,7 @@ describe_concordance <- function(d0) {
     ggplot2::aes(x = predictor, y = reference, fill = Kappa_raw) +
     ggplot2::geom_tile() +
     ggplot2::scale_fill_gradient2(high = "steelblue", na.value = "white") +
-    ggplot2::labs(x = "Predictor", y = "Reference") +
+    ggplot2::labs(x = "Predictor", y = "Reference", fill = "Cohen's \u03ba") +
     ggplot2::theme(
       axis.text.x = ggplot2::element_text(colour = dplyr::if_else(ord$xcol == "black", "black", "red3"), angle = 66, hjust = 1),
       axis.text.y = ggplot2::element_text(colour = dplyr::if_else(ord$ycol == "black", "black", "red3"))

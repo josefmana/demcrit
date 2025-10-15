@@ -19,9 +19,14 @@
 #'    be used for comparisons. Can be one of `"Accuracy_raw"`, `"Balanced Accuracy"`,
 #'    `"Kappa_raw"`, `"Sensitivity"` or `"Specificity"`.
 #'
-#' @returns A \code{gt} table object summarising the concordance statistics
-#'    (e.g., accuracy, kappa) of the five best and five worst Level I algorithms
-#'    in predicting the specified Level II-based diagnosis of probable PDD.
+#' @returns A list containing:
+#'   \describe{
+#'     \item{\code{table}}{A tibble with the five best and five worst Level I algorithms
+#'     in predicting the specified Level II-based diagnosis of probable PDD.}
+#'     \item{\code{gtable}}{A \code{gt} table object summarising the concordance statistics
+#'     (e.g., accuracy, kappa) of the five best and five worst Level I algorithms in predicting
+#'     the specified Level II-based diagnosis of probable PDD.}
+#'   }
 #'
 #' @seealso
 #' * [concords] contains data for `values`.
@@ -51,7 +56,7 @@
 #'
 #' @export
 table_levelII_approximations <- function(values, struct, crit) {
-  purrr::map_dfr(1:2, function(ii) {
+  tab <- purrr::map_dfr(1:2, function(ii) {
     values |>
       dplyr::filter(reference == paste0("Lvl.II (", ii, ")")) |>
       dplyr::filter(predictor %in% struct[[ii]]) |>
@@ -74,7 +79,9 @@ table_levelII_approximations <- function(values, struct, crit) {
       dplyr::across(tidyselect::where(is.numeric), \(x) do_summary(x, 2))
     ) |>
     dplyr::filter(!is.na(part)) |>
-    dplyr::select(part, tidyselect::ends_with("(1)"), tidyselect::ends_with("(2)")) |>
+    dplyr::select(part, tidyselect::ends_with("(1)"), tidyselect::ends_with("(2)"))
+  # Prepare gt table as well:
+  gtab <- tab |>
     gt_apa_table(grp = "part") |>
     gt::tab_spanner(columns = tidyselect::ends_with("(1)"), label = "Level II (1)", gather = FALSE) |>
     gt::tab_spanner(columns = tidyselect::ends_with("(2)"), label = "Level II (2)", gather = FALSE) |>
@@ -88,18 +95,20 @@ table_levelII_approximations <- function(values, struct, crit) {
     ) |>
     gt::tab_footnote(
       locations = gt::cells_column_spanners("Level II (1)"),
-      footnote = "IADL deficite was defined as FAQ (total score) > 7"
+      footnote = "IADL deficit was defined as FAQ (total score) > 7"
     ) |>
     gt::tab_footnote(
       locations = gt::cells_column_spanners("Level II (2)"),
-      footnote = "IADL deficite was defined as FAQ (item 9) > 1"
+      footnote = "IADL deficit was defined as FAQ (item 9) > 1"
     ) |>
     gt::tab_source_note(
       "\u03BA: Cohen's \u03BA; p: p-value associated with a one-sided Exact Binomial Test comparing the Accuracy to
       the No Information Rate; The table shows five most accurate (Top five) and five least accurate (Bottom
-      five) Level I algrithms for Parkinson's Disease Dementia (PDD) in predicting Level II classficiation
+      five) Level I algorithms for Parkinson's Disease Dementia (PDD) in predicting Level II classificiation
       of PDD. The algorithms were grouped by their definition of the deficit in Instrumental Activities
       of Daily Living (IADLs). The items comprising each listed algorithm can be found in Table A1."
     ) |>
     gt::opt_footnote_marks(marks = "letters")
+  # Return:
+  list(table = tab, gtable = gtab)
 }

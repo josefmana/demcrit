@@ -51,14 +51,14 @@ specify_algorithms <- function() {
       lang = c("moca_anim", "moca_abs"),
       iadl = c("faq", "faq_9")
     ) |>
-      mutate(
+      dplyr::mutate(
         exec_t = dplyr::case_when(exec == "vf_k" ~ 11, exec == "moca_cloc" ~ i),
         iadl_t = dplyr::case_when(iadl == "faq" ~ 7, iadl == "faq_9" ~ 1),
         lang_t = dplyr::case_when(lang == "moca_abs" ~ 2 , lang == "moca_anim" ~ 3)
       )
   }) |>
     dplyr::distinct() |>
-    mutate(type = paste0("MoCA (", seq_len(n()), ")"))
+    dplyr::mutate(type = paste0("MoCA (", seq_len(dplyr::n()), ")"))
   # sMoCA-based algorithms
   smoca <- tidyr::crossing(
     group = "smoca",
@@ -83,5 +83,5 @@ specify_algorithms <- function() {
     )
   # Return all-in-one:
   purrr::map_dfr(list(mmse, moca, smoca, lvlII), \(x) x) |>
-    mutate(dplyr::across(tidyselect::ends_with("_t"), \(x) dplyr::if_else(is.na(x), 0, x)))
+    dplyr::mutate(dplyr::across(tidyselect::ends_with("_t"), \(x) dplyr::if_else(is.na(x), 0, x)))
 }

@@ -94,7 +94,8 @@ summarise_rates <- function(d0, vars, descending = TRUE) {
     dplyr::arrange(dplyr::desc(perc)) |>
     dplyr::select(type, N, Rate) |>
     gt_apa_table() |>
-    gt::cols_label(type ~ "Algorithm")
+    gt::cols_label(type ~ "Algorithm") |>
+    gt::tab_source_note(gt::html("<i>Note.</i> Percentages were calculated from all available cases. The items comprising each listed algorithm can be found in Table A1."))
   # Make a table showing algorithms' specification:
   gtab_algos <- tab |>
     dplyr::select(-perc, -N, -Rate) |>
@@ -116,7 +117,7 @@ summarise_rates <- function(d0, vars, descending = TRUE) {
     text <- paste0(dplyr::pull(notes[ , 1]), ": ", dplyr::pull(notes[ , 2])) |> paste(collapse = ", ")
     # Add the text:
     gtab_algos <- gtab_algos |>
-      gt::tab_source_note(gt::html(paste0("<i>Note.</i> ", text)))
+      gt::tab_source_note(gt::html(glue::glue("<i>Note.</i> {text}")))
   }
   # Visualisation code:
   smoca_9 <- subset(prevs, type == subset(d0$algorithms, group == "smoca" & iadl == "faq_9")$type)$perc
