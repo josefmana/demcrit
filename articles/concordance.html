@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Concordance Results • demcrit</title>
+<title>Accessing Concordance Statistics • demcrit</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="concordance_files/libs/quarto-html/popper.min.js"></script><script src="concordance_files/libs/quarto-html/tippy.umd.min.js"></script><link href="concordance_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="concordance_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Concordance Results">
+<!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Accessing Concordance Statistics">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">demcrit</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,7 +35,7 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/concordance.html">Concordance Results</a></li>
+<li><a class="dropdown-item" href="../articles/concordance.html">Accessing Concordance Statistics</a></li>
     <li><a class="dropdown-item" href="../articles/correlation.html">Impact of Correlation on Concordance</a></li>
   </ul>
 </li>
@@ -53,7 +53,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
-      <h1>Concordance Results</h1>
+      <h1>Accessing Concordance Statistics</h1>
 
 
 
@@ -67,989 +67,75 @@
 
 
 
-    <p>The purpose of this vignette is to provide raw statistical results of all concordance indexes for pairwise comparisons of algorithms for Parkinson’s Disease Dementia discussed in the source article.</p>
+    <p>The purpose of this vignette is to provide access to the raw statistical results for all concordance indexes from pairwise comparisons of algorithms for <em>Parkinson’s Disease Dementia (PDD)</em> discussed in the source article.</p>
+<p>To explore these results, you first need to install and load a local instance of the <a href="https://github.com/josefmana/demcrit.git" class="external-link">demcrit</a> R package:</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load packages needed:</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com" class="external-link">gt</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://josefmana.github.io/demcrit/">demcrit</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading required package: tidyverse</span></span>
-<span><span class="co">#&gt; ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──</span></span>
-<span><span class="co">#&gt; ✔ dplyr     1.1.4     ✔ readr     2.1.5</span></span>
-<span><span class="co">#&gt; ✔ forcats   1.0.1     ✔ stringr   1.5.2</span></span>
-<span><span class="co">#&gt; ✔ ggplot2   4.0.0     ✔ tibble    3.3.0</span></span>
-<span><span class="co">#&gt; ✔ lubridate 1.9.4     ✔ tidyr     1.3.1</span></span>
-<span><span class="co">#&gt; ✔ purrr     1.1.0     </span></span>
-<span><span class="co">#&gt; ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──</span></span>
-<span><span class="co">#&gt; ✖ dplyr::filter() masks stats::filter()</span></span>
-<span><span class="co">#&gt; ✖ dplyr::lag()    masks stats::lag()</span></span>
-<span><span class="co">#&gt; ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</span></span>
+<div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># If you do not have the devtools package,</span></span>
+<span><span class="co"># install it by uncommenting the following line:</span></span>
+<span><span class="co">#install.packages(devtools)</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"josefmana/demcrit"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<p>Once installed, the concordance statistics can be loaded. The following code chunk loads the <em>demcrit</em> package (all subsequent examples assume the package is already loaded) and reads the concordance data into the object <code>concords</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://josefmana.github.io/demcrit/">demcrit</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"concords"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<p>You can find a detailed description of the dataset in its documentation:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/help.html" class="external-link">help</a></span><span class="op">(</span><span class="st">"concords"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<p>The concords object is a <a href="https://tibble.tidyverse.org" class="external-link"><strong>tibble</strong></a>, meaning it can be easily manipulated using packages from the <a href="https://tidyverse.org" class="external-link"><strong>tidyverse</strong></a> ecosystem.</p>
+<p>For example, the following code filters the data to retain only those pairwise comparisons where algorithm <code>"Lvl.II (1)"</code> served as the reference:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span> <span class="co"># load the package</span></span>
 <span></span>
-<span><span class="co"># Read the data:</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">concords</span><span class="op">)</span></span></code></pre></div>
-</details>
+<span><span class="co"># Extract the subdata:</span></span>
+<span><span class="va">lvlII1_reference</span> <span class="op">&lt;-</span> <span class="va">concords</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">reference</span> <span class="op">==</span> <span class="st">"Lvl.II (1)"</span><span class="op">)</span></span></code></pre></div>
 </div>
+<p>For more nuanced data operations, you can also load the <code>rates</code> dataset, which contains algorithm specifications and estimated rates of probable PDD in the sample:</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">concords</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">concords</span><span class="op">)</span>, <span class="fl">20</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gt_apa_table.html">gt_apa_table</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>decimals <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_missing.html" class="external-link">fmt_missing</a></span><span class="op">(</span>missing_text <span class="op">=</span> <span class="st">"-"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Since gt v0.6.0 `fmt_missing()` is deprecated and will soon be removed.</span></span>
-<span><span class="co">#&gt; ℹ Use `sub_missing()` instead.</span></span>
-<span><span class="co">#&gt; This warning is displayed once every 8 hours.</span></span></code></pre></div>
-</details><div id="tbl-concords" class="cell quarto-float quarto-figure quarto-figure-center">
-<figure class="quarto-float quarto-float-tbl"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-concords-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table 1: Random selection of twenty algorithm pairs.
-</figcaption><div aria-describedby="tbl-concords-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output-display">
-<div id="rijhihjulc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#rijhihjulc table {
-  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-#rijhihjulc thead, #rijhihjulc tbody, #rijhihjulc tfoot, #rijhihjulc tr, #rijhihjulc td, #rijhihjulc th {
-  border-style: none;
-}
-
-#rijhihjulc p {
-  margin: 0;
-  padding: 0;
-}
-
-#rijhihjulc .gt_table {
-  display: table;
-  border-collapse: collapse;
-  line-height: normal;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: 100%;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #FFFFFF;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#rijhihjulc .gt_caption {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-#rijhihjulc .gt_title {
-  color: #333333;
-  font-size: 16px;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#rijhihjulc .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 3px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#rijhihjulc .gt_heading {
-  background-color: #FFFFFF;
-  text-align: left;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#rijhihjulc .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#rijhihjulc .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 3px;
-  border-top-color: #000000;
-  border-bottom-style: solid;
-  border-bottom-width: 3px;
-  border-bottom-color: #000000;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#rijhihjulc .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#rijhihjulc .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#rijhihjulc .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#rijhihjulc .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#rijhihjulc .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 3px;
-  border-bottom-color: #000000;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#rijhihjulc .gt_spanner_row {
-  border-bottom-style: hidden;
-}
-
-#rijhihjulc .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  text-align: left;
-}
-
-#rijhihjulc .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#rijhihjulc .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#rijhihjulc .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#rijhihjulc .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#rijhihjulc .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#rijhihjulc .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-#rijhihjulc .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-#rijhihjulc .gt_row_group_first th {
-  border-top-width: 2px;
-}
-
-#rijhihjulc .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#rijhihjulc .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-#rijhihjulc .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-#rijhihjulc .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#rijhihjulc .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#rijhihjulc .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#rijhihjulc .gt_last_grand_summary_row_top {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: double;
-  border-bottom-width: 6px;
-  border-bottom-color: #D3D3D3;
-}
-
-#rijhihjulc .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#rijhihjulc .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #000000;
-}
-
-#rijhihjulc .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#rijhihjulc .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#rijhihjulc .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#rijhihjulc .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#rijhihjulc .gt_left {
-  text-align: left;
-}
-
-#rijhihjulc .gt_center {
-  text-align: center;
-}
-
-#rijhihjulc .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#rijhihjulc .gt_font_normal {
-  font-weight: normal;
-}
-
-#rijhihjulc .gt_font_bold {
-  font-weight: bold;
-}
-
-#rijhihjulc .gt_font_italic {
-  font-style: italic;
-}
-
-#rijhihjulc .gt_super {
-  font-size: 65%;
-}
-
-#rijhihjulc .gt_footnote_marks {
-  font-size: 75%;
-  vertical-align: 0.4em;
-  position: initial;
-}
-
-#rijhihjulc .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-#rijhihjulc .gt_indent_1 {
-  text-indent: 5px;
-}
-
-#rijhihjulc .gt_indent_2 {
-  text-indent: 10px;
-}
-
-#rijhihjulc .gt_indent_3 {
-  text-indent: 15px;
-}
-
-#rijhihjulc .gt_indent_4 {
-  text-indent: 20px;
-}
-
-#rijhihjulc .gt_indent_5 {
-  text-indent: 25px;
-}
-
-#rijhihjulc .katex-display {
-  display: inline-flex !important;
-  margin-bottom: 0.75em !important;
-}
-
-#rijhihjulc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
-  height: 0px !important;
-}
-</style>
-<table class="table gt_table do-not-create-environment cell caption-top" data-quarto-bootstrap="false">
-<thead>
-<tr class="gt_heading header">
-<td colspan="21" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="text-align: center;"></td>
-</tr>
-<tr class="gt_col_headings even">
-<th id="predictor" class="gt_col_heading gt_columns_bottom_border gt_center" style="text-align: center;" data-quarto-table-cell-role="th" scope="col">predictor</th>
-<th id="reference" class="gt_col_heading gt_columns_bottom_border gt_center" style="text-align: center;" data-quarto-table-cell-role="th" scope="col">reference</th>
-<th id="N" class="gt_col_heading gt_columns_bottom_border gt_center" style="text-align: center;" data-quarto-table-cell-role="th" scope="col">N</th>
-<th id="Kappa" class="gt_col_heading gt_columns_bottom_border gt_center" style="text-align: center;" data-quarto-table-cell-role="th" scope="col">Kappa</th>
-<th id="Accuracy" class="gt_col_heading gt_columns_bottom_border gt_center" style="text-align: center;" data-quarto-table-cell-role="th" scope="col">Accuracy</th>
-<th id="Kappa_raw" class="gt_col_heading gt_columns_bottom_border gt_center" style="text-align: center;" data-quarto-table-cell-role="th" scope="col">Kappa_raw</th>
-<th id="McnemarPValue" class="gt_col_heading gt_columns_bottom_border gt_center" style="text-align: center;" data-quarto-table-cell-role="th" scope="col">McnemarPValue</th>
-<th id="Accuracy_raw" class="gt_col_heading gt_columns_bottom_border gt_center" style="text-align: center;" data-quarto-table-cell-role="th" scope="col">Accuracy_raw</th>
-<th id="NoInformationRate_raw" class="gt_col_heading gt_columns_bottom_border gt_center" style="text-align: center;" data-quarto-table-cell-role="th" scope="col">NoInformationRate_raw</th>
-<th id="AccuracyPValue" class="gt_col_heading gt_columns_bottom_border gt_center" style="text-align: center;" data-quarto-table-cell-role="th" scope="col">AccuracyPValue</th>
-<th id="Sensitivity" class="gt_col_heading gt_columns_bottom_border gt_center" style="text-align: center;" data-quarto-table-cell-role="th" scope="col">Sensitivity</th>
-<th id="Specificity" class="gt_col_heading gt_columns_bottom_border gt_center" style="text-align: center;" data-quarto-table-cell-role="th" scope="col">Specificity</th>
-<th id="Pos-Pred-Value" class="gt_col_heading gt_columns_bottom_border gt_center" style="text-align: center;" data-quarto-table-cell-role="th" scope="col">Pos Pred Value</th>
-<th id="Neg-Pred-Value" class="gt_col_heading gt_columns_bottom_border gt_center" style="text-align: center;" data-quarto-table-cell-role="th" scope="col">Neg Pred Value</th>
-<th id="Precision" class="gt_col_heading gt_columns_bottom_border gt_center" style="text-align: center;" data-quarto-table-cell-role="th" scope="col">Precision</th>
-<th id="Recall" class="gt_col_heading gt_columns_bottom_border gt_center" style="text-align: center;" data-quarto-table-cell-role="th" scope="col">Recall</th>
-<th id="F1" class="gt_col_heading gt_columns_bottom_border gt_center" style="text-align: center;" data-quarto-table-cell-role="th" scope="col">F1</th>
-<th id="Prevalence" class="gt_col_heading gt_columns_bottom_border gt_center" style="text-align: center;" data-quarto-table-cell-role="th" scope="col">Prevalence</th>
-<th id="Detection-Rate" class="gt_col_heading gt_columns_bottom_border gt_center" style="text-align: center;" data-quarto-table-cell-role="th" scope="col">Detection Rate</th>
-<th id="Detection-Prevalence" class="gt_col_heading gt_columns_bottom_border gt_center" style="text-align: center;" data-quarto-table-cell-role="th" scope="col">Detection Prevalence</th>
-<th id="Balanced-Accuracy" class="gt_col_heading gt_columns_bottom_border gt_center" style="text-align: center;" data-quarto-table-cell-role="th" scope="col">Balanced Accuracy</th>
-</tr>
-</thead>
-<tbody class="gt_table_body">
-<tr class="odd">
-<td class="gt_row gt_center" headers="predictor" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (46)</td>
-<td class="gt_row gt_center" headers="reference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (31)</td>
-<td class="gt_row gt_center" headers="N" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">202.000</td>
-<td class="gt_row gt_center" headers="Kappa" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.37 [0.09, 0.65]</td>
-<td class="gt_row gt_center" headers="Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.94 [0.90, 0.97]</td>
-<td class="gt_row gt_center" headers="Kappa_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.372</td>
-<td class="gt_row gt_center" headers="McnemarPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.149</td>
-<td class="gt_row gt_center" headers="Accuracy_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.941</td>
-<td class="gt_row gt_center" headers="NoInformationRate_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.936</td>
-<td class="gt_row gt_center" headers="AccuracyPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.459</td>
-<td class="gt_row gt_center" headers="Sensitivity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.308</td>
-<td class="gt_row gt_center" headers="Specificity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.984</td>
-<td class="gt_row gt_center" headers="Pos Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.571</td>
-<td class="gt_row gt_center" headers="Neg Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.954</td>
-<td class="gt_row gt_center" headers="Precision" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.571</td>
-<td class="gt_row gt_center" headers="Recall" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.308</td>
-<td class="gt_row gt_center" headers="F1" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.400</td>
-<td class="gt_row gt_center" headers="Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.064</td>
-<td class="gt_row gt_center" headers="Detection Rate" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.020</td>
-<td class="gt_row gt_center" headers="Detection Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.035</td>
-<td class="gt_row gt_center" headers="Balanced Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.646</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers="predictor" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MMSE (2)</td>
-<td class="gt_row gt_center" headers="reference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MMSE (4)</td>
-<td class="gt_row gt_center" headers="N" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">199.000</td>
-<td class="gt_row gt_center" headers="Kappa" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.89 [0.67, 1.00]</td>
-<td class="gt_row gt_center" headers="Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.99 [0.97, 1.00]</td>
-<td class="gt_row gt_center" headers="Kappa_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.886</td>
-<td class="gt_row gt_center" headers="McnemarPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">1.000</td>
-<td class="gt_row gt_center" headers="Accuracy_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.995</td>
-<td class="gt_row gt_center" headers="NoInformationRate_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.980</td>
-<td class="gt_row gt_center" headers="AccuracyPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.089</td>
-<td class="gt_row gt_center" headers="Sensitivity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">1.000</td>
-<td class="gt_row gt_center" headers="Specificity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.995</td>
-<td class="gt_row gt_center" headers="Pos Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.800</td>
-<td class="gt_row gt_center" headers="Neg Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">1.000</td>
-<td class="gt_row gt_center" headers="Precision" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.800</td>
-<td class="gt_row gt_center" headers="Recall" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">1.000</td>
-<td class="gt_row gt_center" headers="F1" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.889</td>
-<td class="gt_row gt_center" headers="Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.020</td>
-<td class="gt_row gt_center" headers="Detection Rate" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.020</td>
-<td class="gt_row gt_center" headers="Detection Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.025</td>
-<td class="gt_row gt_center" headers="Balanced Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.997</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers="predictor" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (39)</td>
-<td class="gt_row gt_center" headers="reference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (1)</td>
-<td class="gt_row gt_center" headers="N" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">203.000</td>
-<td class="gt_row gt_center" headers="Kappa" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.69 [0.49, 0.88]</td>
-<td class="gt_row gt_center" headers="Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.96 [0.92, 0.98]</td>
-<td class="gt_row gt_center" headers="Kappa_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.686</td>
-<td class="gt_row gt_center" headers="McnemarPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">1.000</td>
-<td class="gt_row gt_center" headers="Accuracy_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.956</td>
-<td class="gt_row gt_center" headers="NoInformationRate_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.921</td>
-<td class="gt_row gt_center" headers="AccuracyPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.037</td>
-<td class="gt_row gt_center" headers="Sensitivity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.688</td>
-<td class="gt_row gt_center" headers="Specificity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.979</td>
-<td class="gt_row gt_center" headers="Pos Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.733</td>
-<td class="gt_row gt_center" headers="Neg Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.973</td>
-<td class="gt_row gt_center" headers="Precision" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.733</td>
-<td class="gt_row gt_center" headers="Recall" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.688</td>
-<td class="gt_row gt_center" headers="F1" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.710</td>
-<td class="gt_row gt_center" headers="Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.079</td>
-<td class="gt_row gt_center" headers="Detection Rate" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.054</td>
-<td class="gt_row gt_center" headers="Detection Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.074</td>
-<td class="gt_row gt_center" headers="Balanced Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.833</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers="predictor" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (13)</td>
-<td class="gt_row gt_center" headers="reference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (13)</td>
-<td class="gt_row gt_center" headers="N" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">-</td>
-<td class="gt_row gt_center" headers="Kappa" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">-</td>
-<td class="gt_row gt_center" headers="Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">1.00</td>
-<td class="gt_row gt_center" headers="Kappa_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">-</td>
-<td class="gt_row gt_center" headers="McnemarPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">-</td>
-<td class="gt_row gt_center" headers="Accuracy_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">1.000</td>
-<td class="gt_row gt_center" headers="NoInformationRate_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">-</td>
-<td class="gt_row gt_center" headers="AccuracyPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">-</td>
-<td class="gt_row gt_center" headers="Sensitivity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">-</td>
-<td class="gt_row gt_center" headers="Specificity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">-</td>
-<td class="gt_row gt_center" headers="Pos Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">-</td>
-<td class="gt_row gt_center" headers="Neg Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">-</td>
-<td class="gt_row gt_center" headers="Precision" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">-</td>
-<td class="gt_row gt_center" headers="Recall" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">-</td>
-<td class="gt_row gt_center" headers="F1" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">-</td>
-<td class="gt_row gt_center" headers="Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">-</td>
-<td class="gt_row gt_center" headers="Detection Rate" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">-</td>
-<td class="gt_row gt_center" headers="Detection Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">-</td>
-<td class="gt_row gt_center" headers="Balanced Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">-</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers="predictor" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (15)</td>
-<td class="gt_row gt_center" headers="reference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (44)</td>
-<td class="gt_row gt_center" headers="N" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">202.000</td>
-<td class="gt_row gt_center" headers="Kappa" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.48 [0.21, 0.75]</td>
-<td class="gt_row gt_center" headers="Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.95 [0.91, 0.98]</td>
-<td class="gt_row gt_center" headers="Kappa_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.478</td>
-<td class="gt_row gt_center" headers="McnemarPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.027</td>
-<td class="gt_row gt_center" headers="Accuracy_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.950</td>
-<td class="gt_row gt_center" headers="NoInformationRate_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.970</td>
-<td class="gt_row gt_center" headers="AccuracyPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.960</td>
-<td class="gt_row gt_center" headers="Sensitivity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.833</td>
-<td class="gt_row gt_center" headers="Specificity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.954</td>
-<td class="gt_row gt_center" headers="Pos Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.357</td>
-<td class="gt_row gt_center" headers="Neg Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.995</td>
-<td class="gt_row gt_center" headers="Precision" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.357</td>
-<td class="gt_row gt_center" headers="Recall" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.833</td>
-<td class="gt_row gt_center" headers="F1" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.500</td>
-<td class="gt_row gt_center" headers="Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.030</td>
-<td class="gt_row gt_center" headers="Detection Rate" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.025</td>
-<td class="gt_row gt_center" headers="Detection Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.069</td>
-<td class="gt_row gt_center" headers="Balanced Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.894</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers="predictor" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">sMoCA (2)</td>
-<td class="gt_row gt_center" headers="reference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">Lvl.II (1)</td>
-<td class="gt_row gt_center" headers="N" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">194.000</td>
-<td class="gt_row gt_center" headers="Kappa" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.32 [0.09, 0.55]</td>
-<td class="gt_row gt_center" headers="Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.91 [0.86, 0.94]</td>
-<td class="gt_row gt_center" headers="Kappa_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.317</td>
-<td class="gt_row gt_center" headers="McnemarPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.010</td>
-<td class="gt_row gt_center" headers="Accuracy_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.907</td>
-<td class="gt_row gt_center" headers="NoInformationRate_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.897</td>
-<td class="gt_row gt_center" headers="AccuracyPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.372</td>
-<td class="gt_row gt_center" headers="Sensitivity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.250</td>
-<td class="gt_row gt_center" headers="Specificity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.983</td>
-<td class="gt_row gt_center" headers="Pos Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.625</td>
-<td class="gt_row gt_center" headers="Neg Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.919</td>
-<td class="gt_row gt_center" headers="Precision" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.625</td>
-<td class="gt_row gt_center" headers="Recall" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.250</td>
-<td class="gt_row gt_center" headers="F1" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.357</td>
-<td class="gt_row gt_center" headers="Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.103</td>
-<td class="gt_row gt_center" headers="Detection Rate" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.026</td>
-<td class="gt_row gt_center" headers="Detection Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.041</td>
-<td class="gt_row gt_center" headers="Balanced Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.616</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers="predictor" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">sMoCA (1)</td>
-<td class="gt_row gt_center" headers="reference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MMSE (3)</td>
-<td class="gt_row gt_center" headers="N" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">200.000</td>
-<td class="gt_row gt_center" headers="Kappa" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.30 [0.13, 0.48]</td>
-<td class="gt_row gt_center" headers="Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.86 [0.81, 0.91]</td>
-<td class="gt_row gt_center" headers="Kappa_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.301</td>
-<td class="gt_row gt_center" headers="McnemarPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.000</td>
-<td class="gt_row gt_center" headers="Accuracy_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.865</td>
-<td class="gt_row gt_center" headers="NoInformationRate_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.965</td>
-<td class="gt_row gt_center" headers="AccuracyPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">1.000</td>
-<td class="gt_row gt_center" headers="Sensitivity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">1.000</td>
-<td class="gt_row gt_center" headers="Specificity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.860</td>
-<td class="gt_row gt_center" headers="Pos Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.206</td>
-<td class="gt_row gt_center" headers="Neg Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">1.000</td>
-<td class="gt_row gt_center" headers="Precision" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.206</td>
-<td class="gt_row gt_center" headers="Recall" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">1.000</td>
-<td class="gt_row gt_center" headers="F1" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.341</td>
-<td class="gt_row gt_center" headers="Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.035</td>
-<td class="gt_row gt_center" headers="Detection Rate" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.035</td>
-<td class="gt_row gt_center" headers="Detection Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.170</td>
-<td class="gt_row gt_center" headers="Balanced Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.930</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers="predictor" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (27)</td>
-<td class="gt_row gt_center" headers="reference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (59)</td>
-<td class="gt_row gt_center" headers="N" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">203.000</td>
-<td class="gt_row gt_center" headers="Kappa" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.72 [0.55, 0.89]</td>
-<td class="gt_row gt_center" headers="Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.96 [0.92, 0.98]</td>
-<td class="gt_row gt_center" headers="Kappa_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.720</td>
-<td class="gt_row gt_center" headers="McnemarPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.008</td>
-<td class="gt_row gt_center" headers="Accuracy_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.956</td>
-<td class="gt_row gt_center" headers="NoInformationRate_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.892</td>
-<td class="gt_row gt_center" headers="AccuracyPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.001</td>
-<td class="gt_row gt_center" headers="Sensitivity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.591</td>
-<td class="gt_row gt_center" headers="Specificity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">1.000</td>
-<td class="gt_row gt_center" headers="Pos Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">1.000</td>
-<td class="gt_row gt_center" headers="Neg Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.953</td>
-<td class="gt_row gt_center" headers="Precision" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">1.000</td>
-<td class="gt_row gt_center" headers="Recall" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.591</td>
-<td class="gt_row gt_center" headers="F1" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.743</td>
-<td class="gt_row gt_center" headers="Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.108</td>
-<td class="gt_row gt_center" headers="Detection Rate" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.064</td>
-<td class="gt_row gt_center" headers="Detection Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.064</td>
-<td class="gt_row gt_center" headers="Balanced Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.795</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers="predictor" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (7)</td>
-<td class="gt_row gt_center" headers="reference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (45)</td>
-<td class="gt_row gt_center" headers="N" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">203.000</td>
-<td class="gt_row gt_center" headers="Kappa" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.67 [0.50, 0.85]</td>
-<td class="gt_row gt_center" headers="Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.95 [0.91, 0.97]</td>
-<td class="gt_row gt_center" headers="Kappa_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.675</td>
-<td class="gt_row gt_center" headers="McnemarPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.016</td>
-<td class="gt_row gt_center" headers="Accuracy_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.946</td>
-<td class="gt_row gt_center" headers="NoInformationRate_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.887</td>
-<td class="gt_row gt_center" headers="AccuracyPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.003</td>
-<td class="gt_row gt_center" headers="Sensitivity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.565</td>
-<td class="gt_row gt_center" headers="Specificity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.994</td>
-<td class="gt_row gt_center" headers="Pos Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.929</td>
-<td class="gt_row gt_center" headers="Neg Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.947</td>
-<td class="gt_row gt_center" headers="Precision" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.929</td>
-<td class="gt_row gt_center" headers="Recall" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.565</td>
-<td class="gt_row gt_center" headers="F1" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.703</td>
-<td class="gt_row gt_center" headers="Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.113</td>
-<td class="gt_row gt_center" headers="Detection Rate" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.064</td>
-<td class="gt_row gt_center" headers="Detection Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.069</td>
-<td class="gt_row gt_center" headers="Balanced Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.780</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers="predictor" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (36)</td>
-<td class="gt_row gt_center" headers="reference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (53)</td>
-<td class="gt_row gt_center" headers="N" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">202.000</td>
-<td class="gt_row gt_center" headers="Kappa" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.24 [0.03, 0.45]</td>
-<td class="gt_row gt_center" headers="Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.90 [0.85, 0.93]</td>
-<td class="gt_row gt_center" headers="Kappa_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.240</td>
-<td class="gt_row gt_center" headers="McnemarPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.000</td>
-<td class="gt_row gt_center" headers="Accuracy_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.896</td>
-<td class="gt_row gt_center" headers="NoInformationRate_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.886</td>
-<td class="gt_row gt_center" headers="AccuracyPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.380</td>
-<td class="gt_row gt_center" headers="Sensitivity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.174</td>
-<td class="gt_row gt_center" headers="Specificity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.989</td>
-<td class="gt_row gt_center" headers="Pos Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.667</td>
-<td class="gt_row gt_center" headers="Neg Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.903</td>
-<td class="gt_row gt_center" headers="Precision" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.667</td>
-<td class="gt_row gt_center" headers="Recall" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.174</td>
-<td class="gt_row gt_center" headers="F1" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.276</td>
-<td class="gt_row gt_center" headers="Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.114</td>
-<td class="gt_row gt_center" headers="Detection Rate" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.020</td>
-<td class="gt_row gt_center" headers="Detection Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.030</td>
-<td class="gt_row gt_center" headers="Balanced Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.581</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers="predictor" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (9)</td>
-<td class="gt_row gt_center" headers="reference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (7)</td>
-<td class="gt_row gt_center" headers="N" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">203.000</td>
-<td class="gt_row gt_center" headers="Kappa" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.72 [0.55, 0.89]</td>
-<td class="gt_row gt_center" headers="Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.96 [0.92, 0.98]</td>
-<td class="gt_row gt_center" headers="Kappa_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.720</td>
-<td class="gt_row gt_center" headers="McnemarPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.046</td>
-<td class="gt_row gt_center" headers="Accuracy_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.956</td>
-<td class="gt_row gt_center" headers="NoInformationRate_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.931</td>
-<td class="gt_row gt_center" headers="AccuracyPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.101</td>
-<td class="gt_row gt_center" headers="Sensitivity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.929</td>
-<td class="gt_row gt_center" headers="Specificity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.958</td>
-<td class="gt_row gt_center" headers="Pos Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.619</td>
-<td class="gt_row gt_center" headers="Neg Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.995</td>
-<td class="gt_row gt_center" headers="Precision" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.619</td>
-<td class="gt_row gt_center" headers="Recall" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.929</td>
-<td class="gt_row gt_center" headers="F1" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.743</td>
-<td class="gt_row gt_center" headers="Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.069</td>
-<td class="gt_row gt_center" headers="Detection Rate" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.064</td>
-<td class="gt_row gt_center" headers="Detection Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.103</td>
-<td class="gt_row gt_center" headers="Balanced Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.943</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers="predictor" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (34)</td>
-<td class="gt_row gt_center" headers="reference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (39)</td>
-<td class="gt_row gt_center" headers="N" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">202.000</td>
-<td class="gt_row gt_center" headers="Kappa" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.35 [0.09, 0.62]</td>
-<td class="gt_row gt_center" headers="Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.94 [0.89, 0.97]</td>
-<td class="gt_row gt_center" headers="Kappa_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.354</td>
-<td class="gt_row gt_center" headers="McnemarPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.027</td>
-<td class="gt_row gt_center" headers="Accuracy_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.936</td>
-<td class="gt_row gt_center" headers="NoInformationRate_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.926</td>
-<td class="gt_row gt_center" headers="AccuracyPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.356</td>
-<td class="gt_row gt_center" headers="Sensitivity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.267</td>
-<td class="gt_row gt_center" headers="Specificity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.989</td>
-<td class="gt_row gt_center" headers="Pos Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.667</td>
-<td class="gt_row gt_center" headers="Neg Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.944</td>
-<td class="gt_row gt_center" headers="Precision" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.667</td>
-<td class="gt_row gt_center" headers="Recall" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.267</td>
-<td class="gt_row gt_center" headers="F1" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.381</td>
-<td class="gt_row gt_center" headers="Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.074</td>
-<td class="gt_row gt_center" headers="Detection Rate" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.020</td>
-<td class="gt_row gt_center" headers="Detection Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.030</td>
-<td class="gt_row gt_center" headers="Balanced Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.628</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers="predictor" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (49)</td>
-<td class="gt_row gt_center" headers="reference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (53)</td>
-<td class="gt_row gt_center" headers="N" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">203.000</td>
-<td class="gt_row gt_center" headers="Kappa" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.98 [0.93, 1.00]</td>
-<td class="gt_row gt_center" headers="Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">1.00 [0.97, 1.00]</td>
-<td class="gt_row gt_center" headers="Kappa_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.976</td>
-<td class="gt_row gt_center" headers="McnemarPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">1.000</td>
-<td class="gt_row gt_center" headers="Accuracy_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.995</td>
-<td class="gt_row gt_center" headers="NoInformationRate_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.882</td>
-<td class="gt_row gt_center" headers="AccuracyPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.000</td>
-<td class="gt_row gt_center" headers="Sensitivity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.958</td>
-<td class="gt_row gt_center" headers="Specificity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">1.000</td>
-<td class="gt_row gt_center" headers="Pos Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">1.000</td>
-<td class="gt_row gt_center" headers="Neg Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.994</td>
-<td class="gt_row gt_center" headers="Precision" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">1.000</td>
-<td class="gt_row gt_center" headers="Recall" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.958</td>
-<td class="gt_row gt_center" headers="F1" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.979</td>
-<td class="gt_row gt_center" headers="Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.118</td>
-<td class="gt_row gt_center" headers="Detection Rate" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.113</td>
-<td class="gt_row gt_center" headers="Detection Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.113</td>
-<td class="gt_row gt_center" headers="Balanced Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.979</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers="predictor" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (29)</td>
-<td class="gt_row gt_center" headers="reference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (58)</td>
-<td class="gt_row gt_center" headers="N" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">202.000</td>
-<td class="gt_row gt_center" headers="Kappa" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.34 [0.10, 0.57]</td>
-<td class="gt_row gt_center" headers="Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.92 [0.87, 0.95]</td>
-<td class="gt_row gt_center" headers="Kappa_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.336</td>
-<td class="gt_row gt_center" headers="McnemarPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.004</td>
-<td class="gt_row gt_center" headers="Accuracy_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.916</td>
-<td class="gt_row gt_center" headers="NoInformationRate_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.965</td>
-<td class="gt_row gt_center" headers="AccuracyPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">1.000</td>
-<td class="gt_row gt_center" headers="Sensitivity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.714</td>
-<td class="gt_row gt_center" headers="Specificity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.923</td>
-<td class="gt_row gt_center" headers="Pos Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.250</td>
-<td class="gt_row gt_center" headers="Neg Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.989</td>
-<td class="gt_row gt_center" headers="Precision" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.250</td>
-<td class="gt_row gt_center" headers="Recall" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.714</td>
-<td class="gt_row gt_center" headers="F1" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.370</td>
-<td class="gt_row gt_center" headers="Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.035</td>
-<td class="gt_row gt_center" headers="Detection Rate" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.025</td>
-<td class="gt_row gt_center" headers="Detection Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.099</td>
-<td class="gt_row gt_center" headers="Balanced Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.819</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers="predictor" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">Lvl.II (2)</td>
-<td class="gt_row gt_center" headers="reference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (37)</td>
-<td class="gt_row gt_center" headers="N" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">194.000</td>
-<td class="gt_row gt_center" headers="Kappa" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.24 [0.03, 0.46]</td>
-<td class="gt_row gt_center" headers="Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.90 [0.85, 0.94]</td>
-<td class="gt_row gt_center" headers="Kappa_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.245</td>
-<td class="gt_row gt_center" headers="McnemarPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.004</td>
-<td class="gt_row gt_center" headers="Accuracy_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.897</td>
-<td class="gt_row gt_center" headers="NoInformationRate_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.892</td>
-<td class="gt_row gt_center" headers="AccuracyPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.466</td>
-<td class="gt_row gt_center" headers="Sensitivity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.190</td>
-<td class="gt_row gt_center" headers="Specificity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.983</td>
-<td class="gt_row gt_center" headers="Pos Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.571</td>
-<td class="gt_row gt_center" headers="Neg Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.909</td>
-<td class="gt_row gt_center" headers="Precision" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.571</td>
-<td class="gt_row gt_center" headers="Recall" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.190</td>
-<td class="gt_row gt_center" headers="F1" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.286</td>
-<td class="gt_row gt_center" headers="Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.108</td>
-<td class="gt_row gt_center" headers="Detection Rate" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.021</td>
-<td class="gt_row gt_center" headers="Detection Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.036</td>
-<td class="gt_row gt_center" headers="Balanced Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.587</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers="predictor" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (10)</td>
-<td class="gt_row gt_center" headers="reference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (51)</td>
-<td class="gt_row gt_center" headers="N" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">202.000</td>
-<td class="gt_row gt_center" headers="Kappa" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.37 [0.13, 0.61]</td>
-<td class="gt_row gt_center" headers="Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.93 [0.88, 0.96]</td>
-<td class="gt_row gt_center" headers="Kappa_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.372</td>
-<td class="gt_row gt_center" headers="McnemarPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.002</td>
-<td class="gt_row gt_center" headers="Accuracy_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.926</td>
-<td class="gt_row gt_center" headers="NoInformationRate_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.906</td>
-<td class="gt_row gt_center" headers="AccuracyPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.202</td>
-<td class="gt_row gt_center" headers="Sensitivity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.263</td>
-<td class="gt_row gt_center" headers="Specificity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.995</td>
-<td class="gt_row gt_center" headers="Pos Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.833</td>
-<td class="gt_row gt_center" headers="Neg Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.929</td>
-<td class="gt_row gt_center" headers="Precision" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.833</td>
-<td class="gt_row gt_center" headers="Recall" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.263</td>
-<td class="gt_row gt_center" headers="F1" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.400</td>
-<td class="gt_row gt_center" headers="Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.094</td>
-<td class="gt_row gt_center" headers="Detection Rate" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.025</td>
-<td class="gt_row gt_center" headers="Detection Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.030</td>
-<td class="gt_row gt_center" headers="Balanced Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.629</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers="predictor" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (37)</td>
-<td class="gt_row gt_center" headers="reference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (48)</td>
-<td class="gt_row gt_center" headers="N" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">202.000</td>
-<td class="gt_row gt_center" headers="Kappa" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.25 [0.03, 0.46]</td>
-<td class="gt_row gt_center" headers="Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.90 [0.85, 0.94]</td>
-<td class="gt_row gt_center" headers="Kappa_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.247</td>
-<td class="gt_row gt_center" headers="McnemarPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.004</td>
-<td class="gt_row gt_center" headers="Accuracy_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.901</td>
-<td class="gt_row gt_center" headers="NoInformationRate_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.965</td>
-<td class="gt_row gt_center" headers="AccuracyPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">1.000</td>
-<td class="gt_row gt_center" headers="Sensitivity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.571</td>
-<td class="gt_row gt_center" headers="Specificity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.913</td>
-<td class="gt_row gt_center" headers="Pos Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.190</td>
-<td class="gt_row gt_center" headers="Neg Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.983</td>
-<td class="gt_row gt_center" headers="Precision" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.190</td>
-<td class="gt_row gt_center" headers="Recall" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.571</td>
-<td class="gt_row gt_center" headers="F1" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.286</td>
-<td class="gt_row gt_center" headers="Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.035</td>
-<td class="gt_row gt_center" headers="Detection Rate" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.020</td>
-<td class="gt_row gt_center" headers="Detection Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.104</td>
-<td class="gt_row gt_center" headers="Balanced Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.742</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers="predictor" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (29)</td>
-<td class="gt_row gt_center" headers="reference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">Lvl.II (2)</td>
-<td class="gt_row gt_center" headers="N" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">194.000</td>
-<td class="gt_row gt_center" headers="Kappa" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.26 [0.03, 0.48]</td>
-<td class="gt_row gt_center" headers="Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.90 [0.85, 0.94]</td>
-<td class="gt_row gt_center" headers="Kappa_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.257</td>
-<td class="gt_row gt_center" headers="McnemarPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.006</td>
-<td class="gt_row gt_center" headers="Accuracy_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.902</td>
-<td class="gt_row gt_center" headers="NoInformationRate_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.964</td>
-<td class="gt_row gt_center" headers="AccuracyPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">1.000</td>
-<td class="gt_row gt_center" headers="Sensitivity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.571</td>
-<td class="gt_row gt_center" headers="Specificity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.914</td>
-<td class="gt_row gt_center" headers="Pos Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.200</td>
-<td class="gt_row gt_center" headers="Neg Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.983</td>
-<td class="gt_row gt_center" headers="Precision" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.200</td>
-<td class="gt_row gt_center" headers="Recall" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.571</td>
-<td class="gt_row gt_center" headers="F1" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.296</td>
-<td class="gt_row gt_center" headers="Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.036</td>
-<td class="gt_row gt_center" headers="Detection Rate" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.021</td>
-<td class="gt_row gt_center" headers="Detection Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.103</td>
-<td class="gt_row gt_center" headers="Balanced Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.743</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers="predictor" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (49)</td>
-<td class="gt_row gt_center" headers="reference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (52)</td>
-<td class="gt_row gt_center" headers="N" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">202.000</td>
-<td class="gt_row gt_center" headers="Kappa" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.36 [0.14, 0.59]</td>
-<td class="gt_row gt_center" headers="Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.91 [0.86, 0.95]</td>
-<td class="gt_row gt_center" headers="Kappa_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.363</td>
-<td class="gt_row gt_center" headers="McnemarPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.002</td>
-<td class="gt_row gt_center" headers="Accuracy_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.911</td>
-<td class="gt_row gt_center" headers="NoInformationRate_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.960</td>
-<td class="gt_row gt_center" headers="AccuracyPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">1.000</td>
-<td class="gt_row gt_center" headers="Sensitivity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.750</td>
-<td class="gt_row gt_center" headers="Specificity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.918</td>
-<td class="gt_row gt_center" headers="Pos Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.273</td>
-<td class="gt_row gt_center" headers="Neg Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.989</td>
-<td class="gt_row gt_center" headers="Precision" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.273</td>
-<td class="gt_row gt_center" headers="Recall" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.750</td>
-<td class="gt_row gt_center" headers="F1" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.400</td>
-<td class="gt_row gt_center" headers="Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.040</td>
-<td class="gt_row gt_center" headers="Detection Rate" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.030</td>
-<td class="gt_row gt_center" headers="Detection Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.109</td>
-<td class="gt_row gt_center" headers="Balanced Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.834</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers="predictor" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (49)</td>
-<td class="gt_row gt_center" headers="reference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">MoCA (10)</td>
-<td class="gt_row gt_center" headers="N" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">202.000</td>
-<td class="gt_row gt_center" headers="Kappa" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.33 [0.10, 0.55]</td>
-<td class="gt_row gt_center" headers="Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.91 [0.86, 0.95]</td>
-<td class="gt_row gt_center" headers="Kappa_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.326</td>
-<td class="gt_row gt_center" headers="McnemarPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.000</td>
-<td class="gt_row gt_center" headers="Accuracy_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.911</td>
-<td class="gt_row gt_center" headers="NoInformationRate_raw" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.970</td>
-<td class="gt_row gt_center" headers="AccuracyPValue" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">1.000</td>
-<td class="gt_row gt_center" headers="Sensitivity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.833</td>
-<td class="gt_row gt_center" headers="Specificity" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.913</td>
-<td class="gt_row gt_center" headers="Pos Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.227</td>
-<td class="gt_row gt_center" headers="Neg Pred Value" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.994</td>
-<td class="gt_row gt_center" headers="Precision" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.227</td>
-<td class="gt_row gt_center" headers="Recall" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.833</td>
-<td class="gt_row gt_center" headers="F1" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.357</td>
-<td class="gt_row gt_center" headers="Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.030</td>
-<td class="gt_row gt_center" headers="Detection Rate" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.025</td>
-<td class="gt_row gt_center" headers="Detection Prevalence" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.109</td>
-<td class="gt_row gt_center" headers="Balanced Accuracy" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.873</td>
-</tr>
-</tbody>
-</table>
+<div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"rates"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/help.html" class="external-link">help</a></span><span class="op">(</span><span class="st">"rates"</span><span class="op">)</span></span></code></pre></div>
 </div>
+<p>Using both datasets, it is possible, for instance, to retain only comparisons where <code>"Lvl.II (1)"</code> served as the reference and where the predictor used the same operationalisation of IADL deficit. The resulting data can then be sorted, for example, by the predictor’s specificity (from highest to lowest):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Extract operationalisation of IADL deficit</span></span>
+<span><span class="co"># used by the "Lvl.II (1)" algorithm:</span></span>
+<span><span class="va">IADL_oper</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">rates</span>, <span class="va">type</span> <span class="op">==</span> <span class="st">"Lvl.II (1)"</span><span class="op">)</span><span class="op">$</span><span class="va">IADL</span></span>
+<span></span>
+<span><span class="co"># Find algorithms using the same operationalisation:</span></span>
+<span><span class="va">algos_of_interest</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">rates</span>, <span class="va">IADL</span> <span class="op">==</span> <span class="va">IADL_oper</span><span class="op">)</span><span class="op">$</span><span class="va">type</span></span>
+<span></span>
+<span><span class="co"># Keep only pairs of interest:</span></span>
+<span><span class="va">lvlII1_reference_2</span> <span class="op">&lt;-</span> <span class="va">concords</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">reference</span> <span class="op">==</span> <span class="st">"Lvl.II (1)"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">predictor</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">algos_of_interest</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">Specificity</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
-</div>
-</figure>
-</div>
+<p>Finally, you can export the data to CSV or Excel format for use in other software. The following examples use the <code>readr</code> and <code>writexl</code> packages, though any preferred method can be used:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Export to CSV:</span></span>
+<span><span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_csv</a></span><span class="op">(</span><span class="va">concords</span>, <span class="st">"demcrit_concordance_stats.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Export to Excel (single sheet):</span></span>
+<span><span class="fu">writexl</span><span class="fu">::</span><span class="fu">write_xlsx</span><span class="op">(</span><span class="va">concords</span>, <span class="st">"demcrit_concordance_stats.xlsx"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Export to Excel (two sheets: concordance statistics and algorithm details):</span></span>
+<span><span class="fu">writexl</span><span class="fu">::</span><span class="fu">write_xlsx</span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>concordance <span class="op">=</span> <span class="va">concords</span>, algorithms <span class="op">=</span> <span class="va">rates</span><span class="op">)</span>,</span>
+<span>  path <span class="op">=</span> <span class="st">"demcrit_concordance_stats_with_algos.xlsx"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Note: Adjust the second argument to whatever</span></span>
+<span><span class="co"># "path/to/your/data" you find suitable.</span></span></code></pre></div>
 </div>
 
 

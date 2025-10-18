@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">demcrit</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,7 +35,7 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/concordance.html">Concordance Results</a></li>
+<li><a class="dropdown-item" href="articles/concordance.html">Accessing Concordance Statistics</a></li>
     <li><a class="dropdown-item" href="articles/correlation.html">Impact of Correlation on Concordance</a></li>
   </ul>
 </li>
@@ -52,33 +52,25 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="validation-of-algorithms-for-parkinsons-disease-dementia">Validation of Algorithms for Parkinson’s Disease Dementia<a class="anchor" aria-label="anchor" href="#validation-of-algorithms-for-parkinsons-disease-dementia"></a>
+<div class="page-header"><h1 id="validation-of-algorithms-for-pdd">Validation of Algorithms for PDD<a class="anchor" aria-label="anchor" href="#validation-of-algorithms-for-pdd"></a>
 </h1></div>
 <p>This package is not intended for a widespread public use. The idea is to:</p>
 <ol style="list-style-type: decimal">
-<li>provide a documentation behind data analysis that serves as a backbone of the empirical part of the paper Mana et al. (under review)<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Will be updated once the manuscript is accepted for publication.&lt;/p&gt;"><sup>1</sup></a>, and</li>
-<li>provide a set of functions used to generate our results that could be directly used or slightly adjusted for projects aiming at similar goals.</li>
+<li><p>provide a documentation behind data analysis that serves as a backbone of the empirical part of the paper Mana et al. (under review), and</p></li>
+<li><p>provide a set of functions used to generate our results that could be directly used or slightly adjusted for projects aiming at similar goals.</p></li>
 </ol>
-<p>Furthermore, if we are able to share some of the data in the future, we will use this package to document processes that can be used to reproduce our results (since sharing raw patients data is out of question due to privacy concerns, the pre-processing pipeline presented here will be functional only on data owner’s computer at the First Faculty of Medicine, Charles University).</p>
-<p>To start, ensure you have the correct dependencies:</p>
+<p>To start, install a local instance of the package:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># clone the repository, open it in R</span></span>
-<span><span class="co"># install missing dependencies, if any</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_deps</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>If you have the raw data at your disposal, make sure they are present in the <code>data-raw</code> folder (and correctly named, although, if they are not named correctly, the package will help you find the mistakes).</p>
-<p>Next, make you sure you have the <a href="https://github.com/wjschne/apaquarto.git" class="external-link">apaquarto</a> extension (version 4.4.1) installed in the <code>_manuscript</code> folder. You can then run the full pipeline via:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># if you wanted to use the functions independently,</span></span>
-<span><span class="co"># you can source them</span></span>
-<span><span class="co">#tar_source()</span></span>
-<span><span class="fu">targets</span><span class="fu">::</span><span class="fu">tar_make</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>If you wish to use the functions outside of the manuscript preparation pipe described below, you may wish to install the package as well:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>Usage out of the pipeline will be detailed later, once we know which (pre-processsed) data can be shared …</p>
+<code class="sourceCode R"><span><span class="co"># If you do not have the devtools package,</span></span>
+<span><span class="co"># install it by uncommenting the following line:</span></span>
+<span><span class="co">#install.packages(devtools)</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"josefmana/demcrit"</span><span class="op">)</span></span></code></pre></div>
+<p>There are two ways to use the package (both of which will receive their own vignette in the near future):</p>
+<ol style="list-style-type: decimal">
+<li><p>If you have the raw data at your disposal, make sure they are present in the <code>data-raw</code> folder and run the <code>targets</code> pipeline which is part of the package (this option is only possible from the First Faculty of Medicine, Charles University computers because of privacy concerns of patients’ data; it also requires the <a href="https://github.com/wjschne/apaquarto.git" class="external-link">apaquarto</a> extension (version 4.4.1) to be installed in the <code>_manuscript</code> folder)</p></li>
+<li><p>If you do not have the raw data, you can still use some of the functions on your own, similarly structured data set. A vignette showing reproducible example of such a use will be added in the next version of this package.</p></li>
+</ol>
 </div>
-
-
   </main><aside class="col-md-3"><div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
