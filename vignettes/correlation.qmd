@@ -92,6 +92,21 @@ sigma_corr <- cor2cov(corrs, sigma)
 sigma_indep <- sigma_corr
 sigma_indep["FAQ", ] <- c(sigma_indep["FAQ", "FAQ"], 0, 0)
 sigma_indep[, "FAQ"] <- c(sigma_indep["FAQ", "FAQ"], 0, 0)
+
+# Set censoring values:
+cens <- matrix(
+  c(rep(0, 3), rep(30, 3)), nrow = 3,
+  dimnames = list(c("FAQ", "MMSE", "MoCA"))
+)
+
+# Set criteria:
+crits <- data.frame(
+  row.names = c("A1", "A2", "A3", "A4"),
+  IADL = rep(c("FAQ", "FAQ9"), 2),
+  IADL_thres = rep(c(7, 1), 2),
+  cognition = c(rep("MMSE", 2), rep("MoCA", 2)),
+  cognition_thres = c(rep(26, 2), rep(26, 2))
+)
 ```
 
 ### FAQ, MMSE & MoCA
@@ -143,31 +158,6 @@ $$ {#eq-faq9}
 
 If the simulated FAQ item 9 score exceeded the corresponding simulated FAQ total score, it was set at zero. Finally, all simulated FAQ total, MMSE and MoCA scores were left-censored at 0 and right-censored at 30 to reflect real-world range of the respective scales.
 
-```{r}
-#| label: simulation-func
-
-# Data-generating function:
-simulate_pdd <- function(N, Mu, Sigma) {
-  # Generate FAQ, MMSE and MoCA latent data:
-  dat <- as.data.frame(MASS::mvrnorm(N, mu = Mu, Sigma = Sigma))
-  # Generate FAQ item 9 data:
-  p <- pnorm(dat$FAQ, mean = Mu["FAQ"], sd = sqrt(Sigma["FAQ", "FAQ"]))
-  dat$FAQ9 <- rbinom(N, size = 4, prob = p)
-  dat$FAQ9 <- ifelse(dat$FAQ9 > dat$FAQ, 0, dat$FAQ9)
-  # Bound scores realistically:
-  dat$FAQ  <- pmin(pmax(round(dat$FAQ), 0), 30)
-  dat$MMSE <- pmin(pmax(round(dat$MMSE), 0), 30)
-  dat$MoCA <- pmin(pmax(round(dat$MoCA), 0), 30)
-  # Define PDD classifications:
-  dat$A1 <- as.numeric(dat$FAQ > 7 & dat$MMSE < 26)
-  dat$A2 <- as.numeric((dat$FAQ9 > 1) & dat$MMSE < 26)
-  dat$A3 <- as.numeric(dat$FAQ > 7 & dat$MoCA < 27)
-  dat$A4 <- as.numeric((dat$FAQ9 > 1) & dat$MoCA < 27)
-  # Return the data:
-  dat
-}
-```
-
 ## Diagnostic algorithms
 
 After generating the data using the process described above, each simulated patient was classified as suffering from PDD (or not) according to all of the following four algorithms:
@@ -176,21 +166,14 @@ $$
 \begin{aligned}
   A1_i &= \mathbb{1}\{\text{FAQ}_i > 7 \ \wedge\ \text{MMSE}_i < 26\}, \\
   A2_i &= \mathbb{1}\{\text{FAQ item 9}_i > 1 \ \wedge\ \text{MMSE}_i < 26\}, \\
-  A3_i &= \mathbb{1}\{\text{FAQ}_i > 7 \ \wedge\ \text{MoCA}_i < 27\}, \\
-  A4_i &= \mathbb{1}\{\text{FAQ item 9}_i > 1 \ \wedge\ \text{MoCA}_i < 27\}
+  A3_i &= \mathbb{1}\{\text{FAQ}_i > 7 \ \wedge\ \text{MoCA}_i < 26\}, \\
+  A4_i &= \mathbb{1}\{\text{FAQ item 9}_i > 1 \ \wedge\ \text{MoCA}_i < 26\}
 \end{aligned}
 $$ {#eq-algo}
 
 where $\mathbb{1}\{\cdot\}$ denotes the indicator function. In other words, simulated cases fulfilling both conditions in parentheses were classified as having PDD (PDD = 1); all others were classified as non-PDD (PDD = 0).
 
 ### Data
-
-```{r}
-#| label: data
-
-d0 <- simulate_pdd(n, mu, sigma_indep) # independent scenario
-d1 <- simulate_pdd(n, mu, sigma_corr)  # correlated scenario
-```
 
 To ensure reliable results, N = `r n` cases were generated in this experiment. The simulation was based on the observed means, standard deviations and correlations as specified above. The **independent variable** in this experiment was presence versus absence of correlation between FAQ and cognitive scores. Accordingly, the simulation was conducted under two conditions:
 
@@ -268,8 +251,12 @@ This procedure was repeated for `r k` iterations. Subsequently, the distribution
 
 # Calculate all results:
 res <- lapply(seq_len(k), function(i) {
-  d0 <- simulate_pdd(n, mu, sigma_indep)
-  d1 <- simulate_pdd(n, mu, sigma_corr)
+  d0 <- simulate_pdd_data(n, FALSE, mu, sigma_indep, crits, cens) |> # independent scenario
+    mutate(PDD = as.numeric(PDD)) |>
+    pivot_wider(names_from = "type", values_from = "PDD")
+  d1 <- simulate_pdd_data(n, FALSE, mu, sigma_corr, crits, cens) |> # correlated scenario
+    mutate(PDD = as.numeric(PDD)) |>
+    pivot_wider(names_from = "type", values_from = "PDD")
   summarise_results(d0, d1, i)
 })
 
@@ -318,7 +305,25 @@ stats_conc <- map_dfr(c("Accuracy", "BalAcc", "Kappa"), function(y) {
 
 The expected values (denoted $E(\cdot)$) and the differences between the independent and correlated scenarios in PDD rates, accuracy, balanced accuracy and Cohen's $\kappa$ are presented in @tbl-rates, @tbl-acc, @tbl-balacc, and @tbl-kappa, respectively.
 
-Across all algorithms, the **correlated** scenario generated **higher PDD rates** than the independent scenario, with differences of approximately 2–3% (@tbl-rates).
+```{r}
+#| label: in-texts
+#| echo: false
+
+rmin <- floor(100 * min(abs(stats_rates$Difference)))
+rmax <- ceiling(100 * max(abs(stats_rates$Difference)))
+rates_minmax <- glue::glue("{rmin}-{rmax}%")
+
+acc_max <- ceiling(100 * max(abs(subset(stats_conc, Index == "Accuracy")$Difference)))
+acc_max_txt <- glue::glue("{acc_max}%")
+
+balacc_mismatch <- ceiling(1000 * max(abs(subset(stats_conc, Index == "BalAcc" & Type == "Mismatched IADL & Mismatched Global Cognition")$Difference))) / 10
+balacc_mismatch_txt <- glue::glue("{balacc_mismatch}%")
+
+kappa_min <- do_summary(min(abs(subset(stats_conc, Index == "Kappa")$Difference)), 3)
+kappa_max <- do_summary(max(abs(subset(stats_conc, Index == "Kappa")$Difference)), 3)
+```
+
+Across all algorithms, the **correlated** scenario generated **higher PDD rates** than the independent scenario, with differences of approximately `r rates_minmax` (@tbl-rates).
 
 ```{r}
 #| label: tbl-rates
@@ -341,8 +346,7 @@ make_concordance_table <- function(dat, index, label) {
   dat |>
     filter(Index == index) |>
     dplyr::select(-Index) |>
-    #gt_apa_table(grp = "Type") |>
-    gt(group = "Type") |>
+    gt_apa_table(grp = "Type") |>
     tab_spanner(label = "95% CI", columns = c(Low, High), gather = FALSE) |>
     tab_spanner(label = md(glue::glue("{label} difference")), columns = c(Difference, Low, High), gather = FALSE) |>
     tab_spanner(label = md(glue::glue("*E*({label})")), columns = c(Independent, Correlated), gather = FALSE) |>
@@ -350,7 +354,7 @@ make_concordance_table <- function(dat, index, label) {
 }
 ```
 
-The effect of the data-generating scenario on **concordance indeces** was more nuanced. For **accuracy**, the **correlated** scenario generally yielded **slightly lower** estimates than the independent one across most algorithm pairs (@tbl-acc). However, the magnitude of these differences did not exceed 1%.
+The effect of the data-generating scenario on **concordance indeces** was more nuanced. For **accuracy**, the **correlated** scenario generally yielded **slightly lower** estimates than the independent one across most algorithm pairs (@tbl-acc). However, the magnitude of these differences did not exceed `r acc_max_txt`.
 
 ```{r}
 #| label: tbl-acc
@@ -362,9 +366,9 @@ make_concordance_table(stats_conc, "Accuracy", "Accuracy")
 
 Results for **balanced accuracy** were more heterogeneous (@tbl-balacc). In algorithm pairs where **both** the IADL and global cognition criteria were **mismatched** (e.g., A1 vs A4), balanced accuracy was consistently **higher** under the **correlated** scenario, by roughly 3%.
 
-When the only **mismatch** concerned the **IADL** criterion, the **direction** of difference in balanced accuracy reversed depending on which algorithm was used as the reference (e.g., when A1 predicted A2, the correlated scenario yielded lower balanced accuracy, whereas when A2 predicted A1, it yielded higher values). The magnitude of this effect was comparable in both directions.
+When the only **mismatch** concerned the **IADL** criterion, the **direction** of difference in balanced accuracy reversed depending on which algorithm was used as the reference (e.g., when A1 predicted A2, the correlated scenario yielded lower balanced accuracy, whereas when A2 predicted A1, it yielded higher values). The magnitude of this effect was higher in the direction of correlated scenario yielding higher estimates.
 
-Finally, when the only **mismatch** involved **global cognition** criterion, the **correlated** scenario led to **higher balanced accuracy** estimates in three out of four cases. The maximum difference was similar to the other comparison types, reaching up to 3.8%.
+Finally, when the only **mismatch** involved **global cognition** criterion, the **correlated** scenario led to **higher balanced accuracy** estimates in three out of four cases. The maximum difference was similar to the other comparison types, reaching up to `r balacc_mismatch_txt`.
 
 ```{r}
 #| label: tbl-balacc
@@ -374,7 +378,7 @@ Finally, when the only **mismatch** involved **global cognition** criterion, the
 make_concordance_table(stats_conc, "BalAcc", "Balanced accuracy")
 ```
 
-Lastly, Cohen's $\kappa$ showed the clearest and most consistent pattern of results (@tbl-kappa). In all cases, the **correlated** scenario yielded **higher** $\kappa$ values than the independent one, with differences ranging from `r do_summary(min(abs(subset(stats_conc, Index == "Kappa")$Difference)), 3)` to `r do_summary(max(abs(subset(stats_conc, Index == "Kappa")$Difference)), 3)`.
+Lastly, Cohen's $\kappa$ showed the clearest and most consistent pattern of results (@tbl-kappa). In all cases, the **correlated** scenario yielded **higher** $\kappa$ values than the independent one, with differences ranging from `r kappa_min` to `r kappa_max`.
 
 ```{r}
 #| label: tbl-kappa

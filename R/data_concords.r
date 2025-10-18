@@ -14,8 +14,9 @@
 #' * [psych::cohen.kappa()] computes and documents Cohen’s kappa and related
 #'   metrics.
 #' * [caret::confusionMatrix()] computes and documents the remaining metrics.
+#' * \link{rates} contains definitions of each algorithm.
 #'
-#' @format ## `concords`
+#' @format
 #' A tibble with 7,744 rows and 21 columns:
 #' \describe{
 #'   \item{predictor}{Character; name of the algorithm used as a predictor.}

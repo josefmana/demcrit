@@ -2,7 +2,7 @@
 % Please edit documentation in R/table_levelII_approximations.R
 \name{table_levelII_approximations}
 \alias{table_levelII_approximations}
-\title{Generate Summary Table of Level I Algorithms}
+\title{Summary Table of Predictors}
 \usage{
 table_levelII_approximations(values, struct, crit)
 }
@@ -24,9 +24,14 @@ be used for comparisons. Can be one of \code{"Accuracy_raw"}, \code{"Balanced Ac
 \code{"Kappa_raw"}, \code{"Sensitivity"} or \code{"Specificity"}.}
 }
 \value{
-A \code{gt} table object summarising the concordance statistics
-(e.g., accuracy, kappa) of the five best and five worst Level I algorithms
-in predicting the specified Level II-based diagnosis of probable PDD.
+A list containing:
+\describe{
+\item{\code{table}}{A tibble with the five best and five worst Level I algorithms
+in predicting the specified Level II-based diagnosis of probable PDD.}
+\item{\code{gtable}}{A \code{gt} table object summarising the concordance statistics
+(e.g., accuracy, kappa) of the five best and five worst Level I algorithms in predicting
+the specified Level II-based diagnosis of probable PDD.}
+}
 }
 \description{
 This helper function prepares a table showing the five best and five

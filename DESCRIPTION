@@ -1,6 +1,6 @@
 Package: demcrit
 Title: Validation of Algorithms for Parkinson's Disease Dementia
-Version: 0.0.0.9000
+Version: 1.0.0
 Authors@R: c(
     person("Josef", "Mana", , "josef.mana@protonmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-7817-3978")),
     person("Martina", "Mana", , "kvapil.martina@gmail.com", role = c("aut")))
@@ -42,10 +42,10 @@ Imports:
 Suggests: 
     knitr,
     quarto,
-    rmarkdown
+    rmarkdown,
+    tidyverse
 VignetteBuilder: quarto, knitr
 Depends: 
-    R (>= 3.5),
-    tidyverse (>= 2.0.0)
+    R (>= 3.5)
 LazyData: true
 URL: https://josefmana.github.io/demcrit/

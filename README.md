@@ -1,48 +1,32 @@
-# Validation of Algorithms for Parkinson's Disease Dementia
+# Validation of Algorithms for PDD
 
 This package is not intended for a widespread public use. The idea is to:
 
 1. provide a documentation behind data analysis that serves as a backbone
-of the empirical part of the paper Mana et al. (under review)^[Will be updated
-once the manuscript is accepted for publication.], and
+of the empirical part of the paper Mana et al. (under review), and
+
 2. provide a set of functions used to generate our results that could be
 directly used or slightly adjusted for projects aiming at similar goals.
 
-Furthermore, if we are able to share some of the data in the future, we will use
-this package to document processes that can be used to reproduce our results (since
-sharing raw patients data is out of question due to privacy concerns, the pre-processing
-pipeline presented here will be functional only on data owner's computer at the First
-Faculty of Medicine, Charles University).
-
-To start, ensure you have the correct dependencies:
+To start, install a local instance of the package:
 
 ```r
-# clone the repository, open it in R
-# install missing dependencies, if any
-devtools::install_deps()
+# If you do not have the devtools package,
+# install it by uncommenting the following line:
+#install.packages(devtools)
+devtools::install_github("josefmana/demcrit")
 ```
 
-If you have the raw data at your disposal, make sure they are present in the
-`data-raw` folder (and correctly named, although, if they are not named correctly,
-the package will help you find the mistakes).
+There are two ways to use the package (both of which will receive their own vignette
+in the near future):
 
-Next, make you sure you have the [apaquarto](https://github.com/wjschne/apaquarto.git)
-extension (version 4.4.1) installed in the `_manuscript` folder. You can then run the
-full pipeline via:
+1. If you have the raw data at your disposal, make sure they are present in the
+`data-raw` folder and run the `targets` pipeline which is part of the package
+(this option is only possible from the First Faculty of Medicine, Charles
+University computers because of privacy concerns of patients' data; it also
+requires the [apaquarto](https://github.com/wjschne/apaquarto.git)
+extension (version 4.4.1) to be installed in the `_manuscript` folder)
 
-```r
-# if you wanted to use the functions independently,
-# you can source them
-#tar_source()
-targets::tar_make()
-```
-
-If you wish to use the functions outside of the manuscript preparation pipe
-described below, you may wish to install the package as well:
-
-```r
-devtools::install()
-```
-
-Usage out of the pipeline will be detailed later, once we know which (pre-processsed)
-data can be shared ...
+2. If you do not have the raw data, you can still use some of the functions on
+your own, similarly structured data set. A vignette showing reproducible example
+of such a use will be added in the next version of this package.
