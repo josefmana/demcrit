@@ -30,3 +30,12 @@ See the vignette ["Targets Pipeline"](articles/use1.html) for details.
 2. **Without raw data** –
 You can still use many of the package functions with your own, similarly structured
 dataset. See the vignette ["Out of Pipeline"](articles/use2.html) for guidance.
+
+## Future Directions
+
+>Currently, *demcrit* is designed around the dataset used in our original study.
+As such, it primarily supports direct replications rather than general applications.
+>
+>If you find the approach useful and would like to adapt it for your data, feel free to
+reach out — we are happy to discuss possible extensions. We also welcome reports of bugs
+or mistakes you may encounter.

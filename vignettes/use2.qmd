@@ -197,11 +197,3 @@ tab2 <- concs$table |>
 
 tab2
 ```
-
-## Future Directions
-
-
->Currently, *demcrit* is designed around the dataset used in our original study. As such, it primarily supports direct replications rather than general applications.
->
->If you find the approach useful and would like to adapt it for your data, feel free to reach out — we are happy to discuss possible extensions. We also welcome reports of bugs or mistakes you may encounter.
-
