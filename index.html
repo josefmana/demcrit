@@ -37,6 +37,8 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="articles/concordance.html">Accessing Concordance Statistics</a></li>
     <li><a class="dropdown-item" href="articles/correlation.html">Impact of Correlation on Concordance</a></li>
+    <li><a class="dropdown-item" href="articles/use1.html">Use #1: Targets Pipeline</a></li>
+    <li><a class="dropdown-item" href="articles/use2.html">Use #2: Out of Pipeline</a></li>
   </ul>
 </li>
       </ul>
@@ -54,22 +56,30 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="validation-of-algorithms-for-pdd">Validation of Algorithms for PDD<a class="anchor" aria-label="anchor" href="#validation-of-algorithms-for-pdd"></a>
 </h1></div>
-<p>This package is not intended for a widespread public use. The idea is to:</p>
+<p>This package is <strong>not</strong> intended for broad public use. Its main purpose is to:</p>
 <ol style="list-style-type: decimal">
-<li><p>provide a documentation behind data analysis that serves as a backbone of the empirical part of the paper Mana et al. (under review), and</p></li>
-<li><p>provide a set of functions used to generate our results that could be directly used or slightly adjusted for projects aiming at similar goals.</p></li>
+<li><p>provide transparent documentation of the data analyses forming the backbone of the empirical part of <em>Mana et al. (under review)</em>, and</p></li>
+<li><p>supply the set of functions used to generate those results, which can be reused or adapted for projects with similar objectives.</p></li>
 </ol>
-<p>To start, install a local instance of the package:</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p>To install a local instance of the package, run:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># If you do not have the devtools package,</span></span>
 <span><span class="co"># install it by uncommenting the following line:</span></span>
 <span><span class="co">#install.packages(devtools)</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"josefmana/demcrit"</span><span class="op">)</span></span></code></pre></div>
-<p>There are two ways to use the package (both of which will receive their own vignette in the near future):</p>
+</div>
+<div class="section level2">
+<h2 id="how-to-use">How to Use<a class="anchor" aria-label="anchor" href="#how-to-use"></a>
+</h2>
+<p>There are two main ways to work with the package (each described in its own vignette):</p>
 <ol style="list-style-type: decimal">
-<li><p>If you have the raw data at your disposal, make sure they are present in the <code>data-raw</code> folder and run the <code>targets</code> pipeline which is part of the package (this option is only possible from the First Faculty of Medicine, Charles University computers because of privacy concerns of patients’ data; it also requires the <a href="https://github.com/wjschne/apaquarto.git" class="external-link">apaquarto</a> extension (version 4.4.1) to be installed in the <code>_manuscript</code> folder)</p></li>
-<li><p>If you do not have the raw data, you can still use some of the functions on your own, similarly structured data set. A vignette showing reproducible example of such a use will be added in the next version of this package.</p></li>
+<li><p><strong>With raw data available</strong> – Place the raw data files in the data-raw folder and run the included targets pipeline. See the vignette <a href="articles/use1.html">“Targets Pipeline”</a> for details.</p></li>
+<li><p><strong>Without raw data</strong> – You can still use many of the package functions with your own, similarly structured dataset. See the vignette <a href="articles/use2.html">“Out of Pipeline”</a> for guidance.</p></li>
 </ol>
+</div>
 </div>
   </main><aside class="col-md-3"><div class="license">
 <h2 data-toc-skip>License</h2>

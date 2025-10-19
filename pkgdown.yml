@@ -4,7 +4,9 @@ pkgdown_sha: ~
 articles:
   concordance: concordance.html
   correlation: correlation.html
-last_built: 2025-10-19T10:56Z
+  use1: use1.html
+  use2: use2.html
+last_built: 2025-10-19T18:07Z
 urls:
   reference: https://josefmana.github.io/demcrit/reference
   article: https://josefmana.github.io/demcrit/articles

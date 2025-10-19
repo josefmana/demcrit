@@ -37,6 +37,8 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/concordance.html">Accessing Concordance Statistics</a></li>
     <li><a class="dropdown-item" href="../articles/correlation.html">Impact of Correlation on Concordance</a></li>
+    <li><a class="dropdown-item" href="../articles/use1.html">Use #1: Targets Pipeline</a></li>
+    <li><a class="dropdown-item" href="../articles/use2.html">Use #2: Out of Pipeline</a></li>
   </ul>
 </li>
       </ul>
@@ -67,7 +69,11 @@
 
 
 
-    <p>The purpose of this vignette is to provide access to the raw statistical results for all concordance indexes from pairwise comparisons of algorithms for <em>Parkinson’s Disease Dementia (PDD)</em> discussed in the source article.</p>
+    <blockquote>
+<p>The purpose of this vignette is to provide access to the raw statistical results for all concordance indexes from pairwise comparisons of algorithms for <em>Parkinson’s Disease Dementia (PDD)</em> discussed in the source article.</p>
+</blockquote>
+<section class="level2"><h2 id="set-up">Set-up<a class="anchor" aria-label="anchor" href="#set-up"></a>
+</h2>
 <p>To explore these results, you first need to install and load a local instance of the <a href="https://github.com/josefmana/demcrit.git" class="external-link">demcrit</a> R package:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
@@ -76,6 +82,8 @@
 <span><span class="co">#install.packages(devtools)</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"josefmana/demcrit"</span><span class="op">)</span></span></code></pre></div>
 </div>
+</section><section class="level2"><h2 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a>
+</h2>
 <p>Once installed, the concordance statistics can be loaded. The following code chunk loads the <em>demcrit</em> package (all subsequent examples assume the package is already loaded) and reads the concordance data into the object <code>concords</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
@@ -88,6 +96,8 @@
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/help.html" class="external-link">help</a></span><span class="op">(</span><span class="st">"concords"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <p>The concords object is a <a href="https://tibble.tidyverse.org" class="external-link"><strong>tibble</strong></a>, meaning it can be easily manipulated using packages from the <a href="https://tidyverse.org" class="external-link"><strong>tidyverse</strong></a> ecosystem.</p>
+</section><section class="level2"><h2 id="example-uses">Example Uses<a class="anchor" aria-label="anchor" href="#example-uses"></a>
+</h2>
 <p>For example, the following code filters the data to retain only those pairwise comparisons where algorithm <code>"Lvl.II (1)"</code> served as the reference:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
@@ -119,6 +129,8 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">predictor</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">algos_of_interest</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">Specificity</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
+</section><section class="level2"><h2 id="export">Export<a class="anchor" aria-label="anchor" href="#export"></a>
+</h2>
 <p>Finally, you can export the data to CSV or Excel format for use in other software. The following examples use the <code>readr</code> and <code>writexl</code> packages, though any preferred method can be used:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
@@ -137,10 +149,7 @@
 <span><span class="co"># Note: Adjust the second argument to whatever</span></span>
 <span><span class="co"># "path/to/your/data" you find suitable.</span></span></code></pre></div>
 </div>
-
-
-
-<script id="quarto-html-after-body" type="application/javascript">
+</section><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -223,7 +232,8 @@
       }
     }
   });
-  </script></main>
+  </script></main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 

@@ -37,6 +37,8 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/concordance.html">Accessing Concordance Statistics</a></li>
     <li><a class="dropdown-item" href="../articles/correlation.html">Impact of Correlation on Concordance</a></li>
+    <li><a class="dropdown-item" href="../articles/use1.html">Use #1: Targets Pipeline</a></li>
+    <li><a class="dropdown-item" href="../articles/use2.html">Use #2: Out of Pipeline</a></li>
   </ul>
 </li>
       </ul>
@@ -82,6 +84,8 @@
 <blockquote>
 <p>How can <strong>correlation</strong> between FAQ scores and neuropsychological measures <strong>inflate</strong> concordance estimates?</p>
 </blockquote>
+<section class="level2"><h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
 <p>Because this question is not a straightforward one to address conceptually, we conducted a brief simulation experiment to explore it empirically.</p>
 <p>This vignette presents the R code and results of a simulation study comparing algorithms’ concordance and PDD rate estimates in a simplified setting. In this scenario, the only differences between algorithms are the operationalisations of IADL deficit (FAQ &gt; 7 vs. FAQ item 9 &lt; 1) and global cognitive deficit (MMSE &lt; 26 vs. MoCA &lt; 27), while all other diagnostic criteria are assumed to be satisfied.</p>
 <p>Crucially, <strong>within algorithms</strong>, we vary correlation between FAQ and MMSE/MoCA in the data-generating process, allowing us to compare estimates under two conditions: one with no correlation (<strong>independent</strong> scenario) and one with a correlation of the size consistent with that observed in our data (<strong>correlated</strong> scenario, see <a href="#tbl-data" class="quarto-xref">Table 1</a>).</p>
@@ -91,23 +95,23 @@
 Table 1: Distribution moments (means and standard deviations) and Pearson’s correlations between FAQ, MMSE and MoCA as measured in the observed data.
 </figcaption><div aria-describedby="tbl-data-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="nbtryadotw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#nbtryadotw table {
+<div id="frcrveypgu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#frcrveypgu table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#nbtryadotw thead, #nbtryadotw tbody, #nbtryadotw tfoot, #nbtryadotw tr, #nbtryadotw td, #nbtryadotw th {
+#frcrveypgu thead, #frcrveypgu tbody, #frcrveypgu tfoot, #frcrveypgu tr, #frcrveypgu td, #frcrveypgu th {
   border-style: none;
 }
 
-#nbtryadotw p {
+#frcrveypgu p {
   margin: 0;
   padding: 0;
 }
 
-#nbtryadotw .gt_table {
+#frcrveypgu .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -133,12 +137,12 @@ Table 1: Distribution moments (means and standard deviations) and Pearson’s c
   border-left-color: #D3D3D3;
 }
 
-#nbtryadotw .gt_caption {
+#frcrveypgu .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#nbtryadotw .gt_title {
+#frcrveypgu .gt_title {
   color: #333333;
   font-size: 16px;
   font-weight: initial;
@@ -150,7 +154,7 @@ Table 1: Distribution moments (means and standard deviations) and Pearson’s c
   border-bottom-width: 0;
 }
 
-#nbtryadotw .gt_subtitle {
+#frcrveypgu .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -162,7 +166,7 @@ Table 1: Distribution moments (means and standard deviations) and Pearson’s c
   border-top-width: 0;
 }
 
-#nbtryadotw .gt_heading {
+#frcrveypgu .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -174,13 +178,13 @@ Table 1: Distribution moments (means and standard deviations) and Pearson’s c
   border-right-color: #D3D3D3;
 }
 
-#nbtryadotw .gt_bottom_border {
+#frcrveypgu .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#nbtryadotw .gt_col_headings {
+#frcrveypgu .gt_col_headings {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -195,7 +199,7 @@ Table 1: Distribution moments (means and standard deviations) and Pearson’s c
   border-right-color: #D3D3D3;
 }
 
-#nbtryadotw .gt_col_heading {
+#frcrveypgu .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -215,7 +219,7 @@ Table 1: Distribution moments (means and standard deviations) and Pearson’s c
   overflow-x: hidden;
 }
 
-#nbtryadotw .gt_column_spanner_outer {
+#frcrveypgu .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -227,15 +231,15 @@ Table 1: Distribution moments (means and standard deviations) and Pearson’s c
   padding-right: 4px;
 }
 
-#nbtryadotw .gt_column_spanner_outer:first-child {
+#frcrveypgu .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#nbtryadotw .gt_column_spanner_outer:last-child {
+#frcrveypgu .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#nbtryadotw .gt_column_spanner {
+#frcrveypgu .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 3px;
   border-bottom-color: #000000;
@@ -247,11 +251,11 @@ Table 1: Distribution moments (means and standard deviations) and Pearson’s c
   width: 100%;
 }
 
-#nbtryadotw .gt_spanner_row {
+#frcrveypgu .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#nbtryadotw .gt_group_heading {
+#frcrveypgu .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -277,7 +281,7 @@ Table 1: Distribution moments (means and standard deviations) and Pearson’s c
   text-align: left;
 }
 
-#nbtryadotw .gt_empty_group_heading {
+#frcrveypgu .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -292,15 +296,15 @@ Table 1: Distribution moments (means and standard deviations) and Pearson’s c
   vertical-align: middle;
 }
 
-#nbtryadotw .gt_from_md > :first-child {
+#frcrveypgu .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#nbtryadotw .gt_from_md > :last-child {
+#frcrveypgu .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#nbtryadotw .gt_row {
+#frcrveypgu .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -319,7 +323,7 @@ Table 1: Distribution moments (means and standard deviations) and Pearson’s c
   overflow-x: hidden;
 }
 
-#nbtryadotw .gt_stub {
+#frcrveypgu .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -332,7 +336,7 @@ Table 1: Distribution moments (means and standard deviations) and Pearson’s c
   padding-right: 5px;
 }
 
-#nbtryadotw .gt_stub_row_group {
+#frcrveypgu .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -346,15 +350,15 @@ Table 1: Distribution moments (means and standard deviations) and Pearson’s c
   vertical-align: top;
 }
 
-#nbtryadotw .gt_row_group_first td {
+#frcrveypgu .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#nbtryadotw .gt_row_group_first th {
+#frcrveypgu .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#nbtryadotw .gt_summary_row {
+#frcrveypgu .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -364,16 +368,16 @@ Table 1: Distribution moments (means and standard deviations) and Pearson’s c
   padding-right: 5px;
 }
 
-#nbtryadotw .gt_first_summary_row {
+#frcrveypgu .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#nbtryadotw .gt_first_summary_row.thick {
+#frcrveypgu .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#nbtryadotw .gt_last_summary_row {
+#frcrveypgu .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -383,7 +387,7 @@ Table 1: Distribution moments (means and standard deviations) and Pearson’s c
   border-bottom-color: #D3D3D3;
 }
 
-#nbtryadotw .gt_grand_summary_row {
+#frcrveypgu .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -393,7 +397,7 @@ Table 1: Distribution moments (means and standard deviations) and Pearson’s c
   padding-right: 5px;
 }
 
-#nbtryadotw .gt_first_grand_summary_row {
+#frcrveypgu .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -403,7 +407,7 @@ Table 1: Distribution moments (means and standard deviations) and Pearson’s c
   border-top-color: #D3D3D3;
 }
 
-#nbtryadotw .gt_last_grand_summary_row_top {
+#frcrveypgu .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -413,11 +417,11 @@ Table 1: Distribution moments (means and standard deviations) and Pearson’s c
   border-bottom-color: #D3D3D3;
 }
 
-#nbtryadotw .gt_striped {
+#frcrveypgu .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#nbtryadotw .gt_table_body {
+#frcrveypgu .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -426,7 +430,7 @@ Table 1: Distribution moments (means and standard deviations) and Pearson’s c
   border-bottom-color: #000000;
 }
 
-#nbtryadotw .gt_footnotes {
+#frcrveypgu .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -440,7 +444,7 @@ Table 1: Distribution moments (means and standard deviations) and Pearson’s c
   border-right-color: #D3D3D3;
 }
 
-#nbtryadotw .gt_footnote {
+#frcrveypgu .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -449,7 +453,7 @@ Table 1: Distribution moments (means and standard deviations) and Pearson’s c
   padding-right: 5px;
 }
 
-#nbtryadotw .gt_sourcenotes {
+#frcrveypgu .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -463,7 +467,7 @@ Table 1: Distribution moments (means and standard deviations) and Pearson’s c
   border-right-color: #D3D3D3;
 }
 
-#nbtryadotw .gt_sourcenote {
+#frcrveypgu .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -471,72 +475,72 @@ Table 1: Distribution moments (means and standard deviations) and Pearson’s c
   padding-right: 5px;
 }
 
-#nbtryadotw .gt_left {
+#frcrveypgu .gt_left {
   text-align: left;
 }
 
-#nbtryadotw .gt_center {
+#frcrveypgu .gt_center {
   text-align: center;
 }
 
-#nbtryadotw .gt_right {
+#frcrveypgu .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#nbtryadotw .gt_font_normal {
+#frcrveypgu .gt_font_normal {
   font-weight: normal;
 }
 
-#nbtryadotw .gt_font_bold {
+#frcrveypgu .gt_font_bold {
   font-weight: bold;
 }
 
-#nbtryadotw .gt_font_italic {
+#frcrveypgu .gt_font_italic {
   font-style: italic;
 }
 
-#nbtryadotw .gt_super {
+#frcrveypgu .gt_super {
   font-size: 65%;
 }
 
-#nbtryadotw .gt_footnote_marks {
+#frcrveypgu .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#nbtryadotw .gt_asterisk {
+#frcrveypgu .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#nbtryadotw .gt_indent_1 {
+#frcrveypgu .gt_indent_1 {
   text-indent: 5px;
 }
 
-#nbtryadotw .gt_indent_2 {
+#frcrveypgu .gt_indent_2 {
   text-indent: 10px;
 }
 
-#nbtryadotw .gt_indent_3 {
+#frcrveypgu .gt_indent_3 {
   text-indent: 15px;
 }
 
-#nbtryadotw .gt_indent_4 {
+#frcrveypgu .gt_indent_4 {
   text-indent: 20px;
 }
 
-#nbtryadotw .gt_indent_5 {
+#frcrveypgu .gt_indent_5 {
   text-indent: 25px;
 }
 
-#nbtryadotw .katex-display {
+#frcrveypgu .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#nbtryadotw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#frcrveypgu div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -603,7 +607,7 @@ Correlations
 </figure>
 </div>
 </div>
-<section class="level2"><h2 id="data-simulation">Data simulation<a class="anchor" aria-label="anchor" href="#data-simulation"></a>
+</section><section class="level2"><h2 id="data-simulation">Data simulation<a class="anchor" aria-label="anchor" href="#data-simulation"></a>
 </h2>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
@@ -839,23 +843,23 @@ p_i = \phi(z_i)
 Table 2: Expectations of PDD rates and differences between the independent and correlated scenarios based on independent sample t-tests.
 </figcaption><div aria-describedby="tbl-rates-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="rhzzjrufqr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#rhzzjrufqr table {
+<div id="icrqomrplr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#icrqomrplr table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#rhzzjrufqr thead, #rhzzjrufqr tbody, #rhzzjrufqr tfoot, #rhzzjrufqr tr, #rhzzjrufqr td, #rhzzjrufqr th {
+#icrqomrplr thead, #icrqomrplr tbody, #icrqomrplr tfoot, #icrqomrplr tr, #icrqomrplr td, #icrqomrplr th {
   border-style: none;
 }
 
-#rhzzjrufqr p {
+#icrqomrplr p {
   margin: 0;
   padding: 0;
 }
 
-#rhzzjrufqr .gt_table {
+#icrqomrplr .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -881,12 +885,12 @@ Table 2: Expectations of PDD rates and differences between the independent and 
   border-left-color: #D3D3D3;
 }
 
-#rhzzjrufqr .gt_caption {
+#icrqomrplr .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#rhzzjrufqr .gt_title {
+#icrqomrplr .gt_title {
   color: #333333;
   font-size: 16px;
   font-weight: initial;
@@ -898,7 +902,7 @@ Table 2: Expectations of PDD rates and differences between the independent and 
   border-bottom-width: 0;
 }
 
-#rhzzjrufqr .gt_subtitle {
+#icrqomrplr .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -910,7 +914,7 @@ Table 2: Expectations of PDD rates and differences between the independent and 
   border-top-width: 0;
 }
 
-#rhzzjrufqr .gt_heading {
+#icrqomrplr .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -922,13 +926,13 @@ Table 2: Expectations of PDD rates and differences between the independent and 
   border-right-color: #D3D3D3;
 }
 
-#rhzzjrufqr .gt_bottom_border {
+#icrqomrplr .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#rhzzjrufqr .gt_col_headings {
+#icrqomrplr .gt_col_headings {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -943,7 +947,7 @@ Table 2: Expectations of PDD rates and differences between the independent and 
   border-right-color: #D3D3D3;
 }
 
-#rhzzjrufqr .gt_col_heading {
+#icrqomrplr .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -963,7 +967,7 @@ Table 2: Expectations of PDD rates and differences between the independent and 
   overflow-x: hidden;
 }
 
-#rhzzjrufqr .gt_column_spanner_outer {
+#icrqomrplr .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -975,15 +979,15 @@ Table 2: Expectations of PDD rates and differences between the independent and 
   padding-right: 4px;
 }
 
-#rhzzjrufqr .gt_column_spanner_outer:first-child {
+#icrqomrplr .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#rhzzjrufqr .gt_column_spanner_outer:last-child {
+#icrqomrplr .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#rhzzjrufqr .gt_column_spanner {
+#icrqomrplr .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 3px;
   border-bottom-color: #000000;
@@ -995,11 +999,11 @@ Table 2: Expectations of PDD rates and differences between the independent and 
   width: 100%;
 }
 
-#rhzzjrufqr .gt_spanner_row {
+#icrqomrplr .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#rhzzjrufqr .gt_group_heading {
+#icrqomrplr .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1025,7 +1029,7 @@ Table 2: Expectations of PDD rates and differences between the independent and 
   text-align: left;
 }
 
-#rhzzjrufqr .gt_empty_group_heading {
+#icrqomrplr .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1040,15 +1044,15 @@ Table 2: Expectations of PDD rates and differences between the independent and 
   vertical-align: middle;
 }
 
-#rhzzjrufqr .gt_from_md > :first-child {
+#icrqomrplr .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#rhzzjrufqr .gt_from_md > :last-child {
+#icrqomrplr .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#rhzzjrufqr .gt_row {
+#icrqomrplr .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1067,7 +1071,7 @@ Table 2: Expectations of PDD rates and differences between the independent and 
   overflow-x: hidden;
 }
 
-#rhzzjrufqr .gt_stub {
+#icrqomrplr .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1080,7 +1084,7 @@ Table 2: Expectations of PDD rates and differences between the independent and 
   padding-right: 5px;
 }
 
-#rhzzjrufqr .gt_stub_row_group {
+#icrqomrplr .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1094,15 +1098,15 @@ Table 2: Expectations of PDD rates and differences between the independent and 
   vertical-align: top;
 }
 
-#rhzzjrufqr .gt_row_group_first td {
+#icrqomrplr .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#rhzzjrufqr .gt_row_group_first th {
+#icrqomrplr .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#rhzzjrufqr .gt_summary_row {
+#icrqomrplr .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1112,16 +1116,16 @@ Table 2: Expectations of PDD rates and differences between the independent and 
   padding-right: 5px;
 }
 
-#rhzzjrufqr .gt_first_summary_row {
+#icrqomrplr .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#rhzzjrufqr .gt_first_summary_row.thick {
+#icrqomrplr .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#rhzzjrufqr .gt_last_summary_row {
+#icrqomrplr .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1131,7 +1135,7 @@ Table 2: Expectations of PDD rates and differences between the independent and 
   border-bottom-color: #D3D3D3;
 }
 
-#rhzzjrufqr .gt_grand_summary_row {
+#icrqomrplr .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1141,7 +1145,7 @@ Table 2: Expectations of PDD rates and differences between the independent and 
   padding-right: 5px;
 }
 
-#rhzzjrufqr .gt_first_grand_summary_row {
+#icrqomrplr .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1151,7 +1155,7 @@ Table 2: Expectations of PDD rates and differences between the independent and 
   border-top-color: #D3D3D3;
 }
 
-#rhzzjrufqr .gt_last_grand_summary_row_top {
+#icrqomrplr .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1161,11 +1165,11 @@ Table 2: Expectations of PDD rates and differences between the independent and 
   border-bottom-color: #D3D3D3;
 }
 
-#rhzzjrufqr .gt_striped {
+#icrqomrplr .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#rhzzjrufqr .gt_table_body {
+#icrqomrplr .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1174,7 +1178,7 @@ Table 2: Expectations of PDD rates and differences between the independent and 
   border-bottom-color: #000000;
 }
 
-#rhzzjrufqr .gt_footnotes {
+#icrqomrplr .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1188,7 +1192,7 @@ Table 2: Expectations of PDD rates and differences between the independent and 
   border-right-color: #D3D3D3;
 }
 
-#rhzzjrufqr .gt_footnote {
+#icrqomrplr .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1197,7 +1201,7 @@ Table 2: Expectations of PDD rates and differences between the independent and 
   padding-right: 5px;
 }
 
-#rhzzjrufqr .gt_sourcenotes {
+#icrqomrplr .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1211,7 +1215,7 @@ Table 2: Expectations of PDD rates and differences between the independent and 
   border-right-color: #D3D3D3;
 }
 
-#rhzzjrufqr .gt_sourcenote {
+#icrqomrplr .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1219,72 +1223,72 @@ Table 2: Expectations of PDD rates and differences between the independent and 
   padding-right: 5px;
 }
 
-#rhzzjrufqr .gt_left {
+#icrqomrplr .gt_left {
   text-align: left;
 }
 
-#rhzzjrufqr .gt_center {
+#icrqomrplr .gt_center {
   text-align: center;
 }
 
-#rhzzjrufqr .gt_right {
+#icrqomrplr .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#rhzzjrufqr .gt_font_normal {
+#icrqomrplr .gt_font_normal {
   font-weight: normal;
 }
 
-#rhzzjrufqr .gt_font_bold {
+#icrqomrplr .gt_font_bold {
   font-weight: bold;
 }
 
-#rhzzjrufqr .gt_font_italic {
+#icrqomrplr .gt_font_italic {
   font-style: italic;
 }
 
-#rhzzjrufqr .gt_super {
+#icrqomrplr .gt_super {
   font-size: 65%;
 }
 
-#rhzzjrufqr .gt_footnote_marks {
+#icrqomrplr .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#rhzzjrufqr .gt_asterisk {
+#icrqomrplr .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#rhzzjrufqr .gt_indent_1 {
+#icrqomrplr .gt_indent_1 {
   text-indent: 5px;
 }
 
-#rhzzjrufqr .gt_indent_2 {
+#icrqomrplr .gt_indent_2 {
   text-indent: 10px;
 }
 
-#rhzzjrufqr .gt_indent_3 {
+#icrqomrplr .gt_indent_3 {
   text-indent: 15px;
 }
 
-#rhzzjrufqr .gt_indent_4 {
+#icrqomrplr .gt_indent_4 {
   text-indent: 20px;
 }
 
-#rhzzjrufqr .gt_indent_5 {
+#icrqomrplr .gt_indent_5 {
   text-indent: 25px;
 }
 
-#rhzzjrufqr .katex-display {
+#icrqomrplr .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#rhzzjrufqr div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#icrqomrplr div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1335,8 +1339,8 @@ Rate Difference
 </tr>
 <tr class="even">
 <td class="gt_row gt_center" headers="Algorithm" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">A2</td>
-<td class="gt_row gt_center" headers="Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.201</td>
-<td class="gt_row gt_center" headers="Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.231</td>
+<td class="gt_row gt_center" headers="Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.200</td>
+<td class="gt_row gt_center" headers="Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.230</td>
 <td class="gt_row gt_center" headers="Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.030</td>
 <td class="gt_row gt_center" headers="Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.029</td>
 <td class="gt_row gt_center" headers="High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.031</td>
@@ -1345,7 +1349,7 @@ Rate Difference
 <td class="gt_row gt_center" headers="Algorithm" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">A3</td>
 <td class="gt_row gt_center" headers="Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.149</td>
 <td class="gt_row gt_center" headers="Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.174</td>
-<td class="gt_row gt_center" headers="Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.026</td>
+<td class="gt_row gt_center" headers="Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.025</td>
 <td class="gt_row gt_center" headers="Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.025</td>
 <td class="gt_row gt_center" headers="High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.026</td>
 </tr>
@@ -1354,8 +1358,8 @@ Rate Difference
 <td class="gt_row gt_center" headers="Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.377</td>
 <td class="gt_row gt_center" headers="Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.412</td>
 <td class="gt_row gt_center" headers="Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.035</td>
-<td class="gt_row gt_center" headers="Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.035</td>
-<td class="gt_row gt_center" headers="High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.036</td>
+<td class="gt_row gt_center" headers="Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.034</td>
+<td class="gt_row gt_center" headers="High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.035</td>
 </tr>
 </tbody>
 </table>
@@ -1372,23 +1376,23 @@ Rate Difference
 Table 3: Expectations of accuracy estimates and differences between the independent and correlated scenarios based on independent sample t-tests.
 </figcaption><div aria-describedby="tbl-acc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="npuuzzfvun" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#npuuzzfvun table {
+<div id="ezozpswakh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ezozpswakh table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#npuuzzfvun thead, #npuuzzfvun tbody, #npuuzzfvun tfoot, #npuuzzfvun tr, #npuuzzfvun td, #npuuzzfvun th {
+#ezozpswakh thead, #ezozpswakh tbody, #ezozpswakh tfoot, #ezozpswakh tr, #ezozpswakh td, #ezozpswakh th {
   border-style: none;
 }
 
-#npuuzzfvun p {
+#ezozpswakh p {
   margin: 0;
   padding: 0;
 }
 
-#npuuzzfvun .gt_table {
+#ezozpswakh .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1414,12 +1418,12 @@ Table 3: Expectations of accuracy estimates and differences between the indepen
   border-left-color: #D3D3D3;
 }
 
-#npuuzzfvun .gt_caption {
+#ezozpswakh .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#npuuzzfvun .gt_title {
+#ezozpswakh .gt_title {
   color: #333333;
   font-size: 16px;
   font-weight: initial;
@@ -1431,7 +1435,7 @@ Table 3: Expectations of accuracy estimates and differences between the indepen
   border-bottom-width: 0;
 }
 
-#npuuzzfvun .gt_subtitle {
+#ezozpswakh .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1443,7 +1447,7 @@ Table 3: Expectations of accuracy estimates and differences between the indepen
   border-top-width: 0;
 }
 
-#npuuzzfvun .gt_heading {
+#ezozpswakh .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -1455,13 +1459,13 @@ Table 3: Expectations of accuracy estimates and differences between the indepen
   border-right-color: #D3D3D3;
 }
 
-#npuuzzfvun .gt_bottom_border {
+#ezozpswakh .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#npuuzzfvun .gt_col_headings {
+#ezozpswakh .gt_col_headings {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -1476,7 +1480,7 @@ Table 3: Expectations of accuracy estimates and differences between the indepen
   border-right-color: #D3D3D3;
 }
 
-#npuuzzfvun .gt_col_heading {
+#ezozpswakh .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1496,7 +1500,7 @@ Table 3: Expectations of accuracy estimates and differences between the indepen
   overflow-x: hidden;
 }
 
-#npuuzzfvun .gt_column_spanner_outer {
+#ezozpswakh .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1508,15 +1512,15 @@ Table 3: Expectations of accuracy estimates and differences between the indepen
   padding-right: 4px;
 }
 
-#npuuzzfvun .gt_column_spanner_outer:first-child {
+#ezozpswakh .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#npuuzzfvun .gt_column_spanner_outer:last-child {
+#ezozpswakh .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#npuuzzfvun .gt_column_spanner {
+#ezozpswakh .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 3px;
   border-bottom-color: #000000;
@@ -1528,11 +1532,11 @@ Table 3: Expectations of accuracy estimates and differences between the indepen
   width: 100%;
 }
 
-#npuuzzfvun .gt_spanner_row {
+#ezozpswakh .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#npuuzzfvun .gt_group_heading {
+#ezozpswakh .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1558,7 +1562,7 @@ Table 3: Expectations of accuracy estimates and differences between the indepen
   text-align: left;
 }
 
-#npuuzzfvun .gt_empty_group_heading {
+#ezozpswakh .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1573,15 +1577,15 @@ Table 3: Expectations of accuracy estimates and differences between the indepen
   vertical-align: middle;
 }
 
-#npuuzzfvun .gt_from_md > :first-child {
+#ezozpswakh .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#npuuzzfvun .gt_from_md > :last-child {
+#ezozpswakh .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#npuuzzfvun .gt_row {
+#ezozpswakh .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1600,7 +1604,7 @@ Table 3: Expectations of accuracy estimates and differences between the indepen
   overflow-x: hidden;
 }
 
-#npuuzzfvun .gt_stub {
+#ezozpswakh .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1613,7 +1617,7 @@ Table 3: Expectations of accuracy estimates and differences between the indepen
   padding-right: 5px;
 }
 
-#npuuzzfvun .gt_stub_row_group {
+#ezozpswakh .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1627,15 +1631,15 @@ Table 3: Expectations of accuracy estimates and differences between the indepen
   vertical-align: top;
 }
 
-#npuuzzfvun .gt_row_group_first td {
+#ezozpswakh .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#npuuzzfvun .gt_row_group_first th {
+#ezozpswakh .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#npuuzzfvun .gt_summary_row {
+#ezozpswakh .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1645,16 +1649,16 @@ Table 3: Expectations of accuracy estimates and differences between the indepen
   padding-right: 5px;
 }
 
-#npuuzzfvun .gt_first_summary_row {
+#ezozpswakh .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#npuuzzfvun .gt_first_summary_row.thick {
+#ezozpswakh .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#npuuzzfvun .gt_last_summary_row {
+#ezozpswakh .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1664,7 +1668,7 @@ Table 3: Expectations of accuracy estimates and differences between the indepen
   border-bottom-color: #D3D3D3;
 }
 
-#npuuzzfvun .gt_grand_summary_row {
+#ezozpswakh .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1674,7 +1678,7 @@ Table 3: Expectations of accuracy estimates and differences between the indepen
   padding-right: 5px;
 }
 
-#npuuzzfvun .gt_first_grand_summary_row {
+#ezozpswakh .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1684,7 +1688,7 @@ Table 3: Expectations of accuracy estimates and differences between the indepen
   border-top-color: #D3D3D3;
 }
 
-#npuuzzfvun .gt_last_grand_summary_row_top {
+#ezozpswakh .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1694,11 +1698,11 @@ Table 3: Expectations of accuracy estimates and differences between the indepen
   border-bottom-color: #D3D3D3;
 }
 
-#npuuzzfvun .gt_striped {
+#ezozpswakh .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#npuuzzfvun .gt_table_body {
+#ezozpswakh .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1707,7 +1711,7 @@ Table 3: Expectations of accuracy estimates and differences between the indepen
   border-bottom-color: #000000;
 }
 
-#npuuzzfvun .gt_footnotes {
+#ezozpswakh .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1721,7 +1725,7 @@ Table 3: Expectations of accuracy estimates and differences between the indepen
   border-right-color: #D3D3D3;
 }
 
-#npuuzzfvun .gt_footnote {
+#ezozpswakh .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1730,7 +1734,7 @@ Table 3: Expectations of accuracy estimates and differences between the indepen
   padding-right: 5px;
 }
 
-#npuuzzfvun .gt_sourcenotes {
+#ezozpswakh .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1744,7 +1748,7 @@ Table 3: Expectations of accuracy estimates and differences between the indepen
   border-right-color: #D3D3D3;
 }
 
-#npuuzzfvun .gt_sourcenote {
+#ezozpswakh .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1752,72 +1756,72 @@ Table 3: Expectations of accuracy estimates and differences between the indepen
   padding-right: 5px;
 }
 
-#npuuzzfvun .gt_left {
+#ezozpswakh .gt_left {
   text-align: left;
 }
 
-#npuuzzfvun .gt_center {
+#ezozpswakh .gt_center {
   text-align: center;
 }
 
-#npuuzzfvun .gt_right {
+#ezozpswakh .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#npuuzzfvun .gt_font_normal {
+#ezozpswakh .gt_font_normal {
   font-weight: normal;
 }
 
-#npuuzzfvun .gt_font_bold {
+#ezozpswakh .gt_font_bold {
   font-weight: bold;
 }
 
-#npuuzzfvun .gt_font_italic {
+#ezozpswakh .gt_font_italic {
   font-style: italic;
 }
 
-#npuuzzfvun .gt_super {
+#ezozpswakh .gt_super {
   font-size: 65%;
 }
 
-#npuuzzfvun .gt_footnote_marks {
+#ezozpswakh .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#npuuzzfvun .gt_asterisk {
+#ezozpswakh .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#npuuzzfvun .gt_indent_1 {
+#ezozpswakh .gt_indent_1 {
   text-indent: 5px;
 }
 
-#npuuzzfvun .gt_indent_2 {
+#ezozpswakh .gt_indent_2 {
   text-indent: 10px;
 }
 
-#npuuzzfvun .gt_indent_3 {
+#ezozpswakh .gt_indent_3 {
   text-indent: 15px;
 }
 
-#npuuzzfvun .gt_indent_4 {
+#ezozpswakh .gt_indent_4 {
   text-indent: 20px;
 }
 
-#npuuzzfvun .gt_indent_5 {
+#ezozpswakh .gt_indent_5 {
   text-indent: 25px;
 }
 
-#npuuzzfvun .katex-display {
+#ezozpswakh .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#npuuzzfvun div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#ezozpswakh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1883,7 +1887,7 @@ Accuracy difference
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.759</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.010</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.009</td>
-<td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.011</td>
+<td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.010</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  Comparison" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">A4A3</td>
@@ -1891,7 +1895,7 @@ Accuracy difference
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.759</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.010</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.009</td>
-<td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.011</td>
+<td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.010</td>
 </tr>
 <tr class="gt_group_heading_row even">
 <th colspan="6" id="Aligned IADL &amp;amp; Mismatched Global Cognition" class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">Aligned IADL &amp; Mismatched Global Cognition</th>
@@ -1907,9 +1911,9 @@ Accuracy difference
 <tr class="even">
 <td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Comparison" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">A2A4</td>
 <td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.792</td>
-<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.790</td>
+<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.791</td>
 <td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.001</td>
-<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.001</td>
+<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.000</td>
 <td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.002</td>
 </tr>
 <tr class="odd">
@@ -1923,9 +1927,9 @@ Accuracy difference
 <tr class="even">
 <td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Comparison" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">A4A2</td>
 <td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.792</td>
-<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.790</td>
+<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.791</td>
 <td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.001</td>
-<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.001</td>
+<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.000</td>
 <td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.002</td>
 </tr>
 <tr class="gt_group_heading_row odd">
@@ -1936,13 +1940,13 @@ Accuracy difference
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.688</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.680</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.008</td>
-<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.008</td>
+<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.007</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.009</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Comparison" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">A2A3</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.795</td>
-<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.790</td>
+<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.791</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.005</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.004</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.005</td>
@@ -1950,7 +1954,7 @@ Accuracy difference
 <tr class="even">
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Comparison" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">A3A2</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.795</td>
-<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.790</td>
+<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.791</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.005</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.004</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.005</td>
@@ -1960,7 +1964,7 @@ Accuracy difference
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.688</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.680</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.008</td>
-<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.008</td>
+<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.007</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.009</td>
 </tr>
 </tbody>
@@ -1973,30 +1977,30 @@ Accuracy difference
 </div>
 <p>Results for <strong>balanced accuracy</strong> were more heterogeneous (<a href="#tbl-balacc" class="quarto-xref">Table 4</a>). In algorithm pairs where <strong>both</strong> the IADL and global cognition criteria were <strong>mismatched</strong> (e.g., A1 vs A4), balanced accuracy was consistently <strong>higher</strong> under the <strong>correlated</strong> scenario, by roughly 3%.</p>
 <p>When the only <strong>mismatch</strong> concerned the <strong>IADL</strong> criterion, the <strong>direction</strong> of difference in balanced accuracy reversed depending on which algorithm was used as the reference (e.g., when A1 predicted A2, the correlated scenario yielded lower balanced accuracy, whereas when A2 predicted A1, it yielded higher values). The magnitude of this effect was higher in the direction of correlated scenario yielding higher estimates.</p>
-<p>Finally, when the only <strong>mismatch</strong> involved <strong>global cognition</strong> criterion, the <strong>correlated</strong> scenario led to <strong>higher balanced accuracy</strong> estimates in three out of four cases. The maximum difference was similar to the other comparison types, reaching up to 3.2%.</p>
+<p>Finally, when the only <strong>mismatch</strong> involved <strong>global cognition</strong> criterion, the <strong>correlated</strong> scenario led to <strong>higher balanced accuracy</strong> estimates in three out of four cases. The maximum difference was similar to the other comparison types, reaching up to 3.3%.</p>
 <div class="cell">
 <div id="tbl-balacc" class="cell quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-balacc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table 4: Expectations of balanced accuracy estimates and differences between the independent and correlated scenarios based on independent sample t-tests.
 </figcaption><div aria-describedby="tbl-balacc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="wafpbgwbyc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#wafpbgwbyc table {
+<div id="ikqgnycfci" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ikqgnycfci table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#wafpbgwbyc thead, #wafpbgwbyc tbody, #wafpbgwbyc tfoot, #wafpbgwbyc tr, #wafpbgwbyc td, #wafpbgwbyc th {
+#ikqgnycfci thead, #ikqgnycfci tbody, #ikqgnycfci tfoot, #ikqgnycfci tr, #ikqgnycfci td, #ikqgnycfci th {
   border-style: none;
 }
 
-#wafpbgwbyc p {
+#ikqgnycfci p {
   margin: 0;
   padding: 0;
 }
 
-#wafpbgwbyc .gt_table {
+#ikqgnycfci .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2022,12 +2026,12 @@ Table 4: Expectations of balanced accuracy estimates and differences between th
   border-left-color: #D3D3D3;
 }
 
-#wafpbgwbyc .gt_caption {
+#ikqgnycfci .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#wafpbgwbyc .gt_title {
+#ikqgnycfci .gt_title {
   color: #333333;
   font-size: 16px;
   font-weight: initial;
@@ -2039,7 +2043,7 @@ Table 4: Expectations of balanced accuracy estimates and differences between th
   border-bottom-width: 0;
 }
 
-#wafpbgwbyc .gt_subtitle {
+#ikqgnycfci .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2051,7 +2055,7 @@ Table 4: Expectations of balanced accuracy estimates and differences between th
   border-top-width: 0;
 }
 
-#wafpbgwbyc .gt_heading {
+#ikqgnycfci .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -2063,13 +2067,13 @@ Table 4: Expectations of balanced accuracy estimates and differences between th
   border-right-color: #D3D3D3;
 }
 
-#wafpbgwbyc .gt_bottom_border {
+#ikqgnycfci .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#wafpbgwbyc .gt_col_headings {
+#ikqgnycfci .gt_col_headings {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -2084,7 +2088,7 @@ Table 4: Expectations of balanced accuracy estimates and differences between th
   border-right-color: #D3D3D3;
 }
 
-#wafpbgwbyc .gt_col_heading {
+#ikqgnycfci .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2104,7 +2108,7 @@ Table 4: Expectations of balanced accuracy estimates and differences between th
   overflow-x: hidden;
 }
 
-#wafpbgwbyc .gt_column_spanner_outer {
+#ikqgnycfci .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2116,15 +2120,15 @@ Table 4: Expectations of balanced accuracy estimates and differences between th
   padding-right: 4px;
 }
 
-#wafpbgwbyc .gt_column_spanner_outer:first-child {
+#ikqgnycfci .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#wafpbgwbyc .gt_column_spanner_outer:last-child {
+#ikqgnycfci .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#wafpbgwbyc .gt_column_spanner {
+#ikqgnycfci .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 3px;
   border-bottom-color: #000000;
@@ -2136,11 +2140,11 @@ Table 4: Expectations of balanced accuracy estimates and differences between th
   width: 100%;
 }
 
-#wafpbgwbyc .gt_spanner_row {
+#ikqgnycfci .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#wafpbgwbyc .gt_group_heading {
+#ikqgnycfci .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2166,7 +2170,7 @@ Table 4: Expectations of balanced accuracy estimates and differences between th
   text-align: left;
 }
 
-#wafpbgwbyc .gt_empty_group_heading {
+#ikqgnycfci .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2181,15 +2185,15 @@ Table 4: Expectations of balanced accuracy estimates and differences between th
   vertical-align: middle;
 }
 
-#wafpbgwbyc .gt_from_md > :first-child {
+#ikqgnycfci .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#wafpbgwbyc .gt_from_md > :last-child {
+#ikqgnycfci .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#wafpbgwbyc .gt_row {
+#ikqgnycfci .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2208,7 +2212,7 @@ Table 4: Expectations of balanced accuracy estimates and differences between th
   overflow-x: hidden;
 }
 
-#wafpbgwbyc .gt_stub {
+#ikqgnycfci .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2221,7 +2225,7 @@ Table 4: Expectations of balanced accuracy estimates and differences between th
   padding-right: 5px;
 }
 
-#wafpbgwbyc .gt_stub_row_group {
+#ikqgnycfci .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2235,15 +2239,15 @@ Table 4: Expectations of balanced accuracy estimates and differences between th
   vertical-align: top;
 }
 
-#wafpbgwbyc .gt_row_group_first td {
+#ikqgnycfci .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#wafpbgwbyc .gt_row_group_first th {
+#ikqgnycfci .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#wafpbgwbyc .gt_summary_row {
+#ikqgnycfci .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2253,16 +2257,16 @@ Table 4: Expectations of balanced accuracy estimates and differences between th
   padding-right: 5px;
 }
 
-#wafpbgwbyc .gt_first_summary_row {
+#ikqgnycfci .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#wafpbgwbyc .gt_first_summary_row.thick {
+#ikqgnycfci .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#wafpbgwbyc .gt_last_summary_row {
+#ikqgnycfci .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2272,7 +2276,7 @@ Table 4: Expectations of balanced accuracy estimates and differences between th
   border-bottom-color: #D3D3D3;
 }
 
-#wafpbgwbyc .gt_grand_summary_row {
+#ikqgnycfci .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2282,7 +2286,7 @@ Table 4: Expectations of balanced accuracy estimates and differences between th
   padding-right: 5px;
 }
 
-#wafpbgwbyc .gt_first_grand_summary_row {
+#ikqgnycfci .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2292,7 +2296,7 @@ Table 4: Expectations of balanced accuracy estimates and differences between th
   border-top-color: #D3D3D3;
 }
 
-#wafpbgwbyc .gt_last_grand_summary_row_top {
+#ikqgnycfci .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2302,11 +2306,11 @@ Table 4: Expectations of balanced accuracy estimates and differences between th
   border-bottom-color: #D3D3D3;
 }
 
-#wafpbgwbyc .gt_striped {
+#ikqgnycfci .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#wafpbgwbyc .gt_table_body {
+#ikqgnycfci .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2315,7 +2319,7 @@ Table 4: Expectations of balanced accuracy estimates and differences between th
   border-bottom-color: #000000;
 }
 
-#wafpbgwbyc .gt_footnotes {
+#ikqgnycfci .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2329,7 +2333,7 @@ Table 4: Expectations of balanced accuracy estimates and differences between th
   border-right-color: #D3D3D3;
 }
 
-#wafpbgwbyc .gt_footnote {
+#ikqgnycfci .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2338,7 +2342,7 @@ Table 4: Expectations of balanced accuracy estimates and differences between th
   padding-right: 5px;
 }
 
-#wafpbgwbyc .gt_sourcenotes {
+#ikqgnycfci .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2352,7 +2356,7 @@ Table 4: Expectations of balanced accuracy estimates and differences between th
   border-right-color: #D3D3D3;
 }
 
-#wafpbgwbyc .gt_sourcenote {
+#ikqgnycfci .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2360,72 +2364,72 @@ Table 4: Expectations of balanced accuracy estimates and differences between th
   padding-right: 5px;
 }
 
-#wafpbgwbyc .gt_left {
+#ikqgnycfci .gt_left {
   text-align: left;
 }
 
-#wafpbgwbyc .gt_center {
+#ikqgnycfci .gt_center {
   text-align: center;
 }
 
-#wafpbgwbyc .gt_right {
+#ikqgnycfci .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#wafpbgwbyc .gt_font_normal {
+#ikqgnycfci .gt_font_normal {
   font-weight: normal;
 }
 
-#wafpbgwbyc .gt_font_bold {
+#ikqgnycfci .gt_font_bold {
   font-weight: bold;
 }
 
-#wafpbgwbyc .gt_font_italic {
+#ikqgnycfci .gt_font_italic {
   font-style: italic;
 }
 
-#wafpbgwbyc .gt_super {
+#ikqgnycfci .gt_super {
   font-size: 65%;
 }
 
-#wafpbgwbyc .gt_footnote_marks {
+#ikqgnycfci .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#wafpbgwbyc .gt_asterisk {
+#ikqgnycfci .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#wafpbgwbyc .gt_indent_1 {
+#ikqgnycfci .gt_indent_1 {
   text-indent: 5px;
 }
 
-#wafpbgwbyc .gt_indent_2 {
+#ikqgnycfci .gt_indent_2 {
   text-indent: 10px;
 }
 
-#wafpbgwbyc .gt_indent_3 {
+#ikqgnycfci .gt_indent_3 {
   text-indent: 15px;
 }
 
-#wafpbgwbyc .gt_indent_4 {
+#ikqgnycfci .gt_indent_4 {
   text-indent: 20px;
 }
 
-#wafpbgwbyc .gt_indent_5 {
+#ikqgnycfci .gt_indent_5 {
   text-indent: 25px;
 }
 
-#wafpbgwbyc .katex-display {
+#ikqgnycfci .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#wafpbgwbyc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#ikqgnycfci div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2490,12 +2494,12 @@ Balanced accuracy difference
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.861</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.851</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.010</td>
-<td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.010</td>
+<td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.009</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.010</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  Comparison" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">A4A3</td>
-<td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.694</td>
+<td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.695</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.708</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.014</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.014</td>
@@ -2516,17 +2520,17 @@ Balanced accuracy difference
 <td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Comparison" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">A2A4</td>
 <td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.840</td>
 <td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.843</td>
-<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.002</td>
+<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.003</td>
 <td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.003</td>
 <td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.002</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Comparison" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">A3A1</td>
-<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.742</td>
+<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.741</td>
 <td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.780</td>
-<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.038</td>
+<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.039</td>
 <td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.039</td>
-<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.037</td>
+<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.038</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Comparison" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">A4A2</td>
@@ -2542,7 +2546,7 @@ Balanced accuracy difference
 <tr class="gt_row_group_first even">
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Comparison" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">A1A4</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.791</td>
-<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.798</td>
+<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.799</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.007</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.008</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.007</td>
@@ -2551,23 +2555,23 @@ Balanced accuracy difference
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Comparison" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">A2A3</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.632</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.662</td>
-<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.029</td>
+<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.030</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.030</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.029</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Comparison" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">A3A2</td>
-<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.668</td>
+<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.667</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.700</td>
-<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.032</td>
+<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.033</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.033</td>
-<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.031</td>
+<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.032</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Comparison" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">A4A1</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.590</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.614</td>
-<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.023</td>
+<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.024</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.024</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.023</td>
 </tr>
@@ -2579,30 +2583,30 @@ Balanced accuracy difference
 </figure>
 </div>
 </div>
-<p>Lastly, Cohen’s <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>κ</mi><annotation encoding="application/x-tex">\kappa</annotation></semantics></math> showed the clearest and most consistent pattern of results (<a href="#tbl-kappa" class="quarto-xref">Table 5</a>). In all cases, the <strong>correlated</strong> scenario yielded <strong>higher</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>κ</mi><annotation encoding="application/x-tex">\kappa</annotation></semantics></math> values than the independent one, with differences ranging from 0.014 to 0.068.</p>
+<p>Lastly, Cohen’s <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>κ</mi><annotation encoding="application/x-tex">\kappa</annotation></semantics></math> showed the clearest and most consistent pattern of results (<a href="#tbl-kappa" class="quarto-xref">Table 5</a>). In all cases, the <strong>correlated</strong> scenario yielded <strong>higher</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>κ</mi><annotation encoding="application/x-tex">\kappa</annotation></semantics></math> values than the independent one, with differences ranging from 0.014 to 0.069.</p>
 <div class="cell">
 <div id="tbl-kappa" class="cell quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-kappa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table 5: Expectations of Cohen’s κ estimates and differences between the independent and correlated scenarios based on independent sample t-tests.
 </figcaption><div aria-describedby="tbl-kappa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="wiqcvptyxn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#wiqcvptyxn table {
+<div id="iuqugefnjx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#iuqugefnjx table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#wiqcvptyxn thead, #wiqcvptyxn tbody, #wiqcvptyxn tfoot, #wiqcvptyxn tr, #wiqcvptyxn td, #wiqcvptyxn th {
+#iuqugefnjx thead, #iuqugefnjx tbody, #iuqugefnjx tfoot, #iuqugefnjx tr, #iuqugefnjx td, #iuqugefnjx th {
   border-style: none;
 }
 
-#wiqcvptyxn p {
+#iuqugefnjx p {
   margin: 0;
   padding: 0;
 }
 
-#wiqcvptyxn .gt_table {
+#iuqugefnjx .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2628,12 +2632,12 @@ Table 5: Expectations of Cohen’s κ estimates and differences between the ind
   border-left-color: #D3D3D3;
 }
 
-#wiqcvptyxn .gt_caption {
+#iuqugefnjx .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#wiqcvptyxn .gt_title {
+#iuqugefnjx .gt_title {
   color: #333333;
   font-size: 16px;
   font-weight: initial;
@@ -2645,7 +2649,7 @@ Table 5: Expectations of Cohen’s κ estimates and differences between the ind
   border-bottom-width: 0;
 }
 
-#wiqcvptyxn .gt_subtitle {
+#iuqugefnjx .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2657,7 +2661,7 @@ Table 5: Expectations of Cohen’s κ estimates and differences between the ind
   border-top-width: 0;
 }
 
-#wiqcvptyxn .gt_heading {
+#iuqugefnjx .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -2669,13 +2673,13 @@ Table 5: Expectations of Cohen’s κ estimates and differences between the ind
   border-right-color: #D3D3D3;
 }
 
-#wiqcvptyxn .gt_bottom_border {
+#iuqugefnjx .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#wiqcvptyxn .gt_col_headings {
+#iuqugefnjx .gt_col_headings {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -2690,7 +2694,7 @@ Table 5: Expectations of Cohen’s κ estimates and differences between the ind
   border-right-color: #D3D3D3;
 }
 
-#wiqcvptyxn .gt_col_heading {
+#iuqugefnjx .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2710,7 +2714,7 @@ Table 5: Expectations of Cohen’s κ estimates and differences between the ind
   overflow-x: hidden;
 }
 
-#wiqcvptyxn .gt_column_spanner_outer {
+#iuqugefnjx .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2722,15 +2726,15 @@ Table 5: Expectations of Cohen’s κ estimates and differences between the ind
   padding-right: 4px;
 }
 
-#wiqcvptyxn .gt_column_spanner_outer:first-child {
+#iuqugefnjx .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#wiqcvptyxn .gt_column_spanner_outer:last-child {
+#iuqugefnjx .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#wiqcvptyxn .gt_column_spanner {
+#iuqugefnjx .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 3px;
   border-bottom-color: #000000;
@@ -2742,11 +2746,11 @@ Table 5: Expectations of Cohen’s κ estimates and differences between the ind
   width: 100%;
 }
 
-#wiqcvptyxn .gt_spanner_row {
+#iuqugefnjx .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#wiqcvptyxn .gt_group_heading {
+#iuqugefnjx .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2772,7 +2776,7 @@ Table 5: Expectations of Cohen’s κ estimates and differences between the ind
   text-align: left;
 }
 
-#wiqcvptyxn .gt_empty_group_heading {
+#iuqugefnjx .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2787,15 +2791,15 @@ Table 5: Expectations of Cohen’s κ estimates and differences between the ind
   vertical-align: middle;
 }
 
-#wiqcvptyxn .gt_from_md > :first-child {
+#iuqugefnjx .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#wiqcvptyxn .gt_from_md > :last-child {
+#iuqugefnjx .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#wiqcvptyxn .gt_row {
+#iuqugefnjx .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2814,7 +2818,7 @@ Table 5: Expectations of Cohen’s κ estimates and differences between the ind
   overflow-x: hidden;
 }
 
-#wiqcvptyxn .gt_stub {
+#iuqugefnjx .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2827,7 +2831,7 @@ Table 5: Expectations of Cohen’s κ estimates and differences between the ind
   padding-right: 5px;
 }
 
-#wiqcvptyxn .gt_stub_row_group {
+#iuqugefnjx .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2841,15 +2845,15 @@ Table 5: Expectations of Cohen’s κ estimates and differences between the ind
   vertical-align: top;
 }
 
-#wiqcvptyxn .gt_row_group_first td {
+#iuqugefnjx .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#wiqcvptyxn .gt_row_group_first th {
+#iuqugefnjx .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#wiqcvptyxn .gt_summary_row {
+#iuqugefnjx .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2859,16 +2863,16 @@ Table 5: Expectations of Cohen’s κ estimates and differences between the ind
   padding-right: 5px;
 }
 
-#wiqcvptyxn .gt_first_summary_row {
+#iuqugefnjx .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#wiqcvptyxn .gt_first_summary_row.thick {
+#iuqugefnjx .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#wiqcvptyxn .gt_last_summary_row {
+#iuqugefnjx .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2878,7 +2882,7 @@ Table 5: Expectations of Cohen’s κ estimates and differences between the ind
   border-bottom-color: #D3D3D3;
 }
 
-#wiqcvptyxn .gt_grand_summary_row {
+#iuqugefnjx .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2888,7 +2892,7 @@ Table 5: Expectations of Cohen’s κ estimates and differences between the ind
   padding-right: 5px;
 }
 
-#wiqcvptyxn .gt_first_grand_summary_row {
+#iuqugefnjx .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2898,7 +2902,7 @@ Table 5: Expectations of Cohen’s κ estimates and differences between the ind
   border-top-color: #D3D3D3;
 }
 
-#wiqcvptyxn .gt_last_grand_summary_row_top {
+#iuqugefnjx .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2908,11 +2912,11 @@ Table 5: Expectations of Cohen’s κ estimates and differences between the ind
   border-bottom-color: #D3D3D3;
 }
 
-#wiqcvptyxn .gt_striped {
+#iuqugefnjx .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#wiqcvptyxn .gt_table_body {
+#iuqugefnjx .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2921,7 +2925,7 @@ Table 5: Expectations of Cohen’s κ estimates and differences between the ind
   border-bottom-color: #000000;
 }
 
-#wiqcvptyxn .gt_footnotes {
+#iuqugefnjx .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2935,7 +2939,7 @@ Table 5: Expectations of Cohen’s κ estimates and differences between the ind
   border-right-color: #D3D3D3;
 }
 
-#wiqcvptyxn .gt_footnote {
+#iuqugefnjx .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2944,7 +2948,7 @@ Table 5: Expectations of Cohen’s κ estimates and differences between the ind
   padding-right: 5px;
 }
 
-#wiqcvptyxn .gt_sourcenotes {
+#iuqugefnjx .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2958,7 +2962,7 @@ Table 5: Expectations of Cohen’s κ estimates and differences between the ind
   border-right-color: #D3D3D3;
 }
 
-#wiqcvptyxn .gt_sourcenote {
+#iuqugefnjx .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2966,72 +2970,72 @@ Table 5: Expectations of Cohen’s κ estimates and differences between the ind
   padding-right: 5px;
 }
 
-#wiqcvptyxn .gt_left {
+#iuqugefnjx .gt_left {
   text-align: left;
 }
 
-#wiqcvptyxn .gt_center {
+#iuqugefnjx .gt_center {
   text-align: center;
 }
 
-#wiqcvptyxn .gt_right {
+#iuqugefnjx .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#wiqcvptyxn .gt_font_normal {
+#iuqugefnjx .gt_font_normal {
   font-weight: normal;
 }
 
-#wiqcvptyxn .gt_font_bold {
+#iuqugefnjx .gt_font_bold {
   font-weight: bold;
 }
 
-#wiqcvptyxn .gt_font_italic {
+#iuqugefnjx .gt_font_italic {
   font-style: italic;
 }
 
-#wiqcvptyxn .gt_super {
+#iuqugefnjx .gt_super {
   font-size: 65%;
 }
 
-#wiqcvptyxn .gt_footnote_marks {
+#iuqugefnjx .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#wiqcvptyxn .gt_asterisk {
+#iuqugefnjx .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#wiqcvptyxn .gt_indent_1 {
+#iuqugefnjx .gt_indent_1 {
   text-indent: 5px;
 }
 
-#wiqcvptyxn .gt_indent_2 {
+#iuqugefnjx .gt_indent_2 {
   text-indent: 10px;
 }
 
-#wiqcvptyxn .gt_indent_3 {
+#iuqugefnjx .gt_indent_3 {
   text-indent: 15px;
 }
 
-#wiqcvptyxn .gt_indent_4 {
+#iuqugefnjx .gt_indent_4 {
   text-indent: 20px;
 }
 
-#wiqcvptyxn .gt_indent_5 {
+#iuqugefnjx .gt_indent_5 {
   text-indent: 25px;
 }
 
-#wiqcvptyxn .katex-display {
+#iuqugefnjx .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#wiqcvptyxn div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#iuqugefnjx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -3078,7 +3082,7 @@ Cohen’s <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><sem
 <tr class="gt_row_group_first even">
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  Comparison" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">A1A2</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.505</td>
-<td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.548</td>
+<td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.549</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.044</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.045</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.042</td>
@@ -3086,7 +3090,7 @@ Cohen’s <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><sem
 <tr class="odd">
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  Comparison" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">A2A1</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.505</td>
-<td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.548</td>
+<td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.549</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.044</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.045</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Aligned Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.042</td>
@@ -3112,35 +3116,35 @@ Cohen’s <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><sem
 </tr>
 <tr class="gt_row_group_first odd">
 <td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Comparison" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">A1A3</td>
-<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.598</td>
+<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.597</td>
 <td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.666</td>
-<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.068</td>
-<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.070</td>
-<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.066</td>
+<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.069</td>
+<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.071</td>
+<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.067</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Comparison" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">A2A4</td>
-<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.512</td>
+<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.511</td>
 <td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.537</td>
-<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.025</td>
-<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.026</td>
-<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.024</td>
+<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.026</td>
+<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.027</td>
+<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.025</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Comparison" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">A3A1</td>
-<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.598</td>
+<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.597</td>
 <td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.666</td>
-<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.068</td>
-<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.070</td>
-<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.066</td>
+<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.069</td>
+<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.071</td>
+<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.067</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Comparison" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">A4A2</td>
-<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.512</td>
+<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.511</td>
 <td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.537</td>
-<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.025</td>
-<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.026</td>
-<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.024</td>
+<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.026</td>
+<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.027</td>
+<td class="gt_row gt_center" headers="Aligned IADL &amp; Mismatched Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.025</td>
 </tr>
 <tr class="gt_group_heading_row odd">
 <th colspan="6" id="Mismatched IADL &amp;amp; Mismatched Global Cognition" class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">Mismatched IADL &amp; Mismatched Global Cognition</th>
@@ -3149,33 +3153,33 @@ Cohen’s <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><sem
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Comparison" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">A1A4</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.214</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.256</td>
-<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.042</td>
-<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.043</td>
-<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.041</td>
+<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.043</td>
+<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.044</td>
+<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.042</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Comparison" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">A2A3</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.293</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.354</td>
-<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.061</td>
-<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.062</td>
-<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.059</td>
+<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.062</td>
+<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.063</td>
+<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.060</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Comparison" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">A3A2</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.293</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.354</td>
-<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.061</td>
-<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.062</td>
-<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.059</td>
+<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.062</td>
+<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.063</td>
+<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.060</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Comparison" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">A4A1</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Independent" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.214</td>
 <td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Correlated" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">0.256</td>
-<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.042</td>
-<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.043</td>
-<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.041</td>
+<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Difference" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.043</td>
+<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  Low" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.044</td>
+<td class="gt_row gt_center" headers="Mismatched IADL &amp; Mismatched Global Cognition  High" style="text-align: center; border-top-width: 1px; border-top-style: solid; border-top-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white; background-color: #FFFFFF;">−0.042</td>
 </tr>
 </tbody>
 </table>
@@ -3187,9 +3191,7 @@ Cohen’s <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><sem
 </div>
 </section><section class="level2"><h2 id="conclusions">Conclusions<a class="anchor" aria-label="anchor" href="#conclusions"></a>
 </h2>
-<div>
 <blockquote>
-<p><strong>Tip</strong></p>
 <p>Based on the simulations presented in this vignette, we can conclude that the correlations between FAQ and global cognition measures of the magnitude observed in our empirical data imply that:</p>
 <ul>
 <li>the <strong>correlated</strong> scenario is more <strong>sensitive</strong> to PDD, consistently yielding <strong>higher PDD rates</strong>,</li>
@@ -3200,7 +3202,6 @@ Cohen’s <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><sem
 </li>
 </ul>
 </blockquote>
-</div>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-mchugh2012" class="csl-entry" role="listitem">
 McHugh, Marry L. 2012. <span>“Interrater Reliability: The Kappa Statistic.”</span> <em>Biochemia Medica</em>, 276–82. <a href="https://doi.org/10.11613/bm.2012.031" class="external-link">https://doi.org/10.11613/bm.2012.031</a>.
