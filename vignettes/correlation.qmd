@@ -36,7 +36,7 @@ During the article's review process, the following question arose:
 
 Because this question is not a straightforward one to address conceptually, we conducted a brief simulation experiment to explore it empirically.
 
-This vignette presents the R code and results of a simulation study comparing algorithms’ concordance and PDD rate estimates in a simplified setting. In this scenario, the only differences between algorithms are the operationalisations of IADL deficit (FAQ \> 7 vs. FAQ item 9 \< 1) and global cognitive deficit (MMSE \< 26 vs. MoCA \< 27), while all other diagnostic criteria are assumed to be satisfied.
+This vignette presents the R code and results of a simulation study comparing algorithms’ concordance and PDD rate estimates in a simplified setting. In this scenario, the only differences between algorithms are the operationalisations of IADL deficit (FAQ \> 7 vs. FAQ item 9 \< 1) and global cognitive deficit (MMSE \< 26 vs. MoCA \< 26), while all other diagnostic criteria are assumed to be satisfied.
 
 Crucially, **within algorithms**, we vary correlation between FAQ and MMSE/MoCA in the data-generating process, allowing us to compare estimates under two conditions: one with no correlation (**independent** scenario) and one with a correlation of the size consistent with that observed in our data (**correlated** scenario, see @tbl-data).
 

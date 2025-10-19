@@ -17,7 +17,7 @@ knitr:
 
 ## Set-up
 
-Before starting, ensure that you have a local installation of the [demcrit](https://github.com/josefmana/demcrit.git) R package. If not, see the [package overview](../index.html) for installation instructions, or visit the [package website](https://josefmana.github.io/demcrit/) for function documentation.
+Before starting, ensure that you have a local installation of the *demcrit* R package. If not, see the [package overview](../index.html) for installation instructions, or visit the package website's [reference list](https://josefmana.github.io/demcrit/reference/index.html) for function documentation.
 
 Load the package if you wish to access the documentation directly in RStudio:
 
