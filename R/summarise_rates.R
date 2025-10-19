@@ -17,6 +17,8 @@
 #'    such a table.
 #' @param descending A logical indicating whether algorithms with the highest
 #'    estimated PDD rates should be listed first (default is `TRUE`).
+#' @param plot A logical indicating whether to plot PDD rates as densities.
+#'    The code is dataset-specific (default is `TRUE`).
 #'
 #' @returns A list with:
 #' \describe{
@@ -44,7 +46,7 @@
 #' }
 #'
 #' @export
-summarise_rates <- function(d0, vars, descending = TRUE) {
+summarise_rates <- function(d0, vars, descending = TRUE, plot = TRUE) {
   # Get variables mapping:
   if (is.character(vars)) {
     v <- readr::read_delim(vars, delim = ";", col_types = readr::cols())
@@ -95,7 +97,7 @@ summarise_rates <- function(d0, vars, descending = TRUE) {
     dplyr::select(type, N, Rate) |>
     gt_apa_table() |>
     gt::cols_label(type ~ "Algorithm") |>
-    gt::tab_source_note(gt::html("<i>Note.</i> Percentages were calculated from all available cases. The items comprising each listed algorithm can be found in Table A1."))
+    gt::tab_source_note(gt::html("<i>Note.</i> Percentages were calculated from all available cases, the items comprising each listed algorithm can be found in Table A1."))
   # Make a table showing algorithms' specification:
   gtab_algos <- tab |>
     dplyr::select(-perc, -N, -Rate) |>
@@ -113,51 +115,55 @@ summarise_rates <- function(d0, vars, descending = TRUE) {
     )
   # If there are notes, add them to the table:
   if (ncol(v) > 4 && any(!is.na(v$note))) {
-    notes <- v[complete.cases(v[ , 5]), c(2,5)]
-    text <- paste0(dplyr::pull(notes[ , 1]), ": ", dplyr::pull(notes[ , 2])) |> paste(collapse = ", ")
+    notes <- v[complete.cases(v[, 5]), c(2, 5)]
+    text <- paste0(dplyr::pull(notes[, 1]), ": ", dplyr::pull(notes[, 2])) |> paste(collapse = ", ")
     # Add the text:
     gtab_algos <- gtab_algos |>
       gt::tab_source_note(gt::html(glue::glue("<i>Note.</i> {text}")))
   }
   # Visualisation code:
-  smoca_9 <- subset(prevs, type == subset(d0$algorithms, group == "smoca" & iadl == "faq_9")$type)$perc
-  smoca_tot <- subset(prevs, type == subset(d0$algorithms, group == "smoca" & iadl == "faq")$type)$perc
-  lvlII_9 <- subset(prevs, type == subset(d0$algorithms, group == "lvlII" & iadl == "faq_9")$type)$perc
-  lvlII_tot <- subset(prevs, type == subset(d0$algorithms, group == "lvlII" & iadl == "faq"  )$type)$perc
-  plt <- prevs |>
-    dplyr::filter(!grepl("sMoCA|Lvl.II", type)) |>
-    dplyr::mutate(
-      kind = sapply(
-        seq_len(length(type)),
-        function(i) dplyr::case_when(
-          d0$algorithms$glob[d0$algorithms$type == type[i]] == "mmse" & d0$algorithms$iadl[d0$algorithms$type == type[i]] == "faq_9" ~ 1,
-          d0$algorithms$glob[d0$algorithms$type == type[i]] == "mmse" & d0$algorithms$iadl[d0$algorithms$type == type[i]] == "faq" ~ 2,
-          d0$algorithms$glob[d0$algorithms$type == type[i]] == "moca_total" & d0$algorithms$iadl[d0$algorithms$type == type[i]] == "faq_9" ~ 3,
-          d0$algorithms$glob[d0$algorithms$type == type[i]] == "moca_total" & d0$algorithms$iadl[d0$algorithms$type == type[i]] == "faq" ~ 4
-        )
-      ),
-      `Operationalized by:` = factor(
-        x = kind,
-        levels = 1:4,
-        labels = c(
-          "MMSE & FAQ (it. 9)",
-          "MMSE & FAQ (total)",
-          "MoCA & FAQ (it. 9)",
-          "MoCA & FAQ (total)"
+  if (plot) {
+    smoca_9 <- subset(prevs, type == subset(d0$algorithms, group == "smoca" & iadl == "faq_9")$type)$perc
+    smoca_tot <- subset(prevs, type == subset(d0$algorithms, group == "smoca" & iadl == "faq")$type)$perc
+    lvlII_9 <- subset(prevs, type == subset(d0$algorithms, group == "lvlII" & iadl == "faq_9")$type)$perc
+    lvlII_tot <- subset(prevs, type == subset(d0$algorithms, group == "lvlII" & iadl == "faq"  )$type)$perc
+    plt <- prevs |>
+      dplyr::filter(!grepl("sMoCA|Lvl.II", type)) |>
+      dplyr::mutate(
+        kind = sapply(
+          seq_len(length(type)),
+          function(i) dplyr::case_when(
+            d0$algorithms$glob[d0$algorithms$type == type[i]] == "mmse" & d0$algorithms$iadl[d0$algorithms$type == type[i]] == "faq_9" ~ 1,
+            d0$algorithms$glob[d0$algorithms$type == type[i]] == "mmse" & d0$algorithms$iadl[d0$algorithms$type == type[i]] == "faq" ~ 2,
+            d0$algorithms$glob[d0$algorithms$type == type[i]] == "moca_total" & d0$algorithms$iadl[d0$algorithms$type == type[i]] == "faq_9" ~ 3,
+            d0$algorithms$glob[d0$algorithms$type == type[i]] == "moca_total" & d0$algorithms$iadl[d0$algorithms$type == type[i]] == "faq" ~ 4
+          )
         ),
-        ordered = FALSE
-      )
-    ) |>
-    ggplot2::ggplot() +
-    ggplot2::aes(x = perc, colour = `Operationalized by:`, fill = `Operationalized by:`) +
-    ggplot2::geom_histogram(ggplot2::aes(y = ..density..), colour = "black", fill = "white", bins = 30) +
-    ggplot2::geom_density(lwd = 1, alpha = .25) +
-    ggplot2::geom_vline(xintercept = smoca_9, lwd = 1, lty = "dotted", colour = "orange3") +
-    ggplot2::geom_vline(xintercept = smoca_tot, lwd = 1, lty = "dotted", colour = "blue") +
-    ggplot2::geom_vline(xintercept = lvlII_9, lwd = 1, lty = "dashed", colour = "orange3") +
-    ggplot2::geom_vline(xintercept = lvlII_tot, lwd = 1, lty = "dashed", colour = "blue") +
-    ggplot2::labs(x = "Estimated PDD rate (%)", y = "Density") +
-    ggplot2::theme(legend.position = "bottom")
+        `Operationalized by:` = factor(
+          x = kind,
+          levels = 1:4,
+          labels = c(
+            "MMSE & FAQ (it. 9)",
+            "MMSE & FAQ (total)",
+            "MoCA & FAQ (it. 9)",
+            "MoCA & FAQ (total)"
+          ),
+          ordered = FALSE
+        )
+      ) |>
+      ggplot2::ggplot() +
+      ggplot2::aes(x = perc, colour = `Operationalized by:`, fill = `Operationalized by:`) +
+      ggplot2::geom_histogram(ggplot2::aes(y = ..density..), colour = "black", fill = "white", bins = 30) +
+      ggplot2::geom_density(lwd = 1, alpha = .25) +
+      ggplot2::geom_vline(xintercept = smoca_9, lwd = 1, lty = "dotted", colour = "orange3") +
+      ggplot2::geom_vline(xintercept = smoca_tot, lwd = 1, lty = "dotted", colour = "blue") +
+      ggplot2::geom_vline(xintercept = lvlII_9, lwd = 1, lty = "dashed", colour = "orange3") +
+      ggplot2::geom_vline(xintercept = lvlII_tot, lwd = 1, lty = "dashed", colour = "blue") +
+      ggplot2::labs(x = "Estimated PDD rate (%)", y = "Density") +
+      ggplot2::theme(legend.position = "bottom")
+  } else {
+    plt <- NULL
+  }
   # Return:
   list(
     table = tab,

@@ -38,6 +38,7 @@ Imports:
     ggplot2 (>= 3.5.2),
     stringr (>= 1.5.1),
     MASS (>= 7.3.60.0.1),
+    MBESS (>= 4.9.3),
     rstatix (>= 0.7.2)
 Suggests: 
     knitr,

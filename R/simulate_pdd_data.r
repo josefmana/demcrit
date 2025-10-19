@@ -3,8 +3,10 @@
 #' Prepares a minimal example of data in the right format for analysis via the demcrit
 #' package functions. It is compulsory to specify FAQ summary data (mean, variance and
 #' covariance, see below) and at least one additional global cognitive measure summary
-#' data. The function then simulates `N` synthetic patients' PDD status via the
-#' following steps:
+#' data.
+#'
+#' @details
+#' The function simulates `N` synthetic patients' PDD status via the following steps:
 #'
 #' 1. generate latent FAQ and cognitive scores via [MASS::mvrnorm()],
 #' 2. generate observed FAQ item 9 data via the [rbinom()] following tau-equivalence
@@ -19,15 +21,29 @@
 #'    observed data should be used (`TRUE`, default) or the user will provide their
 #'    values instead (`FALSE`).
 #' @param Mu Named numeric vector of means. Needs to contain one component denoting
-#'    FAQ. If `NULL` (default), it is set to values from observed data..
-#' @param Sigma Named matrix of variances and covariances. If `NULL` (default), it
+#'    FAQ. If `defaults = TRUE`, it is set to values from observed data.
+#' @param Sigma Named matrix of variances and covariances. If `defaults = TRUE`, it
 #'    is set at empirical values from the observed data.
 #' @param cens A matrix or data frame with two columns, the first indicating lower
-#'    bound, the second the upper bound of a scale in the rowname. Defaults to
-#'    `NULL` which does not censor data (and prints latent scores instead).
-#' @param crits description
+#'    bound, the second the upper bound of a scale in the rowname. If `defaults == TRUE`,
+#'    or `param = NULL` which does not censor data (and prints latent scores instead).
+#' @param crits A data.frame with named rows and four columns:
+#'    - rownames indicate algorithm labels,
+#'    - `IADL` indicate variable from the data used for IADL deficit calculation,
+#'    - `IADL_thres` indicate threshold above which there is IADL deficit,
+#'    - `cognition` indicate variable from the data used for cognitive deficit calculation,
+#'    - `cognition_thres` indicate threshold below which there is cognitive deficit.
 #'
-#' @returns A data.frame
+#' @returns A tibble containing:
+#'  \describe{
+#'    \item{id}{Character; identificator of a simulated patient.}
+#'    \item{type}{Character; algorithm names specified by rownames of `crits`}
+#'    \item{PDD}{Logical; PDD diagnosis for each patient (`id`) calculated via
+#'    each algorithm (`type`),}
+#'    \item{raw scores}{Numeric; Scores showing raw simulated data for each variable
+#'    supplied to the data-generating proces. Defaults to columns `FAQ`, `MMSE`, `MoCA`,
+#'    `sMoCA` and `FAQ9`.}
+#'  }
 #'
 #' @seealso [prepare_defaults()] for correct format of simulation parameters specification.
 #'
@@ -48,7 +64,7 @@
 #'   c(rep(0, 3), rep(30, 3)), nrow = 3,
 #'   dimnames = list(c("FAQ", "MMSE", "MoCA"))
 #' )
-#' sigma <-
+#' sigma <- MBESS::cor2cov(corrs, sd)
 #' crits <- data.frame(
 #'   row.names = c("A1", "A2", "A3", "A4"),
 #'   IADL = rep(c("FAQ", "FAQ9"), 2),
@@ -58,8 +74,8 @@
 #' )
 #' sim3 <- simulate_pdd_data(
 #'   N = 2000,
-#'   default = FALSE, # It is crucial to set this to FALSE
-#'   Mu = mu, Sigma =
+#'   defaults = FALSE, # It is crucial to set this to FALSE
+#'   Mu = mu, Sigma = sigma
 #' )
 #' }
 #'

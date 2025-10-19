@@ -2,8 +2,6 @@
 title: "Impact of Correlation on Concordance"
 format:
   html:
-    theme: sandstone
-    embed-resources: true
     code-fold: true
     toc: true
 warning: false
@@ -33,6 +31,8 @@ library(gt)        # for table formatting
 During the article's review process, the following question arose:
 
 > How can **correlation** between FAQ scores and neuropsychological measures **inflate** concordance estimates?
+
+## Introduction
 
 Because this question is not a straightforward one to address conceptually, we conducted a brief simulation experiment to explore it empirically.
 
@@ -390,14 +390,10 @@ make_concordance_table(stats_conc, "Kappa", "Cohen's $\\kappa$")
 
 ## Conclusions
 
-::: {.callout-tip appearance="simple" icon=false}
-
-Based on the simulations presented in this vignette, we can conclude that the correlations between FAQ and global cognition measures of the magnitude observed in our empirical data imply that:
-
+>Based on the simulations presented in this vignette, we can conclude that the correlations between FAQ and global cognition measures of the magnitude observed in our empirical data imply that:
+>
 - the **correlated** scenario is more **sensitive** to PDD, consistently yielding **higher PDD rates**,
 - the **correlated** scenario produces **accuracy estimates** that are **similar** to those from the independent scenario,
 - when considering **balanced accuracy**, the **correlated** scenario diverges from the independent one in more **nuanced** ways, yielding **higher** estimates in some comparisons and **lower** in others,
 - relative to the independent scenario, the **correlated** scenario tends to **slightly overestimate** Cohen’s $\kappa$ to a small degree^[Following the reference in the main text [@mchugh2012], a qualitative shift in the interpretation of Cohen’s $\kappa$ would require a difference of approximately 0.2, more than twice the largest difference observed in this simulation study.], and
 - overall, the differences between the **correlated** and **independent** scenarios are likely to be **small in magnitude**, unless higher correlations between diagnostic criteria are introduced in the data-generating process.^[Although this simulation employed a correlation matrix based on our empirical data, the code can be easily modified to generate data with stronger correlations, which would, in turn, produce larger differences between scenarios. For brevity, we leave this exploration to the reader.]
-
-:::

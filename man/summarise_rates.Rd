@@ -4,7 +4,7 @@
 \alias{summarise_rates}
 \title{Order and Prints Algorithms}
 \usage{
-summarise_rates(d0, vars, descending = TRUE)
+summarise_rates(d0, vars, descending = TRUE, plot = TRUE)
 }
 \arguments{
 \item{d0}{A list with PDD data generated via \code{diagnose_pdd_sample}.}
@@ -24,6 +24,9 @@ such a table.}
 
 \item{descending}{A logical indicating whether algorithms with the highest
 estimated PDD rates should be listed first (default is \code{TRUE}).}
+
+\item{plot}{A logical indicating whether to plot PDD rates as densities.
+The code is dataset-specific (default is \code{TRUE}).}
 }
 \value{
 A list with:

@@ -1,0 +1,87 @@
+---
+title: "Use #1: Targets Pipeline"
+format:
+  html:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Use #1: Targets Pipeline}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: '#>'
+---
+
+> The full use of the *demcrit* package relies on patient data that cannot be shared publicly for privacy reasons. However, the package can be executed on the data owner’s computer ([Laboratory of Neurosychology](https://www.vfn.cz/en/pacienti/kliniky-ustavy/neurologicka-klinika/odborne-ambulance/#) at the First Faculty of Medicine, Charles University, and the General University Hospital in Prague).
+
+## Set-up
+
+Before starting, ensure that you have a local installation of the [demcrit](https://github.com/josefmana/demcrit.git) R package. If not, see the [package overview](../index.html) for installation instructions, or visit the [package website](https://josefmana.github.io/demcrit/) for function documentation.
+
+Load the package if you wish to access the documentation directly in RStudio:
+
+```{r}
+#| label: setup
+#| eval: false
+
+library(demcrit)
+```
+
+Next, clone the [*demcrit* repository](https://github.com/josefmana/demcrit.git) to a local folder of your choice (here referred to as `studyfolder`), and install the necessary dependencies:
+
+```{r}
+#| label: deps
+#| eval: false
+
+devtools::install_deps()
+```
+
+Ensure that all required data files are present in the `studyfolder/raw-data` directory.
+
+## Data Checking
+
+The pipeline first runs the `data_paths()` function, which **checks for missing files** and **naming inconsistencies**:
+
+```{r}
+#| label: data-paths
+#| eval: false
+
+help("data_paths")
+```
+
+Additional functions help prevent data-entry errors or structural inconsistencies before analysis:
+
+```{r}
+#| label: other-helpers
+#| eval: false
+
+help("check_compatibility") # Looks for incompatibilities between raw item data specific for this project and REDCap data from a larger database.
+help("check_names") # Looks for inconsistencies in patients names in the raw item data compare to REDCap databes.
+help("check_ranges") # Looks for impossible test scores.
+```
+
+## Running the Pipeline
+
+Finally, make sure that the [apaquarto](https://github.com/wjschne/apaquarto.git) extension (version 4.4.1) is installed in the `studyfolder/_manuscript` directory.
+
+You can then run the full pipeline (including manuscript writing) via:
+
+```{r}
+#| label: tagets-pipeline
+#| eval: false
+
+#install.packages("targets")
+#install.packages("tarchetypes")
+targets::tar_make()
+```
+
+To visualize the workflow, use:
+
+```{r}
+#| label: tagets-flow
+#| eval: false
+
+targets::tar_visnetwork() # full workflow
+targets::tar_glimpse() # simplified workflow (targets only)
+```

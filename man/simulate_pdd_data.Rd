@@ -14,28 +14,44 @@ observed data should be used (\code{TRUE}, default) or the user will provide the
 values instead (\code{FALSE}).}
 
 \item{Mu}{Named numeric vector of means. Needs to contain one component denoting
-FAQ. If \code{NULL} (default), it is set to values from observed data..}
+FAQ. If \code{defaults = TRUE}, it is set to values from observed data.}
 
-\item{Sigma}{Named matrix of variances and covariances. If \code{NULL} (default), it
+\item{Sigma}{Named matrix of variances and covariances. If \code{defaults = TRUE}, it
 is set at empirical values from the observed data.}
 
-\item{crits}{description}
+\item{crits}{A data.frame with named rows and four columns:
+\itemize{
+\item rownames indicate algorithm labels,
+\item \code{IADL} indicate variable from the data used for IADL deficit calculation,
+\item \code{IADL_thres} indicate threshold above which there is IADL deficit,
+\item \code{cognition} indicate variable from the data used for cognitive deficit calculation,
+\item \code{cognition_thres} indicate threshold below which there is cognitive deficit.
+}}
 
 \item{cens}{A matrix or data frame with two columns, the first indicating lower
-bound, the second the upper bound of a scale in the rowname. Defaults to
-\code{NULL} which does not censor data (and prints latent scores instead).}
+bound, the second the upper bound of a scale in the rowname. If \code{defaults == TRUE},
+or \code{param = NULL} which does not censor data (and prints latent scores instead).}
 }
 \value{
-A data.frame
+A tibble containing:
+\describe{
+\item{id}{Character; identificator of a simulated patient.}
+\item{type}{Character; algorithm names specified by rownames of \code{crits}}
+\item{PDD}{Logical; PDD diagnosis for each patient (\code{id}) calculated via
+each algorithm (\code{type}),}
+\item{raw scores}{Numeric; Scores showing raw simulated data for each variable
+supplied to the data-generating proces. Defaults to columns \code{FAQ}, \code{MMSE}, \code{MoCA},
+\code{sMoCA} and \code{FAQ9}.}
+}
 }
 \description{
 Prepares a minimal example of data in the right format for analysis via the demcrit
 package functions. It is compulsory to specify FAQ summary data (mean, variance and
 covariance, see below) and at least one additional global cognitive measure summary
-data. The function then simulates \code{N} synthetic patients' PDD status via the
-following steps:
+data.
 }
 \details{
+The function simulates \code{N} synthetic patients' PDD status via the following steps:
 \enumerate{
 \item generate latent FAQ and cognitive scores via \code{\link[MASS:mvrnorm]{MASS::mvrnorm()}},
 \item generate observed FAQ item 9 data via the \code{\link[=rbinom]{rbinom()}} following tau-equivalence
@@ -63,7 +79,7 @@ cens <- matrix(
   c(rep(0, 3), rep(30, 3)), nrow = 3,
   dimnames = list(c("FAQ", "MMSE", "MoCA"))
 )
-sigma <-
+sigma <- MBESS::cor2cov(corrs, sd)
 crits <- data.frame(
   row.names = c("A1", "A2", "A3", "A4"),
   IADL = rep(c("FAQ", "FAQ9"), 2),
@@ -73,8 +89,8 @@ crits <- data.frame(
 )
 sim3 <- simulate_pdd_data(
   N = 2000,
-  default = FALSE, # It is crucial to set this to FALSE
-  Mu = mu, Sigma =
+  defaults = FALSE, # It is crucial to set this to FALSE
+  Mu = mu, Sigma = sigma
 )
 }
 

@@ -1,0 +1,207 @@
+---
+title: "Use #2: Out of Pipeline"
+format:
+  html:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Use #2: Out of Pipeline}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: '#>'
+---
+
+> If you do not have access to the raw data used in our article, you can still apply the key *demcrit* functions to your own, similarly structured dataset. In this vignette, we show how to do that using a small reproducible example.
+
+Before you start, make sure you have a local installation of the [demcrit](https://github.com/josefmana/demcrit.git) R package. If not, see the [package overview](../index.html) for installation instructions.
+
+## Setup
+
+Start by loading the required packages:
+
+```{r}
+#| label: setup
+
+library(demcrit)
+library(gt) # for nicely formatted tables
+library(tidyverse) |> suppressPackageStartupMessages() # For data wrangling
+```
+
+## Data Simulation
+
+Because the original dataset cannot be shared, we will simulate a similar dataset using built-in functions:
+
+```{r}
+#| label: simulate-data
+
+set.seed(87542) # for reproducibility
+data <- simulate_pdd_data()
+```
+
+You can inspect the default parameters used in this simulation via:
+
+```{r}
+#| label: show-defaults
+
+prepare_defaults()
+```
+
+This produces the following example dataset:
+
+```{r}
+#| label: show-data
+#| echo: false
+
+data
+```
+
+Key variables include:
+
+- `id` -- patient identifier
+- `type` -- diagnostic algorithm used
+- `PDD` -- diagnosis result for each patient–algorithm pair
+
+For more details about how the data are generated, see:
+
+```{r}
+#| label: data-helps
+#| eval: false
+
+help("simulate_pdd_data") # details on the data generation algorithm
+help("prepare_defaults") # details on parameter defaults
+```
+
+## Dementia Rates
+
+To compute dementia (PDD) rates, we first prepare a specification of diagnostic algorithms and variable mappings. Then, we pass these to the `summarise_rates()` function:
+
+```{r}
+#| labels: rates
+
+# Extract default parameters:
+pars <- prepare_defaults()
+
+# Define algorithm specifications:
+algos <- with(pars, {data.frame(
+  type = rownames(crits),
+  glob = crits$cognition, glob_t = crits$cognition_thres,
+  iadl = crits$IADL, iadl_t = crits$IADL_thres,
+  atte = "", atte_t = NA,
+  exec = "", exec_t = NA,
+  memo = "", memo_t = NA,
+  cons = "", cons_t = NA,
+  lang = "", lang_t = NA
+)})
+
+# Define variable names:
+vars <- data.frame(
+  name = c(unique(algos$glob), unique(algos$iadl)),
+  label = c(unique(algos$glob), unique(algos$iadl)),
+  type = "continuous"
+)
+
+# Compute PDD rates:
+rates <- summarise_rates(
+  list(PDD = data, algorithms = algos),
+  vars = vars,
+  plot = FALSE # Setting plot to FALSE bacause it is calibrated the data from the study..
+)
+
+# Format results:
+tab1 <- rates$table |>
+  select(type, Global, IADL, N, Rate) |>
+  gt_apa_table() |>
+  cols_label(
+    type ~ "Algorithm",
+    Global ~ "Cognitive deficit",
+    IADL ~ "IADL deficit"
+  )
+```
+
+```{r}
+#| label: tbl-rates
+#| echo: false
+#| tbl-cap: An example table showing simulated PDD rates.
+
+tab1
+```
+
+## Pairwise Concordance
+
+Next, we can compute pairwise concordance statistics across algorithms:
+
+```{r}
+#| label: concordances
+#| warning: false
+
+concs <- describe_concordance(list(PDD = data, algorithms = algos))
+```
+
+For details about the resulting object, see:
+
+```{r}
+#| label: conc-docs
+#| warning: false
+
+help("describe_concordance")
+help("concords") # describes the concordance statistics table
+```
+
+We can visualize concordance matrices for several metrics:
+
+```{r}
+#| label: fig-concordances
+#| echo: false
+#| warning: false
+#| layout-ncol: 2
+#| fig-cap: Concordance statistic matrices
+#| fig-subcap:
+#|    - Cohen's kappa
+#|    - Raw accuracy
+#|    - Sensitivity
+#|    - Specificity
+
+concs$plots$Kappa
+concs$plots$Accuracy
+concs$plots$Sensitivity
+concs$plots$Specificity
+```
+
+Alternatively, we can extract specific concordance statistics and present them in a table.
+Table @tbl-concordance shows one such example, with algorithms sorted by raw accuracy in predicting *MoCA (1)*.
+
+```{r}
+#| label: concordance-table
+
+tab2 <- concs$table |>
+  filter(reference == "MoCA (1)") |>
+  filter(reference != predictor) |>
+  arrange(desc(Accuracy_raw)) |>
+  select(predictor, Kappa, Accuracy, NoInformationRate_raw, AccuracyPValue) |>
+  mutate(AccuracyPValue = do_summary(AccuracyPValue, 3, "p")) |>
+  gt_apa_table() |>
+  fmt_number(decimals = 2) |>
+  cols_label(
+    predictor ~ "Predictor",
+    NoInformationRate_raw ~ "NIR",
+    AccuracyPValue ~ "p-value"
+  )
+```
+
+```{r}
+#| label: tbl-concordance
+#| echo: false
+#| tbl-cap: Example table showing pairwise concordance statistics for five algorithms sorted by raw accuracy in predicting MoCA (1). NIR stands for *No Information Rate*, and p-values correspond to one-sided binomial tests of Accuracy > NIR.
+
+tab2
+```
+
+## Future Directions
+
+
+>Currently, *demcrit* is designed around the dataset used in our original study. As such, it primarily supports direct replications rather than general applications.
+>
+>If you find the approach useful and would like to adapt it for your data, feel free to reach out — we are happy to discuss possible extensions. We also welcome reports of bugs or mistakes you may encounter.
+

@@ -47,7 +47,7 @@ gt_apa_table <- function(x, grp = NULL, nms = NULL, tit = "") {
         rows = tidyselect::everything()
       )
     ) |>
-    tab_header( # title setup
+    gt::tab_header( # title setup
       title = gt::html(tit)
     ) |>
     gt::opt_align_table_header(align = "left")

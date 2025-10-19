@@ -2,8 +2,7 @@
 title: "Accessing Concordance Statistics"
 format:
   html:
-    theme: sandstone
-    embed-resources: true
+    toc: true
 vignette: >
   %\VignetteIndexEntry{Accessing Concordance Statistics}
   %\VignetteEngine{quarto::html}
@@ -14,7 +13,9 @@ knitr:
     comment: '#>'
 ---
 
-The purpose of this vignette is to provide access to the raw statistical results for all concordance indexes from pairwise comparisons of algorithms for *Parkinson’s Disease Dementia (PDD)* discussed in the source article.
+> The purpose of this vignette is to provide access to the raw statistical results for all concordance indexes from pairwise comparisons of algorithms for *Parkinson’s Disease Dementia (PDD)* discussed in the source article.
+
+## Set-up
 
 To explore these results, you first need to install and load a local instance of the [demcrit](https://github.com/josefmana/demcrit.git) R package:
 
@@ -27,6 +28,8 @@ To explore these results, you first need to install and load a local instance of
 #install.packages(devtools)
 devtools::install_github("josefmana/demcrit")
 ```
+
+## Data
 
 Once installed, the concordance statistics can be loaded. The following code chunk loads the *demcrit* package (all subsequent examples assume the package is already loaded) and reads the concordance data into the object `concords`:
 
@@ -48,6 +51,8 @@ help("concords")
 ```
 
 The concords object is a [**tibble**](https://tibble.tidyverse.org), meaning it can be easily manipulated using packages from the [**tidyverse**](https://tidyverse.org) ecosystem.
+
+## Example Uses
 
 For example, the following code filters the data to retain only those pairwise comparisons where algorithm `"Lvl.II (1)"` served as the reference:
 
@@ -91,6 +96,8 @@ lvlII1_reference_2 <- concords |>
   filter(predictor %in% algos_of_interest) |>
   arrange(desc(Specificity))
 ```
+
+## Export
 
 Finally, you can export the data to CSV or Excel format for use in other software. The following examples use the `readr` and `writexl` packages, though any preferred method can be used:
 

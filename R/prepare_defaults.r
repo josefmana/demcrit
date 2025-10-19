@@ -34,10 +34,10 @@ prepare_defaults <- function() {
     nrow = length(sd), # If the defaults ever changed.
     dimnames = lapply(seq_len(2), \(i) c("FAQ", "MMSE", "MoCA", "sMoCA"))
   )
-  sigma <- cor2cov(corrs, sd)
+  sigma <- MBESS::cor2cov(corrs, sd)
   # Censoring values:
   cens <- matrix(
-    c(rep(0, 4), rep(30, 3), 18),
+    c(rep(0, 4), rep(30, 3), 16),
     nrow = 4,
     dimnames = list(c("FAQ", "MMSE", "MoCA", "sMoCA"))
   )
@@ -47,7 +47,7 @@ prepare_defaults <- function() {
     IADL = rep(c("FAQ", "FAQ9"), 3),
     IADL_thres = rep(c(7, 1), 3),
     cognition = c(rep("MMSE", 2), rep("MoCA", 2), rep("sMoCA", 2)),
-    cognition_thres = c(rep(26, 2), rep(26, 2), rep(12, 2))
+    cognition_thres = c(rep(26, 2), rep(26, 2), rep(13, 2))
   )
   # Return:
   list(Mu = mu, Sigma = sigma, cens = cens, crits = crits)

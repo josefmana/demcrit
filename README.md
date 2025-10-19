@@ -1,14 +1,16 @@
 # Validation of Algorithms for PDD
 
-This package is not intended for a widespread public use. The idea is to:
+This package is **not** intended for broad public use. Its main purpose is to:
 
-1. provide a documentation behind data analysis that serves as a backbone
-of the empirical part of the paper Mana et al. (under review), and
+1. provide transparent documentation of the data analyses forming the backbone
+of the empirical part of *Mana et al. (under review)*, and
 
-2. provide a set of functions used to generate our results that could be
-directly used or slightly adjusted for projects aiming at similar goals.
+2. supply the set of functions used to generate those results, which can be reused
+or adapted for projects with similar objectives.
 
-To start, install a local instance of the package:
+## Installation
+
+To install a local instance of the package, run:
 
 ```r
 # If you do not have the devtools package,
@@ -17,16 +19,14 @@ To start, install a local instance of the package:
 devtools::install_github("josefmana/demcrit")
 ```
 
-There are two ways to use the package (both of which will receive their own vignette
-in the near future):
+## How to Use
 
-1. If you have the raw data at your disposal, make sure they are present in the
-`data-raw` folder and run the `targets` pipeline which is part of the package
-(this option is only possible from the First Faculty of Medicine, Charles
-University computers because of privacy concerns of patients' data; it also
-requires the [apaquarto](https://github.com/wjschne/apaquarto.git)
-extension (version 4.4.1) to be installed in the `_manuscript` folder)
+There are two main ways to work with the package (each described in its own vignette):
 
-2. If you do not have the raw data, you can still use some of the functions on
-your own, similarly structured data set. A vignette showing reproducible example
-of such a use will be added in the next version of this package.
+1. **With raw data available** –
+Place the raw data files in the data-raw folder and run the included targets pipeline.
+See the vignette ["Targets Pipeline"](articles/use1.html) for details.
+
+2. **Without raw data** –
+You can still use many of the package functions with your own, similarly structured
+dataset. See the vignette ["Out of Pipeline"](articles/use2.html) for guidance.

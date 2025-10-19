@@ -241,7 +241,7 @@ edu <- msd_txt("Education", " years of education")
 dur <- msd_txt("PD duration", " years of disease duration")
 updrs_off <- msd_txt("UPDRS III off state", " Unified Parkinson Disease Rating Scale (UPDRS), part III in medication OFF state")
 updrs_on <- msd_txt("UPDRS III on state", " Unified Parkinson Disease Rating Scale (UPDRS), part III in medication ON state")
-bdi <- msd_txt("BDI")
+bdi <- msd_txt("BDI-II")
 staix1 <- msd_txt("STAI X1")
 staix2 <- msd_txt("STAI X2")
 
