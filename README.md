@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/730348357.svg)](https://doi.org/10.5281/zenodo.17473616)
+
 # Validation of Algorithms for PDD
 
 This package is **not** intended for broad public use. Its main purpose is to:
