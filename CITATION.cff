@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Mana"
+  given-names: "Josef"
+  orcid: "https://orcid.org/0000-0002-7817-3978"
+- family-names: "Mana"
+  given-names: "Martina"
+title: "demcrit: Validation of Algorithms for Parkinson's Disease Dementia"
+version: 1.0.1
+doi: 10.5281/zenodo.17473617
+date-released: 2025-10-29
+url: "https://doi.org/10.5281/zenodo.17473617"
