@@ -35,7 +35,6 @@ code to restore the package environment exactly as used in the original analysis
 renv::restore()
 ```
 
-
 ## How to Use
 
 There are two main ways to work with the package (each described in its own vignette):
@@ -47,7 +46,6 @@ See the vignette ["Targets Pipeline"](articles/use1.html) for details.
 2. **Without raw data** –
 You can still use many of the package functions with your own, similarly structured
 dataset. See the vignette ["Out of Pipeline"](articles/use2.html) for guidance.
-
 
 ## Future Directions
 

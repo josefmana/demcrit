@@ -1,6 +1,6 @@
 Package: demcrit
 Title: Validation of Algorithms for Parkinson's Disease Dementia
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: c(
     person("Josef", "Mana", , "josef.mana@protonmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-7817-3978")),
     person("Martina", "Mana", , "kvapil.martina@gmail.com", role = c("aut")))
