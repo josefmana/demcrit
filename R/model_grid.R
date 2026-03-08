@@ -20,10 +20,10 @@
 #' @seealso [fit_reference()]
 #'
 #' @export
-fit_grid <- function(
+model_grid <- function(
     d,
     gss = c("Lvl.II (1)", "Lvl.II (2)"),
-    N = 4,
+    N = 5,
     ...
 ) {
 
@@ -39,9 +39,22 @@ fit_grid <- function(
           d = d,
           gs = gs,
           y = "PDD",
-          expect_nonzero = esig,
-          ...
+          expect_nonzero = esig
         )
+      }),
+      varsel = purrr::map(fit, function(fit) {
+        perform_varsel(
+          refm_fit = fit$model,
+          method = "forward",
+          nclusters = 20,
+          ndraws_pred = 400
+        )
+      }, .progress = TRUE),
+      varsel_desc = purrr::map(varsel, function(vs) {
+        describe_varsel(vs)
+      }),
+      projection = purrr::map(varsel, function(vs) {
+        perform_projpred(vs)
       })
     )
 }

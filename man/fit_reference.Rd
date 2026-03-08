@@ -10,7 +10,7 @@ fit_reference(
   y = "PDD",
   X = c("moca_7", "moca_cloc", "vf_k", "moca_5words", "moca_cube", "moca_abs",
     "moca_anim", "mmse_7", "cloc", "vf_s", "mmse_3words", "mmse_pent"),
-  expect_nonzero = 4,
+  expect_nonzero = 5,
   ...
 )
 }

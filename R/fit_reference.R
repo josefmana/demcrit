@@ -41,7 +41,7 @@ fit_reference <- function(
       "mmse_3words",
       "mmse_pent"
     ),
-    expect_nonzero = 4,
+    expect_nonzero = 5,
     ...
 ) {
 

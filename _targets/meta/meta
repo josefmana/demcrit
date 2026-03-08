@@ -29,12 +29,15 @@ algorithms|stem|82d4248ffe27df0c|169ba396bc162d2a|71dd36ef8151eed3|-384826494||t
 manuscript|stem|8818b081442d6866|7ea4cf50661c959c|f8f45467e6f0c378|-1793997187|_manuscript/manuscript.html*_manuscript/manuscript.qmd*_manuscript/manuscript_files|t20519.6172930716s|s4382306b|4382306|file|local|vector|||4.774||
 pdd_data|stem|44b1a355f2593040|421a79b539387d7b|d5465c45c7296a44|-6092328||t20520.3185752774s|s44360b|44360|rds|local|vector|||0.393||
 reference_fits|stem||6d2a45918bdf462b|8422cb690a953980|-998394159||t20520.3185839168s||0|rds|local|vector|||0.111||object 'rat' not found
+fit_grid|function|324f10d5ccddb662
+reference_models|stem|c14dd1147a280dd0|0bfbaf2882bcaf71|fafa477af54b850e|-1643894293||t20520.3494420146s|s6792619b|6792619|rds|local|vector|||48.036||
+kappa_summmaries|stem|122847275bcdc876|03c33b2b59734cd1|ac1a81db9183f251|163562731||t20520.3494449844s|s4633b|4633|rds|local|vector|||0.057|The `x` argument of `as_tibble.matrix()` must have unique column names if `.name_repair` is omitted as of tibble 2.0.0. ℹ Using compatibility `.name_repair`.|
 do_summary|function|529787ca236a8350
 import_item_data|function|32331110f001620f
 compute_z_score|function|c7c17e8b542c349e
 data_paths|function|5e038ffa4b0c6af3
 diagnose_pdd_case|function|f36efa429031c51c
-fit_reference|function|ce88a45c17275202
+perform_projpred|function|fe36e61c185e813c
 check_compatibility|function|77cdda810975fedc
 check_names|function|6696d370edb343c4
 check_ranges|function|51f453917504ccd2
@@ -43,20 +46,22 @@ specify_algorithms|function|fbd5dc31e9aa3276
 make_dendrogram|function|c1e4e38ed4aeb4e5
 prepare_defaults|function|02b2f905f84f8171
 list_algorithms|function|76323a04a8c18a47
+describe_varsel|function|c7a11b4bcc79df14
+fit_reference|function|d78e23cbed14dc92
+perform_varsel|function|caba9c6789fb4378
 gt_apa_table|function|41c255f48bb79457
 regress_pdd_on_demographics|function|f435f884eeaf95e9
 summarise_kappa|function|bc487b764e2cfeb5
 describe_concordance|function|1133b1a3e922bddb
 assign_cognitive_impairment|function|cc167ff2b2ce7b49
-fit_grid|function|324f10d5ccddb662
 diagnose_pdd_sample|function|969a2c86b6ff8eca
 simulate_pdd_data|function|d4d9883137db4183
+model_grid|function|fde2fa9239a9cbc4
 table_algorithms|function|fef03bb5505661da
 table_levelII_approximations|function|816fe73c90391871
 table_estimands|function|dce741ee0b505402
 summarise_rates|function|35c8b2adb1cd1bbd
 compute_descriptives|function|9543c5998920cb4d
 prepare_data|function|ea5eeaa138502132
-inputs_files|stem|d62c391a205a1ec9|f8d248d7fb1a5ff4|62d9faba18dc4fe4|-706827970||t20520.3488801289s|s181b|181|rds|local|vector||inputs_files_52335b838d0ed785*inputs_files_2504aa409c46ec47*inputs_files_c1e5e0442efca465*inputs_files_645117885257892b*inputs_files_81afb0cb4dd0b4df|0.009||
-reference_models|stem|c14dd1147a280dd0|0bfbaf2882bcaf71|fafa477af54b850e|-1643894293||t20520.3494420146s|s6792619b|6792619|rds|local|vector|||48.036||
-kappa_summmaries|stem|122847275bcdc876|03c33b2b59734cd1|ac1a81db9183f251|163562731||t20520.3494449844s|s4633b|4633|rds|local|vector|||0.057|The `x` argument of `as_tibble.matrix()` must have unique column names if `.name_repair` is omitted as of tibble 2.0.0. ℹ Using compatibility `.name_repair`.|
+inputs_files|stem|d62c391a205a1ec9|f8d248d7fb1a5ff4|62d9faba18dc4fe4|-706827970||t20520.4726321555s|s181b|181|rds|local|vector||inputs_files_52335b838d0ed785*inputs_files_2504aa409c46ec47*inputs_files_c1e5e0442efca465*inputs_files_645117885257892b*inputs_files_81afb0cb4dd0b4df|0.015||
+predictive_models|stem|aa3b1e00407491d2|c958cda06e49cbd3|3b77f5e34dff939e|-1318664191||t20520.516200252s|s331146212b|331146212|rds|local|vector|||3753.798||

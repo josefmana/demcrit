@@ -62,11 +62,11 @@ list(
     command = summarise_kappa(algorithms, concordance_statistics$table)
   ),
   tar_target(
-    name = reference_models, # Fit reference models for variable selection
-    command = fit_grid(
+    name = predictive_models, # Fit reference models for variable selection
+    command = model_grid(
       d = pdd_data$PDD,
       gss = c("Lvl.II (1)", "Lvl.II (2)"),
-      N = 4
+      N = 5
     )
   ),
   tar_render(
