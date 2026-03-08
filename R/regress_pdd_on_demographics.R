@@ -17,12 +17,15 @@
 #'
 #' @returns A list with the following components:
 #' \describe{
-#'   \item{\code{fits}}{A list of fitted logistic regression models for each PDD criterion.}
+#'   \item{\code{fits}}{A list of fitted logistic regression models for each PDD
+#'   criterion.}
 #'   \item{\code{values}}{A tibble of model coefficients and statistics.}
 #'   \item{\code{plots}}{A named list of ggplot2 objects:
 #'     \describe{
-#'       \item{\code{data}}{Plots showing raw proportions of PDD diagnoses by age and sex.}
-#'       \item{\code{parameters}}{Plots summarising effect sizes (odds ratios) and associated p-values.}
+#'       \item{\code{data}}{Plots showing raw proportions of PDD diagnoses by
+#'       age and sex.}
+#'       \item{\code{parameters}}{Plots summarising effect sizes (odds ratios)
+#'       and associated p-values.}
 #'     }}
 #' }
 #'
@@ -41,7 +44,7 @@
 #'
 #' @export
 regress_pdd_on_demographics <- function(d0, d1, covs = NULL, inter = TRUE) {
-  # Extract orders for visualisation:
+
   ord_id <- d0 |>
     dplyr::arrange(age) |>
     dplyr::filter(!is.na(age)) |>
@@ -54,7 +57,7 @@ regress_pdd_on_demographics <- function(d0, d1, covs = NULL, inter = TRUE) {
     dplyr::filter(PDD == TRUE) |>
     dplyr::arrange(n) |>
     dplyr::pull(type)
-  # Prepare further anonymisation mapping:
+
   anon <- dplyr::left_join(
     data.frame(id = ord_id),
     cbind.data.frame(
@@ -63,7 +66,7 @@ regress_pdd_on_demographics <- function(d0, d1, covs = NULL, inter = TRUE) {
     ),
     by ="id"
   )
-  # Prepare data for analysis:
+
   df <- d1 |>
     dplyr::select(id, type, PDD) |>
     dplyr::left_join(d0, by = dplyr::join_by(id)) |>
@@ -78,7 +81,7 @@ regress_pdd_on_demographics <- function(d0, d1, covs = NULL, inter = TRUE) {
       ),
       type = factor(type, levels = ord_type, ordered = TRUE)
     )
-  # Visualise raw data:
+
   plt_raw <- df |>
     dplyr::filter(!is.na(sid)) |>
     ggplot2::ggplot() +
@@ -95,7 +98,7 @@ regress_pdd_on_demographics <- function(d0, d1, covs = NULL, inter = TRUE) {
         df$sex == "female" ~ "red2"
       )
     ))
-  # Prepare model formula:
+
   if (is.null(covs)) {
     form <- formula(PDD ~ age * sex)
   } else if (inter) {
@@ -103,7 +106,7 @@ regress_pdd_on_demographics <- function(d0, d1, covs = NULL, inter = TRUE) {
   } else {
     form <- as.formula(paste0("PDD ~ age * sex + ", paste(covs, collapse = " + ")))
   }
-  # Get regression fits:
+
   fits <- lapply(rlang::set_names(unique(df$type)), function(i) {
     glm(
       formula = form,
@@ -111,7 +114,7 @@ regress_pdd_on_demographics <- function(d0, d1, covs = NULL, inter = TRUE) {
       family = binomial(link = "logit")
     )
   })
-  # Get parameters:
+
   pars <- sapply(rlang::set_names(names(fits)), function(i) {
     c(or_ = exp(coefficients(fits[[i]])),
       p_ = summary(fits[[i]])$coefficients[ , "Pr(>|z|)"]
@@ -143,7 +146,7 @@ regress_pdd_on_demographics <- function(d0, d1, covs = NULL, inter = TRUE) {
       vline_or = dplyr::if_else(quantity == "Odds Ratio", 1, NA),
       vline_p = dplyr::if_else(quantity == "p-value", .05, NA)
     )
-  # Plot regression results:
+
   plt_regrs <- pars |>
     dplyr::filter(estimate < 20) |>
     ggplot2::ggplot() +
@@ -153,7 +156,7 @@ regress_pdd_on_demographics <- function(d0, d1, covs = NULL, inter = TRUE) {
     ggplot2::geom_vline(ggplot2::aes(xintercept = vline_p), linetype = "dashed", linewidth = .8, colour = "red3") +
     ggplot2::labs(x = NULL, y = NULL) +
     ggh4x::facet_grid2(quantity ~ predictor, scales = "free", independent = "all")
-  # Return it:
+
   list(
     fits = fits,
     values = pars,

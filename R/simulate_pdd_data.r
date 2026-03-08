@@ -1,12 +1,13 @@
 #' Make Fake Data
 #'
-#' Prepares a minimal example of data in the right format for analysis via the demcrit
-#' package functions. It is compulsory to specify FAQ summary data (mean, variance and
-#' covariance, see below) and at least one additional global cognitive measure summary
-#' data.
+#' Prepares a minimal example of data in the right format for analysis via the
+#' demcrit package functions. It is compulsory to specify FAQ summary data (mean,
+#' variance and covariance, see below) and at least one additional global cognitive
+#' measure summary data.
 #'
 #' @details
-#' The function simulates `N` synthetic patients' PDD status via the following steps:
+#' The function simulates `N` synthetic patients' PDD status via the following
+#' steps:
 #'
 #' 1. generate latent FAQ and cognitive scores via [MASS::mvrnorm()],
 #' 2. generate observed FAQ item 9 data via the [rbinom()] following tau-equivalence
@@ -18,21 +19,24 @@
 #'
 #' @param N A numeric indicating number of simulated patients. Defaults to 203.
 #' @param defaults A logical indicator whether default values derived from the
-#'    observed data should be used (`TRUE`, default) or the user will provide their
-#'    values instead (`FALSE`).
-#' @param Mu Named numeric vector of means. Needs to contain one component denoting
-#'    FAQ. If `defaults = TRUE`, it is set to values from observed data.
-#' @param Sigma Named matrix of variances and covariances. If `defaults = TRUE`, it
-#'    is set at empirical values from the observed data.
-#' @param cens A matrix or data frame with two columns, the first indicating lower
-#'    bound, the second the upper bound of a scale in the rowname. If `defaults == TRUE`,
-#'    or `param = NULL` which does not censor data (and prints latent scores instead).
+#'   observed data should be used (`TRUE`, default) or the user will provide
+#'   their values instead (`FALSE`).
+#' @param Mu Named numeric vector of means. Needs to contain one component
+#'   denoting FAQ. If `defaults = TRUE`, it is set to values from observed data.
+#' @param Sigma Named matrix of variances and covariances. If `defaults = TRUE`,
+#'   it is set at empirical values from the observed data.
+#' @param cens A matrix or data frame with two columns, the first indicating
+#'   lower bound, the second the upper bound of a scale in the rowname.
+#'   If `defaults == TRUE`, or `param = NULL` which does not censor data (and
+#'   prints latent scores instead).
 #' @param crits A data.frame with named rows and four columns:
 #'    - rownames indicate algorithm labels,
 #'    - `IADL` indicate variable from the data used for IADL deficit calculation,
 #'    - `IADL_thres` indicate threshold above which there is IADL deficit,
-#'    - `cognition` indicate variable from the data used for cognitive deficit calculation,
-#'    - `cognition_thres` indicate threshold below which there is cognitive deficit.
+#'    - `cognition` indicate variable from the data used for cognitive deficit
+#'      calculation,
+#'    - `cognition_thres` indicate threshold below which there is cognitive
+#'      deficit.
 #'
 #' @returns A tibble containing:
 #'  \describe{
@@ -81,7 +85,7 @@
 #'
 #' @export
 simulate_pdd_data <- function(N = 203, defaults = TRUE, Mu, Sigma, crits, cens = NULL) {
-  # Set defaults
+
   if (defaults) {
     defs <- prepare_defaults()
     for (i in names(defs)) assign(i, defs[[i]])

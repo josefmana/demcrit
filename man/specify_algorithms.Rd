@@ -13,9 +13,9 @@ indexes, thresholds, and other relevant parameters.
 }
 \description{
 Computes a Cartesian product of possible diagnostic components to define
-all combinations of algorithms for probable Parkinson’s disease dementia (PDD).
-This function is a helper with no inputs and is typically called within
-\code{diagnose_pdd_sample}.
+all combinations of algorithms for probable Parkinson’s disease dementia
+(PDD). This function is a helper with no inputs and is typically called
+within \code{diagnose_pdd_sample}.
 }
 \seealso{
 \code{\link[=diagnose_pdd_sample]{diagnose_pdd_sample()}} combines the algorithms with data to diagnose

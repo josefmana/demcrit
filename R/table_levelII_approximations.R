@@ -21,11 +21,13 @@
 #'
 #' @returns A list containing:
 #'   \describe{
-#'     \item{\code{table}}{A tibble with the five best and five worst Level I algorithms
-#'     in predicting the specified Level II-based diagnosis of probable PDD.}
-#'     \item{\code{gtable}}{A \code{gt} table object summarising the concordance statistics
-#'     (e.g., accuracy, kappa) of the five best and five worst Level I algorithms in predicting
-#'     the specified Level II-based diagnosis of probable PDD.}
+#'     \item{\code{table}}{A tibble with the five best and five worst Level I
+#'     algorithms in predicting the specified Level II-based diagnosis of
+#'     probable PDD.}
+#'     \item{\code{gtable}}{A \code{gt} table object summarising the concordance
+#'     statistics (e.g., accuracy, kappa) of the five best and five worst Level I
+#'     algorithms in predicting the specified Level II-based diagnosis of probable
+#'     PDD.}
 #'   }
 #'
 #' @seealso
@@ -80,7 +82,7 @@ table_levelII_approximations <- function(values, struct, crit) {
     ) |>
     dplyr::filter(!is.na(part)) |>
     dplyr::select(part, tidyselect::ends_with("(1)"), tidyselect::ends_with("(2)"))
-  # Prepare gt table as well:
+
   gtab <- tab |>
     gt_apa_table(grp = "part") |>
     gt::tab_spanner(columns = tidyselect::ends_with("(1)"), label = "Level II (1)", gather = FALSE) |>
@@ -109,6 +111,6 @@ table_levelII_approximations <- function(values, struct, crit) {
       of Daily Living (IADLs). The items comprising each listed algorithm can be found in Table A1."
     ) |>
     gt::opt_footnote_marks(marks = "letters")
-  # Return:
+
   list(table = tab, gtable = gtab)
 }

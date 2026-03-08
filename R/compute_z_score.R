@@ -1,17 +1,20 @@
 #' Compute Regression z-scores
 #'
-#' Computes z-scores for a given test index using regression parameters from a normative
-#' calculator, along with the patient's raw score and demographic information
-#' (age, gender, education).
+#' Computes z-scores for a given test index using regression parameters from a
+#' normative calculator, along with the patient's raw score and demographic
+#' information (age, gender, education).
 #'
-#' @param calc A data frame or tibble containing regression parameters from the calculator.
+#' @param calc A data frame or tibble containing regression parameters from the
+#'   calculator.
 #' @param x A numeric vector of raw performance scores.
-#' @param lbl A character string specifying the test index label (must match an entry in \code{calc}).
+#' @param lbl A character string specifying the test index label (must match an
+#'   entry in \code{calc}).
 #' @param AGE A numeric vector indicating the participant's age (in years).
 #' @param GEN A numeric vector indicating gender (1 = man, 0 = woman).
 #' @param EDU A numeric vector indicating years of education.
 #'
-#' @returns A numeric vector of computed z-scores, one for each raw score in \code{x}.
+#' @returns A numeric vector of computed z-scores, one for each raw score in
+#'   \code{x}.
 #'
 #' @examples
 #' \dontrun{
@@ -28,7 +31,12 @@
 #' @export
 compute_z_score <- function(calc, x, lbl, AGE, GEN, EDU) {
   with(calc, {
-    pars <- as.numeric(c(Constant[calc_lab == lbl], age[calc_lab == lbl], gender[calc_lab == lbl], education[calc_lab == lbl]))
+    pars <- as.numeric(c(
+      Constant[calc_lab == lbl],
+      age[calc_lab == lbl],
+      gender[calc_lab == lbl],
+      education[calc_lab == lbl]
+    ))
     data <- as.matrix(cbind(rep(1, length(x)), AGE, GEN, EDU))
     x_bar <- data %*% pars
     z <- c(sign[calc_lab == lbl] * (x - x_bar) / RMSE[calc_lab == lbl])

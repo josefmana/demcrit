@@ -13,9 +13,10 @@ prepare_data(p, check.names = TRUE)
 run to compare names in meta data and item data.}
 }
 \value{
-A tibble containing cleaned and pre-processed variables ready for analysis.
-The function also performs validation checks and prints warnings or stops execution
-if critical issues are detected (e.g., mismatched names or out-of-range values).
+A tibble containing cleaned and pre-processed variables ready for
+analysis. The function also performs validation checks and prints warnings
+or stops execution if critical issues are detected (e.g., mismatched names
+or out-of-range values).
 }
 \description{
 Takes in file paths to raw data, checks their format and compatibility,

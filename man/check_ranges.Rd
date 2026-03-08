@@ -14,8 +14,9 @@ Prints a message listing any out-of-range values and may
 terminate execution if invalid data are detected.
 }
 \description{
-Validates whether values in the dataset fall within expected ranges for analysis.
-Used primarily as a safeguard to identify possible data entry errors.
+Validates whether values in the dataset fall within expected ranges for
+analysis. Used primarily as a safeguard to identify possible data entry
+errors.
 }
 \examples{
 \dontrun{

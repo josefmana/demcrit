@@ -7,11 +7,13 @@
 compute_z_score(calc, x, lbl, AGE, GEN, EDU)
 }
 \arguments{
-\item{calc}{A data frame or tibble containing regression parameters from the calculator.}
+\item{calc}{A data frame or tibble containing regression parameters from the
+calculator.}
 
 \item{x}{A numeric vector of raw performance scores.}
 
-\item{lbl}{A character string specifying the test index label (must match an entry in \code{calc}).}
+\item{lbl}{A character string specifying the test index label (must match an
+entry in \code{calc}).}
 
 \item{AGE}{A numeric vector indicating the participant's age (in years).}
 
@@ -20,12 +22,13 @@ compute_z_score(calc, x, lbl, AGE, GEN, EDU)
 \item{EDU}{A numeric vector indicating years of education.}
 }
 \value{
-A numeric vector of computed z-scores, one for each raw score in \code{x}.
+A numeric vector of computed z-scores, one for each raw score in
+\code{x}.
 }
 \description{
-Computes z-scores for a given test index using regression parameters from a normative
-calculator, along with the patient's raw score and demographic information
-(age, gender, education).
+Computes z-scores for a given test index using regression parameters from a
+normative calculator, along with the patient's raw score and demographic
+information (age, gender, education).
 }
 \examples{
 \dontrun{

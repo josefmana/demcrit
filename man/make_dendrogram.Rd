@@ -18,11 +18,11 @@ A ggplot object with a dendrogram created
 by {ggraph}.
 }
 \description{
-The functions prepares a dendrogram (tree plot) that summarises PDD algorithms
-construction starting from IADL operationalisation at the top followed successively
-by operationalisation of Global cognitive performance, Attention, Executive
-Function, Construction, Memory and Language. The dendrogram visualises PDD rate
-estimated by each algorithm via point size.
+The functions prepares a dendrogram (tree plot) that summarises PDD
+algorithms construction starting from IADL operationalisation at the top
+followed successively by operationalisation of Global cognitive performance,
+Attention, Executive Function, Construction, Memory and Language. The
+dendrogram visualises PDD rate estimated by each algorithm via point size.
 }
 \examples{
 \dontrun{

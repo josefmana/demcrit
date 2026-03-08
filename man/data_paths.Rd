@@ -7,17 +7,19 @@
 data_paths(dir = "data-raw")
 }
 \arguments{
-\item{dir}{A character string specifying the input directory where raw data files reside.
-Defaults to \code{"data-raw"}.}
+\item{dir}{A character string specifying the input directory where raw data
+files reside.}
 }
 \value{
-A named character vector with file paths to all required raw data files.
+A named character vector with file paths to all required raw data
+files.
 }
 \description{
-Prepares a set of file paths pointing to all required raw data files used in the analysis.
-The function enforces naming conventions and validates compatibility between the contents
-of the specified directory and the expected structure. It is intended to be used as input
-for the \code{prepare_data} function.
+Prepares a set of file paths pointing to all required raw data files used in
+the analysis. The function enforces naming conventions and validates
+compatibility between the contents of the specified directory and the expected
+structure. It is intended to be used as input for the \code{prepare_data}
+function.
 }
 \examples{
 \dontrun{

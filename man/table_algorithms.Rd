@@ -7,8 +7,7 @@
 table_algorithms(vars)
 }
 \arguments{
-\item{vars}{A data.frame, tibble, or matrix with  in the
-following order:
+\item{vars}{A data.frame, tibble, or matrix with  in the following order:
 \enumerate{
 \item variable names,
 \item variable labels
@@ -17,11 +16,12 @@ following order:
 \item optional, mapping each label to its description in the table’s note.
 }
 
-Alternatively, a path to a CSV file (semicolon-delimited) containing
-such a table.}
+Alternatively, a path to a CSV file (semicolon-delimited) containing such
+a table.}
 }
 \value{
-A \code{gt} table object containing the summary of criteria used in the study.
+A \code{gt} table object containing the summary of criteria used
+in the study.
 }
 \description{
 This function creates a pre-specified summary table of the probable PDD

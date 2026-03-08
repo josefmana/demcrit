@@ -10,27 +10,30 @@ simulate_pdd_data(N = 203, defaults = TRUE, Mu, Sigma, crits, cens = NULL)
 \item{N}{A numeric indicating number of simulated patients. Defaults to 203.}
 
 \item{defaults}{A logical indicator whether default values derived from the
-observed data should be used (\code{TRUE}, default) or the user will provide their
-values instead (\code{FALSE}).}
+observed data should be used (\code{TRUE}, default) or the user will provide
+their values instead (\code{FALSE}).}
 
-\item{Mu}{Named numeric vector of means. Needs to contain one component denoting
-FAQ. If \code{defaults = TRUE}, it is set to values from observed data.}
+\item{Mu}{Named numeric vector of means. Needs to contain one component
+denoting FAQ. If \code{defaults = TRUE}, it is set to values from observed data.}
 
-\item{Sigma}{Named matrix of variances and covariances. If \code{defaults = TRUE}, it
-is set at empirical values from the observed data.}
+\item{Sigma}{Named matrix of variances and covariances. If \code{defaults = TRUE},
+it is set at empirical values from the observed data.}
 
 \item{crits}{A data.frame with named rows and four columns:
 \itemize{
 \item rownames indicate algorithm labels,
 \item \code{IADL} indicate variable from the data used for IADL deficit calculation,
 \item \code{IADL_thres} indicate threshold above which there is IADL deficit,
-\item \code{cognition} indicate variable from the data used for cognitive deficit calculation,
-\item \code{cognition_thres} indicate threshold below which there is cognitive deficit.
+\item \code{cognition} indicate variable from the data used for cognitive deficit
+calculation,
+\item \code{cognition_thres} indicate threshold below which there is cognitive
+deficit.
 }}
 
-\item{cens}{A matrix or data frame with two columns, the first indicating lower
-bound, the second the upper bound of a scale in the rowname. If \code{defaults == TRUE},
-or \code{param = NULL} which does not censor data (and prints latent scores instead).}
+\item{cens}{A matrix or data frame with two columns, the first indicating
+lower bound, the second the upper bound of a scale in the rowname.
+If \code{defaults == TRUE}, or \code{param = NULL} which does not censor data (and
+prints latent scores instead).}
 }
 \value{
 A tibble containing:
@@ -45,13 +48,14 @@ supplied to the data-generating proces. Defaults to columns \code{FAQ}, \code{MM
 }
 }
 \description{
-Prepares a minimal example of data in the right format for analysis via the demcrit
-package functions. It is compulsory to specify FAQ summary data (mean, variance and
-covariance, see below) and at least one additional global cognitive measure summary
-data.
+Prepares a minimal example of data in the right format for analysis via the
+demcrit package functions. It is compulsory to specify FAQ summary data (mean,
+variance and covariance, see below) and at least one additional global cognitive
+measure summary data.
 }
 \details{
-The function simulates \code{N} synthetic patients' PDD status via the following steps:
+The function simulates \code{N} synthetic patients' PDD status via the following
+steps:
 \enumerate{
 \item generate latent FAQ and cognitive scores via \code{\link[MASS:mvrnorm]{MASS::mvrnorm()}},
 \item generate observed FAQ item 9 data via the \code{\link[=rbinom]{rbinom()}} following tau-equivalence

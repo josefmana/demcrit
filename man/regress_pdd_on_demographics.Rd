@@ -23,12 +23,15 @@ recommended, \code{TRUE}) or as additive terms only (\code{FALSE}).}
 \value{
 A list with the following components:
 \describe{
-\item{\code{fits}}{A list of fitted logistic regression models for each PDD criterion.}
+\item{\code{fits}}{A list of fitted logistic regression models for each PDD
+criterion.}
 \item{\code{values}}{A tibble of model coefficients and statistics.}
 \item{\code{plots}}{A named list of ggplot2 objects:
 \describe{
-\item{\code{data}}{Plots showing raw proportions of PDD diagnoses by age and sex.}
-\item{\code{parameters}}{Plots summarising effect sizes (odds ratios) and associated p-values.}
+\item{\code{data}}{Plots showing raw proportions of PDD diagnoses by
+age and sex.}
+\item{\code{parameters}}{Plots summarising effect sizes (odds ratios)
+and associated p-values.}
 }}
 }
 }

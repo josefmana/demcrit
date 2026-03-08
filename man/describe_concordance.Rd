@@ -14,11 +14,11 @@ describe_concordance(d0)
 A list with two components:
 \describe{
 \item{\code{table}}{A data frame summarising pairwise concordance statistics
-(e.g., Kappa, Accuracy, Sensitivity, Specificity, PPV, NPV). The table is propagated
-with the package as data \code{concords}}.
-\item{\code{plots}}{A list of ggplot2-based visualisations, including matrices
-of Cohen's Kappa, Accuracy (with significance tests against the No Information Rate),
-Sensitivity, and Specificity.}
+(e.g., Kappa, Accuracy, Sensitivity, Specificity, PPV, NPV). The table is
+propagated with the package as data \code{concords}}.
+\item{\code{plots}}{A list of ggplot2-based visualisations, including
+matrices of Cohen's Kappa, Accuracy (with significance tests against the No
+Information Rate), Sensitivity, and Specificity.}
 }
 }
 \description{

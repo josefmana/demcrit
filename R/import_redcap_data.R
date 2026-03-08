@@ -19,11 +19,12 @@
 #' \dontrun{
 #' p <- data_paths("data-raw")
 #' scor <- readr::read_delim(p[4], delim = ";", col_types = readr::cols(rev = "c"))
-#' data <- import_redcap_data(p[2])
+#' data <- import_redcap_data(p[2], scor)
 #' }
 #'
 #' @export
 import_redcap_data <- function(path, scoring) {
+
   df <- readr::read_csv(path, show_col_types = FALSE) |>
     dplyr::select(-tidyselect::contains("dbs"), -tidyselect::contains("post")) |>
     dplyr::filter(grepl("screening", redcap_event_name)) |>
@@ -37,12 +38,14 @@ import_redcap_data <- function(path, scoring) {
       nart = nart_7fd846,
       tol = tol_anderson
     )
+
   # Rename MDS-UPDRS III levodopa test items:
   mot_its <- names(df)[grepl("mdsupdrs", names(df))]
   for (i in mot_its) {
     df[ , gsub("_", "", gsub("_ldopatest", "", i))] <- df[ , i]
     df[ , i] <- NULL
   }
+
   # Extract correct FAQ scores:
   faq_its <- unlist(strsplit(with(scoring, item[scale == "faq"]), ","))
   for (i in faq_its) {
@@ -53,6 +56,7 @@ import_redcap_data <- function(path, scoring) {
       else if (df[j, paste0("faq_uvod_", i)] == 2) df[j, paste0("faq_", i)] <- df[j , paste0("faq_nikdy_", i)] # The patient evaluated an activity indirectly.
     }
   }
+
   # Reverse item scores where applicable:
   with(scoring, {
     for (i in scale[complete.cases(rev)]) {
@@ -61,6 +65,7 @@ import_redcap_data <- function(path, scoring) {
       }
     }
   })
+
   # Check whether MoCA verbal fluency and vf_k are the same:
   vf_fail <- df |>
     dplyr::filter(vf_k != moca_fluence_k) |>
@@ -68,17 +73,20 @@ import_redcap_data <- function(path, scoring) {
   stop <- FALSE
   if (nrow(vf_fail) > 0) {
     stop <- TRUE
-    cat("\nSee the problematic cases below:\n\n")
+    cli::cli_alert_danger("See the problematic cases below.")
     print(vf_fail)
   }
-  if (stop) cat("
-  There are some incongruities in verbal fluency data between MoCA and Level II.
-  Using the Level II data in these cases to keep it consistent with the rest of data.\n\n"
-  )
-  #if(stop) stop("
-  #There are some incongruities in verbal fluency data between MoCA and Level II.
-  #Check the data printed above to locate these inconsistencies and repair them."
-  #)
+  if (stop) {
+    cli::cli_alert_danger("There are incongruities in verbal fluency data between MoCA and Level II.")
+    cli::cli_alert_info("Using the Level II data in these cases to keep it consistent with the rest of data.")
+  }
+  #if (stop) {
+  # cli::cli_abort(c(
+  #          "There are incongruities in verbal fluency data between MoCA and Level II.",
+  #    "i" = "Using the Level II data in these cases to keep it consistent with the rest of data."
+  #  ))
+  #}
+
   df |>
     dplyr::select(-tidyselect::all_of(tidyselect::starts_with(paste0("faq_", c("fill", "uvod", "vykon", "nikdy", "score"))))) |>
     dplyr::mutate(

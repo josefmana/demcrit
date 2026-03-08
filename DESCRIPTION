@@ -15,7 +15,7 @@ Description: This package is not intended for public use. The idea is to provide
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Imports:
     caret (>= 7.0-1),
     ggh4x (>= 0.3.1),
@@ -40,14 +40,22 @@ Imports:
     MASS (>= 7.3.60.0.1),
     MBESS (>= 4.9.3),
     rstatix (>= 0.7.2),
-    renv (>= 1.1.4)
+    cli (>= 3.6.5),
+    renv (>= 1.1.4),
+    brms (>= 2.23.0),
+    projpred (>= 2.10.0)
 Suggests: 
     knitr,
     quarto,
     rmarkdown,
-    tidyverse
-VignetteBuilder: quarto, knitr
+    tidyverse,
+    targets,
+    tarchetypes,
+    devtools
+VignetteBuilder:
+    quarto,
+    knitr
 Depends: 
-    R (>= 3.5)
+    R (>= 4.3.3)
 LazyData: true
 URL: https://josefmana.github.io/demcrit/

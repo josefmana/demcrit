@@ -9,9 +9,11 @@ do_summary(x, dec, sum = NULL)
 \arguments{
 \item{x}{A vector of data to be summarised.}
 
-\item{dec}{An integer specifying the number of decimal places for numeric summaries.}
+\item{dec}{An integer specifying the number of decimal places for numeric
+summaries.}
 
-\item{sum}{A character string specifying the type of summary to compute. Possible values:
+\item{sum}{A character string specifying the type of summary to compute.
+Possible values:
 \describe{
 \item{\code{NULL} (default)}{Simple printing of the vector}
 \item{"N"}{Number of observations}

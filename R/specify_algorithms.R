@@ -1,9 +1,9 @@
 #' Specify Algorithms for Probable PDD
 #'
 #' Computes a Cartesian product of possible diagnostic components to define
-#' all combinations of algorithms for probable Parkinson’s disease dementia (PDD).
-#' This function is a helper with no inputs and is typically called within
-#' \code{diagnose_pdd_sample}.
+#' all combinations of algorithms for probable Parkinson’s disease dementia
+#' (PDD). This function is a helper with no inputs and is typically called
+#' within \code{diagnose_pdd_sample}.
 #'
 #' @returns A tibble where each row represents one unique diagnostic algorithm
 #'    for probable PDD. Columns indicate the type of algorithms, individual test
@@ -14,7 +14,7 @@
 #'
 #' @export
 specify_algorithms <- function() {
-  # MMSE-based algorithms
+
   mmse <- tidyr::crossing(exec = c("vf_s","cloc"), iadl = c("faq_9","faq")) |>
     dplyr::mutate(
       group = "mmse",
@@ -35,7 +35,7 @@ specify_algorithms <- function() {
     dplyr::relocate(exec, .after = atte_t) |>
     dplyr::relocate(exec_t, .after = exec) |>
     dplyr::relocate(iadl, .before = iadl_t)
-  # MoCA-based algorithms
+
   moca <- purrr::map_dfr(2:3, function(i) {
     tidyr::crossing(
       group = "moca",
@@ -59,7 +59,7 @@ specify_algorithms <- function() {
   }) |>
     dplyr::distinct() |>
     dplyr::mutate(type = paste0("MoCA (", seq_len(dplyr::n()), ")"))
-  # sMoCA-based algorithms
+
   smoca <- tidyr::crossing(
     group = "smoca",
     glob = "smoca_total",
@@ -70,7 +70,7 @@ specify_algorithms <- function() {
       type = paste0("sMoCA (", seq_len(dplyr::n()), ")"),
       iadl_t = dplyr::case_when(iadl == "faq" ~ 7, iadl == "faq_9" ~ 1)
     )
-  # Level II-based algorithms
+
   lvlII <- tidyr::crossing(
     group = "lvlII",
     glob = "nonCI",
@@ -81,7 +81,10 @@ specify_algorithms <- function() {
       type = paste0("Lvl.II (",seq_len(dplyr::n()),")"),
       iadl_t = dplyr::case_when(iadl  == "faq" ~ 7, iadl == "faq_9" ~ 1)
     )
-  # Return all-in-one:
+
   purrr::map_dfr(list(mmse, moca, smoca, lvlII), \(x) x) |>
-    dplyr::mutate(dplyr::across(tidyselect::ends_with("_t"), \(x) dplyr::if_else(is.na(x), 0, x)))
+    dplyr::mutate(dplyr::across(
+      .cols = tidyselect::ends_with("_t"),
+      .fns = \(x) dplyr::if_else(is.na(x), 0, x)
+    ))
 }

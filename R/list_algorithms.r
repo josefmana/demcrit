@@ -31,14 +31,11 @@
 #'
 #' @export
 list_algorithms <- function(rates) {
-  # List of algorithms:
   algs <- list(
     faq_tot = subset(rates, IADL == "FAQ > 7")$type,
     faq_9 = subset(rates, IADL == "FAQ 9 > 1")$type
   )
-  # Sanity check:
   continue <- !(any(algs$faq_tot %in% algs$faq_9) || any(algs$faq_9 %in% algs$faq_tot))
   stopifnot("Some algorithm(s) use both IADL operationalisations!" = continue)
-  # Return:
   algs
 }

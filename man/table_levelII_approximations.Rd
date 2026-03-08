@@ -26,11 +26,13 @@ be used for comparisons. Can be one of \code{"Accuracy_raw"}, \code{"Balanced Ac
 \value{
 A list containing:
 \describe{
-\item{\code{table}}{A tibble with the five best and five worst Level I algorithms
-in predicting the specified Level II-based diagnosis of probable PDD.}
-\item{\code{gtable}}{A \code{gt} table object summarising the concordance statistics
-(e.g., accuracy, kappa) of the five best and five worst Level I algorithms in predicting
-the specified Level II-based diagnosis of probable PDD.}
+\item{\code{table}}{A tibble with the five best and five worst Level I
+algorithms in predicting the specified Level II-based diagnosis of
+probable PDD.}
+\item{\code{gtable}}{A \code{gt} table object summarising the concordance
+statistics (e.g., accuracy, kappa) of the five best and five worst Level I
+algorithms in predicting the specified Level II-based diagnosis of probable
+PDD.}
 }
 }
 \description{

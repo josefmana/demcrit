@@ -10,13 +10,15 @@ gt_apa_table(x, grp = NULL, nms = NULL, tit = "")
 \item{x}{A tibble or data frame to be formatted as an APA-style table.}
 
 \item{grp}{An optional column name (as a string or symbol) to use for grouping
-rows via \code{gt::gt()}'s \code{groupname_col} parameter. Defaults to \code{NULL}.}
+rows via \code{gt::gt()}'s \code{groupname_col} parameter. Defaults to
+\code{NULL}.}
 
-\item{nms}{An optional column name (as a string or symbol) to use for row names
-via \code{gt::gt()}'s \code{rowname_col} parameter. Defaults to \code{NULL}.}
+\item{nms}{An optional column name (as a string or symbol) to use for row
+names via \code{gt::gt()}'s \code{rowname_col} parameter. Defaults to
+\code{NULL}.}
 
-\item{tit}{A character string specifying the table title. Will be converted to
-HTML format. Defaults to \code{""}.}
+\item{tit}{A character string specifying the table title. Will be converted
+to HTML format. Defaults to \code{""}.}
 }
 \value{
 A \code{gt} table object formatted according to APA style.

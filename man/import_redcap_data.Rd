@@ -25,7 +25,7 @@ within the broader \code{prepare_data} workflow.
 \dontrun{
 p <- data_paths("data-raw")
 scor <- readr::read_delim(p[4], delim = ";", col_types = readr::cols(rev = "c"))
-data <- import_redcap_data(p[2])
+data <- import_redcap_data(p[2], scor)
 }
 
 }

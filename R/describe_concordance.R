@@ -11,11 +11,11 @@
 #' @returns A list with two components:
 #' \describe{
 #'   \item{\code{table}}{A data frame summarising pairwise concordance statistics
-#'   (e.g., Kappa, Accuracy, Sensitivity, Specificity, PPV, NPV). The table is propagated
-#'   with the package as data \code{concords}}.
-#'   \item{\code{plots}}{A list of ggplot2-based visualisations, including matrices
-#'   of Cohen's Kappa, Accuracy (with significance tests against the No Information Rate),
-#'   Sensitivity, and Specificity.}
+#'   (e.g., Kappa, Accuracy, Sensitivity, Specificity, PPV, NPV). The table is
+#'   propagated with the package as data \code{concords}}.
+#'   \item{\code{plots}}{A list of ggplot2-based visualisations, including
+#'   matrices of Cohen's Kappa, Accuracy (with significance tests against the No
+#'   Information Rate), Sensitivity, and Specificity.}
 #' }
 #'
 #' @seealso
@@ -35,9 +35,9 @@
 #'
 #' @export
 describe_concordance <- function(d0) {
-  # Get pairs of operationalisations:
+
   p <- tidyr::crossing(predictor = d0$algorithms$type, reference = d0$algorithms$type)
-  # Calculate Kappas:
+
   k <- lapply(seq_len(nrow(p)), function(i) {
     if (p[i, 1] == p[i, 2]) {
       list(kappa = 1)
@@ -49,7 +49,7 @@ describe_concordance <- function(d0) {
         psych::cohen.kappa()
     }
   })
-  # Calculate confusion matrixes:
+
   confmats <- lapply(seq_len(nrow(p)), function(i) {
     if (p[i, 1] == p[i, 2]) {
       NULL
@@ -63,12 +63,11 @@ describe_concordance <- function(d0) {
     }
   })
   metrics <- names(confmats[[2]]$byClass)
-  # Prepare a table with all statistics:
-  # (check https://changjunlee.com/blogs/posts/4_confusion_mat_and_roc#interpreting-the-confusion-matrix
-  # for a guide to interpretation)
+
+  # Check https://changjunlee.com/blogs/posts/4_confusion_mat_and_roc#interpreting-the-confusion-matrix
+  # for a guide to interpretation
   tab <- p |>
     mutate(
-      # Number of observations:
       N = sapply(seq_along(reference), function(i) {
         ifelse(
           test = reference[i] == predictor[i],
@@ -76,7 +75,6 @@ describe_concordance <- function(d0) {
           no = k[[i]]$n.obs
         )
       }),
-      # Estimate [95% CI] for Kappa & Accuracy:
       Kappa = sapply(seq_along(reference), function(i) {
         ifelse(
           test = reference[i] == predictor[i],
@@ -91,7 +89,6 @@ describe_concordance <- function(d0) {
           no = do_summary(confmats[[i]]$overall[c("Accuracy", "AccuracyUpper", "AccuracyLower")], 2, "estCI")
         )
       }),
-      # Raw values for Kappa & Accuracy (and NIR):
       Kappa_raw = sapply(seq_along(reference), function(i) {
         ifelse(
           test = reference[i] == predictor[i],
@@ -143,7 +140,7 @@ describe_concordance <- function(d0) {
       ),
       NULL
     )
-  # Get order of the algorithms by prevalence:
+
   ord <- data.frame(
     predictor = tab |>
       dplyr::arrange(desc(Prevalence)) |>
@@ -152,7 +149,6 @@ describe_concordance <- function(d0) {
   ) |>
     dplyr::mutate(
       reference = rev(predictor),
-      # Colours to separate operationalisations based on IADL criterion
       xcol = sapply(seq_along(predictor), function(i) {
         ifelse(
           test = subset(d0$algorithms, type == predictor[i])$iadl == "faq",
@@ -162,7 +158,7 @@ describe_concordance <- function(d0) {
       }),
       ycol = rev(xcol)
     )
-  # Add order to the table:
+
   ordtab <- tab |>
     dplyr::mutate(
       dplyr::across(
@@ -180,7 +176,7 @@ describe_concordance <- function(d0) {
       Accuracy_raw = dplyr::if_else(predictor == reference, NA, Accuracy_raw),
       Accuracy_sig = dplyr::if_else(AccuracyPValue < .05, "*", "")
     )
-  # Kappa matrix:
+
   kappaplt <- ordtab |>
     ggplot2::ggplot() +
     ggplot2::aes(x = predictor, y = reference, fill = Kappa_raw) +
@@ -191,10 +187,10 @@ describe_concordance <- function(d0) {
       axis.text.x = ggplot2::element_text(colour = dplyr::if_else(ord$xcol == "black", "black", "red3"), angle = 66, hjust = 1),
       axis.text.y = ggplot2::element_text(colour = dplyr::if_else(ord$ycol == "black", "black", "red3"))
     )
-  # Accuracy matrix:
+
   E_NIR <- tab$NoInformationRate_raw |>
     unique() |>
-    mean(na.rm = TRUE) # Expected Negative Information Rate
+    mean(na.rm = TRUE)
   accplt <- ordtab |>
     dplyr::select(-Accuracy) |>
     dplyr::rename("Accuracy" = "Accuracy_raw") |>
@@ -208,7 +204,7 @@ describe_concordance <- function(d0) {
       axis.text.x = ggplot2::element_text(colour = ord$xcol, angle = 66, hjust = 1),
       axis.text.y = ggplot2::element_text(colour = ord$ycol)
     )
-  # Sensitivity matrix:
+
   sensplt <- ordtab |>
     ggplot2::ggplot() +
     ggplot2::aes(x = predictor, y = reference, fill = Sensitivity) +
@@ -219,7 +215,7 @@ describe_concordance <- function(d0) {
       axis.text.x = ggplot2::element_text(colour = ord$xcol, angle = 66, hjust = 1),
       axis.text.y = ggplot2::element_text(colour = ord$ycol)
   )
-  # Specificity matrix:
+
   specplt <- ordtab |>
     ggplot2::ggplot() +
     ggplot2::aes(x = predictor, y = reference, fill = Specificity) +
@@ -230,7 +226,7 @@ describe_concordance <- function(d0) {
       axis.text.x = ggplot2::element_text(colour = ord$xcol, angle = 66, hjust = 1),
       axis.text.y = ggplot2::element_text(colour = ord$ycol)
     )
-  # Return it all:
+
   list(
     table = tab,
     plots = list(

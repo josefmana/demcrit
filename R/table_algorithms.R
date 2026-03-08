@@ -6,25 +6,25 @@
 #' The table content is hard-coded and can only be changed by modifying the
 #' function code.
 #'
-#' @param vars A data.frame, tibble, or matrix with  in the
-#'    following order:
+#' @param vars A data.frame, tibble, or matrix with  in the following order:
 #'
-#'    1. variable names,
-#'    2. variable labels
-#'    3. type of variable (continuous, binary, or nominal)
-#'    4. optional, group,
-#'    5. optional, mapping each label to its description in the table’s note.
+#'   1. variable names,
+#'   2. variable labels
+#'   3. type of variable (continuous, binary, or nominal)
+#'   4. optional, group,
+#'   5. optional, mapping each label to its description in the table’s note.
 #'
-#'    Alternatively, a path to a CSV file (semicolon-delimited) containing
-#'    such a table.
+#' Alternatively, a path to a CSV file (semicolon-delimited) containing such
+#'   a table.
 #'
-#' @returns A \code{gt} table object containing the summary of criteria used in the study.
+#' @returns A \code{gt} table object containing the summary of criteria used
+#'   in the study.
 #'
 #' @seealso [gt_apa_table()] is used to format the table.
 #'
 #' @export
 table_algorithms <- function(vars) {
-  # Prepare the note:
+
   if (is.character(vars)) {
     v <- readr::read_delim(vars, delim = ";", col_types = readr::cols())
   } else {
@@ -39,7 +39,7 @@ table_algorithms <- function(vars) {
       each threshold value within the set brackets {} was used to define probable PDD once in combination with all the
       other criteria on the same row."
   )
-  # Do the table:
+
   tibble::tibble(
     Type = c(
       rep("MMSE-based", 5),

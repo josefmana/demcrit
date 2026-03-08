@@ -7,17 +7,20 @@
 check_names(d, nms)
 }
 \arguments{
-\item{d}{A data frame containing patient names to be checked (e.g., hand-written data).}
+\item{d}{A data frame containing patient names to be checked (e.g.,
+hand-written data).}
 
-\item{nms}{A data frame or vector containing the correct patient names (e.g., from REDCap).}
+\item{nms}{A data frame or vector containing the correct patient names (e.g.,
+from REDCap).}
 }
 \value{
-Prints a message listing any discrepancies found. Intended to be called
-within the \code{prepare_data()} function, where it can optionally be silenced.
+Prints a message listing any discrepancies found. Intended to be
+called within the \code{prepare_data()} function, where it can optionally
+be silenced.
 }
 \description{
-Compares patient names between a manually entered dataset and a reference set of
-correct names (e.g., from REDCap) to identify discrepancies.
+Compares patient names between a manually entered dataset and a reference set
+of correct names (e.g., from REDCap) to identify discrepancies.
 }
 \examples{
 \dontrun{

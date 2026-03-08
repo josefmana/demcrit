@@ -61,7 +61,7 @@ list(
     name = kappa_summmaries, # Etxract summaries of Cohen's kappa for the manuscript
     command = summarise_kappa(algorithms, concordance_statistics$table)
   ),
-  tar_quarto(
+  tar_render(
     name = manuscript, # Prepare the manuscript
     path = here::here("_manuscript", "manuscript.qmd"),
     quiet = FALSE

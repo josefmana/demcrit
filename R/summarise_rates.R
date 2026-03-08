@@ -26,8 +26,10 @@
 #'   \item{\code{plot}}{A \code{ggplot2} object visualising estimated PDD rates.}
 #'   \item{\code{gtable}}{A named list of gt tables:
 #'      \describe{
-#'        \item{\code{gtab_rates}}{An APA-style \code{gt} table summarising the results.}
-#'        \item{\code{gtab_algos}}{An APA-style \code{gt} table listing algorithms used.}
+#'        \item{\code{gtab_rates}}{An APA-style \code{gt} table summarising the
+#'        results.}
+#'        \item{\code{gtab_algos}}{An APA-style \code{gt} table listing
+#'        algorithms used.}
 #'        }}
 #' }
 #'
@@ -47,13 +49,13 @@
 #'
 #' @export
 summarise_rates <- function(d0, vars, descending = TRUE, plot = TRUE) {
-  # Get variables mapping:
+
   if (is.character(vars)) {
     v <- readr::read_delim(vars, delim = ";", col_types = readr::cols())
   } else {
     v <- vars
   }
-  # Prepare and arrange the table with PDD rates (previously called 'prevalences'):
+
   prevs <- d0$PDD |>
     dplyr::select(type, PDD) |>
     table() |>
@@ -64,7 +66,7 @@ summarise_rates <- function(d0, vars, descending = TRUE, plot = TRUE) {
       perc = 100 * `TRUE` / N,
       Rate = paste0(`TRUE`, " (", do_summary(perc, 2), "%)")
     )
-  # Prepare algorithm (previously called 'operationalisation') labels:
+
   opers <- d0$algorithms |>
     dplyr::mutate(
       Global = sapply(seq_along(type), \(i) paste0(v[v[ , 1] == glob[i], 2]," < ", glob_t[i])),
@@ -77,7 +79,7 @@ summarise_rates <- function(d0, vars, descending = TRUE, plot = TRUE) {
     ) |>
     dplyr::select(type, Global, Attention, Executive, Construction, Memory, Language, IADL) |>
     dplyr::mutate_all(\(x) ifelse(grepl("NA", x), "-", x))
-  # Make the table:
+
   tab <- prevs |>
     dplyr::left_join(opers, by = "type") |>
     dplyr::select(-`FALSE`, -`TRUE`) |>
@@ -91,14 +93,14 @@ summarise_rates <- function(d0, vars, descending = TRUE, plot = TRUE) {
       Memory = dplyr::if_else(grepl("Lvl.II", type), "RAVLT-DR < -1.5 OR BVMTR-DR < -1.5 OR WMS-III Family Pictures < -1.5", Memory),
       Language = dplyr::if_else(grepl("Lvl.II", type), "WAIS Similarities < -1.5 OR BNT 60 < -1.5", Language)
     )
-  # Make a table showing estimated PDD rates:
+
   gtab_rates <- tab |>
     dplyr::arrange(dplyr::desc(perc)) |>
     dplyr::select(type, N, Rate) |>
     gt_apa_table() |>
     gt::cols_label(type ~ "Algorithm") |>
     gt::tab_source_note(gt::html("<i>Note.</i> Percentages were calculated from all available cases, the items comprising each listed algorithm can be found in Table A1."))
-  # Make a table showing algorithms' specification:
+
   gtab_algos <- tab |>
     dplyr::select(-perc, -N, -Rate) |>
     gt_apa_table() |>
@@ -113,15 +115,14 @@ summarise_rates <- function(d0, vars, descending = TRUE, plot = TRUE) {
       Executive ~ "Executive function",
       IADL ~ "Impact on IADLs"
     )
-  # If there are notes, add them to the table:
+
   if (ncol(v) > 4 && any(!is.na(v$note))) {
     notes <- v[complete.cases(v[, 5]), c(2, 5)]
     text <- paste0(dplyr::pull(notes[, 1]), ": ", dplyr::pull(notes[, 2])) |> paste(collapse = ", ")
-    # Add the text:
     gtab_algos <- gtab_algos |>
       gt::tab_source_note(gt::html(glue::glue("<i>Note.</i> {text}")))
   }
-  # Visualisation code:
+
   if (plot) {
     smoca_9 <- subset(prevs, type == subset(d0$algorithms, group == "smoca" & iadl == "faq_9")$type)$perc
     smoca_tot <- subset(prevs, type == subset(d0$algorithms, group == "smoca" & iadl == "faq")$type)$perc
@@ -153,18 +154,47 @@ summarise_rates <- function(d0, vars, descending = TRUE, plot = TRUE) {
       ) |>
       ggplot2::ggplot() +
       ggplot2::aes(x = perc, colour = `Operationalized by:`, fill = `Operationalized by:`) +
-      ggplot2::geom_histogram(ggplot2::aes(y = ..density..), colour = "black", fill = "white", bins = 30) +
+      ggplot2::geom_histogram(
+        ggplot2::aes(y = ggplot2::after_stat(density)),
+        colour = "black",
+        fill = "white",
+        bins = 30
+      ) +
       ggplot2::geom_density(lwd = 1, alpha = .25) +
-      ggplot2::geom_vline(xintercept = smoca_9, lwd = 1, lty = "dotted", colour = "orange3") +
-      ggplot2::geom_vline(xintercept = smoca_tot, lwd = 1, lty = "dotted", colour = "blue") +
-      ggplot2::geom_vline(xintercept = lvlII_9, lwd = 1, lty = "dashed", colour = "orange3") +
-      ggplot2::geom_vline(xintercept = lvlII_tot, lwd = 1, lty = "dashed", colour = "blue") +
-      ggplot2::labs(x = "Estimated PDD rate (%)", y = "Density") +
-      ggplot2::theme(legend.position = "bottom")
+      ggplot2::geom_vline(
+        xintercept = smoca_9,
+        lwd = 1,
+        lty = "dotted",
+        colour = "orange3"
+      ) +
+      ggplot2::geom_vline(
+        xintercept = smoca_tot,
+        lwd = 1,
+        lty = "dotted", colour = "blue"
+      ) +
+      ggplot2::geom_vline(
+        xintercept = lvlII_9,
+        lwd = 1,
+        lty = "dashed",
+        colour = "orange3"
+      ) +
+      ggplot2::geom_vline(
+        xintercept = lvlII_tot,
+        lwd = 1,
+        lty = "dashed",
+        colour = "blue"
+      ) +
+      ggplot2::labs(
+        x = "Estimated PDD rate (%)",
+        y = "Density"
+      ) +
+      ggplot2::theme(
+        legend.position = "bottom"
+      )
   } else {
     plt <- NULL
   }
-  # Return:
+
   list(
     table = tab,
     plot = plt,

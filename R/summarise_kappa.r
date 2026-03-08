@@ -49,7 +49,7 @@
 #'
 #' @export
 summarise_kappa <- function(algorithms, concordance) {
-  # Prepare combinations within IADL operationalisation:
+
   k <- lapply(rlang::set_names(names(algorithms)), function(o) {
     combn(algorithms[[o]], 2) |>
       t() |>
@@ -58,21 +58,22 @@ summarise_kappa <- function(algorithms, concordance) {
       dplyr::left_join(concordance, by = dplyr::join_by(predictor, reference)) |>
       dplyr::pull(Kappa_raw)
   })
-  # Add cross-operationalisation cases:
-  k$cross <- subset(concordance, predictor %in% algorithms$faq_9 & reference %in% algorithms$faq_tot)$Kappa_raw
-  # Add Kappa summaries of algorithms with same everything but different IADL:
+
+  k$cross <- concordance |>
+    dplyr::filter(predictor %in% algorithms$faq_9 & reference %in% algorithms$faq_tot) |>
+    dplyr::pull(Kappa_raw)
+
   k$iadl <- data.frame(
     predictor = c("Lvl.II (1)", "MMSE (1)", "MMSE (3)", paste0("MoCA (", seq(1, 59, 2),")"), "sMoCA (1)"),
     reference = c("Lvl.II (2)", "MMSE (2)", "MMSE (4)", paste0("MoCA (", seq(2, 60, 2),")"), "sMoCA (2)")
   ) |>
     dplyr::left_join(concordance, by = dplyr::join_by(predictor, reference)) |>
     dplyr::pull(Kappa_raw)
-  # Extract Kappa summaries:
+
   k$sums <- sapply(names(k), function(i) {
     paste0(do_summary(k[[i]], 2, "M"),", SD = ", do_summary(k[[i]], 2, "SD"))
   })
-  # Add summaries of Kappas:
+
   k$sums["iadl"] <- paste0(do_summary(k$iadl, 2, "M"),", SD = ", do_summary(k$iadl, 2, "SD"))
-  # Return:
   k
 }
