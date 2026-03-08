@@ -62,11 +62,19 @@ list(
     command = summarise_kappa(algorithms, concordance_statistics$table)
   ),
   tar_target(
-    name = predictive_models, # Fit reference models for variable selection
-    command = model_grid(
+    name = prediction_models, # Fit reference models and run variable selection
+    command = grid_models(
       d = pdd_data$PDD,
       gss = c("Lvl.II (1)", "Lvl.II (2)"),
       N = 5
+    )
+  ),
+  tar_target(
+    name = scoring_rules,
+    command = run_scoring_rule_pipeline(
+      model_grid = prediction_models[1, ], # retaining Lvl. II (1) only
+      prevs = seq(0.1, 0.5, 0.1),
+      stat = "mean"
     )
   ),
   tar_render(

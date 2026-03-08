@@ -20,7 +20,7 @@
 #' @seealso [fit_reference()]
 #'
 #' @export
-model_grid <- function(
+grid_models <- function(
     d,
     gss = c("Lvl.II (1)", "Lvl.II (2)"),
     N = 5,
@@ -54,7 +54,7 @@ model_grid <- function(
         describe_varsel(vs)
       }),
       projection = purrr::map(varsel, function(vs) {
-        perform_projpred(vs)
+        perform_projpred(vs, seed = 87542, ndraws = 4000)
       })
     )
 }
