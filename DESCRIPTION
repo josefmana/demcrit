@@ -43,7 +43,8 @@ Imports:
     cli (>= 3.6.5),
     renv (>= 1.1.4),
     brms (>= 2.23.0),
-    projpred (>= 2.10.0)
+    projpred (>= 2.10.0),
+    pROC (>= 1.19.0.1)
 Suggests: 
     knitr,
     quarto,

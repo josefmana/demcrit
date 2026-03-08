@@ -58,8 +58,16 @@ list(
     command = describe_concordance(pdd_data)
   ),
   tar_target(
-    name = kappa_summmaries, # Etxract summaries of Cohen's kappa for the manuscript
+    name = kappa_summmaries, # Extract summaries of Cohen's kappa for the manuscript
     command = summarise_kappa(algorithms, concordance_statistics$table)
+  ),
+  tar_target(
+    name = reference_models, # Fit reference models for variable selection
+    command = fit_grid(
+      d = pdd_data$PDD,
+      gss = c("Lvl.II (1)", "Lvl.II (2)"),
+      N = 4
+    )
   ),
   tar_render(
     name = manuscript, # Prepare the manuscript

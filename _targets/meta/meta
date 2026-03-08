@@ -18,36 +18,7 @@ inputs_b164a9db85664a9e|branch|d8e469e6f18ed9d8|36bdc44cf11ac220|2c530c1562a7fbd
 inputs_a9ab7d3f4d30279a|branch|f9e791cffb8f0662|36bdc44cf11ac220|2c530c1562a7fbd1|-425420009|/Users/josefmana/Desktop/clinical psychology/demcrit/data-raw/VariablesOfInterest.csv|t20380.417025463s|s2726b|2726|file|local|vector|inputs||0||
 inputs|pattern|97d6bc9b690e862b|36bdc44cf11ac220||-106948080||||1649587|file|local|vector||inputs_15800603c23b11c8*inputs_cf162c805329d733*inputs_6e8c1a0fe5f9ba41*inputs_b164a9db85664a9e*inputs_a9ab7d3f4d30279a|0.001||
 .Random.seed|object|c29ed1c87a76cf66
-do_summary|function|529787ca236a8350
-import_item_data|function|32331110f001620f
-compute_z_score|function|c7c17e8b542c349e
-data_paths|function|5e038ffa4b0c6af3
-diagnose_pdd_case|function|f36efa429031c51c
-check_compatibility|function|77cdda810975fedc
-check_names|function|6696d370edb343c4
-check_ranges|function|51f453917504ccd2
-import_redcap_data|function|997e787e9116a782
-specify_algorithms|function|16a4278df11832c8
-make_dendrogram|function|c1e4e38ed4aeb4e5
-prepare_defaults|function|02b2f905f84f8171
-list_algorithms|function|76323a04a8c18a47
-gt_apa_table|function|41c255f48bb79457
-regress_pdd_on_demographics|function|f435f884eeaf95e9
-fit_reference|function|d591eabdf2974d1a
-summarise_kappa|function|217191b6bd198648
-describe_concordance|function|1133b1a3e922bddb
-assign_cognitive_impairment|function|cc167ff2b2ce7b49
-diagnose_pdd_sample|function|5e7b9533e657e651
-simulate_pdd_data|function|d4d9883137db4183
-table_algorithms|function|fef03bb5505661da
-table_levelII_approximations|function|816fe73c90391871
-table_estimands|function|dce741ee0b505402
-summarise_rates|function|35c8b2adb1cd1bbd
-compute_descriptives|function|9543c5998920cb4d
-prepare_data|function|ea5eeaa138502132
-inputs_files|stem|d62c391a205a1ec9|f8d248d7fb1a5ff4|62d9faba18dc4fe4|-706827970||t20519.6166229902s|s181b|181|rds|local|vector||inputs_files_52335b838d0ed785*inputs_files_2504aa409c46ec47*inputs_files_c1e5e0442efca465*inputs_files_645117885257892b*inputs_files_81afb0cb4dd0b4df|0.009||
 raw_data|stem|d6966ea8ce8e9a87|1b69f38707b7ad3d|129b26b8c2865a5f|-1101284392||t20519.6166454729s|s35779b|35779|rds|local|vector|||1.873|One or more parsing issues, call `problems()` on your data frame for details, e.g.:   dat <- vroom(...)   problems(dat)|
-pdd_data|stem|44b1a355f2593040|421a79b539387d7b|7f9338d0bc39fca2|-6092328||t20519.6166507396s|s44360b|44360|rds|local|vector|||0.407||
 sample_description|stem|3bd4d4630efb9153|a385ccf0415246b0|a3d9e3d26bd29cc6|-1070305744||t20519.6166529681s|s6701b|6701|rds|local|vector|||0.182||
 demographic_predictors_neuropsychiatry_adjusted|stem|9fc67930528580e6|9cddc32e42babf77|7f9428dba306f774|-1868746882||t20519.6166732875s|s9697651b|9697651|rds|local|vector|||0.51|Vectorized input to `element_text()` is not officially supported. ℹ Results may be unexpected or may change in future versions of ggplot2.. glm.fit: fitted probabilities numerically 0 or 1 occurred|
 demographic_predictors_cereda_adjusted|stem|9b8311c90f6d6081|24f1400f539b9127|7f9428dba306f774|-1876856922||t20519.6166914492s|s9844285b|9844285|rds|local|vector|||0.329|Vectorized input to `element_text()` is not officially supported. ℹ Results may be unexpected or may change in future versions of ggplot2.|
@@ -55,5 +26,37 @@ rate_summaries|stem|ec9036afd9ce2cf6|5445afa5b3559adb|defbeb99810a4624|292778141
 concordance_statistics|stem|f038d9629cd298b9|921709cbafa24f27|4860f018b6c0b575|1652126210||t20519.6172070277s|s2017501b|2017501|rds|local|vector|||43.849|upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set to +/- 1. . upper or lower confidence interval exceed  abs(1)  and set t|
 demographic_predictors|stem|952af81afdef7257|31f3cad834f6813a|7f9428dba306f774|1455378101||t20519.6172260347s|s9297278b|9297278|rds|local|vector|||0.26|Vectorized input to `element_text()` is not officially supported. ℹ Results may be unexpected or may change in future versions of ggplot2.|
 algorithms|stem|82d4248ffe27df0c|169ba396bc162d2a|71dd36ef8151eed3|-384826494||t20519.6172265569s|s286b|286|rds|local|vector|||0||
-kappa_summmaries|stem|122847275bcdc876|03c33b2b59734cd1|359df4d3fc2f4202|163562731||t20519.6172287275s|s4633b|4633|rds|local|vector|||0.031|The `x` argument of `as_tibble.matrix()` must have unique column names if `.name_repair` is omitted as of tibble 2.0.0. ℹ Using compatibility `.name_repair`.|
 manuscript|stem|8818b081442d6866|7ea4cf50661c959c|f8f45467e6f0c378|-1793997187|_manuscript/manuscript.html*_manuscript/manuscript.qmd*_manuscript/manuscript_files|t20519.6172930716s|s4382306b|4382306|file|local|vector|||4.774||
+pdd_data|stem|44b1a355f2593040|421a79b539387d7b|d5465c45c7296a44|-6092328||t20520.3185752774s|s44360b|44360|rds|local|vector|||0.393||
+reference_fits|stem||6d2a45918bdf462b|8422cb690a953980|-998394159||t20520.3185839168s||0|rds|local|vector|||0.111||object 'rat' not found
+do_summary|function|529787ca236a8350
+import_item_data|function|32331110f001620f
+compute_z_score|function|c7c17e8b542c349e
+data_paths|function|5e038ffa4b0c6af3
+diagnose_pdd_case|function|f36efa429031c51c
+fit_reference|function|ce88a45c17275202
+check_compatibility|function|77cdda810975fedc
+check_names|function|6696d370edb343c4
+check_ranges|function|51f453917504ccd2
+import_redcap_data|function|997e787e9116a782
+specify_algorithms|function|fbd5dc31e9aa3276
+make_dendrogram|function|c1e4e38ed4aeb4e5
+prepare_defaults|function|02b2f905f84f8171
+list_algorithms|function|76323a04a8c18a47
+gt_apa_table|function|41c255f48bb79457
+regress_pdd_on_demographics|function|f435f884eeaf95e9
+summarise_kappa|function|bc487b764e2cfeb5
+describe_concordance|function|1133b1a3e922bddb
+assign_cognitive_impairment|function|cc167ff2b2ce7b49
+fit_grid|function|324f10d5ccddb662
+diagnose_pdd_sample|function|969a2c86b6ff8eca
+simulate_pdd_data|function|d4d9883137db4183
+table_algorithms|function|fef03bb5505661da
+table_levelII_approximations|function|816fe73c90391871
+table_estimands|function|dce741ee0b505402
+summarise_rates|function|35c8b2adb1cd1bbd
+compute_descriptives|function|9543c5998920cb4d
+prepare_data|function|ea5eeaa138502132
+inputs_files|stem|d62c391a205a1ec9|f8d248d7fb1a5ff4|62d9faba18dc4fe4|-706827970||t20520.3488801289s|s181b|181|rds|local|vector||inputs_files_52335b838d0ed785*inputs_files_2504aa409c46ec47*inputs_files_c1e5e0442efca465*inputs_files_645117885257892b*inputs_files_81afb0cb4dd0b4df|0.009||
+reference_models|stem|c14dd1147a280dd0|0bfbaf2882bcaf71|fafa477af54b850e|-1643894293||t20520.3494420146s|s6792619b|6792619|rds|local|vector|||48.036||
+kappa_summmaries|stem|122847275bcdc876|03c33b2b59734cd1|ac1a81db9183f251|163562731||t20520.3494449844s|s4633b|4633|rds|local|vector|||0.057|The `x` argument of `as_tibble.matrix()` must have unique column names if `.name_repair` is omitted as of tibble 2.0.0. ℹ Using compatibility `.name_repair`.|
