@@ -7,6 +7,9 @@
 #' @param pt The threshold on probability scale. E.g., derived from
 #'   \code{run_roc}.
 #' @param coefs Model coefficients as computed by \code{extract_coefficients()}.
+#' @param inverse Should `pt` be inversed from probability to logit scale?
+#' @param ... Unused. There to allow for compatibility with
+#'   \code{run_scoring_rule_pipeline.}
 #'
 #'@returns List containing:
 #'   - score coefficients
@@ -15,9 +18,18 @@
 #'   - integer scoring rule
 #'
 #' @export
-derive_scoring_rule <- function(pt, coefs) {
+derive_scoring_rule <- function(
+    pt,
+    coefs,
+    inverse = TRUE,
+    ...
+) {
 
-  logit_pt <- qlogis(pt)
+  if (inverse) {
+    logit_pt <- qlogis(pt)
+  } else {
+    logit_pt <- pt
+  }
   b0 <- coefs[1]
   b <- coefs[-1]
 

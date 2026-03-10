@@ -8,11 +8,13 @@
 #'   `posterior::as_draws_matrix()`.
 #' @param scls Scaling values as exported by \code{fit_reference}.
 #' @param stat Summary statistic applied to posterior draws.
+#' @param ... Unused. There to allow for compatibility with
+#'   \code{run_scoring_rule_pipeline}.
 #'
 #' @returns Named numeric vector of coefficients on the original scale.
 #
 #' @export
-extract_coefficients <- function(mod, scls, stat = "mean") {
+extract_coefficients <- function(mod, scls, stat = "mean", ...) {
 
   drws <- posterior::as_draws_matrix(mod)
 

@@ -7,6 +7,8 @@
 #'   values. Can be single test scores or expected probabilities from a logistic
 #'   regression or any other model.
 #' @param prevs Prevalences.
+#' @param ... Unused. There to allow for compatibility with
+#'   \code{run_scoring_rule_pipeline}.
 #'
 #' @returns List with two components:
 #' \describe{
@@ -17,7 +19,12 @@
 #' }
 #'
 #' @export
-run_roc <- function(y_obs, preds, prevs = seq(0.1, 0.5, 0.1)) {
+run_roc <- function(
+    y_obs,
+    preds,
+    prevs = c(0.1, 0.3, 0.5),
+    ...
+) {
 
   if (length(y_obs) != length(preds)) {
     cli::cli_abort(c(

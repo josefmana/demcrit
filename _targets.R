@@ -65,17 +65,29 @@ list(
     name = prediction_models, # Fit reference models and run variable selection
     command = grid_models(
       d = pdd_data$PDD,
-      gss = c("Lvl.II (1)", "Lvl.II (2)"),
-      N = 5
+      gss = c("Lvl.II (1)", "Lvl.II (1)", "Lvl.II (2)"),
+      N = c(4, 5, 4),
+      n_chosen = c(2, 2, 0),
+      bind = TRUE,
+      chains = 4,
+      cores = 4,
+      warmup = 1000,
+      iter = 3500,
+      seed = 12345
     )
   ),
   tar_target(
     name = scoring_rules,
-    command = run_scoring_rule_pipeline(
-      model_grid = prediction_models[1, ], # retaining Lvl. II (1) only
-      prevs = seq(0.1, 0.5, 0.1),
-      stat = "mean"
-    )
+    command = purrr::map(c(1, 2), function(i) {
+      run_scoring_rule_pipeline(
+        y_obs = prediction_models$reference[[i]]$data$y,
+        model = prediction_models$projection[[i]], # retaining Lvl. II (1) only
+        scaling = prediction_models$reference[[i]]$scaling,
+        linear = TRUE,
+        nms = c("Intercept", "MoCA delayed recall", "MMSE sevens"),
+        prevs = seq(0.1, 0.5, by = 0.1)
+      )
+    })
   ),
   tar_render(
     name = manuscript, # Prepare the manuscript
