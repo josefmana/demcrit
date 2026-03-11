@@ -44,7 +44,9 @@ Imports:
     renv (>= 1.1.4),
     brms (>= 2.23.0),
     projpred (>= 2.10.0),
-    pROC (>= 1.19.0.1)
+    posterior (>= 1.6.1),
+    pROC (>= 1.19.0.1),
+    corrplot (>= 0.95)
 Suggests: 
     knitr,
     quarto,
@@ -57,6 +59,6 @@ VignetteBuilder:
     quarto,
     knitr
 Depends: 
-    R (>= 4.3.3)
+    R (>= 4.5.2)
 LazyData: true
 URL: https://josefmana.github.io/demcrit/

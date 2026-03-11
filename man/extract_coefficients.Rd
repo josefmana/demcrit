@@ -4,7 +4,7 @@
 \alias{extract_coefficients}
 \title{Extract point estimate of model coefficients}
 \usage{
-extract_coefficients(mod, scls, stat = "mean")
+extract_coefficients(mod, scls, stat = "mean", ...)
 }
 \arguments{
 \item{mod}{Model object or posterior draws compatible with
@@ -13,6 +13,9 @@ extract_coefficients(mod, scls, stat = "mean")
 \item{scls}{Scaling values as exported by \code{fit_reference}.}
 
 \item{stat}{Summary statistic applied to posterior draws.}
+
+\item{...}{Unused. There to allow for compatibility with
+\code{run_scoring_rule_pipeline}.}
 }
 \value{
 Named numeric vector of coefficients on the original scale.

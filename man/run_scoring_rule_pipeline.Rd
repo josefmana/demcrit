@@ -4,13 +4,30 @@
 \alias{run_scoring_rule_pipeline}
 \title{Run pipeline deriving scoring rule for PDD}
 \usage{
-run_scoring_rule_pipeline(model_grid, ..., nms = NULL)
+run_scoring_rule_pipeline(
+  y_obs,
+  model,
+  scaling,
+  linear = TRUE,
+  ...,
+  nms = NULL
+)
 }
 \arguments{
-\item{model_grid}{A single row of \code{grid_models}.}
+\item{y_obs}{Observed outcome values.}
 
-\item{...}{Other parameters going either to \code{run_roc} if \code{prevs} or
-to \code{extract_coefficients} if \code{stat}.}
+\item{model}{Model object used for prediction (needs to be Bayesian and
+ammenable to functions from the \{posterior\}package.}
+
+\item{scaling}{A scaling table with columns "x" for predictor name, "M" for
+mean and "SD" for standard deviation..}
+
+\item{linear}{Should predictions from the linear model (\code{TRUE}) or on the
+response scale (\code{FALSE}) be used?}
+
+\item{...}{Other parameters going either to \code{run_roc} if \code{prevs},
+to \code{extract_coefficients} if \code{stat}, to or to \code{compute_predictions}
+if \code{seed}.}
 
 \item{nms}{Optional coefficient names, including intercepts. Double check
 they are in correct order!}

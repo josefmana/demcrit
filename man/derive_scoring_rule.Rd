@@ -4,13 +4,18 @@
 \alias{derive_scoring_rule}
 \title{Derive a scoring rule for PDD}
 \usage{
-derive_scoring_rule(pt, coefs)
+derive_scoring_rule(pt, coefs, inverse = TRUE, ...)
 }
 \arguments{
 \item{pt}{The threshold on probability scale. E.g., derived from
 \code{run_roc}.}
 
 \item{coefs}{Model coefficients as computed by \code{extract_coefficients()}.}
+
+\item{inverse}{Should \code{pt} be inversed from probability to logit scale?}
+
+\item{...}{Unused. There to allow for compatibility with
+\code{run_scoring_rule_pipeline.}}
 }
 \value{
 List containing:

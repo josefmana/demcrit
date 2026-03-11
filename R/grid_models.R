@@ -26,7 +26,7 @@
 #' @seealso
 #' * [fit_reference()] for reference model fitting
 #' * [perform_varsel()] for variable selection implementation
-#' * [perform_projpred()] for projective prediction implementation
+#' * [projpred::project()] for projective prediction implementation
 #'
 #' @export
 grid_models <- function(
@@ -86,7 +86,7 @@ grid_models <- function(
       n_chosen = dplyr::if_else(is.na(n_chosen), n_suggest, n_chosen)
     )
 
-  projmodel <- purrr::map(list(varsel, grid$n_chosen), function(vs, n) {
+  projmodel <- purrr::pmap(list(varsel, grid$n_chosen), function(vs, n) {
     projpred::project(
       vs,
       nterms = n,

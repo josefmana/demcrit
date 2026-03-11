@@ -33,8 +33,6 @@ List with three components:
 \item{model}{brmsfit with the fitted model}
 \item{data}{Tibble with raw input data}
 \item{scaling}{Tibble with predictors' mean and SDs}
-\item{ppred}{Posterior predictions from the model}
-\item{probs}{Expected posterior probabilities for data used to fit the model}
 }
 }
 \description{
