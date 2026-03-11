@@ -1,0 +1,108 @@
+# Accessing Concordance Statistics
+
+> The purpose of this vignette is to provide access to the raw
+> statistical results for all concordance indexes from pairwise
+> comparisons of algorithms for *Parkinson’s Disease Dementia (PDD)*
+> discussed in the source article.
+
+## Set-up
+
+To explore these results, you first need to install and load a local
+instance of the [demcrit](https://github.com/josefmana/demcrit.git) R
+package:
+
+``` r
+# If you do not have the devtools package,
+# install it by uncommenting the following line:
+#install.packages(devtools)
+devtools::install_github("josefmana/demcrit")
+```
+
+## Data
+
+Once installed, the concordance statistics can be loaded. The following
+code chunk loads the *demcrit* package (all subsequent examples assume
+the package is already loaded) and reads the concordance data into the
+object `concords`:
+
+``` r
+library(demcrit)
+data("concords")
+```
+
+You can find a detailed description of the dataset in its documentation:
+
+``` r
+help("concords")
+```
+
+The concords object is a [**tibble**](https://tibble.tidyverse.org),
+meaning it can be easily manipulated using packages from the
+[**tidyverse**](https://tidyverse.org) ecosystem.
+
+## Example Uses
+
+For example, the following code filters the data to retain only those
+pairwise comparisons where algorithm `"Lvl.II (1)"` served as the
+reference:
+
+``` r
+library(tidyverse) # load the package
+
+# Extract the subdata:
+lvlII1_reference <- concords |>
+  filter(reference == "Lvl.II (1)")
+```
+
+For more nuanced data operations, you can also load the `rates` dataset,
+which contains algorithm specifications and estimated rates of probable
+PDD in the sample:
+
+``` r
+data("rates")
+help("rates")
+```
+
+Using both datasets, it is possible, for instance, to retain only
+comparisons where `"Lvl.II (1)"` served as the reference and where the
+predictor used the same operationalisation of IADL deficit. The
+resulting data can then be sorted, for example, by the predictor’s
+specificity (from highest to lowest):
+
+``` r
+# Extract operationalisation of IADL deficit
+# used by the "Lvl.II (1)" algorithm:
+IADL_oper <- subset(rates, type == "Lvl.II (1)")$IADL
+
+# Find algorithms using the same operationalisation:
+algos_of_interest <- subset(rates, IADL == IADL_oper)$type
+
+# Keep only pairs of interest:
+lvlII1_reference_2 <- concords |>
+  filter(reference == "Lvl.II (1)") |>
+  filter(predictor %in% algos_of_interest) |>
+  arrange(desc(Specificity))
+```
+
+## Export
+
+Finally, you can export the data to CSV or Excel format for use in other
+software. The following examples use the `readr` and `writexl` packages,
+though any preferred method can be used:
+
+``` r
+# Export to CSV:
+readr::write_csv(concords, "demcrit_concordance_stats.csv")
+
+# Export to Excel (single sheet):
+writexl::write_xlsx(concords, "demcrit_concordance_stats.xlsx")
+
+# Export to Excel (two sheets: concordance statistics and algorithm details):
+writexl::write_xlsx(
+  list(concordance = concords, algorithms = rates),
+  path = "demcrit_concordance_stats_with_algos.xlsx"
+)
+
+# Note: Adjust the second argument to whatever
+# "path/to/your/data" you find suitable.
+```

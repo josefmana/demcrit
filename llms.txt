@@ -1,0 +1,165 @@
+# Validation of Algorithms for PDD
+
+This package is **not** intended for broad public use. Its main purpose
+is to:
+
+1.  provide transparent documentation of the data analyses forming the
+    backbone of the empirical part of *Mana et al. (under review)*, and
+
+2.  supply the set of functions used to generate those results, which
+    can be reused or adapted for projects with similar objectives.
+
+## Installation
+
+To install a local instance of the package, run:
+
+``` r
+# If you do not have the devtools package,
+# install it by uncommenting the following line:
+#install.packages(devtools)
+devtools::install_github("josefmana/demcrit")
+```
+
+## Reproducibility
+
+To ensure full reproducibility of the results, it is important to use
+the same package versions that were originally used to generate them in
+the first place. The *demcrit* package manages its package dependencies
+through [renv](https://pkgs.rstudio.com/renv/index.html).
+
+If full reproducibility is your goal, before proceeding, please run the
+following code to restore the package environment exactly as used in the
+original analysis:
+
+``` r
+# If you do not have the renv package,
+# install it by uncommenting the following line:
+#install.packages("renv", version = "1.1.4")
+renv::restore()
+```
+
+## How to Use
+
+There are two main ways to work with the package (each described in its
+own vignette):
+
+1.  **With raw data available** – Place the raw data files in the
+    data-raw folder and run the included targets pipeline. See the
+    vignette [“Targets
+    Pipeline”](https://josefmana.github.io/demcrit/articles/use1.md) for
+    details.
+
+2.  **Without raw data** – You can still use many of the package
+    functions with your own, similarly structured dataset. See the
+    vignette [“Out of
+    Pipeline”](https://josefmana.github.io/demcrit/articles/use2.md) for
+    guidance.
+
+## Future Directions
+
+> Currently, *demcrit* is designed around the dataset used in our
+> original study. As such, it primarily supports direct replications
+> rather than general applications.
+>
+> If you find the approach useful and would like to adapt it for your
+> data, feel free to reach out — we are happy to discuss possible
+> extensions. We also welcome reports of bugs or mistakes you may
+> encounter.
+
+# Package index
+
+## All functions
+
+- [`assign_cognitive_impairment()`](https://josefmana.github.io/demcrit/reference/assign_cognitive_impairment.md)
+  : Assign Cognitive Impairment Status
+- [`check_compatibility()`](https://josefmana.github.io/demcrit/reference/check_compatibility.md)
+  : Check Data Compatibility
+- [`check_names()`](https://josefmana.github.io/demcrit/reference/check_names.md)
+  : Check Patient Names
+- [`check_ranges()`](https://josefmana.github.io/demcrit/reference/check_ranges.md)
+  : Check Value Ranges of Relevant Variables
+- [`compute_descriptives()`](https://josefmana.github.io/demcrit/reference/compute_descriptives.md)
+  : Describe the Sample
+- [`compute_predictions()`](https://josefmana.github.io/demcrit/reference/compute_predictions.md)
+  : Compute model predictions
+- [`compute_z_score()`](https://josefmana.github.io/demcrit/reference/compute_z_score.md)
+  : Compute Regression z-scores
+- [`concords`](https://josefmana.github.io/demcrit/reference/concords.md)
+  : Table of Pairwise Concordance Measures
+- [`correlate_indexes()`](https://josefmana.github.io/demcrit/reference/correlate_indexes.md)
+  : Compute correlation between test indexes
+- [`data_paths()`](https://josefmana.github.io/demcrit/reference/data_paths.md)
+  : Define Raw Data Paths
+- [`derive_scoring_rule()`](https://josefmana.github.io/demcrit/reference/derive_scoring_rule.md)
+  : Derive a scoring rule for PDD
+- [`describe_concordance()`](https://josefmana.github.io/demcrit/reference/describe_concordance.md)
+  : Compute Concordance Measures
+- [`diagnose_pdd_case()`](https://josefmana.github.io/demcrit/reference/diagnose_pdd_case.md)
+  : Diagnose via a Single Algorithm
+- [`diagnose_pdd_sample()`](https://josefmana.github.io/demcrit/reference/diagnose_pdd_sample.md)
+  : Diagnose All Patients
+- [`do_summary()`](https://josefmana.github.io/demcrit/reference/do_summary.md)
+  : Summarise Data
+- [`drop_incomplete()`](https://josefmana.github.io/demcrit/reference/drop_incomplete.md)
+  : Drop patients with missing data
+- [`extract_coefficients()`](https://josefmana.github.io/demcrit/reference/extract_coefficients.md)
+  : Extract point estimate of model coefficients
+- [`fit_reference()`](https://josefmana.github.io/demcrit/reference/fit_reference.md)
+  : Fit Reference Model for Projective Prediction
+- [`grid_models()`](https://josefmana.github.io/demcrit/reference/grid_models.md)
+  : Fit a grid of reference models
+- [`grid_ppred()`](https://josefmana.github.io/demcrit/reference/grid_ppred.md)
+  : Grid posterior predictions of a model
+- [`gt_apa_table()`](https://josefmana.github.io/demcrit/reference/gt_apa_table.md)
+  : Generate an APA-style Table
+- [`import_item_data()`](https://josefmana.github.io/demcrit/reference/import_item_data.md)
+  : Import Item Data
+- [`import_redcap_data()`](https://josefmana.github.io/demcrit/reference/import_redcap_data.md)
+  : Import REDCap Data
+- [`list_algorithms()`](https://josefmana.github.io/demcrit/reference/list_algorithms.md)
+  : Prepare a List of Algorithms
+- [`make_dendrogram()`](https://josefmana.github.io/demcrit/reference/make_dendrogram.md)
+  : Make a Dendrogram of PDD Algorithms
+- [`perform_varsel()`](https://josefmana.github.io/demcrit/reference/perform_varsel.md)
+  : Perform variable selection
+- [`plot_correlation()`](https://josefmana.github.io/demcrit/reference/plot_correlation.md)
+  : Plot correlation matrixes
+- [`prepare_data()`](https://josefmana.github.io/demcrit/reference/prepare_data.md)
+  : Pre-process Data for Analysis
+- [`prepare_defaults()`](https://josefmana.github.io/demcrit/reference/prepare_defaults.md)
+  : Prepare Defaults for Data Simulation
+- [`rates`](https://josefmana.github.io/demcrit/reference/rates.md) :
+  Algorithm Specifications and PDD Rates
+- [`regress_pdd_on_demographics()`](https://josefmana.github.io/demcrit/reference/regress_pdd_on_demographics.md)
+  : Regress PDD via Logistic Regression
+- [`run_roc()`](https://josefmana.github.io/demcrit/reference/run_roc.md)
+  : Run ROC analysis
+- [`run_scoring_rule_pipeline()`](https://josefmana.github.io/demcrit/reference/run_scoring_rule_pipeline.md)
+  : Run pipeline deriving scoring rule for PDD
+- [`simulate_pdd_data()`](https://josefmana.github.io/demcrit/reference/simulate_pdd_data.md)
+  : Make Fake Data
+- [`specify_algorithms()`](https://josefmana.github.io/demcrit/reference/specify_algorithms.md)
+  : Specify Algorithms for Probable PDD
+- [`summarise_kappa()`](https://josefmana.github.io/demcrit/reference/summarise_kappa.md)
+  : Summarise Kappa Coefficients
+- [`summarise_rates()`](https://josefmana.github.io/demcrit/reference/summarise_rates.md)
+  : Order and Prints Algorithms
+- [`table_algorithms()`](https://josefmana.github.io/demcrit/reference/table_algorithms.md)
+  : Generate a Summary Table of Algorithms
+- [`table_estimands()`](https://josefmana.github.io/demcrit/reference/table_estimands.md)
+  : Generate a Summary Table of Estimands
+- [`table_levelII_approximations()`](https://josefmana.github.io/demcrit/reference/table_levelII_approximations.md)
+  : Summary Table of Predictors
+
+# Articles
+
+### All vignettes
+
+- [Accessing Concordance
+  Statistics](https://josefmana.github.io/demcrit/articles/concordance.md):
+- [Impact of Correlation on
+  Concordance](https://josefmana.github.io/demcrit/articles/correlation.md):
+- [Use \#1: Targets
+  Pipeline](https://josefmana.github.io/demcrit/articles/use1.md):
+- [Use \#2: Out of
+  Pipeline](https://josefmana.github.io/demcrit/articles/use2.md):
