@@ -137,7 +137,7 @@ import_redcap_data <- function(path, scoring) {
       smoca_total = s_moca_score
     ) |>
     dplyr::select(
-      birth, id, age_lvl2, sex, edu_years, type_pd, hy_stage, pd_dur, asym_park, ledd,
+      birth, id, age_lvl2, sex, edu_years, type_pd, hy_stage, type_pd, pd_dur, asym_park, ledd,
       updrsiii_off, updrsiii_on,
       drsii, mmse, nart,
       moca_cube, moca_7, vf_k, moca_5words, moca_anim, moca_abs, moca_cloc, tidyselect::starts_with("moca_clock"),

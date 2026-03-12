@@ -54,8 +54,8 @@ table_algorithms <- function(vars) {
       "Attention", "Executive Function", "Construction", "Memory", "Language"
     ),
     Indexes = c(
-      "MMSE < 26", "Sevens backwards < 4", "Clock drawing < 2 OR Lexical fluency (S) < 10", "Pentagons < 1", "3-word recall < 3",
-      "MoCA < 27", "Sevens backwards < 3", "Clock drawing < {2, 3} OR Lexical fluency (K) < 11", "Cube drawing < 1", "5-word recall < {1, 2, 3, 4, 5}", "Abstraction < 2 OR Animal naming < 3",
+      "MMSE < 26", "Sevens backwards < 4", "Clock drawing < 2 OR Verbal fluency (S) < 10", "Pentagons < 1", "3-word recall < 3",
+      "MoCA < 27", "Sevens backwards < 3", "Clock drawing < {2, 3} OR Verbal fluency (K) < 11", "Cube drawing < 1", "5-word recall < {1, 2, 3, 4, 5}", "Abstraction < 2 OR Animal naming < 3",
       "sMoCA < 13",
       "TMT A & WAIS DSB", "CF A & PST C", "JoLO & CLOXI", "RAVLT DR & (BVMTR DR OR WMS-III Family Pictures DR)", "WAIS Similarities & BNT 60"
     )

@@ -1,7 +1,8 @@
 targets_prediction <- list(
 
+  # Fit reference models and run variable selection
   targets::tar_target(
-    name = prediction_models, # Fit reference models and run variable selection
+    name = prediction_models,
     command = grid_models(
       d = pdd_data$PDD,
       gss = c("Lvl.II (1)", "Lvl.II (1)", "Lvl.II (2)"),
@@ -33,7 +34,7 @@ targets_prediction <- list(
         model = prediction_models$projection[[i]], # retaining Lvl. II (1) only
         scaling = prediction_models$reference[[i]]$scaling,
         linear = TRUE,
-        nms = c("Intercept", "MoCA delayed recall", "MMSE sevens"),
+        nms = c("Intercept", "MoCA Five words", "MMSE Sevens"),
         prevs = seq(0.1, 0.5, by = 0.1)
       )
     })

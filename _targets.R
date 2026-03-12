@@ -12,7 +12,6 @@ list(
   targets_demography,
   targets_concordance,
   targets_prediction,
-  targets_manuscript,
 
   tarchetypes::tar_render(
     name = manuscript,

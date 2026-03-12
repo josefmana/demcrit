@@ -75,6 +75,6 @@ correlate_indexes <- function(
 
   list(
     R_observed = R_obs,
-    R_ideal = R_opt
+    R_ideal = R_ideal
   )
 }
