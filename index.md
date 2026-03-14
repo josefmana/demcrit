@@ -65,3 +65,13 @@ own vignette):
 > data, feel free to reach out — we are happy to discuss possible
 > extensions. We also welcome reports of bugs or mistakes you may
 > encounter.
+>
+> At the moment, explanation and proper integration of the newest
+> analysis (feature selection exploraton of screening indexes for
+> comprehensive battery dementia classification) is on a to do. It was
+> fully implemented into the targets pipeline and added to the
+> manuscript, however, integrating it into the package documentation
+> seems to be a bit cumbersome.
+>
+> If I ever get to it and have a good reason to do so, I may trasnform
+> *demcrit* to a “proper” R package {demcritr}. Most likely not though.

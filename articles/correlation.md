@@ -362,7 +362,7 @@ estimates.
 Finally, when the only **mismatch** involved **global cognition**
 criterion, the **correlated** scenario led to **higher balanced
 accuracy** estimates in three out of four cases. The maximum difference
-was similar to the other comparison types, reaching up to 3.2%.
+was similar to the other comparison types, reaching up to 3.3%.
 
 [TABLE]
 
@@ -373,7 +373,7 @@ sample t-tests.
 Lastly, Cohen’s $\kappa$ showed the clearest and most consistent pattern
 of results ([Table 5](#tbl-kappa)). In all cases, the **correlated**
 scenario yielded **higher** $\kappa$ values than the independent one,
-with differences ranging from 0.013 to 0.067.
+with differences ranging from 0.014 to 0.070.
 
 [TABLE]
 

@@ -24,11 +24,11 @@
 <url><loc>https://josefmana.github.io/demcrit/reference/diagnose_pdd_case.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/reference/diagnose_pdd_sample.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/reference/do_summary.html</loc></url>
-<url><loc>https://josefmana.github.io/demcrit/reference/drop_incomplete.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/reference/extract_coefficients.html</loc></url>
+<url><loc>https://josefmana.github.io/demcrit/reference/find_incomplete.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/reference/fit_reference.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/reference/grid_models.html</loc></url>
-<url><loc>https://josefmana.github.io/demcrit/reference/grid_ppred.html</loc></url>
+<url><loc>https://josefmana.github.io/demcrit/reference/grid_postpred.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/reference/gt_apa_table.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/reference/import_item_data.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/reference/import_redcap_data.html</loc></url>
@@ -45,10 +45,12 @@
 <url><loc>https://josefmana.github.io/demcrit/reference/run_scoring_rule_pipeline.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/reference/simulate_pdd_data.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/reference/specify_algorithms.html</loc></url>
+<url><loc>https://josefmana.github.io/demcrit/reference/subtract_concordance_matrixes.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/reference/summarise_kappa.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/reference/summarise_rates.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/reference/table_algorithms.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/reference/table_estimands.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/reference/table_levelII_approximations.html</loc></url>
+<url><loc>https://josefmana.github.io/demcrit/reference/trim_data.html</loc></url>
 </urlset>
 

@@ -32,15 +32,15 @@
   : Diagnose All Patients
 - [`do_summary()`](https://josefmana.github.io/demcrit/reference/do_summary.md)
   : Summarise Data
-- [`drop_incomplete()`](https://josefmana.github.io/demcrit/reference/drop_incomplete.md)
-  : Drop patients with missing data
 - [`extract_coefficients()`](https://josefmana.github.io/demcrit/reference/extract_coefficients.md)
   : Extract point estimate of model coefficients
+- [`find_incomplete()`](https://josefmana.github.io/demcrit/reference/find_incomplete.md)
+  : Find patients with missing data
 - [`fit_reference()`](https://josefmana.github.io/demcrit/reference/fit_reference.md)
   : Fit Reference Model for Projective Prediction
 - [`grid_models()`](https://josefmana.github.io/demcrit/reference/grid_models.md)
   : Fit a grid of reference models
-- [`grid_ppred()`](https://josefmana.github.io/demcrit/reference/grid_ppred.md)
+- [`grid_postpred()`](https://josefmana.github.io/demcrit/reference/grid_postpred.md)
   : Grid posterior predictions of a model
 - [`gt_apa_table()`](https://josefmana.github.io/demcrit/reference/gt_apa_table.md)
   : Generate an APA-style Table
@@ -72,6 +72,8 @@
   : Make Fake Data
 - [`specify_algorithms()`](https://josefmana.github.io/demcrit/reference/specify_algorithms.md)
   : Specify Algorithms for Probable PDD
+- [`subtract_concordance_matrixes()`](https://josefmana.github.io/demcrit/reference/subtract_concordance_matrixes.md)
+  : Compare concordance matrixes
 - [`summarise_kappa()`](https://josefmana.github.io/demcrit/reference/summarise_kappa.md)
   : Summarise Kappa Coefficients
 - [`summarise_rates()`](https://josefmana.github.io/demcrit/reference/summarise_rates.md)
@@ -82,3 +84,5 @@
   : Generate a Summary Table of Estimands
 - [`table_levelII_approximations()`](https://josefmana.github.io/demcrit/reference/table_levelII_approximations.md)
   : Summary Table of Predictors
+- [`trim_data()`](https://josefmana.github.io/demcrit/reference/trim_data.md)
+  : Prepare complete data

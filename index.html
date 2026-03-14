@@ -11,8 +11,8 @@
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Validation of Algorithms for Parkinson's Disease Dementia">
-<meta name="description" content="This package is not intended for public use. The idea is to provide a documentation behind data analysis that serves as a backbone of the empirical part of the paper Mana et al. (under review)^[Will be updated once the manuscript is accepted for publication.]. Furthermore, if we are able to share some of the data in the future, we will use this package to document processes that can be used to reproduce our results (since sharing raw patients data is out of question due to privacy concerns, the pre-processing pipeline presented here will be functional only on data owner's computer at the First Faculty of Medicine, Charles University).">
-<meta property="og:description" content="This package is not intended for public use. The idea is to provide a documentation behind data analysis that serves as a backbone of the empirical part of the paper Mana et al. (under review)^[Will be updated once the manuscript is accepted for publication.]. Furthermore, if we are able to share some of the data in the future, we will use this package to document processes that can be used to reproduce our results (since sharing raw patients data is out of question due to privacy concerns, the pre-processing pipeline presented here will be functional only on data owner's computer at the First Faculty of Medicine, Charles University).">
+<meta name="description" content="This package is not intended for public use. The idea is to provide a documentation behind data analysis that serves as a backbone of the empirical part of the paper Mana et al. (under review)^[Will be updated once the manuscript is accepted for publication.].">
+<meta property="og:description" content="This package is not intended for public use. The idea is to provide a documentation behind data analysis that serves as a backbone of the empirical part of the paper Mana et al. (under review)^[Will be updated once the manuscript is accepted for publication.].">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">demcrit</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -98,6 +98,8 @@
 <blockquote>
 <p>Currently, <em>demcrit</em> is designed around the dataset used in our original study. As such, it primarily supports direct replications rather than general applications.</p>
 <p>If you find the approach useful and would like to adapt it for your data, feel free to reach out — we are happy to discuss possible extensions. We also welcome reports of bugs or mistakes you may encounter.</p>
+<p>At the moment, explanation and proper integration of the newest analysis (feature selection exploraton of screening indexes for comprehensive battery dementia classification) is on a to do. It was fully implemented into the targets pipeline and added to the manuscript, however, integrating it into the package documentation seems to be a bit cumbersome.</p>
+<p>If I ever get to it and have a good reason to do so, I may trasnform <em>demcrit</em> to a “proper” R package {demcritr}. Most likely not though.</p>
 </blockquote>
 </div>
 </div>
