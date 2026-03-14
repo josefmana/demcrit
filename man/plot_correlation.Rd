@@ -4,15 +4,18 @@
 \alias{plot_correlation}
 \title{Plot correlation matrixes}
 \usage{
-plot_correlation(corrs)
+plot_correlation(corrs_obs, corrs_opt = NULL)
 }
 \arguments{
-\item{corrs}{List with correlation matrixes.}
+\item{corrs_obs}{Observed correlation matrix.}
+
+\item{corrs_opt}{Ideal correlation matrix. If \code{NULL}, ontly the observed
+matrix will be plotted.}
 }
 \value{
 Plots the correlation matrixes from \code{corrs} side by side;
 with left (A) depicting observed correlations, right (B) depicting the
-"ideal" correlation matrix.
+"ideal" correlation matrix; or a single correlation matrix.
 }
 \description{
 Generates two correlation matrixes via \code{\link[corrplot:corrplot]{corrplot::corrplot()}} and plots

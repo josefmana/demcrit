@@ -66,7 +66,6 @@ compute_descriptives <- function(d0, vois) {
   })
 
   gtab <- demtab |>
-    dplyr::filter(!(group %in% c("Demographics", "Clinical"))) |>
     dplyr::mutate(
       variable = sapply(seq_along(variable), function(i) {
         paste0(

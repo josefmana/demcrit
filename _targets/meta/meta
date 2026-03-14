@@ -52,9 +52,15 @@ demographic_predictors|stem|158ab20790f09878|c325cbde824332f9|2844c9a32debebba|1
 prediction_models|stem|d9dea2baacb1b478|ac99436168b35056|a310712f6fa107f3|1257945564||t20525.0186162111s|s1458677693b|1458677693|rds|local|vector|||12169.128||
 index_correlations|stem|8954337582ddb53b|27764238a12dc860|097c39015781b288|-690659877||t20525.0187086492s|s1046b|1046|rds|local|vector|||0.166||
 scoring_rules|stem|095312c5149e7670|834e23a83ec4b9ab|bbc73def264100ed|-1760027804||t20525.018792793s|s760b|760|rds|local|vector|||1.326||
-posterior_prediction|stem|1f133e51c2c2aca5|7847c22af5e009b1|70eeefd6cd14ea65|1886805314||t20525.2852268734s|s220126425b|220126425|rds|local|vector|||0.101||
-compute_z_score|function|c7c17e8b542c349e
 grid_ppred|function|5271760a51577a86
+variables|stem|01352f5892a3af94|04a0725861e99ba4|2c530c1562a7fbd1|-1580994253|/Users/josefmana/Desktop/clinical psychology/demcrit/data-raw/VariablesOfInterest.csv|t20526.8250577842s|s2896b|2896|file|local|vector|||0||
+inputs_a9ab7d3f4d30279a|branch|01352f5892a3af94|36bdc44cf11ac220|2c530c1562a7fbd1|-425420009|/Users/josefmana/Desktop/clinical psychology/demcrit/data-raw/VariablesOfInterest.csv|t20526.8250577842s|s2896b|2896|file|local|vector|inputs||0||
+inputs|pattern|21a4361ddad4c732|36bdc44cf11ac220||-106948080||||2896|file|local|vector||inputs_15800603c23b11c8*inputs_cf162c805329d733*inputs_6e8c1a0fe5f9ba41*inputs_b164a9db85664a9e*inputs_a9ab7d3f4d30279a|0||
+raw_data_all|stem|92ac505e8c019e07|1b69f38707b7ad3d|053e8b49ae13de65|551349009||t20526.8254833835s|s35786b|35786|rds|local|vector|||1.895|One or more parsing issues, call `problems()` on your data frame for details, e.g.:   dat <- vroom(...)   problems(dat)|
+rate_summaries|stem|532d2d222037dc3f|5445afa5b3559adb|65a3f0c2d5eeb4e1|292778141||t20526.8254869666s|s237937b|237937|rds|local|vector|||0.213||
+sample_description|stem|8a19a67f1deda297|a385ccf0415246b0|03a1870a21f144fd|-1070305744||t20526.825489007s|s7226b|7226|rds|local|vector|||0.164||
+algorithms|stem|82d4248ffe27df0c|169ba396bc162d2a|21b3a5e214e76208|-384826494||t20526.8254894423s|s286b|286|rds|local|vector|||0||
+compute_z_score|function|c7c17e8b542c349e
 specify_algorithms|function|fbd5dc31e9aa3276
 do_summary|function|529787ca236a8350
 gt_apa_table|function|41c255f48bb79457
@@ -63,6 +69,7 @@ perform_varsel|function|caba9c6789fb4378
 make_dendrogram|function|c1e4e38ed4aeb4e5
 trim_data|function|a2d68d1ae86449db
 import_item_data|function|32331110f001620f
+grid_postpred|function|5271760a51577a86
 extract_coefficients|function|707e4a34240d8761
 compute_predictions|function|869a220782939876
 check_names|function|6696d370edb343c4
@@ -93,12 +100,6 @@ grid_models|function|34523e8f8c09976d
 diagnose_pdd_sample|function|969a2c86b6ff8eca
 run_scoring_rule_pipeline|function|95d17f40c3a03571
 prepare_data|function|8d59479ca3622c5d
-variables|stem|01352f5892a3af94|04a0725861e99ba4|2c530c1562a7fbd1|-1580994253|/Users/josefmana/Desktop/clinical psychology/demcrit/data-raw/VariablesOfInterest.csv|t20526.8250577842s|s2896b|2896|file|local|vector|||0||
-inputs_files|stem|d62c391a205a1ec9|f8d248d7fb1a5ff4|62d9faba18dc4fe4|-706827970||t20526.8254609604s|s181b|181|rds|local|vector||inputs_files_52335b838d0ed785*inputs_files_2504aa409c46ec47*inputs_files_c1e5e0442efca465*inputs_files_645117885257892b*inputs_files_81afb0cb4dd0b4df|0.014||
-inputs_a9ab7d3f4d30279a|branch|01352f5892a3af94|36bdc44cf11ac220|2c530c1562a7fbd1|-425420009|/Users/josefmana/Desktop/clinical psychology/demcrit/data-raw/VariablesOfInterest.csv|t20526.8250577842s|s2896b|2896|file|local|vector|inputs||0||
-inputs|pattern|21a4361ddad4c732|36bdc44cf11ac220||-106948080||||2896|file|local|vector||inputs_15800603c23b11c8*inputs_cf162c805329d733*inputs_6e8c1a0fe5f9ba41*inputs_b164a9db85664a9e*inputs_a9ab7d3f4d30279a|0||
-raw_data_all|stem|92ac505e8c019e07|1b69f38707b7ad3d|053e8b49ae13de65|551349009||t20526.8254833835s|s35786b|35786|rds|local|vector|||1.895|One or more parsing issues, call `problems()` on your data frame for details, e.g.:   dat <- vroom(...)   problems(dat)|
-rate_summaries|stem|532d2d222037dc3f|5445afa5b3559adb|65a3f0c2d5eeb4e1|292778141||t20526.8254869666s|s237937b|237937|rds|local|vector|||0.213||
-sample_description|stem|8a19a67f1deda297|a385ccf0415246b0|03a1870a21f144fd|-1070305744||t20526.825489007s|s7226b|7226|rds|local|vector|||0.164||
-algorithms|stem|82d4248ffe27df0c|169ba396bc162d2a|21b3a5e214e76208|-384826494||t20526.8254894423s|s286b|286|rds|local|vector|||0||
-manuscript|stem|8495ecd1133b9311|606ae1fff8e92810|f58e9e8ec334b2bb|-1793997187|_manuscript/manuscript.html*_manuscript/manuscript.qmd*_manuscript/manuscript_files|t20526.8257544711s|s8641197b|8641197|file|local|vector|||13.145|'cl.lim' is not a graphical parameter. 'cl.lim' is not a graphical parameter. 'cl.lim' is not a graphical parameter|
+inputs_files|stem|d62c391a205a1ec9|f8d248d7fb1a5ff4|62d9faba18dc4fe4|-706827970||t20526.9374233359s|s181b|181|rds|local|vector||inputs_files_52335b838d0ed785*inputs_files_2504aa409c46ec47*inputs_files_c1e5e0442efca465*inputs_files_645117885257892b*inputs_files_81afb0cb4dd0b4df|0.011||
+posterior_prediction|stem|729dbeb5398e44b4|83a3e40353a90ab5|05c7345805302cbf|1886805314||t20526.9376028717s|s220126429b|220126429|rds|local|vector|||0.1||
+manuscript|stem|c640a2b15081d418|606ae1fff8e92810|a84dad169b8ec56a|-1793997187|_manuscript/manuscript.html*_manuscript/manuscript.qmd*_manuscript/manuscript_files|t20526.9378433099s|s8642083b|8642083|file|local|vector|||13.079|'cl.lim' is not a graphical parameter. 'cl.lim' is not a graphical parameter. 'cl.lim' is not a graphical parameter|

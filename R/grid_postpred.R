@@ -16,7 +16,7 @@
 #' @returns \{ggplot2\} heatmap with estimates and `perc`% ETIs.
 #'
 #' @export
-grid_ppred <- function(
+grid_postpred <- function(
     mod,
     pgrid = NULL,
     scls = NULL,
@@ -67,15 +67,16 @@ grid_ppred <- function(
       b[[paste0("b_", v, "_scaled")]] * grid[[paste0(v, "_scaled")]]
   }
 
+  grid$linpred_mean <- mean(grid$linpred)
   grid$prob_PDD <- 1 / (1 + exp(-grid$linpred))
   grid$prob_mean <- mean(grid$prob_PDD)
   grid$prob_lo <- posterior::quantile2(grid$prob_PDD, (1 - perc) / 2)
   grid$prob_hi <- posterior::quantile2(grid$prob_PDD, 1 - ((1 - perc) / 2))
 
-  thr <- plogis(lt)
+  #thr <- plogis(lt)
   grid$prob_class <- cut(
-    grid$prob_mean,
-    breaks = c(-Inf, thr, Inf),
+    grid$linpred_mean,
+    breaks = c(-Inf, lt, Inf),
     labels = seq_along(cols),
     right = TRUE
   )

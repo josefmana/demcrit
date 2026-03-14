@@ -42,6 +42,6 @@ targets_prediction <- list(
 
   targets::tar_target(
     name = posterior_prediction,
-    command = grid_ppred(prediction_models$projection[[1]])
+    command = grid_postpred(prediction_models$projection[[1]])
   )
 )
