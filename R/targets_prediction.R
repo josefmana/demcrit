@@ -42,6 +42,11 @@ targets_prediction <- list(
 
   targets::tar_target(
     name = posterior_prediction,
-    command = grid_postpred(prediction_models$projection[[1]])
+    command = grid_postpred(
+      mod = prediction_models$projection[[1]],
+      cols = c("grey66", "black", "yellow3"),
+      pal = "inferno",
+      dir = -1
+    )
   )
 )

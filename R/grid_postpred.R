@@ -12,6 +12,9 @@
 #' @param lt Logit threshold(s) for declaring PDD.
 #' @param cols Text colours for separating PDD classification according to
 #'   thresholds in `lt`. Must be of length `length(lt) + 1`
+#' @param pal Colour pallete pushed to [ggplot2::scale_fill_viridis_c()].
+#' @param dir Which way should be `pal` scaled? Pushed to
+#'   [ggplot2::scale_fill_viridis_c()] as `direction`.
 #'
 #' @returns \{ggplot2\} heatmap with estimates and `perc`% ETIs.
 #'
@@ -22,7 +25,9 @@ grid_postpred <- function(
     scls = NULL,
     perc = .95,
     lt = c(-1.293350, -2.649892),
-    cols = c("grey80", "black", "red4")
+    cols = c("grey80", "black", "red4"),
+    pal = "viridis",
+    dir = 1
 ) {
 
   if (length(cols) != (length(lt) + 1)) {
@@ -102,6 +107,6 @@ grid_postpred <- function(
       show.legend = FALSE
     ) +
     ggplot2::scale_colour_manual(values = cols) +
-    ggplot2::scale_fill_viridis_c(name = "Pr(PDD)") +
+    ggplot2::scale_fill_viridis_c(name = "Pr(PDD)", option = pal, direction = dir) +
     ggplot2::theme_bw()
 }
