@@ -9,7 +9,7 @@ regression model, prints a prediction grid heatmap."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">demcrit</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,7 +53,9 @@ regression model, prints a prediction grid heatmap.</p>
 <span>  scls <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  perc <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>  lt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1.29335</span>, <span class="op">-</span><span class="fl">2.649892</span><span class="op">)</span>,</span>
-<span>  cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey80"</span>, <span class="st">"black"</span>, <span class="st">"red4"</span><span class="op">)</span></span>
+<span>  cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey80"</span>, <span class="st">"black"</span>, <span class="st">"red4"</span><span class="op">)</span>,</span>
+<span>  pal <span class="op">=</span> <span class="st">"viridis"</span>,</span>
+<span>  dir <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -86,6 +88,15 @@ interval \(ETI\).</p></dd>
 <dt id="arg-cols">cols<a class="anchor" aria-label="anchor" href="#arg-cols"></a></dt>
 <dd><p>Text colours for separating PDD classification according to
 thresholds in <code>lt</code>. Must be of length <code>length(lt) + 1</code></p></dd>
+
+
+<dt id="arg-pal">pal<a class="anchor" aria-label="anchor" href="#arg-pal"></a></dt>
+<dd><p>Colour pallete pushed to <code><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html" class="external-link">ggplot2::scale_fill_viridis_c()</a></code>.</p></dd>
+
+
+<dt id="arg-dir">dir<a class="anchor" aria-label="anchor" href="#arg-dir"></a></dt>
+<dd><p>Which way should be <code>pal</code> scaled? Pushed to
+<code><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html" class="external-link">ggplot2::scale_fill_viridis_c()</a></code> as <code>direction</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">

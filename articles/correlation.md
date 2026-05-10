@@ -3,6 +3,7 @@
 Code
 
 ``` r
+
 # Load packages needed for this report:
 library(demcrit)
 library(tidyverse) # dor data wrangling
@@ -48,6 +49,7 @@ observed data.
 Code
 
 ``` r
+
 # Simulation parameters:
 n <- 2000 # sample size high enough to get stable estimates
 k <- 2000 # enough iterations to see trends 
@@ -96,59 +98,71 @@ crits <- data.frame(
 
 To approximate the situation examined in the study, we simulate FAQ,
 MMSE and MoCA data from a common multivariate. In other words, each
-subject $i$ was assumed to have the following vector of latent scores:
+subject $`i`$ was assumed to have the following vector of latent scores:
 
-$$Y_{i} = \begin{bmatrix}
-{FAQ_{i}} \\
-{MMSE_{i}} \\
-{MoCA_{i}}
-\end{bmatrix} \sim {\mathcal{M}\mathcal{V}\mathcal{N}_{3}}({\mathbf{μ}},\mathbf{\Sigma})\qquad(1)$$
+``` math
+ Y_i = \begin{bmatrix} FAQ_i \\ MMSE_i \\ MoCA_i \end{bmatrix} \sim \mathcal{MVN_3}(\boldsymbol{\mu}, \boldsymbol{\Sigma})
+ \qquad(1)
+```
 
-where $\mathbf{μ}$ denotes the vector of means and $\mathbf{\Sigma}$ the
-variance–covariance matrix. Across all simulations, the vector of means
-was fixed based on observed data (see [Table 1](#tbl-data)):
+where $`\boldsymbol\mu`$ denotes the vector of means and
+$`\boldsymbol\Sigma`$ the variance–covariance matrix. Across all
+simulations, the vector of means was fixed based on observed data (see
+[Table 1](#tbl-data)):
 
-$${\mathbf{μ}} = \begin{bmatrix}
-4.05 \\
-26.69 \\
-24.07
-\end{bmatrix}\qquad(2)$$
+``` math
+\boldsymbol\mu = \begin{bmatrix} 4.05 \\ 26.69 \\ 24.07 \end{bmatrix}
+ \qquad(2)
+```
 
 Two different specification of the variance-covariance matrix were used.
 The first, based on observed data ([Table 1](#tbl-data)), represents the
 **correlated** scenario:
 
-$$\mathbf{\Sigma}_{corr} = \begin{bmatrix}
-23.91 & {-2.28} & {-4.59} \\
-{-2.28} & 4.93 & 4.87 \\
-{-4.59} & 4.87 & 24.07
-\end{bmatrix}\qquad(3)$$
+``` math
+\boldsymbol\Sigma_{corr} =
+  \begin{bmatrix} 23.91 & -2.28 & -4.59 \\
+                  -2.28 &  4.93 & 4.87  \\
+                  -4.59 &  4.87 & 24.07
+  \end{bmatrix}
+ \qquad(3)
+```
 
 To simulate the **independent** scenario, covariance between FAQ and
 MMSE/MoCA was set to zero, yielding:
 
-$$\mathbf{\Sigma}_{indep} = \begin{bmatrix}
-23.91 & 0 & 0 \\
-0 & 4.93 & 4.87 \\
-0 & 4.87 & 24.07
-\end{bmatrix}\qquad(4)$$
+``` math
+\boldsymbol\Sigma_{indep} =
+  \begin{bmatrix} 23.91 &  0    & 0    \\
+                   0    &  4.93 & 4.87  \\
+                   0    &  4.87 & 24.07
+  \end{bmatrix}
+ \qquad(4)
+```
 
 ### FAQ item 9
 
-To simulate data for FAQ item 9, we assumed $\mathbf{τ}$**-equivalence**
-of FAQ (i.e., that all items share the same true score, cf.
-Trizano-Hermosilla and Alvarado ([2016](#ref-trizano-hermosilla2016))).
-We then applied probit link to the FAQ total score of each simulated
-patient to obtain the probability of a positive response to any item:
+To simulate data for FAQ item 9, we assumed
+$`\boldsymbol{\tau}`$**-equivalence** of FAQ (i.e., that all items share
+the same true score, cf. Trizano-Hermosilla and Alvarado
+([2016](#ref-trizano-hermosilla2016))). We then applied probit link to
+the FAQ total score of each simulated patient to obtain the probability
+of a positive response to any item:
 
-$$p_{i} = \phi\left( z_{i} \right)\qquad(5)$$
+``` math
+p_i = \phi(z_i)
+ \qquad(5)
+```
 
-where $\phi(\cdot)$ is the standard normal cumulative distribution
-function and $z_{i}$ is the standardised FAQ score for simulated patient
-$i$. The observed FAQ item 9 score was subsequently drawn from a
+where $`\phi(\cdot)`$ is the standard normal cumulative distribution
+function and $`z_i`$ is the standardised FAQ score for simulated patient
+$`i`$. The observed FAQ item 9 score was subsequently drawn from a
 binomial distribution via:
 
-$$\text{FAQ item 9}_{i} \sim {\mathcal{B}{\mathcal{i}}{\mathcal{n}}{\mathcal{o}}{\mathcal{m}}{\mathcal{i}}{\mathcal{a}}{\mathcal{l}}}\left( n = 4,p_{i} \right)\qquad(6)$$
+``` math
+\text{FAQ item 9}_i \sim \mathcal{Binomial}(n = 4, p_i)
+ \qquad(6)
+```
 
 If the simulated FAQ item 9 score exceeded the corresponding simulated
 FAQ total score, it was set at zero. Finally, all simulated FAQ total,
@@ -161,14 +175,17 @@ After generating the data using the process described above, each
 simulated patient was classified as suffering from PDD (or not)
 according to all of the following four algorithms:
 
-$$\begin{aligned}
-{A1_{i}} & {= \mathbb{1}\{\text{FAQ}_{i} > 7\  \land \ \text{MMSE}_{i} < 26\},} \\
-{A2_{i}} & {= \mathbb{1}\{\text{FAQ item 9}_{i} > 1\  \land \ \text{MMSE}_{i} < 26\},} \\
-{A3_{i}} & {= \mathbb{1}\{\text{FAQ}_{i} > 7\  \land \ \text{MoCA}_{i} < 26\},} \\
-{A4_{i}} & {= \mathbb{1}\{\text{FAQ item 9}_{i} > 1\  \land \ \text{MoCA}_{i} < 26\}}
-\end{aligned}\qquad(7)$$
+``` math
+\begin{aligned}
+  A1_i &= \mathbb{1}\{\text{FAQ}_i > 7 \ \wedge\ \text{MMSE}_i < 26\}, \\
+  A2_i &= \mathbb{1}\{\text{FAQ item 9}_i > 1 \ \wedge\ \text{MMSE}_i < 26\}, \\
+  A3_i &= \mathbb{1}\{\text{FAQ}_i > 7 \ \wedge\ \text{MoCA}_i < 26\}, \\
+  A4_i &= \mathbb{1}\{\text{FAQ item 9}_i > 1 \ \wedge\ \text{MoCA}_i < 26\}
+\end{aligned}
+ \qquad(7)
+```
 
-where $\mathbb{1}\{\cdot\}$ denotes the indicator function. In other
+where $`\mathbb{1}\{\cdot\}`$ denotes the indicator function. In other
 words, simulated cases fulfilling both conditions in parentheses were
 classified as having PDD (PDD = 1); all others were classified as
 non-PDD (PDD = 0).
@@ -182,9 +199,9 @@ variable** in this experiment was presence versus absence of correlation
 between FAQ and cognitive scores. Accordingly, the simulation was
 conducted under two conditions:
 
-- **Independent** scenario using $\mathbf{\Sigma}_{indep}$
+- **Independent** scenario using $`\boldsymbol\Sigma_{indep}`$
   ([Equation 4](#eq-sigma-indep)),
-- **Correlated** scenario using $\mathbf{\Sigma}_{corr}$
+- **Correlated** scenario using $`\boldsymbol\Sigma_{corr}`$
   ([Equation 3](#eq-sigma-corr)).
 
 All other simulation parameters (i.e., the number of participants, the
@@ -196,6 +213,7 @@ covariance between MMSE and MoCA) were held constant across conditions.
 Code
 
 ``` r
+
 # Function for comparing two algorithms within the same scenario:
 compare_algos <- function(dat, a1, a2) {
   x <- dat[[a1]]
@@ -249,7 +267,7 @@ computed within each scenario (i.e., independent and correlated):
 - **PDD rate** for each algorithm,
 - **accuracy** for each pair of algorithms,
 - **balanced accuracy** for each pair of algorithms,
-- **Cohen’s** $\mathbf{κ}$ for each pair of algorithms.
+- **Cohen’s** $`\boldsymbol\kappa`$ for each pair of algorithms.
 
 This procedure was repeated for 2000 iterations. Subsequently, the
 distributions of PDD rates and concordance measures were compared
@@ -263,6 +281,7 @@ algorithm.
 Code
 
 ``` r
+
 # Calculate all results:
 res <- lapply(seq_len(k), function(i) {
   d0 <- simulate_pdd_data(n, FALSE, mu, sigma_indep, crits, cens) |> # independent scenario
@@ -317,11 +336,11 @@ stats_conc <- map_dfr(c("Accuracy", "BalAcc", "Kappa"), function(y) {
 })
 ```
 
-The expected values (denoted $E(\cdot)$) and the differences between the
-independent and correlated scenarios in PDD rates, accuracy, balanced
-accuracy and Cohen’s $\kappa$ are presented in [Table 2](#tbl-rates),
-[Table 3](#tbl-acc), [Table 4](#tbl-balacc), and [Table 5](#tbl-kappa),
-respectively.
+The expected values (denoted $`E(\cdot)`$) and the differences between
+the independent and correlated scenarios in PDD rates, accuracy,
+balanced accuracy and Cohen’s $`\kappa`$ are presented in
+[Table 2](#tbl-rates), [Table 3](#tbl-acc), [Table 4](#tbl-balacc), and
+[Table 5](#tbl-kappa), respectively.
 
 Across all algorithms, the **correlated** scenario generated **higher
 PDD rates** than the independent scenario, with differences of
@@ -370,10 +389,10 @@ Table 4: Expectations of balanced accuracy estimates and differences
 between the independent and correlated scenarios based on independent
 sample t-tests.
 
-Lastly, Cohen’s $\kappa$ showed the clearest and most consistent pattern
-of results ([Table 5](#tbl-kappa)). In all cases, the **correlated**
-scenario yielded **higher** $\kappa$ values than the independent one,
-with differences ranging from 0.014 to 0.069.
+Lastly, Cohen’s $`\kappa`$ showed the clearest and most consistent
+pattern of results ([Table 5](#tbl-kappa)). In all cases, the
+**correlated** scenario yielded **higher** $`\kappa`$ values than the
+independent one, with differences ranging from 0.012 to 0.068.
 
 [TABLE]
 
@@ -395,12 +414,12 @@ t-tests.
 >   diverges from the independent one in more **nuanced** ways, yielding
 >   **higher** estimates in some comparisons and **lower** in others,
 > - relative to the independent scenario, the **correlated** scenario
->   tends to **slightly overestimate** Cohen’s $\kappa$ to a small
->   degree[¹](#fn1), and
+>   tends to **slightly overestimate** Cohen’s $`\kappa`$ to a small
+>   degree[^1], and
 > - overall, the differences between the **correlated** and
 >   **independent** scenarios are likely to be **small in magnitude**,
 >   unless higher correlations between diagnostic criteria are
->   introduced in the data-generating process.[²](#fn2)
+>   introduced in the data-generating process.[^2]
 
 McHugh, Marry L. 2012. “Interrater Reliability: The Kappa Statistic.”
 *Biochemia Medica*, 276–82. <https://doi.org/10.11613/bm.2012.031>.
@@ -410,16 +429,14 @@ Alternatives to Cronbach’s Alpha Reliability in Realistic Conditions:
 Congeneric and Asymmetrical Measurements.” *Frontiers in Psychology* 7
 (May). <https://doi.org/10.3389/fpsyg.2016.00769>.
 
-------------------------------------------------------------------------
-
-1.  Following the reference in the main text ([McHugh
+[^1]: Following the reference in the main text ([McHugh
     2012](#ref-mchugh2012)), a qualitative shift in the interpretation
-    of Cohen’s $\kappa$ would require a difference of approximately 0.2,
-    more than twice the largest difference observed in this simulation
-    study.
+    of Cohen’s $`\kappa`$ would require a difference of approximately
+    0.2, more than twice the largest difference observed in this
+    simulation study.
 
-2.  Although this simulation employed a correlation matrix based on our
-    empirical data, the code can be easily modified to generate data
+[^2]: Although this simulation employed a correlation matrix based on
+    our empirical data, the code can be easily modified to generate data
     with stronger correlations, which would, in turn, produce larger
     differences between scenarios. For brevity, we leave this
     exploration to the reader.

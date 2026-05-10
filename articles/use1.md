@@ -20,6 +20,7 @@ Load the package if you wish to access the documentation directly in
 RStudio:
 
 ``` r
+
 library(demcrit)
 ```
 
@@ -29,6 +30,7 @@ of your choice (here referred to as `studyfolder`), and install the
 necessary dependencies:
 
 ``` r
+
 devtools::install_deps()
 ```
 
@@ -43,6 +45,7 @@ function, which **checks for missing files** and **naming
 inconsistencies**:
 
 ``` r
+
 help("data_paths")
 ```
 
@@ -50,6 +53,7 @@ Additional functions help prevent data-entry errors or structural
 inconsistencies before analysis:
 
 ``` r
+
 help("check_compatibility") # Looks for incompatibilities between raw item data specific for this project and REDCap data from a larger database.
 help("check_names") # Looks for inconsistencies in patients names in the raw item data compare to REDCap databes.
 help("check_ranges") # Looks for impossible test scores.
@@ -64,6 +68,7 @@ Finally, make sure that the
 You can then run the full pipeline (including manuscript writing) via:
 
 ``` r
+
 #install.packages("targets")
 #install.packages("tarchetypes")
 targets::tar_make()
@@ -72,6 +77,7 @@ targets::tar_make()
 To visualize the workflow, use:
 
 ``` r
+
 targets::tar_visnetwork() # full workflow
 targets::tar_glimpse() # simplified workflow (targets only)
 ```

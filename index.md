@@ -14,28 +14,12 @@ is to:
 To install a local instance of the package, run:
 
 ``` r
+
 # If you do not have the devtools package,
 # install it by uncommenting the following line:
 #install.packages(devtools)
+devtools::install_deps()
 devtools::install_github("josefmana/demcrit")
-```
-
-## Reproducibility
-
-To ensure full reproducibility of the results, it is important to use
-the same package versions that were originally used to generate them in
-the first place. The *demcrit* package manages its package dependencies
-through [renv](https://pkgs.rstudio.com/renv/index.html).
-
-If full reproducibility is your goal, before proceeding, please run the
-following code to restore the package environment exactly as used in the
-original analysis:
-
-``` r
-# If you do not have the renv package,
-# install it by uncommenting the following line:
-#install.packages("renv", version = "1.1.4")
-renv::restore()
 ```
 
 ## How to Use

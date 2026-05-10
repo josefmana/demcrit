@@ -12,7 +12,9 @@ grid_postpred(
   scls = NULL,
   perc = 0.95,
   lt = c(-1.29335, -2.649892),
-  cols = c("grey80", "black", "red4")
+  cols = c("grey80", "black", "red4"),
+  pal = "viridis",
+  dir = 1
 )
 ```
 
@@ -44,6 +46,17 @@ grid_postpred(
 
   Text colours for separating PDD classification according to thresholds
   in `lt`. Must be of length `length(lt) + 1`
+
+- pal:
+
+  Colour pallete pushed to
+  [`ggplot2::scale_fill_viridis_c()`](https://ggplot2.tidyverse.org/reference/scale_viridis.html).
+
+- dir:
+
+  Which way should be `pal` scaled? Pushed to
+  [`ggplot2::scale_fill_viridis_c()`](https://ggplot2.tidyverse.org/reference/scale_viridis.html)
+  as `direction`.
 
 ## Value
 

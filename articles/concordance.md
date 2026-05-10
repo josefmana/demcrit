@@ -12,6 +12,7 @@ instance of the [demcrit](https://github.com/josefmana/demcrit.git) R
 package:
 
 ``` r
+
 # If you do not have the devtools package,
 # install it by uncommenting the following line:
 #install.packages(devtools)
@@ -26,6 +27,7 @@ the package is already loaded) and reads the concordance data into the
 object `concords`:
 
 ``` r
+
 library(demcrit)
 data("concords")
 ```
@@ -33,6 +35,7 @@ data("concords")
 You can find a detailed description of the dataset in its documentation:
 
 ``` r
+
 help("concords")
 ```
 
@@ -47,6 +50,7 @@ pairwise comparisons where algorithm `"Lvl.II (1)"` served as the
 reference:
 
 ``` r
+
 library(tidyverse) # load the package
 
 # Extract the subdata:
@@ -59,6 +63,7 @@ which contains algorithm specifications and estimated rates of probable
 PDD in the sample:
 
 ``` r
+
 data("rates")
 help("rates")
 ```
@@ -70,6 +75,7 @@ resulting data can then be sorted, for example, by the predictor’s
 specificity (from highest to lowest):
 
 ``` r
+
 # Extract operationalisation of IADL deficit
 # used by the "Lvl.II (1)" algorithm:
 IADL_oper <- subset(rates, type == "Lvl.II (1)")$IADL
@@ -91,6 +97,7 @@ software. The following examples use the `readr` and `writexl` packages,
 though any preferred method can be used:
 
 ``` r
+
 # Export to CSV:
 readr::write_csv(concords, "demcrit_concordance_stats.csv")
 

@@ -15,6 +15,7 @@ for installation instructions.
 Start by loading the required packages:
 
 ``` r
+
 library(demcrit)
 library(gt) # for nicely formatted tables
 library(tidyverse) |> suppressPackageStartupMessages() # For data wrangling
@@ -26,6 +27,7 @@ Because the original dataset cannot be shared, we will simulate a
 similar dataset using built-in functions:
 
 ``` r
+
 set.seed(87542) # for reproducibility
 data <- simulate_pdd_data()
 ```
@@ -33,6 +35,7 @@ data <- simulate_pdd_data()
 You can inspect the default parameters used in this simulation via:
 
 ``` r
+
 prepare_defaults()
 #> $Mu
 #>   FAQ  MMSE  MoCA sMoCA 
@@ -88,6 +91,7 @@ Key variables include:
 For more details about how the data are generated, see:
 
 ``` r
+
 help("simulate_pdd_data") # details on the data generation algorithm
 help("prepare_defaults") # details on parameter defaults
 ```
@@ -100,6 +104,7 @@ diagnostic algorithms and variable mappings. Then, we pass these to the
 function:
 
 ``` r
+
 # Extract default parameters:
 pars <- prepare_defaults()
 
@@ -157,12 +162,14 @@ Table 1: An example table showing simulated PDD rates.
 Next, we can compute pairwise concordance statistics across algorithms:
 
 ``` r
+
 concs <- describe_concordance(list(PDD = data, algorithms = algos))
 ```
 
 For details about the resulting object, see:
 
 ``` r
+
 help("describe_concordance")
 help("concords") # describes the concordance statistics table
 ```
@@ -193,6 +200,7 @@ such example, with algorithms sorted by raw accuracy in predicting *MoCA
 (1)*.
 
 ``` r
+
 tab2 <- concs$table |>
   filter(reference == "MoCA (1)") |>
   filter(reference != predictor) |>
