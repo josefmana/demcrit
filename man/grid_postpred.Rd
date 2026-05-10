@@ -10,7 +10,9 @@ grid_postpred(
   scls = NULL,
   perc = 0.95,
   lt = c(-1.29335, -2.649892),
-  cols = c("grey80", "black", "red4")
+  cols = c("grey80", "black", "red4"),
+  pal = "viridis",
+  dir = 1
 )
 }
 \arguments{
@@ -28,6 +30,11 @@ interval \(ETI\).}
 
 \item{cols}{Text colours for separating PDD classification according to
 thresholds in \code{lt}. Must be of length \code{length(lt) + 1}}
+
+\item{pal}{Colour pallete pushed to \code{\link[ggplot2:scale_viridis]{ggplot2::scale_fill_viridis_c()}}.}
+
+\item{dir}{Which way should be \code{pal} scaled? Pushed to
+\code{\link[ggplot2:scale_viridis]{ggplot2::scale_fill_viridis_c()}} as \code{direction}.}
 }
 \value{
 \{ggplot2\} heatmap with estimates and \code{perc}\% ETIs.
