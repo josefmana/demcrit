@@ -44,6 +44,12 @@ import_item_data <- function(path) {
         labels = c("right", "left"),
         ordered = FALSE
       ),
+      type_pd = factor(
+        type_pd,
+        levels = 1:3,
+        labels = c("tremor-dominant", "akinetic-rigid", "axial"),
+        ordered = FALSE
+      ),
       dplyr::across(tidyselect::ends_with("name"), \(x) janitor::make_clean_names(x, allow_dupes = TRUE)),
       dplyr::across(tidyselect::all_of(c("assdate", "birth")), \(x) as.Date(x, tryFormats = "%d.%m.%Y")),
       incl = 1 # As a baseline, include everyone
