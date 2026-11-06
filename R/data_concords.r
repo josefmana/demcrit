@@ -2,8 +2,13 @@
 #'
 #' A comprehensive table containing all pairwise comparisons between 68
 #' diagnostic algorithms for Parkinson’s Disease Dementia (PDD) evaluated in
-#' the study. The table serves as the basis for Figures 2, A3, A4, and A5, as
+#' the study. The table serves as the basis for Figures 2, A7, A8, and A9, as
 #' well as for other summary results presented throughout the article.
+#'
+#' Since demcrit v2.0.0, all statistics are computed on the 190 complete cases
+#' described in the article (column `N`), and MoCA-based algorithms apply the
+#' global criterion MoCA < 27. The values printed in the article are available
+#' as \link{concords_published}; see `vignette("corrections")`.
 #'
 #' Each algorithm is used once as a reference and once as a predictor, meaning
 #' that each algorithm pair appears twice. Some metrics, such as Cohen’s kappa,
@@ -15,6 +20,7 @@
 #'   metrics.
 #' * [caret::confusionMatrix()] computes and documents the remaining metrics.
 #' * \link{rates} contains definitions of each algorithm.
+#' * \link{concords_published} contains the values printed in the article.
 #'
 #' @format
 #' A tibble with 4,624 rows and 21 columns:

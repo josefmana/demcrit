@@ -5,7 +5,7 @@
 \alias{concords}
 \title{Table of Pairwise Concordance Measures}
 \format{
-A tibble with 7,744 rows and 21 columns:
+A tibble with 4,624 rows and 21 columns:
 \describe{
 \item{predictor}{Character; name of the algorithm used as a predictor.}
 \item{reference}{Character; name of the algorithm used as a reference.}
@@ -43,10 +43,15 @@ concords
 \description{
 A comprehensive table containing all pairwise comparisons between 68
 diagnostic algorithms for Parkinson’s Disease Dementia (PDD) evaluated in
-the study. The table serves as the basis for Figures 2, A3, A4, and A5, as
+the study. The table serves as the basis for Figures 2, A7, A8, and A9, as
 well as for other summary results presented throughout the article.
 }
 \details{
+Since demcrit v2.0.0, all statistics are computed on the 190 complete cases
+described in the article (column \code{N}), and MoCA-based algorithms apply the
+global criterion MoCA < 27. The values printed in the article are available
+as \link{concords_published}; see \code{vignette("corrections")}.
+
 Each algorithm is used once as a reference and once as a predictor, meaning
 that each algorithm pair appears twice. Some metrics, such as Cohen’s kappa,
 are symmetrical, whereas others (e.g., accuracy, sensitivity, or specificity)
@@ -58,6 +63,7 @@ are not.
 metrics.
 \item \code{\link[caret:confusionMatrix]{caret::confusionMatrix()}} computes and documents the remaining metrics.
 \item \link{rates} contains definitions of each algorithm.
+\item \link{concords_published} contains the values printed in the article.
 }
 }
 \keyword{datasets}
