@@ -17,7 +17,7 @@
 #' * \link{rates} contains definitions of each algorithm.
 #'
 #' @format
-#' A tibble with 7,744 rows and 21 columns:
+#' A tibble with 4,624 rows and 21 columns:
 #' \describe{
 #'   \item{predictor}{Character; name of the algorithm used as a predictor.}
 #'   \item{reference}{Character; name of the algorithm used as a reference.}

@@ -5,7 +5,13 @@
 #' operationalisations of IADL deficit, global cognitive deficit and cognitive
 #' impairment according to monitored domains.
 #'
-#' @seealso \link{concords} for data containing pairwise concordance statistics.
+#' Since demcrit v2.0.0, MoCA-based algorithms apply the global criterion
+#' MoCA < 27, as stated in Table 1 of the article. The values printed in the
+#' article are available as \link{rates_published}; see `vignette("corrections")`.
+#'
+#' @seealso
+#' * \link{concords} for data containing pairwise concordance statistics.
+#' * \link{rates_published} for the values printed in the article.
 #'
 #' @format
 #' A tibble with 68 rows and 11 columns:

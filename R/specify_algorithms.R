@@ -40,7 +40,7 @@ specify_algorithms <- function() {
     tidyr::crossing(
       group = "moca",
       glob = "moca_total",
-      glob_t = 26,
+      glob_t = 27,
       atte = "moca_7",
       atte_t = 3,
       exec = c("moca_cloc", "vf_k"),

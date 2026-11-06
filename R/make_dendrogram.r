@@ -132,8 +132,8 @@ make_dendrogram <- function(tab, top) {
       name == "Lvl.II (2)" ~ xcoords$Lvl.II[2],
       grepl("FAQ > 7.NA", name) ~ xcoords$Lvl.II[1],
       grepl("FAQ 9 > 1.NA", name) ~ xcoords$Lvl.II[2],
-      name == "FAQ > 7" ~ x[name == "FAQ > 7.MoCA < 26"],
-      name == "FAQ 9 > 1" ~ x[name == "FAQ 9 > 1.MoCA < 26"],
+      name == "FAQ > 7" ~ x[name == "FAQ > 7.MoCA < 27"],
+      name == "FAQ 9 > 1" ~ x[name == "FAQ 9 > 1.MoCA < 27"],
       .default = x
     ),
     group = stringr::str_extract(layout$name, "[^ (]+")
