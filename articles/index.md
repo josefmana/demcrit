@@ -4,6 +4,8 @@
 
 - [Accessing Concordance
   Statistics](https://josefmana.github.io/demcrit/articles/concordance.md):
+- [Corrections to Mana et al.
+  (2026)](https://josefmana.github.io/demcrit/articles/corrections.md):
 - [Impact of Correlation on
   Concordance](https://josefmana.github.io/demcrit/articles/correlation.md):
 - [Use \#1: Targets

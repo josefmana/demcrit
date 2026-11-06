@@ -1,12 +1,13 @@
 pandoc: 3.8.3
-pkgdown: 2.2.0
+pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
   concordance: concordance.html
+  corrections: corrections.html
   correlation: correlation.html
   use1: use1.html
   use2: use2.html
-last_built: 2026-05-10T09:05Z
+last_built: 2026-11-06T10:18Z
 urls:
   reference: https://josefmana.github.io/demcrit/reference
   article: https://josefmana.github.io/demcrit/articles

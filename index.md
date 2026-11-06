@@ -1,5 +1,13 @@
 # Validation of Algorithms for PDD
 
+> **Correction (v2.0.0).** Two errors were found after publication of
+> Mana et al. ([2026](https://doi.org/10.1177/1877718X261450361)): the
+> MoCA threshold applied by the code, and the handling of missing data
+> in the exported concordance table. None of the conclusions change.
+> Corrected values and a list of every affected result are in the
+> [Corrections](https://josefmana.github.io/demcrit/articles/corrections.html)
+> article. Version 1.2.0 reproduces the article as printed.
+
 This package is **not** intended for broad public use. Its main purpose
 is to:
 

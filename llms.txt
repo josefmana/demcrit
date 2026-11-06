@@ -1,5 +1,13 @@
 # Validation of Algorithms for PDD
 
+> **Correction (v2.0.0).** Two errors were found after publication of
+> Mana et al. ([2026](https://doi.org/10.1177/1877718X261450361)): the
+> MoCA threshold applied by the code, and the handling of missing data
+> in the exported concordance table. None of the conclusions change.
+> Corrected values and a list of every affected result are in the
+> [Corrections](https://josefmana.github.io/demcrit/articles/corrections.html)
+> article. Version 1.2.0 reproduces the article as printed.
+
 This package is **not** intended for broad public use. Its main purpose
 is to:
 
@@ -81,6 +89,8 @@ own vignette):
   : Compute Regression z-scores
 - [`concords`](https://josefmana.github.io/demcrit/reference/concords.md)
   : Table of Pairwise Concordance Measures
+- [`concords_published`](https://josefmana.github.io/demcrit/reference/concords_published.md)
+  : Published Table of Pairwise Concordance Measures (v1.2.0)
 - [`correlate_indexes()`](https://josefmana.github.io/demcrit/reference/correlate_indexes.md)
   : Compute correlation between test indexes
 - [`data_paths()`](https://josefmana.github.io/demcrit/reference/data_paths.md)
@@ -125,6 +135,8 @@ own vignette):
   : Prepare Defaults for Data Simulation
 - [`rates`](https://josefmana.github.io/demcrit/reference/rates.md) :
   Algorithm Specifications and PDD Rates
+- [`rates_published`](https://josefmana.github.io/demcrit/reference/rates_published.md)
+  : Published Algorithm Specifications and PDD Rates (v1.2.0)
 - [`regress_pdd_on_demographics()`](https://josefmana.github.io/demcrit/reference/regress_pdd_on_demographics.md)
   : Regress PDD via Logistic Regression
 - [`run_roc()`](https://josefmana.github.io/demcrit/reference/run_roc.md)
@@ -156,6 +168,8 @@ own vignette):
 
 - [Accessing Concordance
   Statistics](https://josefmana.github.io/demcrit/articles/concordance.md):
+- [Corrections to Mana et al.
+  (2026)](https://josefmana.github.io/demcrit/articles/corrections.md):
 - [Impact of Correlation on
   Concordance](https://josefmana.github.io/demcrit/articles/correlation.md):
 - [Use \#1: Targets

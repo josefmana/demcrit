@@ -18,6 +18,8 @@
   : Compute Regression z-scores
 - [`concords`](https://josefmana.github.io/demcrit/reference/concords.md)
   : Table of Pairwise Concordance Measures
+- [`concords_published`](https://josefmana.github.io/demcrit/reference/concords_published.md)
+  : Published Table of Pairwise Concordance Measures (v1.2.0)
 - [`correlate_indexes()`](https://josefmana.github.io/demcrit/reference/correlate_indexes.md)
   : Compute correlation between test indexes
 - [`data_paths()`](https://josefmana.github.io/demcrit/reference/data_paths.md)
@@ -62,6 +64,8 @@
   : Prepare Defaults for Data Simulation
 - [`rates`](https://josefmana.github.io/demcrit/reference/rates.md) :
   Algorithm Specifications and PDD Rates
+- [`rates_published`](https://josefmana.github.io/demcrit/reference/rates_published.md)
+  : Published Algorithm Specifications and PDD Rates (v1.2.0)
 - [`regress_pdd_on_demographics()`](https://josefmana.github.io/demcrit/reference/regress_pdd_on_demographics.md)
   : Regress PDD via Logistic Regression
 - [`run_roc()`](https://josefmana.github.io/demcrit/reference/run_roc.md)

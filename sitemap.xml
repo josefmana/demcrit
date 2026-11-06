@@ -3,12 +3,14 @@
 <url><loc>https://josefmana.github.io/demcrit/LICENSE-text.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/LICENSE.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/articles/concordance.html</loc></url>
+<url><loc>https://josefmana.github.io/demcrit/articles/corrections.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/articles/correlation.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/articles/index.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/articles/use1.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/articles/use2.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/authors.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/index.html</loc></url>
+<url><loc>https://josefmana.github.io/demcrit/news/index.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/reference/assign_cognitive_impairment.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/reference/check_compatibility.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/reference/check_names.html</loc></url>
@@ -17,6 +19,7 @@
 <url><loc>https://josefmana.github.io/demcrit/reference/compute_predictions.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/reference/compute_z_score.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/reference/concords.html</loc></url>
+<url><loc>https://josefmana.github.io/demcrit/reference/concords_published.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/reference/correlate_indexes.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/reference/data_paths.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/reference/derive_scoring_rule.html</loc></url>
@@ -40,6 +43,7 @@
 <url><loc>https://josefmana.github.io/demcrit/reference/prepare_data.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/reference/prepare_defaults.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/reference/rates.html</loc></url>
+<url><loc>https://josefmana.github.io/demcrit/reference/rates_published.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/reference/regress_pdd_on_demographics.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/reference/run_roc.html</loc></url>
 <url><loc>https://josefmana.github.io/demcrit/reference/run_scoring_rule_pipeline.html</loc></url>

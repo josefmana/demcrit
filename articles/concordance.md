@@ -4,6 +4,13 @@
 > statistical results for all concordance indexes from pairwise
 > comparisons of algorithms for *Parkinson’s Disease Dementia (PDD)*
 > discussed in the source article.
+>
+> Since version 2.0.0, these statistics are computed on the 190 complete
+> cases described in the article and with the MoCA threshold stated in
+> the article. The values printed in the article are available as
+> `concords_published`. See the
+> [Corrections](https://josefmana.github.io/demcrit/articles/corrections.md)
+> article for details.
 
 ## Set-up
 
