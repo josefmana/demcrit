@@ -392,7 +392,7 @@ sample t-tests.
 Lastly, Cohen’s $`\kappa`$ showed the clearest and most consistent
 pattern of results ([Table 5](#tbl-kappa)). In all cases, the
 **correlated** scenario yielded **higher** $`\kappa`$ values than the
-independent one, with differences ranging from 0.014 to 0.069.
+independent one, with differences ranging from 0.013 to 0.069.
 
 [TABLE]
 
