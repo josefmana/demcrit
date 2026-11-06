@@ -75,7 +75,7 @@ author:
       - id: "1FM"
         name: "First Faculty of Medicine and General University Hospital in Prague, Charles University, Czech Republic"
         department: "Department of Neurology and Centre of Clinical Neuroscience"
-abstract: "Background: Significant number of patients with Parkinson’s disease (PD) gradually progress to Parkinson’s disease dementia (PDD). Recent proposal for updating current diagnostic criteria for PDD recommends alternative screening tests and broader functional assessments. Objective: To evaluate the diagnostic concordance among algorithms for PDD based on Level I (i.e., screening) criteria and to assess their predictive validity for Level II (i.e., neuropsychological battery) diagnosis. Methods: A cross-sectional retrospective analysis of 190 patients with PD who underwent a comprehensive neuropsychological assessment. A total of 68 diagnostic algorithms were operationalized using combinations of scores derived from the Mini-Mental State Examination (MMSE) and the Montreal Cognitive Assessment (MoCA). Functional impairment was based either on the Functional Assessment Questionnaire (FAQ) item 9 or the FAQ total score. Diagnostic concordance was evaluated using Cohen’s κ. Predictive validity for Level II classification was assessed using projection predictive variable selection. Results: Estimated PDD rates ranged from 2.1% up to 16.8%. Concordance was moderate to high among algorithms using the same functional impairment definition (κ = 0.75, κ = 0.86) but substantially lower when functional impairment definitions differed (κ = 0.43). A parsimonious screening model combining MoCA Five Words and MMSE Sevens adequately approximated Level II classification and yielded a prevalence-adjustable heuristic decision rule. Conclusions: Diagnostic outcomes for PDD are sensitive to the choice of cognitive and functional instruments suggesting that different algorithms may capture partially distinct constructs. Minimal screening using selected items can approximate Level II PDD diagnosis, but this simplification entails a trade-off between sensitivity and specificity."
+abstract: "Background: Significant number of patients with Parkinson’s disease (PD) gradually progress to Parkinson’s disease dementia (PDD). Recent proposal for updating current diagnostic criteria for PDD recommends alternative screening tests and broader functional assessments. Objective: To evaluate the diagnostic concordance among algorithms for PDD based on Level I (i.e., screening) criteria and to assess their predictive validity for Level II (i.e., neuropsychological battery) diagnosis. Methods: A cross-sectional retrospective analysis of 190 patients with PD who underwent a comprehensive neuropsychological assessment. A total of 68 diagnostic algorithms were operationalized using combinations of scores derived from the Mini-Mental State Examination (MMSE) and the Montreal Cognitive Assessment (MoCA). Functional impairment was based either on the Functional Assessment Questionnaire (FAQ) item 9 or the FAQ total score. Diagnostic concordance was evaluated using Cohen’s κ. Predictive validity for Level II classification was assessed using projection predictive variable selection. Results: Estimated PDD rates ranged from 2.1% up to 16.8%. Concordance was moderate to high among algorithms using the same functional impairment definition (κ = 0.74, κ = 0.86) but substantially lower when functional impairment definitions differed (κ = 0.42). A parsimonious screening model combining MoCA Five Words and MMSE Sevens adequately approximated Level II classification and yielded a prevalence-adjustable heuristic decision rule. Conclusions: Diagnostic outcomes for PDD are sensitive to the choice of cognitive and functional instruments suggesting that different algorithms may capture partially distinct constructs. Minimal screening using selected items can approximate Level II PDD diagnosis, but this simplification entails a trade-off between sensitivity and specificity."
 keywords:
   - Parkinson’s disease
   - dementia
@@ -89,6 +89,7 @@ format:
 #    toc: false
 author-note:
   disclosures:
+    related-report: "This is a corrected author version of Mana et al. (2026), Journal of Parkinson's Disease, 16(5), 914-928, https://doi.org/10.1177/1877718X261450361. After publication, two errors were identified (the MoCA threshold applied in the analysis code, and the handling of missing data in the concordance analysis) and corrected by Josef Mana; see https://josefmana.github.io/demcrit/articles/corrections.html. The corrections have not been reviewed by the other authors or by the journal."
     financial-support: "Supported by the project National Institute for Neurological Research (Programme EXCELES, ID Project No. LX22NPO5107) - Funded by the European Union – Next Generation EU; Charles University: Cooperatio Program in Neuroscience; General University Hospital in Prague project MH CZ-DRO-VFN64165; Ministry of Health of the Czech Republic, grant nr. NW26-04-00015; and IOCB TEC-H Foundation Martina Roeselova Memorial Fellowship"
 bibliography: bibliography.bib
 floatsintext: false
@@ -245,8 +246,8 @@ Data wrangling and visualizations were done in the *tidyverse* package [@wickham
 desc  <- tar_read(sample_description, store = upstore)
 algos <- tar_read(algorithms, store = upstore)
 pred  <- tar_read(demographic_predictors, store = upstore)
-conc  <- tar_read(concordance_statistics, store = upstore)
-kappa <- tar_read(kappa_summmaries, store = upstore)
+conc  <- tar_read(concordance_statistics_complete_obs, store = upstore)
+kappa <- tar_read(kappa_summaries_complete_obs, store = upstore)
 perc  <- rates$table$perc
 
 # Tables of the 'best' and the 'worst' w.r.t. Level II:
@@ -596,7 +597,7 @@ The ensuing Cartesian product $Global \times Attention \times Executive \times C
 
 For MoCA-based algorithms, the following sets of items served as the basis:
 
-$Global = \{MoCA < 26\}$
+$Global = \{MoCA < 27\}$
 
 $Attention = \{{Sevens\ backwards < 3}\}$
 
