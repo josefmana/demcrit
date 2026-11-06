@@ -2,6 +2,14 @@
 
 # Validation of Algorithms for PDD
 
+> **Correction (v2.0.0).** Two errors were found after publication of
+> Mana et al. ([2026](https://doi.org/10.1177/1877718X261450361)): the MoCA
+> threshold applied by the code, and the handling of missing data in the
+> exported concordance table. None of the conclusions change. Corrected values
+> and a list of every affected result are in the
+> [Corrections](https://josefmana.github.io/demcrit/articles/corrections.html)
+> article. Version 1.2.0 reproduces the article as printed.
+
 This package is **not** intended for broad public use. Its main purpose is to:
 
 1. provide transparent documentation of the data analyses forming the backbone
@@ -37,18 +45,19 @@ dataset. See the vignette ["Out of Pipeline"](articles/use2.html) for guidance.
 
 ## Future Directions
 
->Currently, *demcrit* is designed around the dataset used in our original study.
-As such, it primarily supports direct replications rather than general applications.
+> Currently, *demcrit* is designed around the dataset used in our original study.
+> As such, it primarily supports direct replications rather than general
+> applications.
 >
->If you find the approach useful and would like to adapt it for your data, feel free to
-reach out — we are happy to discuss possible extensions. We also welcome reports of bugs
-or mistakes you may encounter.
+> If you find the approach useful and would like to adapt it for your data, feel
+> free to reach out — we are happy to discuss possible extensions. We also
+> welcome reports of bugs or mistakes you may encounter.
 >
-> At the moment, explanation and proper integration of the newest analysis (feature
-selection exploraton of screening indexes for comprehensive battery dementia
-classification) is on a to do. It was fully implemented into the targets pipeline
-and added to the manuscript, however, integrating it into the package documentation
-seems to be a bit cumbersome.
+> At the moment, explanation and proper integration of the newest analysis
+> (feature selection exploraton of screening indexes for comprehensive battery
+> dementia classification) is on a to do. It was fully implemented into the
+> targets pipeline and added to the manuscript, however, integrating it into the
+> package documentation seems to be a bit cumbersome.
 >
 > If I ever get to it and have a good reason to do so, I may trasnform *demcrit*
-to a "proper" R package {demcritr}. Most likely not though.
+> to a "proper" R package {demcritr}. Most likely not though.

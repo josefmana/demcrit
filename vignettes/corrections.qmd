@@ -1,0 +1,196 @@
+---
+title: "Corrections to Mana et al. (2026)"
+format:
+  html:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Corrections to Mana et al. (2026)}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: '#>'
+    echo: false
+    message: false
+    warning: false
+---
+
+> This article documents two errors found after publication of Mana et al.
+([2026](https://doi.org/10.1177/1877718X261450361)) and lists every published
+result affected by their correction. Both errors were reported by
+[elliottower](https://github.com/elliottower) in issues
+[#20](https://github.com/josefmana/demcrit/issues/20) and
+[#21](https://github.com/josefmana/demcrit/issues/21). The corrections were made
+by Jožka Mana and have not been reviewed by the other authors or by the journal.
+**None of the conclusions of the article change.**
+
+```{r}
+#| label: setup
+
+library(demcrit)
+
+data("rates")
+data("concords")
+data("rates_published")
+data("concords_published")
+
+algos <- list_algorithms(rates)
+algos_pub <- list_algorithms(rates_published)
+
+kap <- summarise_kappa(algos, concords)$sums
+kap_pub <- summarise_kappa(algos_pub, concords_published)$sums
+
+msd <- function(x) sprintf("%.2f%% (SD = %.2f)", mean(x), sd(x))
+faq_tot <- function(d) d$perc[d$IADL == "FAQ > 7"]
+
+smoca_sens <- function(d) {
+  subset(d, predictor == "sMoCA (1)" & reference == "Lvl.II (1)")$Sensitivity |>
+    sprintf(fmt = "%.2f")
+}
+
+n_pairs <- range(concords_published$N, na.rm = TRUE)
+```
+
+## What was wrong
+
+1. **MoCA threshold.** Table 1 of the article states that MoCA-based algorithms
+   define global cognitive deficit as MoCA < 27. The code applied MoCA < 26, the
+   same value as was stated in the Appendix to the article. The code now applies
+   MoCA < 27, as stated in the article.
+
+2. **Missing data in the concordance analysis.** The Methods state that analyses
+   were done on complete cases (N = 190). The concordance statistics (Cohen's κ,
+   accuracy, sensitivity, specificity) were instead computed on all cases
+   available for each pair of algorithms (N = `r n_pairs[1]` to `r n_pairs[2]`).
+   They are now computed on the 190 complete cases, as stated in the article.
+
+The values printed in the article are distributed with the package as
+`rates_published` and `concords_published`. Version 1.2.0 of the package
+reproduces the article as printed:
+
+```{r}
+#| label: install-published
+#| echo: true
+#| eval: false
+
+devtools::install_github("josefmana/demcrit@v1.2.0")
+```
+
+## Changed statements
+
+```{r}
+#| label: tbl-statements
+
+data.frame(
+  Location = c(
+    "Abstract; Results (Concordance between algorithms)",
+    "Abstract; Results (Concordance between algorithms)",
+    "Results (Dementia rate estimates)",
+    "Results (Dementia rate estimates)",
+    "Results (Descriptive analysis)"
+  ),
+  Quantity = c(
+    "Cohen's κ, same IADL definition (FAQ total)",
+    "Cohen's κ, IADL definitions differ",
+    "Mean PDD rate, all algorithms",
+    "Mean PDD rate, FAQ total algorithms",
+    "sMoCA sensitivity for Level II (FAQ total)"
+  ),
+  Published = c(
+    kap_pub["faq_tot"], kap_pub["iadl"],
+    msd(rates_published$perc), msd(faq_tot(rates_published)),
+    smoca_sens(concords_published)
+  ),
+  Corrected = c(
+    kap["faq_tot"], kap["iadl"],
+    msd(rates$perc), msd(faq_tot(rates)),
+    smoca_sens(concords)
+  )
+) |>
+  knitr::kable(row.names = FALSE)
+```
+
+In addition, the following tables and figures change accordingly: Table A3
+(rates per algorithm), Tables A4 and A5 (best and worst approximations of Level
+II), Figure 1 (dot sizes and bold edges), Figure 2 and Figures A7 to A9
+(concordance matrices), and Figures A4 to A6 (rates and their demographic
+predictors).
+
+## What does not change
+
+- The range and median of PDD rate estimates (2.11% to 16.84%, Md = 4.21%), and
+  all algorithms using FAQ item 9 to define IADL deficit.
+- Cohen's κ among algorithms using FAQ item 9 (`r kap["faq_9"]`).
+- All MMSE-based, sMoCA-based and Level II algorithms.
+- The exploratory variable selection, the screening model (MoCA Five words and
+  MMSE Sevens), Table 3 and Figure 3, which do not depend on the MoCA total
+  score.
+- The verbal conclusions: top-ranked Level I algorithms are MoCA-based and
+  mostly use Clock drawing and Animal naming; sMoCA achieves the highest
+  balanced accuracy for Level II (FAQ total) classification.
+
+## Changed PDD rates
+
+The corrected threshold changes the classification of
+`r sum(rates$perc != rates_published$perc[match(rates$type, rates_published$type)])`
+of 68 algorithms, all MoCA-based with IADL deficit defined by FAQ total score.
+
+```{r}
+#| label: tbl-rates
+
+cmp <- merge(
+  rates_published[, c("type", "Executive", "Memory", "Language", "Rate")],
+  rates[, c("type", "Rate", "perc")],
+  by = "type",
+  suffixes = c(" (published)", " (corrected)")
+)
+cmp <- cmp[cmp$`Rate (published)` != cmp$`Rate (corrected)`, ]
+cmp <- cmp[order(-cmp$perc), setdiff(names(cmp), "perc")]
+names(cmp)[1] <- "Algorithm"
+knitr::kable(cmp, row.names = FALSE)
+```
+
+## Corrected Tables A4 and A5
+
+::: {.panel-tabset}
+
+### Table A4 (accuracy), corrected
+
+```{r}
+#| label: tbl-a4
+
+table_levelII_approximations(concords, algos, "Accuracy_raw")$gtable
+```
+
+### Table A4, published
+
+```{r}
+#| label: tbl-a4-pub
+
+table_levelII_approximations(concords_published, algos_pub, "Accuracy_raw")$gtable
+```
+
+### Table A5 (balanced accuracy), corrected
+
+```{r}
+#| label: tbl-a5
+
+table_levelII_approximations(concords, algos, "Balanced Accuracy")$gtable
+```
+
+### Table A5, published
+
+```{r}
+#| label: tbl-a5-pub
+
+table_levelII_approximations(concords_published, algos_pub, "Balanced Accuracy")$gtable
+```
+
+:::
+
+## Corrected manuscript
+
+A corrected author version of the manuscript, generated from
+`_manuscript/manuscript.qmd` in this repository, is attached to the
+[v2.0.0 release](https://github.com/josefmana/demcrit/releases/tag/v2.0.0).
